@@ -25,12 +25,6 @@ namespace GGBack
                 options.MaxAge = TimeSpan.FromDays(60);
             });
 
-            services.AddHttpsRedirection(options =>
-            {
-                options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
-                options.HttpsPort = 44344;
-            });
-
             services.AddControllers();
         }
 
@@ -45,10 +39,9 @@ namespace GGBack
                 app.UseHsts();
             }
 
+            app.UseHttpsRedirection();
             app.UseDefaultFiles();
             app.UseStaticFiles();
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 
