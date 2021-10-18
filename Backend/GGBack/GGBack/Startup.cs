@@ -4,12 +4,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace GGBack
 {
     public class Startup
     {
+        private const string dbConnectionString = "Data Source=scp.realhost.pro;Initial catalog=goodgamesdb;User ID=rootuser;Password=mxs6glkhfjveziwopcyu;";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -19,6 +22,9 @@ namespace GGBack
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddDbContext<UsersContext>(
+            //    options => options.UseSqlServer(dbConnectionString));
+
             services.AddHsts(options =>
             {
                 options.Preload = true;
