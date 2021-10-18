@@ -11,7 +11,7 @@ namespace GGBack
 {
     public class Startup
     {
-        private const string dbConnectionString = "Data Source=scp.realhost.pro;Initial catalog=goodgamesdb;User ID=rootuser;Password=mxs6glkhfjveziwopcyu;";
+        private const string dbConnectionString = "";
 
         public Startup(IConfiguration configuration)
         {
