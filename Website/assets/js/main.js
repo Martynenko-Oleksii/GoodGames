@@ -7,8 +7,16 @@ if (devices.test(navigator.userAgent))
 else
 {
 	 //События для ПК
-	 document.getElementById("signInMOBILE").remove();
-	 document.getElementById("signUpMOBILE").remove();
+	 
+}
+
+//PRELOADER
+window.onload = function () {
+	document.body.classList.add('loaded_hiding');
+	window.setTimeout(function () {
+		document.body.classList.add('loaded');
+		document.body.classList.remove('loaded_hiding');
+	}, 500);
 }
 
 /*===== EXPANDER MENU  =====*/ 

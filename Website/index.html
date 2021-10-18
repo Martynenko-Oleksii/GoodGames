@@ -13,6 +13,26 @@
     </head>
     <body id="body-pd">
 
+        
+        <!-- ===== PRELOADER ===== -->
+        <div class="preloader">
+            <svg class="pl" viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="pl-grad1" x1="1" y1="0.5" x2="0" y2="0.5">
+                        <stop offset="0%" stop-color="hsl(313,90%,55%)" />
+                        <stop offset="100%" stop-color="hsl(223,90%,55%)" />
+                    </linearGradient>
+                    <linearGradient id="pl-grad2" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="hsl(313,90%,55%)" />
+                        <stop offset="100%" stop-color="hsl(223,90%,55%)" />
+                    </linearGradient>
+                </defs>
+                <circle class="pl__ring" cx="100" cy="100" r="82" fill="none" stroke="url(#pl-grad1)" stroke-width="36" stroke-dasharray="0 257 1 257" stroke-dashoffset="0.01" stroke-linecap="round" transform="rotate(-90,100,100)" />
+                <line class="pl__ball" stroke="url(#pl-grad2)" x1="100" y1="18" x2="100.01" y2="182" stroke-width="36" stroke-dasharray="1 165" stroke-linecap="round" />
+            </svg>
+        </div>
+
+
         <!-- ===== Навигация ===== -->
 
         <div class="l-navbar" id="navbar">
@@ -59,10 +79,16 @@
             </nav>
         </div>
 
-        
+        <div class="tabs">
+            <input type="radio" id="radio-1" name="tabs" checked />
+            <label class="tab" for="radio-1">Глобальні</label>
+            <input type="radio" id="radio-2" name="tabs" />
+            <label class="tab" for="radio-2">Мої підписки</label>
+            <span class="glider"></span>
+        </div>
         
         <!-- ===== Контент ===== -->
-        <div style="margin-left: 10px; margin-left: 10px;">
+        <div>
 
             <div class="main-content">
                 <div class="container_logo">
@@ -119,37 +145,116 @@
             </div>
         </div>
 
-
-        <div class="news">
-            <span>Останні новини</span>
-            <hr/>
-
-
-            <div class="card-list">
-                <article class="card" style="width: 110%;">
-                    <div class="card-header">
-                        <a href="#">Шаблон новости.</a>
-                        <button class="icon-button" style="z-index: 0;">
-                            <ion-icon name="heart-outline" class="nav__icon"></ion-icon>
-                        </button>
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-meta card-meta--views">
-                            <ion-icon name="eye-outline" class="nav__icon"></ion-icon>
-                            2,465
+        <div class="row" style="margin-left: 5px;">
+            <div class="news">
+                <span>Останні новини</span>
+                <hr/>
+    
+    
+                <div class="card-list">
+    
+                    <article class="card">
+                        <div class="card-header">
+                            <a href="#">Шаблон новости.</a>
+                            <div class="row scale_icon" style="">
+                                <button class="icon-button" style="z-index: 0; margin-right: 10px;">
+                                    <ion-icon name="heart-dislike-outline" class="nav__icon"></ion-icon>
+                                </button>
+                                <button class="icon-button" style="z-index: 0;">
+                                    <ion-icon name="heart-outline" class="nav__icon"></ion-icon>
+                                </button>
+                            </div>
                         </div>
-                        <div class="card-meta card-meta--date">
-                            <ion-icon name="calendar-outline" class="nav__icon"></ion-icon>
-                            Jul 26, 2019
+                        <div class="card-meta">
+                            <p>Дуже важлива інформація.</p>
                         </div>
-                    </div>
-                </article>
+                        <div class="card-footer">
+                            <div class="card-meta card-meta--views">
+                                <ion-icon name="eye-outline" class="nav__icon" style="margin-right: 5px;"></ion-icon>
+                                2,465
+                            </div>
+                            <div class="card-meta card-meta--date">
+                                <ion-icon name="calendar-outline" class="nav__icon" style="margin-right: 5px;"></ion-icon>
+                                Jul 26, 2019
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+    
             </div>
 
+            <div class="rounds">
+                <span>Змагання онлайн</span>
+                <hr/>
+    
+    
+                <div class="card-list">
+    
+                    <article class="card">
+                        <div class="card-header">
 
+                            <div style="justify-content: center; align-items:center;">
+                                <a href="#">Команда 1</a>
+                                <a>0</a>
+                                <a>-</a>
+                                <a>0</a>
+                                <a href="#">Команда 2</a>
+                            </div>
+                            
+                            <button class="icon-button" style="z-index: 0;">
+                                <ion-icon name="resize-outline" class="nav__icon"></ion-icon>
+                            </button>
+                        </div>
+                    </article>
+                    
+                </div>
+    
+            </div>
         </div>
 
+        
+        <footer class="site-footer">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                  <h6>Про нас</h6>
+                  <p class="text-justify">ХТО Я?</p>
+                </div>
+      
+                <div class="col-xs-6 col-md-3">
+                  <h6>Змагання</h6>
+                  <ul class="footer-links">
+                    <li><a href="#">Стрічка новин</a></li>
+                    <li><a href="#">Прямі трансляції</a></li>
+                    <li><a href="#">Мій профіль</a></li>
+                  </ul>
+                </div>
+      
+                <div class="col-xs-6 col-md-3">
+                  <h6>Інша інфорація</h6>
+                  <ul class="footer-links">
+                    <li><a href="#">Розробники</a></li>
+                    <li><a href="#">Контакти</a></li>
+                  </ul>
+                </div>
+              </div>
+              <hr>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                  <p class="copyright-text">Copyright &copy; 2021 All Rights Reserved by GoodGames.</p>
+                </div>
+      
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <a class="a" href="#">Мобільний додаток<ion-icon name="logo-android" style="margin-left: 5px;"></ion-icon></a>.
+                </div>
+              </div>
+            </div>
+      </footer>
 
+        
 
         <!-- ===== Другие компоненты ===== -->
 
@@ -162,8 +267,8 @@
                     <input type="text" placeholder="Ім'я в системі" />
                     <input type="email" placeholder="Пошта" />
                     <input type="password" placeholder="Пароль" />
-                    <button type="submit" style="margin-top: 10px;" class="buttom">Зареєструватись</button>
-                    <div style="display: inline-flex; justify-content: center; align-items: center;" id="signInMOBILE">
+                    <button type="submit" style="margin-top: 10px;" class="buttom ghost">Зареєструватись</button>
+                    <div style="justify-content: center; align-items: center;" class="signInMOBILE">
                         <a class="a">Вже зареєстровані? </a>
                         <a class="a buttom2" style="color: rgb(0, 110, 255);" onclick="document.getElementById('reg_form').style = 'transform: translateX(100%)';">Вхід</a>    
                     </div>
@@ -182,13 +287,13 @@
                     <input type="email" placeholder="Пошта" />
                     <input type="password" placeholder="Пароль" />
                     <div style="display: inline-flex; justify-content: center; align-items: center;">
-                        <a class="a">Ой, я </a>
+                        <a>Ой, я </a>
                         <a href="#" class="a buttom2" style="color: cadetblue;">Не пам'ятаю пароль</a>
                     </div>
                     
-                    <button type="submit" class="buttom" style="padding-left: 50px; padding-right: 50px;">Увійти</button>
+                    <button type="submit" class="buttom ghost" style="padding-left: 50px; padding-right: 50px;">Увійти</button>
 
-                    <div style="display: inline-flex; justify-content: center; align-items: center;" id="signUpMOBILE">
+                    <div style="justify-content: center; align-items: center;" class="signUpMOBILE">
                         <a class="a">Немає профілю? </a>
                         <a class="a buttom2" style="color: rgb(0, 110, 255);"  onclick="document.getElementById('reg_form').style = 'transform: translateX(0%)';">Реєстрація</a>    
                     </div>
