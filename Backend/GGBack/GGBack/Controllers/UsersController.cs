@@ -24,12 +24,14 @@ namespace GGBack.Controllers
             this.context = context;
         }
 
+        /*
         [Route("api/users")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> Get()
         {
             return await context.Users.ToListAsync();
         }
+        */
 
         [Route("api/users/reg")]
         [HttpPost]
@@ -78,15 +80,5 @@ namespace GGBack.Controllers
 
             return Ok(findedUser);
         }
-
-        /*
-        private User GetWithoutPassword(User user)
-        {
-            string jsonWithoutPassword = OwnJsonSerializer
-                .SerializeWithoutProperties<User>(user, "Password");
-
-            return JsonSerializer.Deserialize<User>(jsonWithoutPassword, options);
-        }
-        */
     }
 }
