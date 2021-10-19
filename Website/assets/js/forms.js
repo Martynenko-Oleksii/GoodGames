@@ -65,6 +65,7 @@ function reg_validation(){
 
     //Валидация имени
     var repsa = /^[a-zA-Z0-9]+$/;
+    var rep = /^[a-zA-Z0-9]+$/;
     if (repsa.test(String(name).toLowerCase())) {
         if(name.length === 0){
             document.getElementById("modal_error_reg_name").textContent = "Введіть логін.";
