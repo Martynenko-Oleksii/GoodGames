@@ -3,6 +3,7 @@ const devices = new RegExp('Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBoo
 if (devices.test(navigator.userAgent))
 {
 	 //События для телефонов
+	 document.getElementById("profile_text").textContent = "Профіль";
 }
 else
 {
@@ -98,3 +99,23 @@ function modal(e) {
 
 	modal.addEventListener("click", e => e.target === modal ? document.body.removeChild(modal) : "");
 }
+
+/*=============== SHOW MODAL ===============*/
+const showModal = (openButton, modalContent) =>{
+const openBtn = document.getElementById(openButton),
+modalContainer = document.getElementById(modalContent)
+	if(openBtn && modalContainer){
+		openBtn.addEventListener('click', ()=>{
+			modalContainer.classList.add('show-modal')
+		})
+	}
+}
+showModal('open-modal','modal-container')
+
+/*=============== CLOSE MODAL ===============*/
+const closeBtn = document.querySelectorAll('.close-modal')
+function closeModal(){
+	const modalContainer = document.getElementById('modal-container')
+	modalContainer.classList.remove('show-modal')
+}
+closeBtn.forEach(c => c.addEventListener('click', closeModal))

@@ -1,25 +1,31 @@
 /*===== FONTS =====*/
 @font-face {
-  font-family: "Samsung Sans";
-  src: url("../../../fonts/font.ttf");
-  font-style: normal;
-  font-weight: normal;
-}
+  font-family: "Samsung Sans"; 
+  src: url("../fonts/font.ttf"); 
+  font-style: normal; 
+  font-weight: normal; 
+} 
 /*===== VARIABLES CSS =====*/
 :root{
   --nav-width: 92px;
-
+  --hue: 240;
+  --first-color: hsl(var(--hue), 16%, 18%);
+  --first-color-alt: hsl(var(--hue), 16%, 12%);
+  --title-color: hsl(var(--hue), 8%, 15%);
+  --text-color: hsl(var(--hue), 8%, 35%);
+  --body-color: hsl(var(--hue), 100%, 99%);
+  --container-color: #FFF;
   /*===== Colores =====*/
   --first-color: #0C5DF4;
   --bg-color: #12192C;
   --sub-color: #B6CEFC;
   --white-color: #FFF;
-
+  
   /*===== Fuente y tipografia =====*/
   --body-font: 'Samsung Sans';
   --normal-font-size: 1rem;
   --small-font-size: .875rem;
-
+  
   /*===== z index =====*/
   --z-fixed: 100;
 
@@ -122,10 +128,12 @@ input {
   font-weight: 500;
   box-shadow: 0 15px 40px rgb(0 0 0 / 20%);
   transition: all 0.3s;
+  font-family: "Samsung Sans"; 
 }
 .buttom:hover{
   background: #fff;
   color: #292423;
+  cursor: pointer;
 }
 
 .buttom2{
@@ -166,11 +174,15 @@ a{
 /* mobile */
 @media (max-width: 520px) {
 
+  .full_mobile{
+    width: 100%;
+  }
+
   .scale_icon{
     align-items:flex-end;
     width: 160px;
   }
-
+  
   .site-footer
   {
     margin-top: 15px;
@@ -211,7 +223,7 @@ a{
 
   body{
     padding: 1rem 1rem 6rem 1rem;
-  }
+  } 
   /*===== Навигация =====*/
   .l-navbar{
     position: fixed;
@@ -228,7 +240,7 @@ a{
     padding-top: 0.5rem;
     text-align: center;
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
-  }
+  } 
   .nav__name{
     display: none;
   }
@@ -251,6 +263,9 @@ a{
   .nav__logo{
     color: var(--white-color);
     font-weight: 600;
+  }
+  .nav__logo:hover{
+    color: var(--white-color);
   }
 
   .nav__link .active ion-icon{
@@ -276,7 +291,7 @@ a{
     background-color: rgba(255, 208, 0, 0.5);
   }
 
-
+  
   /*Active links menu*/
   .active{
     background-color: rgba(255, 208, 0, 0.5);
@@ -296,7 +311,11 @@ a{
 }
 
 /* PC */
-@media (min-width: 520px) {
+@media (min-width: 520px) { 
+
+  .full_mobile{
+    width: 50%;
+  }
 
   .tabs {
     height: 53px;
@@ -354,7 +373,7 @@ a{
     opacity: 0;
     z-index: 1;
   }
-
+  
   .modalBlock.right-panel-active .sign-in-container {
     transform: translateX(100%);
   }
@@ -377,7 +396,8 @@ a{
     z-index: var(--z-fixed);
     margin: 10px;
     border-radius: 15px;
-  }
+    background-image: url('/assets/images/abstract-lines.svg');
+  }  
 
   /*===== NAV =====*/
   .nav{
@@ -403,7 +423,14 @@ a{
   .nav__logo{
     color: var(--white-color);
     font-weight: 600;
+    background-color: var(--bg-color);
+    padding: 2px;
+    border-radius: 5px;
   }
+  .nav__logo:hover{
+    color: var(--white-color);
+  }
+  
 
   .nav__link{
     display: grid;
@@ -423,7 +450,7 @@ a{
     color: #FFF;
   }
 
-
+  
   /*Active links menu*/
   .active{
     background-color: var(--first-color);
@@ -439,6 +466,7 @@ a{
 }
 .nav__name{
   font-size: var(--small-font-size);
+  padding-left: 5px;
 }
 
 /*Expander menu*/
@@ -771,7 +799,7 @@ a.btn-main:hover span {
 .modalBlock {
 	background-color: #fff;
 	border-radius: 10px;
-  	box-shadow: 0 14px 28px rgba(0,0,0,0.25),
+  	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
 			0 10px 10px rgba(0,0,0,0.22);
 	position: relative;
 	overflow: hidden;
@@ -798,7 +826,7 @@ a.btn-main:hover span {
 		opacity: 0;
 		z-index: 1;
 	}
-
+	
 	50%, 100% {
 		opacity: 1;
 		z-index: 5;
@@ -1213,5 +1241,116 @@ input[id=radio-2]:checked ~ .glider {
 @media (max-width: 700px) {
   .tabs {
     transform: scale(0.6);
+  }
+}
+
+.head_page{
+  background: rgb(255,209,121);
+  background: linear-gradient(94deg, rgba(255,209,121,1) 0%, rgba(0,154,150,1) 100%);
+  background-blend-mode: overlay;
+  border-radius: 15px;
+}
+.theme_back{
+  background-image: url('/assets/images/back-abstract.png');
+  padding: 20px;
+  display: flex;
+}
+
+.modal{
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  z-index: -1000;
+}
+
+.modal__container{
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: hsla(var(--hue), 18%, 75%, .8);
+  width: 100%;
+  height: 100%;
+  display: grid;
+  align-items: flex-end;
+  overflow: hidden;
+  transition: all .3s;
+  z-index: var(--z-modal);
+  visibility: hidden;
+  opacity: 0;
+
+  /*=== Effect 3 ===*/
+  /* perspective: 1000px; */
+}
+
+.modal__content{
+  position: relative;
+  background-color: var(--container-color);
+  text-align: center;
+  padding: 3rem 2rem 2rem;
+  border-radius: 1rem 1rem 0 0;
+  transition: all .3s;
+  transform: translateY(10%);
+}
+
+.modal__img{
+  width: 150px;
+  margin-bottom: .75rem;
+}
+
+.modal__close{
+  display: inline-flex;
+  background-color: var(--first-color);
+  border-radius: .25rem;
+  color: #FFF;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  cursor: pointer;
+}
+
+.modal__title{
+  font-size: var(--big-font-size);
+  color: var(--title-color);
+  font-weight: 500;
+}
+
+.modal__description{
+  margin-bottom: 1.5rem;
+}
+
+.modal__button-width{
+  width: 90%;
+}
+
+.modal__button-link{
+  display: block;
+  margin: 1rem auto 0;
+  background-color: transparent;
+  color: var(--first-color);
+  font-weight: 500;
+}
+
+/* Show modal */
+.show-modal{
+  visibility: visible;
+  opacity: 1;
+}
+
+.show-modal .modal__content{
+  transform: translateY(0);
+}
+
+/*=============== BREAKPOINTS ===============*/
+/* For small devices */
+@media screen and (min-width: 576px){
+  .modal__content{
+    margin: auto;
+    width: 380px;
+    border-radius: 1.25rem;
+  }
+
+  .modal__img{
+    width: 170px;
   }
 }

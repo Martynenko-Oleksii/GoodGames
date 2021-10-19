@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="uk">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GoodGames - профіль користувача</title>
+
+        <!-- ===== CSS ===== -->
+        <!-- Bootstrap 5 --><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+        <!-- Landrick --><link href="/assets/css/Landrick.css" rel="stylesheet" type="text/css" id="theme-opt" />
+        <!-- Наш стиль --><link rel="stylesheet" href="/assets/css/styles.css">
+
+        
+    </head>
+    <body id="body-pd">
+
+        
+        <!-- ===== PRELOADER ===== -->
+        <div class="preloader">
+            <svg class="pl" viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="pl-grad1" x1="1" y1="0.5" x2="0" y2="0.5">
+                        <stop offset="0%" stop-color="hsl(313,90%,55%)" />
+                        <stop offset="100%" stop-color="hsl(223,90%,55%)" />
+                    </linearGradient>
+                    <linearGradient id="pl-grad2" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="hsl(313,90%,55%)" />
+                        <stop offset="100%" stop-color="hsl(223,90%,55%)" />
+                    </linearGradient>
+                </defs>
+                <circle class="pl__ring" cx="100" cy="100" r="82" fill="none" stroke="url(#pl-grad1)" stroke-width="36" stroke-dasharray="0 257 1 257" stroke-dashoffset="0.01" stroke-linecap="round" transform="rotate(-90,100,100)" />
+                <line class="pl__ball" stroke="url(#pl-grad2)" x1="100" y1="18" x2="100.01" y2="182" stroke-width="36" stroke-dasharray="1 165" stroke-linecap="round" />
+            </svg>
+        </div>
+
+
+        <!-- ===== Навигация ===== -->
+
+        <div class="l-navbar" id="navbar">
+            <nav class="nav">
+                <div>
+                    <div class="nav__brand">
+                        <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
+                        <a href="#" class="nav__logo">GoodGames</a>
+                    </div>
+                    <div class="nav__list">
+                        <a href="#" class="nav__link active" id="home_buttom">
+                            <ion-icon name="home-outline" class="nav__icon"></ion-icon>
+                            <span class="nav__name">Головна</span>
+                        </a>
+
+                        <a href="#" class="nav__link">
+                            <ion-icon name="videocam-outline" class="nav__icon"></ion-icon>
+                            <span class="nav__name">Трансляції</span>
+                        </a>
+
+                        <a href="#" class="nav__link">
+                            <ion-icon name="baseball-outline" class="nav__icon"></ion-icon>
+                            <span class="nav__name">Змагання</span>
+                        </a>
+
+                        <a href="#" class="nav__link">
+                            <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
+                            <span class="nav__name">Налаштування</span>
+                        </a>
+
+                        <span class="mobile">
+                            <a class="nav__link" id="open-modal" onclick="document.getElementById('modal').style.zIndex = 1000"> 
+                                <ion-icon name="grid-outline" class="nav__icon"></ion-icon>
+                                <span class="nav__name">Профіль</span>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <a class="nav__link pc" id="profile_buttom" onclick="document.getElementById('open-modal').click();">
+                    <ion-icon name="grid-outline" class="nav__icon"></ion-icon>
+                    <span class="nav__name">Профіль</span>
+                </a>
+            </nav>
+        </div>
+        
+        <!-- ===== Контент ===== -->
+        <div>
+
+            <div class="main-content">
+                <div class="head_page" >
+                    <div class="theme_back">
+                        <div class="row" style="flex-wrap: inherit;">
+                            <h3 style="padding-top: 5px; padding-left: 10px;" id="profile_text">Профіль користувача</h3>
+                            <button class="icon-button" style="z-index: 0; margin-right: 10px; display: flex; right: 50px; position: absolute;">
+                                <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section>
+        <div class="card public-profile border-0 rounded shadow" style="z-index: 1;">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-lg-2 col-md-3 text-md-left text-center">
+                        <img src="/assets/images/user-48.png" class="avatar avatar-large rounded-circle shadow d-block mx-auto" alt="">
+                    </div>
+
+                    <div class="col-lg-10 col-md-9">
+                        <div class="row align-items-end">
+                            <div class="col-md-7 text-md-left mt-4 mt-sm-0">
+                                <h3 class="title mb-0">Привіт, <a id="name_profile">користувач</a>!</h3>
+                                <small class="text-muted h6 mr-2">Звання: Рейнджер</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+        <section class="section" style="padding-top: 20px;">
+            <div class="container mt-lg-3">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-12 d-lg-block d-none">
+                        <div class="sidebar sticky-bar p-4 rounded shadow">
+                            <div class="widget">
+                                <h5 class="widget-title">Статистика :</h5>
+                                <div class="row mt-4">
+                                    <div class="col-6 text-center">
+                                        <h5 class="mb-0">0</h5>
+                                        <p class="text-muted mb-0">Змагань зі мною</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="widget mt-4 pt-2">
+                                <h5 class="widget-title">Профіль заповнено:</h5>
+                                <div class="progress-box mt-4">
+                                    <h6 class="title text-muted">Прогрес</h6>
+                                    <div class="progress">
+                                        <div class="progress-bar position-relative bg-primary" style="width:30%;">
+                                            <div class="progress-value d-block text-muted h6">30%</div>
+                                        </div>
+                                    </div>
+                                </div><!--end process box-->
+                            </div>
+                            
+                            <div class="widget">
+                                <div class="row">
+                                    <div class="col-6 mt-4 pt-2">
+                                        <a href="#Profile" class="accounts active rounded d-block shadow text-center py-3">
+                                            <span class="pro-icons h3 text-muted"><ion-icon name="person-outline"></ion-icon></span>
+                                            <h6 class="title text-dark h6 my-0">Мій профіль</h6>
+                                        </a>
+                                    </div><!--end col-->
+
+                                    <div class="col-6 mt-4 pt-2">
+                                        <a href="#Sport" class="accounts rounded d-block shadow text-center py-3">
+                                            <span class="pro-icons h3 text-muted"><ion-icon name="stats-chart-outline"></ion-icon></span>
+                                            <h6 class="title text-dark h6 my-0">Мої турніри</h6>
+                                        </a>
+                                    </div><!--end col-->
+
+
+                                    <div class="col-6 mt-4 pt-2">
+                                        <a href="#Settings" class="accounts rounded d-block shadow text-center py-3">
+                                            <span class="pro-icons h3 text-muted"><ion-icon name="settings-outline"></ion-icon></span>
+                                            <h6 class="title text-dark h6 my-0">Налаштування</h6>
+                                        </a>
+                                    </div><!--end col-->
+
+                                    <div class="col-6 mt-4 pt-2">
+                                        <a href="#Exit" class="accounts rounded d-block shadow text-center py-3">
+                                            <span class="pro-icons h3 text-muted"><ion-icon name="exit-outline"></ion-icon></span>
+                                            <h6 class="title text-dark h6 my-0">Вийти з акаунту</h6>
+                                        </a>
+                                    </div><!--end col-->
+                                </div><!--end row-->
+                            </div>
+
+                            <div class="widget mt-4 pt-2">
+                                <h5 class="widget-title">Інше:</h5>
+                                <a href="#" class="buttom">Підтримка користувачів</a>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+
+                    <div class="col-lg-8 col-12">
+                        <div class="border-bottom pb-4">
+                            <h5>Мій профіль</h5>
+                            <p class="text-muted mb-0">Всі данні про мене, їх перегляд та налаштування.</p>
+                        </div>
+                        
+                        <div class="border-bottom pb-4">
+                            <div class="row">
+                                <div class="col-md-6 mt-4">
+                                    <h5>Персональна інформація:</h5>
+                                    <div class="mt-4">
+                                        <div class="media align-items-center" style="display: flex;">
+                                            <ion-icon name="person-outline" style="margin-right: 10px; font-size: 24px;"></ion-icon>
+                                            <div class="media-body">
+                                                <h6 class="text-primary mb-0">Ім'я :</h6>
+                                                <a href="javascript:void(0)" class="text-muted">Користувач</a>
+                                            </div>
+                                        </div>
+                                        <div class="media align-items-center mt-3" style="display: flex;">
+                                            <ion-icon name="mail-outline" style="margin-right: 10px; font-size: 24px;"></ion-icon>
+                                            <div class="media-body">
+                                                <h6 class="text-primary mb-0">Email :</h6>
+                                                <a href="javascript:void(0)" class="text-muted">mail@mail.com</a>
+                                            </div>
+                                        </div>
+                                        <div class="media align-items-center mt-3" style="display: flex;">
+                                            <ion-icon name="calendar-outline" style="margin-right: 10px; font-size: 24px;"></ion-icon>
+                                            <div class="media-body">
+                                                <h6 class="text-primary mb-0">Дата реєстрації :</h6>
+                                                <a href="javascript:void(0)" class="text-muted">00.00.0000</a>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div><!--end col-->
+
+                                <div class="col-md-6 mt-4 pt-2 pt-sm-0">
+                                    <h5>Підписка:</h5>
+
+                                    <div class="media key-feature align-items-center p-3 rounded shadow mt-4">
+                                        <img src="https://img.icons8.com/fluency/48/000000/business-management.png" class="avatar avatar-ex-sm" alt="">
+                                        <div class="media-body content ml-3">
+                                            <h4 class="title mb-0">FREE</h4>
+                                            <p class="text-muted mb-0">Необмежений термін</p>
+                                            <p class="text-muted mb-0"><a href="#" class="text-primary">Змінити підписку</a> GoodGames</p>    
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                            </div><!--end row-->
+                        </div>
+
+                        <h5 class="mt-4 mb-0">Пости та новини:</h5>
+                        <div class="row">
+                            <div class="col-md-6 mt-4 pt-2">
+                                <div class="card blog rounded border-0 shadow">
+                                    <div class="position-relative">
+                                        <img src="/assets/images/main-imag.png" class="card-img-top rounded-top" alt="...">
+                                    </div>
+                                    <div class="card-body content">
+                                        <h5><a href="#Post" class="card-title title text-dark">{НАЗВА НОВИНИ}</a></h5>
+                                        <div class="post-meta d-flex justify-content-between mt-3">
+                                            <ul class="list-unstyled mb-0">
+                                                <li class="list-inline-item mr-2 mb-0"><a href="javascript:void(0)" class="text-muted like">{LIKE}</a></li>
+                                            </ul>
+                                            <a href="#Post" class="text-muted readmore">Подивитись</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-12 mt-4 pt-2">
+                                <a href="#" class="buttom" style="width: 145px;">Детальніше</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+        <footer class="site-footer">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                  <h6>Про нас</h6>
+                  <p class="text-justify">ХТО Я?</p>
+                </div>
+      
+                <div class="col-xs-6 col-md-3">
+                  <h6>Змагання</h6>
+                  <ul class="footer-links">
+                    <li><a href="#">Стрічка новин</a></li>
+                    <li><a href="#">Прямі трансляції</a></li>
+                    <li><a href="#">Мій профіль</a></li>
+                  </ul>
+                </div>
+      
+                <div class="col-xs-6 col-md-3">
+                  <h6>Інша інфорація</h6>
+                  <ul class="footer-links">
+                    <li><a href="#">Розробники</a></li>
+                    <li><a href="#">Контакти</a></li>
+                  </ul>
+                </div>
+              </div>
+              <hr>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                  <p class="copyright-text">Copyright &copy; 2021 All Rights Reserved by GoodGames.</p>
+                </div>
+      
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <a class="a" href="#">Мобільний додаток<ion-icon name="logo-android" style="margin-left: 5px;"></ion-icon></a>.
+                </div>
+              </div>
+            </div>
+      </footer>
+
+      <section class="modal" id="modal">
+                        
+        <div class="modal__container" id="modal-container">
+            <div class="modal__content">
+                <div class="modal__close close-modal" title="Close" onclick="document.getElementById('modal').style.zIndex = -1000">
+                    <ion-icon name="close-outline"></ion-icon>
+                </div>
+
+                <div class="widget">
+                    <div class="row">
+                        <div class="col-6 mt-4 pt-2">
+                            <a href="#Profile" class="accounts active rounded d-block shadow text-center py-3">
+                                <span class="pro-icons h3 text-muted"><ion-icon name="person-outline"></ion-icon></span>
+                                <h6 class="title text-dark h6 my-0">Мій профіль</h6>
+                            </a>
+                        </div><!--end col-->
+
+                        <div class="col-6 mt-4 pt-2">
+                            <a href="#Sport" class="accounts rounded d-block shadow text-center py-3">
+                                <span class="pro-icons h3 text-muted"><ion-icon name="stats-chart-outline"></ion-icon></span>
+                                <h6 class="title text-dark h6 my-0">Мої турніри</h6>
+                            </a>
+                        </div><!--end col-->
+
+
+                        <div class="col-6 mt-4 pt-2">
+                            <a href="#Settings" class="accounts rounded d-block shadow text-center py-3">
+                                <span class="pro-icons h3 text-muted"><ion-icon name="settings-outline"></ion-icon></span>
+                                <h6 class="title text-dark h6 my-0">Налаштування</h6>
+                            </a>
+                        </div><!--end col-->
+
+                        <div class="col-6 mt-4 pt-2">
+                            <a href="#Exit" class="accounts rounded d-block shadow text-center py-3">
+                                <span class="pro-icons h3 text-muted"><ion-icon name="exit-outline"></ion-icon></span>
+                                <h6 class="title text-dark h6 my-0">Вийти з акаунту</h6>
+                            </a>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- ===== Иконки ===== -->
+        <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+        
+        <!-- ===== MAIN JS ===== -->
+        <script src="/assets/js/main.js"></script>
+
+        <script>
+            document.getElementById("profile_buttom").classList.add('active');
+            document.getElementById("open-modal").classList.add('active');
+            document.getElementById("home_buttom").classList.remove('active');
+        </script>
+    </body>
+</html>
