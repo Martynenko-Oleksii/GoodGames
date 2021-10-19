@@ -49,7 +49,7 @@ function login_validation(){
         const requestUrl = "api/users/login"
         const requestBody = {
             email: email,
-            pass: pass
+            password: pass
         }
 
         ServerRequest.send("POST", requestUrl, requestBody)
@@ -130,9 +130,9 @@ function reg_validation(){
 
         const requestUrl = "api/users/reg"
         const requestBody = {
-            name: name,
+            login: name,
             email: email,
-            pass: pass
+            password: pass
         }
 
         ServerRequest.send("POST", requestUrl, requestBody)
