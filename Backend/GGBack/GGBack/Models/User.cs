@@ -9,19 +9,16 @@ namespace GGBack.Models
 {
     public class User
     {
-        [Key]
-        [MaxLength(20)]
-        [Required]
+        public int Id { get; set; }
+
         public string Login { get; set; }
 
-        [MaxLength(20)]
+        [MaxLength(30)]
         public string Email { get; set; }
 
         [MaxLength(16)]
-        [Required]
         public string Password { get; set; }
 
-        public int SubscriptionId { get; set; }
         public Subscription Subscription { get; set; }
 
         // Favourite 

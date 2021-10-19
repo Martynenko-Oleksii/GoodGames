@@ -13,7 +13,6 @@ namespace GGBack.Models
 
         //public int CompetitorTwoID { get; set; }
 
-        public int CompetitionId { get; set; }
         public Competition Competition { get; set; }
 
         public string Text { get; set; }

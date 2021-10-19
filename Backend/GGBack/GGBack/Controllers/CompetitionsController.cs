@@ -23,12 +23,12 @@ namespace GGBack.Controllers
             this.context = context;
         }
 
-        [HttpGet("{login}")]
-        public async Task<ActionResult<IEnumerable<Competition>>> Get(string login)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<Competition>>> GetCompetitions(int userId)
         {
             return await context.Competitions
                 .Include(c => c.User)
-                .Where(c => c.UserId.Equals(login))
+                .Where(c => c.User.Id == userId)
                 .Select(c => new Competition
                 {
                     Id = c.Id,
@@ -38,13 +38,13 @@ namespace GGBack.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Competition>>> Get(int id)
+        public async Task<ActionResult<IEnumerable<Competition>>> GetCompetition(int competitionId)
         {
             return await context.Competitions
                 .Include(c => c.Sport)
                 .Include(c => c.Competitors)
                 .Include(c => c.User)
-                .Where(c => c.Id.Equals(id))
+                .Where(c => c.Id.Equals(competitionId))
                 .ToListAsync();
         }
     }
