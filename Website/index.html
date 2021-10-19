@@ -9,7 +9,7 @@
         <!-- Наш стиль --><link rel="stylesheet" href="assets/css/styles.css">
         
         <title>GoodGames - онлайн змагання</title>
-        
+        <script src="/assets/js/forms.js"></script>
     </head>
     <body id="body-pd">
 
@@ -260,13 +260,16 @@
 
         <div class="modalBlock" id="modalBlock" style="display: none;">
             <div class="form-container sign-up-container" id="reg">
-                <form action="#">
+                <form action="#" onsubmit="reg_validation();">
                     <h2 class="h1">Створення акаунту</h2>
                     <div class="social-container"></div>
-                    <span class="span">Реєстрація за допомогою пошти</span>
-                    <input type="text" placeholder="Ім'я в системі" />
-                    <input type="email" placeholder="Пошта" />
-                    <input type="password" placeholder="Пароль" />
+                    <span class="span">Реєстрація за допомогою пошти</span><br>
+                    <input type="text" placeholder="Логін в системі" id="reg_name" onclick="document.getElementById('modal_error_reg_name').textContent = '';"/>
+                    <span class="error" id="error_reg_name"></span>
+                    <input type="email" placeholder="Пошта" id="reg_email" novalidate onclick="document.getElementById('modal_error_reg_email').textContent = '';"/>
+                    <span class="error" id="error_reg_email"></span>
+                    <input type="password" placeholder="Пароль" id="ref_pass" onclick="document.getElementById('modal_error_ref_pass').textContent = '';"/>
+                    <span class="error" id="error_ref_pass"></span>
                     <button type="submit" style="margin-top: 10px;" class="buttom ghost">Зареєструватись</button>
                     <div style="justify-content: center; align-items: center;" class="signInMOBILE">
                         <a class="a">Вже зареєстровані? </a>
@@ -275,7 +278,7 @@
                 </form>
             </div>
             <div class="form-container sign-in-container" id="login">
-                <form action="#">
+                <form action="#" onsubmit="login_validation();">
                     <h2 class="h1">Вхід до профілю</h2>
 
                     <div class="social-container">
@@ -283,9 +286,11 @@
                         <a href="#" class="social a"><ion-icon name="logo-facebook"></ion-icon></a>
                     </div>
 
-                    <span class="span">Увійти за допомогою пошти</span>
-                    <input type="email" placeholder="Пошта" />
-                    <input type="password" placeholder="Пароль" />
+                    <span class="span">Увійти за допомогою пошти</span> <br>
+                    <input type="email" placeholder="Пошта" id="login_email" novalidate onclick="document.getElementById('modal_error_login_email').textContent = '';"/>
+                    <span class="error" id="error_login_email"></span>
+                    <input type="password" placeholder="Пароль" id="login_pass" onclick="document.getElementById('modal_error_login_pass').textContent = '';"/>
+                    <span class="error" id="error_login_pass"></span>
                     <div style="display: inline-flex; justify-content: center; align-items: center;">
                         <a>Ой, я </a>
                         <a href="#" class="a buttom2" style="color: cadetblue;">Не пам'ятаю пароль</a>
@@ -314,11 +319,10 @@
                 </div>
             </div>
         </div>
-
         <!-- ===== Иконки ===== -->
         <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
         
         <!-- ===== MAIN JS ===== -->
-        <script src="assets/js/main.js"></script>
+        <script src="/assets/js/main.js"></script>
     </body>
 </html>

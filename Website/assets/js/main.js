@@ -3,7 +3,6 @@ const devices = new RegExp('Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBoo
 if (devices.test(navigator.userAgent))
 {
 	 //События для телефонов
-	 document.getElementById("profile_text").textContent = "Профіль";
 }
 else
 {
@@ -67,6 +66,19 @@ function modal(e) {
 	block.id = "modalBlockLogin";
     block.querySelector("#reg").id = "reg_form";
 	block.querySelector("#login").id = "login_form";
+	//Rename Login and Reg id
+	block.querySelector("#reg_name").id = "modal_reg_name";
+	block.querySelector("#reg_email").id = "modal_reg_email";
+	block.querySelector("#ref_pass").id = "modal_ref_pass";
+	block.querySelector("#login_email").id = "modal_login_email";
+	block.querySelector("#login_pass").id = "modal_login_pass";
+
+	block.querySelector("#error_reg_name").id = "modal_error_reg_name";
+	block.querySelector("#error_reg_email").id = "modal_error_reg_email";
+	block.querySelector("#error_ref_pass").id = "modal_error_ref_pass";
+	block.querySelector("#error_login_email").id = "modal_error_login_email";
+	block.querySelector("#error_login_pass").id = "modal_error_login_pass";
+	
 
 	Object.assign(modal.style, {
 		"z-index": "1000",

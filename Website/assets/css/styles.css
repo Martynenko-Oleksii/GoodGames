@@ -69,6 +69,11 @@
   color: rgb(0, 69, 158);
 }
 
+.error{
+  font-size: 14px;
+  color: red;
+}
+
 .ghost {
 	border-radius: 5px;
 	border: 2px solid #FF4B2B;
@@ -98,12 +103,10 @@ button:focus {
 form {
 	background-color: #FFFFFF;
 	display: flex;
-	align-items: center;
-	justify-content: center;
 	flex-direction: column;
 	padding: 0 50px;
 	height: 100%;
-	text-align: center;
+  justify-content: center;
 }
 
 input {
@@ -111,14 +114,15 @@ input {
 	background-color: #eee;
 	border: 2px solid rgb(85, 85, 85);
 	padding: 12px 15px;
-	margin: 8px 0;
+	margin: 4px 0;
 	width: 100%;
 }
 
 .buttom{
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  text-align: center;
+  justify-content: center;
   padding: 13px 25px;
   background: #292423;
   border-radius: 5px;
