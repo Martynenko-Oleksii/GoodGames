@@ -42,7 +42,7 @@ namespace GGBack.Controllers
                 return BadRequest("null");
             }
 
-            if (context.Users.Any(e => e.Email == user.Email))
+            if (context.Users.Any(u => u.Email == user.Email))
             {
                 return BadRequest("email");
             }
