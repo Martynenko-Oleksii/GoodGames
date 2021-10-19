@@ -65,7 +65,9 @@ namespace GGBack.Controllers
                 return BadRequest("null");
             }
 
-            User findedUser =  context.Users.Find(user.Email);
+            User findedUser =  context.Users
+                .Where(u => u.Email == user.Email)
+                .First();
 
             if (findedUser == null)
             {
