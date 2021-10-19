@@ -12,7 +12,9 @@ namespace GGBack
 {
     public class Startup
     {
-        private const string dbConnectionString = "Data Source=localhost;Initial catalog=goodgamesdb;User ID=rootuser;Password=mxs6glkhfjveziwopcyu;";
+        private const string dbConnectionString =
+            //"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ggdb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            "Data Source=scp.realhost.com.ua;Initial Catalog=aard_gg_db;User ID=aranod;Password=frick42;";
 
         public Startup(IConfiguration configuration)
         {

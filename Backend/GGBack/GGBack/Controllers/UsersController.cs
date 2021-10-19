@@ -40,7 +40,7 @@ namespace GGBack.Controllers
                 return BadRequest("null");
             }
 
-            if (context.Users.Any(e => e.Email == user.Email))
+            if (context.Users.Any(u => u.Email == user.Email))
             {
                 return BadRequest("email");
             }
@@ -65,7 +65,9 @@ namespace GGBack.Controllers
                 return BadRequest("null");
             }
 
-            User findedUser = context.Users.Find(user.Email);
+            User findedUser =  context.Users
+                .Where(u => u.Email == user.Email)
+                .First();
 
             if (findedUser == null)
             {
@@ -78,15 +80,5 @@ namespace GGBack.Controllers
 
             return Ok(findedUser);
         }
-
-        /*
-        private User GetWithoutPassword(User user)
-        {
-            string jsonWithoutPassword = OwnJsonSerializer
-                .SerializeWithoutProperties<User>(user, "Password");
-
-            return JsonSerializer.Deserialize<User>(jsonWithoutPassword, options);
-        }
-        */
     }
 }

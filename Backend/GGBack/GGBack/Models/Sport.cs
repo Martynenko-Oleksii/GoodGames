@@ -10,7 +10,6 @@ namespace GGBack.Models
     {
         public int Id { get; set; }
 
-        [Required]
         public string Title { get; set; }
 
         public bool HasTeam { get; set; }
