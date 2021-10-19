@@ -24,14 +24,12 @@ namespace GGBack.Controllers
             this.context = context;
         }
 
-        /*
         [Route("api/users")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> Get()
         {
             return await context.Users.ToListAsync();
         }
-        */
 
         [Route("api/users/reg")]
         [HttpPost]
@@ -67,7 +65,7 @@ namespace GGBack.Controllers
                 return BadRequest("null");
             }
 
-            User findedUser = context.Users.Find(user.Email);
+            User findedUser =  context.Users.Find(user.Email);
 
             if (findedUser == null)
             {

@@ -16,8 +16,6 @@ namespace GGBack.Models
 
         public bool IsOpen { get; set; }
 
-        [JsonIgnore]
-        public int SportId { get; set; }
         public Sport Sport { get; set; }
 
         public string AgeLimit { get; set; }
@@ -33,8 +31,6 @@ namespace GGBack.Models
         public List<Competitor> Competitors { get; set; }
 
         // Owner
-        [JsonIgnore]
-        public int UserId { get; set; }
         public User User { get; set; }
 
         [MaxLength(120)]
@@ -42,7 +38,6 @@ namespace GGBack.Models
 
         public string State { get; set; } // (“заплановане”, “проходить”, “завершене”)
 
-        //public int TournamentGridId { get; set; }
         //public TournamentGrid TournamentGrid { get; set; }
     }
 }
