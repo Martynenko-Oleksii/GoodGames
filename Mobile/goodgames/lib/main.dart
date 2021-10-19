@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:goodgames/profile/ProfileScreen.dart';
 
 import 'apptheme.dart';
 import 'login/login.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
         textTheme: AppTheme.textTheme,
         platform: TargetPlatform.iOS,
       ),
-      home: LoginPage(),
+      home: ProfileScreen(),
     );
   }
 }
