@@ -48,7 +48,7 @@ function login_validation(){
 
         const requestUrl = "api/users/login"
         const requestBody = {
-            email: email,
+            login: email,
             password: pass
         }
 
