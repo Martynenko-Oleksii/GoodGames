@@ -1,10 +1,10 @@
 /*===== FONTS =====*/
 @font-face {
-  font-family: "Samsung Sans"; 
-  src: url("../fonts/font.ttf"); 
-  font-style: normal; 
-  font-weight: normal; 
-} 
+  font-family: "Samsung Sans";
+  src: url("../../../fonts/font.ttf");
+  font-style: normal;
+  font-weight: normal;
+}
 /*===== VARIABLES CSS =====*/
 :root{
   --nav-width: 92px;
@@ -14,12 +14,12 @@
   --bg-color: #12192C;
   --sub-color: #B6CEFC;
   --white-color: #FFF;
-  
+
   /*===== Fuente y tipografia =====*/
   --body-font: 'Samsung Sans';
   --normal-font-size: 1rem;
   --small-font-size: .875rem;
-  
+
   /*===== z index =====*/
   --z-fixed: 100;
 
@@ -170,7 +170,7 @@ a{
     align-items:flex-end;
     width: 160px;
   }
-  
+
   .site-footer
   {
     margin-top: 15px;
@@ -211,7 +211,7 @@ a{
 
   body{
     padding: 1rem 1rem 6rem 1rem;
-  } 
+  }
   /*===== Навигация =====*/
   .l-navbar{
     position: fixed;
@@ -228,7 +228,7 @@ a{
     padding-top: 0.5rem;
     text-align: center;
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
-  } 
+  }
   .nav__name{
     display: none;
   }
@@ -276,7 +276,7 @@ a{
     background-color: rgba(255, 208, 0, 0.5);
   }
 
-  
+
   /*Active links menu*/
   .active{
     background-color: rgba(255, 208, 0, 0.5);
@@ -296,7 +296,7 @@ a{
 }
 
 /* PC */
-@media (min-width: 520px) { 
+@media (min-width: 520px) {
 
   .tabs {
     height: 53px;
@@ -354,7 +354,7 @@ a{
     opacity: 0;
     z-index: 1;
   }
-  
+
   .modalBlock.right-panel-active .sign-in-container {
     transform: translateX(100%);
   }
@@ -377,7 +377,7 @@ a{
     z-index: var(--z-fixed);
     margin: 10px;
     border-radius: 15px;
-  }  
+  }
 
   /*===== NAV =====*/
   .nav{
@@ -423,7 +423,7 @@ a{
     color: #FFF;
   }
 
-  
+
   /*Active links menu*/
   .active{
     background-color: var(--first-color);
@@ -771,7 +771,7 @@ a.btn-main:hover span {
 .modalBlock {
 	background-color: #fff;
 	border-radius: 10px;
-  	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+  	box-shadow: 0 14px 28px rgba(0,0,0,0.25),
 			0 10px 10px rgba(0,0,0,0.22);
 	position: relative;
 	overflow: hidden;
@@ -798,7 +798,7 @@ a.btn-main:hover span {
 		opacity: 0;
 		z-index: 1;
 	}
-	
+
 	50%, 100% {
 		opacity: 1;
 		z-index: 5;
