@@ -10,7 +10,7 @@
         <!-- Landrick --><link href="/assets/css/Landrick.css" rel="stylesheet" type="text/css" id="theme-opt" />
         <!-- Наш стиль --><link rel="stylesheet" href="/assets/css/styles.css">
 
-        
+        <script src="/assets/js/js.cookie.js"></script>
     </head>
     <body id="body-pd">
 
@@ -44,30 +44,30 @@
                         <a href="#" class="nav__logo">GoodGames</a>
                     </div>
                     <div class="nav__list">
-                        <a href="#" class="nav__link active" id="home_buttom">
+                        <a href="#" class="nav__link">
                             <ion-icon name="home-outline" class="nav__icon"></ion-icon>
-                            <span class="nav__name">Головна</span>
+                            <span class="nav__name" id="home">Головна</span>
                         </a>
 
                         <a href="#" class="nav__link">
                             <ion-icon name="videocam-outline" class="nav__icon"></ion-icon>
-                            <span class="nav__name">Трансляції</span>
+                            <span class="nav__name" id="live">Трансляції</span>
                         </a>
 
                         <a href="#" class="nav__link">
                             <ion-icon name="baseball-outline" class="nav__icon"></ion-icon>
-                            <span class="nav__name">Змагання</span>
+                            <span class="nav__name" id="sport">Змагання</span>
                         </a>
 
                         <a href="#" class="nav__link">
                             <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
-                            <span class="nav__name">Налаштування</span>
+                            <span class="nav__name" id="settings">Налаштування</span>
                         </a>
 
                         <span class="mobile">
                             <a class="nav__link" id="open-modal" onclick="document.getElementById('modal').style.zIndex = 1000"> 
                                 <ion-icon name="grid-outline" class="nav__icon"></ion-icon>
-                                <span class="nav__name">Профіль</span>
+                                <span class="nav__name" id="login_m">Профіль</span>
                             </a>
                         </span>
                     </div>
@@ -75,7 +75,7 @@
 
                 <a class="nav__link pc" id="profile_buttom" onclick="document.getElementById('open-modal').click();">
                     <ion-icon name="grid-outline" class="nav__icon"></ion-icon>
-                    <span class="nav__name">Профіль</span>
+                    <span class="nav__name" id="login">Профіль</span>
                 </a>
             </nav>
         </div>
@@ -171,7 +171,7 @@
                                         </a>
                                     </div><!--end col-->
 
-                                    <div class="col-6 mt-4 pt-2">
+                                    <div class="col-6 mt-4 pt-2" onclick="exit_login();">
                                         <a href="#Exit" class="accounts rounded d-block shadow text-center py-3">
                                             <span class="pro-icons h3 text-muted"><ion-icon name="exit-outline"></ion-icon></span>
                                             <h6 class="title text-dark h6 my-0">Вийти з акаунту</h6>
@@ -202,14 +202,14 @@
                                             <ion-icon name="person-outline" style="margin-right: 10px; font-size: 24px;"></ion-icon>
                                             <div class="media-body">
                                                 <h6 class="text-primary mb-0">Ім'я :</h6>
-                                                <a href="javascript:void(0)" class="text-muted">Користувач</a>
+                                                <a id="name_cook" class="text-muted">Користувач</a>
                                             </div>
                                         </div>
                                         <div class="media align-items-center mt-3" style="display: flex;">
                                             <ion-icon name="mail-outline" style="margin-right: 10px; font-size: 24px;"></ion-icon>
                                             <div class="media-body">
                                                 <h6 class="text-primary mb-0">Email :</h6>
-                                                <a href="javascript:void(0)" class="text-muted">mail@mail.com</a>
+                                                <a id="email_cook" class="text-muted">mail@mail.com</a>
                                             </div>
                                         </div>
                                         <div class="media align-items-center mt-3" style="display: flex;">
@@ -265,9 +265,6 @@
                 </div>
             </div>
         </section>
-
-
-
 
 
         <footer class="site-footer">
@@ -342,7 +339,7 @@
                             </a>
                         </div><!--end col-->
 
-                        <div class="col-6 mt-4 pt-2">
+                        <div class="col-6 mt-4 pt-2" onclick="exit_login();">
                             <a href="#Exit" class="accounts rounded d-block shadow text-center py-3">
                                 <span class="pro-icons h3 text-muted"><ion-icon name="exit-outline"></ion-icon></span>
                                 <h6 class="title text-dark h6 my-0">Вийти з акаунту</h6>
@@ -363,7 +360,13 @@
         <script>
             document.getElementById("profile_buttom").classList.add('active');
             document.getElementById("open-modal").classList.add('active');
-            document.getElementById("home_buttom").classList.remove('active');
+            if(Cookies.get('login') == undefined){
+                document.location.href = "../";
+            }else{
+                document.getElementById('name_profile').textContent = Cookies.get('login');
+                document.getElementById('name_cook').textContent = Cookies.get('login');
+                document.getElementById('email_cook').textContent = Cookies.get('email');
+            }
         </script>
     </body>
 </html>

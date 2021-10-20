@@ -145,3 +145,11 @@
   return api;
 
 })));
+
+
+function exit_login(){
+  Cookies.remove("id");
+  Cookies.remove("login");
+  Cookies.remove("email");
+  document.location.href = "/";
+}

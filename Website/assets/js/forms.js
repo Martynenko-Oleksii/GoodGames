@@ -58,11 +58,19 @@ function login_validation() {
         ServerRequest.send("POST", requestUrl, requestBody)
             .then(data => {
                 console.log(data);
-                console.log('Отправлено');
+                Cookies.set('id', data.id, { expires: 7, path: '/' });
+                Cookies.set('login', data.login, { expires: 7, path: '/' });
+                Cookies.set('email', data.email, { expires: 7, path: '/' });
                 close.click();
-
-                let parsedData = JSON.parse(data);
-                console.log(parsedData.login)
+                document.getElementById('login').textContent = "Профіль";
+                document.getElementById('login_m').textContent = "Профіль";
+                document.getElementById('login_icon').name = "person-outline";
+                document.getElementById('login_m_icon').name = "person-outline";
+                document.getElementById('profile').href = "/profile/";
+                document.getElementById('showModal').href = "/profile/";
+                document.getElementById('profile').onclick = "";
+                document.getElementById('showModal').onclick = "";
+                
             })
             .catch(err => {
                 console.log(err);
@@ -156,11 +164,11 @@ function reg_validation() {
             .then(data => {
                 console.log(data);
                 console.log('Отправлено');
-                Cookies.set('user_login', name, {
-                    expires: 7,
-                    path: '/'
-                });
+                Cookies.set('id', data.id, { expires: 7, path: '/' });
+                Cookies.set('login', data.login, { expires: 7, path: '/' });
+                Cookies.set('email', data.email, { expires: 7, path: '/' });
                 close.click();
+                document.location.href = "/profile/";
             })
             .catch(err => {
                 console.log(err);

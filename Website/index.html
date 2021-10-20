@@ -47,36 +47,36 @@
                     <div class="nav__list">
                         <a href="#" class="nav__link active">
                             <ion-icon name="home-outline" class="nav__icon"></ion-icon>
-                            <span class="nav__name">Головна</span>
+                            <span class="nav__name" id="home">Головна</span>
                         </a>
 
                         <a href="#" class="nav__link">
                             <ion-icon name="videocam-outline" class="nav__icon"></ion-icon>
-                            <span class="nav__name">Трансляції</span>
+                            <span class="nav__name" id="live">Трансляції</span>
                         </a>
 
                         <a href="#" class="nav__link">
                             <ion-icon name="baseball-outline" class="nav__icon"></ion-icon>
-                            <span class="nav__name">Змагання</span>
+                            <span class="nav__name" id="sport">Змагання</span>
                         </a>
 
                         <a href="#" class="nav__link">
                             <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
-                            <span class="nav__name">Налаштування</span>
+                            <span class="nav__name" id="settings">Налаштування</span>
                         </a>
 
                         <span class="mobile">
                             <a href="#" class="nav__link" id="showModal" onclick="modal(modalBlock); document.getElementById('modalBlockLogin').classList.add('right-panel-active');"> 
-                                <ion-icon name="log-out-outline" class="nav__icon"></ion-icon>
-                                <span class="nav__name">Вхід до акаунту</span>
+                                <ion-icon name="log-out-outline" class="nav__icon" id="login_m_icon"></ion-icon>
+                                <span class="nav__name" id="login_m">Вхід до акаунту</span>
                             </a>
                         </span>
                     </div>
                 </div>
 
-                <a href="#" class="nav__link pc" onclick="modal(modalBlock)">
-                    <ion-icon name="log-out-outline" class="nav__icon"></ion-icon>
-                    <span class="nav__name">Вхід до акаунту</span>
+                <a href="#" class="nav__link pc" onclick="modal(modalBlock)" id="profile">
+                    <ion-icon name="log-out-outline" class="nav__icon" id="login_icon"></ion-icon>
+                    <span class="nav__name" id="login">Вхід до акаунту</span>
                 </a>
             </nav>
         </div>
@@ -326,5 +326,24 @@
         
         <!-- ===== MAIN JS ===== -->
         <script src="/assets/js/main.js"></script>
+        <script>
+            if(Cookies.get('login') == undefined){
+                document.getElementById('login').textContent = "Вхід до профілю";
+                document.getElementById('login_m').textContent = "Вхід до профілю";
+                document.getElementById('login_icon').name = "log-out-outline";
+                document.getElementById('login_m_icon').name = "log-out-outline";
+                document.getElementById('profile').href = "#Login";
+                document.getElementById('showModal').href = "#Login";
+            }else{
+                document.getElementById('login').textContent = "Профіль";
+                document.getElementById('login_m').textContent = "Профіль";
+                document.getElementById('login_icon').name = "person-outline";
+                document.getElementById('login_m_icon').name = "person-outline";
+                document.getElementById('profile').href = "/profile/";
+                document.getElementById('showModal').href = "/profile/";
+                document.getElementById('profile').onclick = "";
+                document.getElementById('showModal').onclick = "";
+            }
+        </script>
     </body>
 </html>
