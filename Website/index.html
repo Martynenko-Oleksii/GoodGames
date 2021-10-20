@@ -264,8 +264,7 @@
             <div class="form-container sign-up-container" id="reg">
                 <div class="forms">
                     <h2 class="h1">Створення акаунту</h2>
-                    <div class="social-container"></div>
-                    <span class="span">Реєстрація за допомогою пошти</span><br>
+                    <span class="span">Реєстрація за допомогою пошти</span>
                     <input type="text" placeholder="Логін в системі" id="reg_name" onclick="document.getElementById('modal_error_reg_name').textContent = '';"/>
                     <span class="error" id="error_reg_name"></span>
                     <input type="email" placeholder="Пошта" id="reg_email" novalidate onclick="document.getElementById('modal_error_reg_email').textContent = '';"/>
@@ -282,12 +281,6 @@
             <div class="form-container sign-in-container" id="login">
                 <div class="forms">
                     <h2 class="h1">Вхід до профілю</h2>
-
-                    <div class="social-container">
-                        <a href="#" class="social a"><ion-icon name="logo-google"></ion-icon></a>
-                        <a href="#" class="social a"><ion-icon name="logo-facebook"></ion-icon></a>
-                    </div>
-
                     <span class="span">Увійти за допомогою пошти</span> <br>
                     <input type="email" placeholder="Пошта" id="login_email" novalidate onclick="document.getElementById('modal_error_login_email').textContent = '';"/>
                     <span class="error" id="error_login_email"></span>
@@ -304,6 +297,14 @@
                         <a class="a">Немає профілю? </a>
                         <a class="a buttom2" style="color: rgb(0, 110, 255);"  onclick="document.getElementById('reg_form').style = 'transform: translateX(0%)';">Реєстрація</a>    
                     </div>
+
+                    <div class="loading" id="load_login" style="display: none;">
+                        <h3 id="login_name_comp"></h3>
+                        <svg class="spinner" id="spinner_pop" style="position: absolute; left: 45%;" width="45px" height="45px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                        </svg>
+                    </div>
+                    
                 </div>
             </div>
             <div class="overlay-container">

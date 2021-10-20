@@ -3,6 +3,12 @@
 //   GOODGAMES @ Мірошніченко Станіслав / Олексенко Владіслав
 //
 
+function sayHi() {
+    document.getElementById('modal_spinner_pop').remove();
+    document.getElementById('modal_login_name_comp').textContent = "Привіт, " + Cookies.get('login');
+    setTimeout("document.getElementById('close_modal').click();", 1400);
+}
+
 function login_validation() {
     var email = document.getElementById("modal_login_email").value;
     var error_email = 0;
@@ -45,8 +51,8 @@ function login_validation() {
         error_pass = 0;
     }
 
-    var close = document.getElementById('close_modal');
     if (error_email && error_pass) {
+        document.getElementById('modal_load_login').style.display = "grid";
         console.log("Login done. Server response:");
 
         const requestUrl = "api/users/login"
@@ -61,7 +67,6 @@ function login_validation() {
                 Cookies.set('id', data.id, { expires: 7, path: '/' });
                 Cookies.set('login', data.login, { expires: 7, path: '/' });
                 Cookies.set('email', data.email, { expires: 7, path: '/' });
-                close.click();
                 document.getElementById('login').textContent = "Профіль";
                 document.getElementById('login_m').textContent = "Профіль";
                 document.getElementById('login_icon').name = "person-outline";
@@ -70,11 +75,12 @@ function login_validation() {
                 document.getElementById('showModal').href = "/profile/";
                 document.getElementById('profile').onclick = "";
                 document.getElementById('showModal').onclick = "";
-                
+                setTimeout("sayHi()", 1000);
             })
             .catch(err => {
                 console.log(err);
                 console.log('Ошибка.');
+                document.getElementById('modal_load_login').style.display = "none";
             });
     }
 }

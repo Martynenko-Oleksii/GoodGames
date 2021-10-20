@@ -72,7 +72,10 @@ function modal(e) {
 	block.querySelector("#ref_pass").id = "modal_ref_pass";
 	block.querySelector("#login_email").id = "modal_login_email";
 	block.querySelector("#login_pass").id = "modal_login_pass";
-
+	block.querySelector("#load_login").id = "modal_load_login";
+	block.querySelector("#login_name_comp").id = "modal_login_name_comp";
+	block.querySelector("#spinner_pop").id = "modal_spinner_pop";
+	
 	block.querySelector("#error_reg_name").id = "modal_error_reg_name";
 	block.querySelector("#error_reg_email").id = "modal_error_reg_email";
 	block.querySelector("#error_ref_pass").id = "modal_error_ref_pass";
