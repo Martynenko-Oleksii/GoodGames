@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace GGBack.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class CompetitionsController : ControllerBase
     {
@@ -57,19 +56,19 @@ namespace GGBack.Controllers
 
         [Route("api/competition/create")]
         [HttpPost]
-        public async Task<ActionResult<Competition>> PostNewCompetition(Competition competition, int ownerId)
+        public async Task<ActionResult<Competition>> PostNewCompetition(Competition competition)
         {
             if (competition == null)
             {
                 return BadRequest("null");
             }
 
-            if(ownerId.Equals(null))
+            if(competition.User.Equals(null))
             {
                 return BadRequest("no owner");
             }
 
-            if (context.Users.Find(ownerId).Equals(null)) 
+            if (context.Users.Find(competition.User.Id).Equals(null)) 
             {
                 return BadRequest("invalid user id");
             }
@@ -85,7 +84,7 @@ namespace GGBack.Controllers
             }
 
             competition.State = "planned";
-            competition.User = context.Users.Where(u => u.Id == ownerId).First();
+            competition.User = context.Users.Where(u => u.Id == competition.User.Id).First();
 
             context.Competitions.Add(competition);
             await context.SaveChangesAsync();
@@ -93,23 +92,16 @@ namespace GGBack.Controllers
             return Ok(competition);
         }
 
-        [Route("api/competition/create")]
+        [Route("api/competition/delete")]
         [HttpPost]
-        public async Task<ActionResult<Competition>> PostDeleteCompetition(int competitionId, int ownerId)
+        public async Task<ActionResult<Competition>> PostDeleteCompetition(int competitionId)
         {
             if (competitionId.Equals(null))
             {
                 return BadRequest("invalid competition id");
             }
 
-            if (ownerId.Equals(null))
-            {
-                return BadRequest("no owner");
-            }
-
-            context.Competitions.Remove(
-                    context.Competitions.Where(c => c.Id == competitionId).First()
-                );
+            context.Competitions.Remove( context.Competitions.Find(competitionId) );
 
             await context.SaveChangesAsync();
             return Ok(competitionId);
