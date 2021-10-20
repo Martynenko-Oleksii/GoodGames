@@ -47,5 +47,44 @@ namespace GGBack.Controllers
                 .Where(c => c.Id.Equals(competitionId))
                 .ToListAsync();
         }
+
+        [Route("api/competitions")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Competition>>> Get()
+        {
+            return await context.Competitions.ToListAsync();
+        }
+
+        [Route("api/competition/create")]
+        [HttpPost]
+        public async Task<ActionResult<Competition>> PostNewCompetition(Competition competition)
+        {
+            if (competition == null)
+            {
+                return BadRequest("null");
+            }
+
+            if(competition.User == null)
+            {
+                return BadRequest("no owner");
+            }
+
+            if (competition.Title == null)
+            {
+                return BadRequest("no title");
+            }
+
+            if (context.Competitions.Any(comp => comp.Title == competition.Title))
+            {
+                return BadRequest("title collision");
+            }
+
+            competition.State = "planned";
+
+            context.Competitions.Add(competition);
+            await context.SaveChangesAsync();
+
+            return Ok(competition);
+        }
     }
 }
