@@ -57,16 +57,21 @@ namespace GGBack.Controllers
 
         [Route("api/competition/create")]
         [HttpPost]
-        public async Task<ActionResult<Competition>> PostNewCompetition(Competition competition)
+        public async Task<ActionResult<Competition>> PostNewCompetition(Competition competition, int ownerId)
         {
             if (competition == null)
             {
                 return BadRequest("null");
             }
 
-            if(competition.User == null)
+            if(ownerId.Equals(null))
             {
                 return BadRequest("no owner");
+            }
+
+            if (context.Users.Find(ownerId).Equals(null)) 
+            {
+                return BadRequest("invalid user id");
             }
 
             if (competition.Title == null)
@@ -80,11 +85,34 @@ namespace GGBack.Controllers
             }
 
             competition.State = "planned";
+            competition.User = context.Users.Where(u => u.Id == ownerId).First();
 
             context.Competitions.Add(competition);
             await context.SaveChangesAsync();
 
             return Ok(competition);
+        }
+
+        [Route("api/competition/create")]
+        [HttpPost]
+        public async Task<ActionResult<Competition>> PostDeleteCompetition(int competitionId, int ownerId)
+        {
+            if (competitionId.Equals(null))
+            {
+                return BadRequest("invalid competition id");
+            }
+
+            if (ownerId.Equals(null))
+            {
+                return BadRequest("no owner");
+            }
+
+            context.Competitions.Remove(
+                    context.Competitions.Where(c => c.Id == competitionId).First()
+                );
+
+            await context.SaveChangesAsync();
+            return Ok(competitionId);
         }
     }
 }
