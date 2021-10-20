@@ -100,7 +100,7 @@ button:focus {
 	border-color: #FFFFFF;
 }
 
-form {
+form, .forms {
 	background-color: #FFFFFF;
 	display: flex;
 	flex-direction: column;

@@ -78,7 +78,7 @@ function modal(e) {
 	block.querySelector("#error_ref_pass").id = "modal_error_ref_pass";
 	block.querySelector("#error_login_email").id = "modal_error_login_email";
 	block.querySelector("#error_login_pass").id = "modal_error_login_pass";
-	
+	modal.id = "close_modal";
 
 	Object.assign(modal.style, {
 		"z-index": "1000",

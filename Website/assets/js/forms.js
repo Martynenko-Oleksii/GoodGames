@@ -43,18 +43,19 @@ function login_validation(){
           error_pass = 0;
     }
 
+    var close = document.getElementById('close_modal');
     if(error_email === 1 && error_pass === 1){
         console.log("Login done. Server response:");
 
         const requestUrl = "api/users/login"
         const requestBody = {
-            login: email,
+            email: email,
             password: pass
         }
 
         ServerRequest.send("POST", requestUrl, requestBody)
-          .then(data => console.log(data))
-          .catch(err => console.log(err));
+          .then(data => console.log(data), console.log('Отправлено'), close.click())
+          .catch(err => console.log(err), console.log('Ошибка.'));
     }
 }
 
@@ -125,6 +126,7 @@ function reg_validation(){
           error_pass = 0;
     }
 
+    var close = document.getElementById('close_modal');
     if(error_name === 1 && error_email === 1 && error_pass === 1){
         console.log("Reg done. Server response:");
 
@@ -136,7 +138,7 @@ function reg_validation(){
         }
 
         ServerRequest.send("POST", requestUrl, requestBody)
-          .then(data => console.log(data))
-          .catch(err => console.log(err));
+          .then(data => console.log(data), console.log('Отправлено'), Cookies.set('user_login', name, { expires: 7, path: '/' }), close.click())
+          .catch(err => console.log(err), console.log('Ошибка.'));
     }
 }

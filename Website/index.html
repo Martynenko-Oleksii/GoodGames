@@ -10,6 +10,7 @@
         
         <title>GoodGames - онлайн змагання</title>
         <script src="/assets/js/forms.js"></script>
+        <script src="/assets/js/js.cookie.js"></script>
         <script src="/assets/js/serverRequest.js"></script>
     </head>
     <body id="body-pd">
@@ -261,7 +262,7 @@
 
         <div class="modalBlock" id="modalBlock" style="display: none;">
             <div class="form-container sign-up-container" id="reg">
-                <form action="#" onsubmit="reg_validation();">
+                <div class="forms">
                     <h2 class="h1">Створення акаунту</h2>
                     <div class="social-container"></div>
                     <span class="span">Реєстрація за допомогою пошти</span><br>
@@ -271,15 +272,15 @@
                     <span class="error" id="error_reg_email"></span>
                     <input type="password" placeholder="Пароль" id="ref_pass" onclick="document.getElementById('modal_error_ref_pass').textContent = '';"/>
                     <span class="error" id="error_ref_pass"></span>
-                    <button type="submit" style="margin-top: 10px;" class="buttom ghost">Зареєструватись</button>
+                    <button onclick="reg_validation();" style="margin-top: 10px;" class="buttom ghost">Зареєструватись</button>
                     <div style="justify-content: center; align-items: center;" class="signInMOBILE">
                         <a class="a">Вже зареєстровані? </a>
                         <a class="a buttom2" style="color: rgb(0, 110, 255);" onclick="document.getElementById('reg_form').style = 'transform: translateX(100%)';">Вхід</a>    
                     </div>
-                </form>
+                </div>
             </div>
             <div class="form-container sign-in-container" id="login">
-                <form action="#" onsubmit="login_validation();">
+                <div class="forms">
                     <h2 class="h1">Вхід до профілю</h2>
 
                     <div class="social-container">
@@ -297,13 +298,13 @@
                         <a href="#" class="a buttom2" style="color: cadetblue;">Не пам'ятаю пароль</a>
                     </div>
                     
-                    <button type="submit" class="buttom ghost" style="padding-left: 50px; padding-right: 50px;">Увійти</button>
+                    <button onclick="login_validation();" class="buttom ghost" style="padding-left: 50px; padding-right: 50px;">Увійти</button>
 
                     <div style="justify-content: center; align-items: center;" class="signUpMOBILE">
                         <a class="a">Немає профілю? </a>
                         <a class="a buttom2" style="color: rgb(0, 110, 255);"  onclick="document.getElementById('reg_form').style = 'transform: translateX(0%)';">Реєстрація</a>    
                     </div>
-                </form>
+                </div>
             </div>
             <div class="overlay-container">
                 <div class="overlay">
