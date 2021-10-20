@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace GGBack.Models
@@ -15,7 +16,6 @@ namespace GGBack.Models
 
         public bool IsOpen { get; set; }
 
-        public int SportId { get; set; }
         public Sport Sport { get; set; }
 
         public string AgeLimit { get; set; }
@@ -31,7 +31,6 @@ namespace GGBack.Models
         public List<Competitor> Competitors { get; set; }
 
         // Owner
-        public int UserId { get; set; }
         public User User { get; set; }
 
         [MaxLength(120)]
@@ -39,7 +38,6 @@ namespace GGBack.Models
 
         public string State { get; set; } // (“заплановане”, “проходить”, “завершене”)
 
-        //public int TournamentGridId { get; set; }
         //public TournamentGrid TournamentGrid { get; set; }
     }
 }

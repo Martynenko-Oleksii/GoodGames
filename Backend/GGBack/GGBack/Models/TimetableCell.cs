@@ -20,8 +20,6 @@ namespace GGBack.Models
         //[MaxLength(6)]
         //public int CompetitorTwoID { get; set; }
 
-        //[Required]
-        public int ResultId { get; set; }
         public Result Result { get; set; }
     }
 }
