@@ -60,6 +60,9 @@ function login_validation() {
                 console.log(data);
                 console.log('Отправлено');
                 close.click();
+
+                let parsedData = JSON.parse(data);
+                console.log(parsedData.login)
             })
             .catch(err => {
                 console.log(err);
