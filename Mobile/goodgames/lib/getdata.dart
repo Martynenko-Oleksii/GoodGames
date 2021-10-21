@@ -134,6 +134,47 @@ class getDatahttp {
 
     return competitions;
   }
+
+  static Future<Competition> postNewCompetition(
+      String title, bool isOpen, int sportId,
+      String ageLimit, String city,
+      DateTime startDate, DateTime endDate,
+      bool isPublic, int userId) async {
+
+    Competition? competition;
+
+    var body = jsonEncode( {
+      'title': title,
+      'isOpen': isOpen,
+      'sport': '{id: $sportId}',
+      'ageLimit': ageLimit,
+      'city': city,
+      'startDate': startDate,
+      'endDate': endDate,
+      'isPublic': isPublic,
+      'user': '{id: $userId}'
+    });
+
+    try {
+      var response = await http.post(
+          Uri.https("goodgames.kh.ua", "api/competitions/create"),
+          body: body,
+          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
+      );
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+        competition = Competition(
+          id: jsonData["id"],
+          title: jsonData["title"]
+        );
+      }
+    } catch(ex) {
+      print(ex);
+    }
+
+    return competition!;
+  }
 }
 
 
