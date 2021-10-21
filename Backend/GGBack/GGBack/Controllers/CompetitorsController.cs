@@ -21,6 +21,12 @@ namespace GGBack.Controllers
             this.context = context;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Competitor>>> Get()
+        {
+            return await context.Competitors.ToListAsync(); 
+        }
+
         [HttpPost]
         public async Task<ActionResult<Competitor>> Post(Competitor competitor)
         {
@@ -41,12 +47,12 @@ namespace GGBack.Controllers
                 {
                     Name = competitor.Name,
                     Email = competitor.Email,
-                    Age = competitor.Age,
+                    Age = competitor.Age,                        
                     Gender = competitor.Gender,
                     Weigth = competitor.Weigth,
                     HealthState = competitor.HealthState,
                     Team = competitor.Team,
-                    Competitions = competitor.Competitions
+                    Competitions = competitions
                 });
             }
             else
@@ -58,24 +64,20 @@ namespace GGBack.Controllers
 
                 if (oldCompetitor != null)
                 {
-                    oldCompetitor.Competitions.AddRange(competitions);
-
-                    context.Update(new Competitor
+                    try
                     {
-                        Id = oldCompetitor.Id,
-                        Name = competitor.Name,
-                        Email = competitor.Email,
-                        Age = competitor.Age,
-                        Gender = competitor.Gender,
-                        Weigth = competitor.Weigth,
-                        HealthState = competitor.HealthState,
-                        Team = competitor.Team,
-                        Competitions = oldCompetitor.Competitions
-                    });
-                }
-                else
-                {
-                    return NotFound();
+                        oldCompetitor.Competitions.AddRange(competitions);
+                        oldCompetitor.Name = competitor.Name;
+                        oldCompetitor.Age = competitor.Age;
+                        oldCompetitor.Gender = competitor.Gender;
+                        oldCompetitor.Weigth = competitor.Weigth;
+                        oldCompetitor.HealthState = competitor.HealthState;
+                        oldCompetitor.Team = competitor.Team;
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message + "\n" + ex.InnerException);
+                    }
                 }
             }
 
