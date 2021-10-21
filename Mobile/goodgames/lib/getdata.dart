@@ -183,7 +183,7 @@ class getDatahttp {
 
     try {
       var response = await http.delete(
-          Uri.https("goodgames.kh.ua", "api/sports/$competitionId"),
+          Uri.https("goodgames.kh.ua", "api/competitions/delete/$competitionId"),
           headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
       );
 
