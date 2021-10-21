@@ -80,6 +80,7 @@ function login_validation() {
             .catch(err => {
                 console.log(err);
                 console.log('Ошибка.');
+                document.getElementById("modal_error_login_pass").textContent = "Не вдалось увійти. Перевірте данні.";
                 document.getElementById('modal_load_login').style.display = "none";
             });
     }
@@ -178,6 +179,7 @@ function reg_validation() {
             })
             .catch(err => {
                 console.log(err);
+                document.getElementById("modal_error_login_pass").textContent = "Помилка, змініть данні.";
                 console.log('Ошибка.');
             });
     }
