@@ -133,7 +133,7 @@ class _RegistState extends State<RegistPage> {
                                   ),
                                   validator: (value) {
                                     if (value!.isEmpty ||
-                                        !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                        !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
                                             .hasMatch(value)) {
                                       return "Enter Correct Email Address";
                                     } else {
@@ -158,7 +158,7 @@ class _RegistState extends State<RegistPage> {
                                   ),
                                   validator: (value) {
                                     if (value!.isEmpty ||
-                                        !RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$')
+                                        !RegExp(r'^[a-zA-Z0-9]+$')
                                             .hasMatch(value)) {
                                       //  r'^[0-9]{10}$' pattern plain match number with length 10
                                       return "Enter Correct Password";
