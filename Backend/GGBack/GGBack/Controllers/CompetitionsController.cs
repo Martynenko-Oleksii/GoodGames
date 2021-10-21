@@ -120,7 +120,7 @@ namespace GGBack.Controllers
                 return BadRequest(ex.InnerException);
             }
 
-            return Ok(competition);
+            return Ok(new Competition { Id = competition.Id, Title = competition.Title });
         }
 
         [Route("api/competitions/delete/{competitionId}")]
