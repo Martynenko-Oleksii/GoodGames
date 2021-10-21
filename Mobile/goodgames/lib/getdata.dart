@@ -135,6 +135,8 @@ class getDatahttp {
     return competitions;
   }
 
+  //TODO TESTS!!!
+
   static Future<Competition> postNewCompetition(
       String title, bool isOpen, int sportId,
       String ageLimit, String city,
@@ -170,6 +172,28 @@ class getDatahttp {
         );
       }
     } catch(ex) {
+      print(ex);
+    }
+
+    return competition!;
+  }
+
+  static Future<Competition> deleteCompetition(int competitionId) async{
+    Competition? competition;
+
+    try {
+      var response = await http.delete(
+          Uri.https("goodgames.kh.ua", "api/sports/$competitionId"),
+          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
+      );
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+        competition = Competition(id: jsonData['id']);
+      } else {
+        print(response.body);
+      }
+    } catch (ex) {
       print(ex);
     }
 
