@@ -1,6 +1,7 @@
 import 'package:goodgames/global.dart';
 import 'package:flutter/material.dart';
 import 'package:goodgames/getdata.dart';
+import 'package:goodgames/profile/ProfileScreen.dart';
 
 import '../../../home_screen.dart';
 import '../../../main.dart';
@@ -178,7 +179,7 @@ class _RegistState extends State<RegistPage> {
                                 if (formKey.currentState!.validate()) {
                                   //check if form data are valid,
                                   // your process task ahed if all data are valid
-                                  /*getDatahttp.postDateRegister(
+                                  getDatahttp.postDateRegister(
                                             nameControl.text,
                                             loginControl.text,
                                             passControl.text);
@@ -187,11 +188,9 @@ class _RegistState extends State<RegistPage> {
                                         context,
                                         MaterialPageRoute<dynamic>(
                                           builder: (BuildContext context) =>
-                                              MyApp(),
+                                              ProfileScreen(),
                                         ),
                                       );
-
-                                            */
                                   print(1);
                                 }
                               },
