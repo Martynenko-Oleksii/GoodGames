@@ -166,9 +166,6 @@ class _LoginState extends State<LoginPage> {
                                           getDatahttp.postDateLogin(
                                             loginControl.text,
                                             passControl.text);
-                                          
-                                          /*getDatahttp.getFavouriteSports(1)
-                                              .then((value) => print(value));*/
 
                                            Navigator.push<dynamic>(
                                             context,
@@ -177,6 +174,8 @@ class _LoginState extends State<LoginPage> {
                                             ),
                                           );
                                         }
+
+                                        //getDatahttp.getCompetitions(1).then((value) => print(value));
                                       },
                                       color: Colors.orange,
                                     ),

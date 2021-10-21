@@ -5,7 +5,6 @@ import 'package:goodgames/global.dart';
 import 'package:http/http.dart' as http;
 
 class getDatahttp {
-
   static Future<User> postDateRegister(String name ,String email ,String pass) async {
     User? user;
 
@@ -24,9 +23,6 @@ class getDatahttp {
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
-
-        //print(jsonData);
-
         user = User(
             id: jsonData["id"],
             login: jsonData["login"],
@@ -36,13 +32,9 @@ class getDatahttp {
             sports: jsonData["sports"]
         );
       }
-  //  print(response.request);
-  //  print(response.body);
     } catch(ex) {
       print(ex);
     }
-
-    print(user);
 
     return user!;
   }
@@ -62,12 +54,8 @@ class getDatahttp {
           headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
       );
 
-      //print(response.statusCode);
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
-
-        //print(jsonData);
-
         user = User(
             id: jsonData["id"],
             login: jsonData["login"],
@@ -81,22 +69,19 @@ class getDatahttp {
       print(ex);
     }
 
-    //print(user);
-
     return user!;
   }
 
-  static Future<List<Sport>> getFavouriteSports(int id) async{
+  static Future<List<Sport>> getFavouriteSports(int userId) async{
     List<Sport> sports = [];
 
     try {
       var response = await http.get(
-          Uri.https("goodgames.kh.ua", "api/sports/$id"),
+          Uri.https("goodgames.kh.ua", "api/sports/$userId"),
           headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
       );
 
       if (response.statusCode == 200) {
-        //TODO: change deserialization!!!
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
         for (var s in jsonData) {
           Sport sport = Sport(
@@ -118,8 +103,37 @@ class getDatahttp {
       print(ex);
     }
 
-    print(sports);
-
     return sports;
   }
+
+  static Future<List<Competition>> getCompetitions(int userId) async{
+    List<Competition> competitions = [];
+
+    try {
+      var response = await http.get(
+          Uri.https("goodgames.kh.ua", "api/competitions/users/$userId"),
+          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
+      );
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+        for (var s in jsonData) {
+          Competition competition = Competition(
+              id: s["id"],
+              title: s["title"]
+          );
+
+          competitions.add(competition);
+        }
+      } else {
+        print(response.body);
+      }
+    } catch (ex) {
+      print(ex);
+    }
+
+    return competitions;
+  }
 }
+
+
