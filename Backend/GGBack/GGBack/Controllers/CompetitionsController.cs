@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace GGBack.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class CompetitionsController : ControllerBase
     {
@@ -23,6 +22,26 @@ namespace GGBack.Controllers
             this.context = context;
         }
 
+        [Route("api/competitions")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Competition>>> Get()
+        {
+            return await context.Competitions.ToListAsync();
+        }
+
+        [Route("api/competitions")]
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<Competition>>> GetCompetition(int competitionId)
+        {
+            return await context.Competitions
+                .Include(c => c.Sport)
+                .Include(c => c.Competitors)
+                .Include(c => c.User)
+                .Where(c => c.Id.Equals(competitionId))
+                .ToListAsync();
+        }
+
+        [Route("api/competitions/userList")]
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<Competition>>> GetCompetitions(int userId)
         {
@@ -35,24 +54,6 @@ namespace GGBack.Controllers
                     Title = c.Title
                 })
                 .ToListAsync();
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Competition>>> GetCompetition(int competitionId)
-        {
-            return await context.Competitions
-                .Include(c => c.Sport)
-                .Include(c => c.Competitors)
-                .Include(c => c.User)
-                .Where(c => c.Id.Equals(competitionId))
-                .ToListAsync();
-        }
-
-        [Route("api/competitions")]
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Competition>>> Get()
-        {
-            return await context.Competitions.ToListAsync();
         }
 
         [Route("api/competition/create")]
