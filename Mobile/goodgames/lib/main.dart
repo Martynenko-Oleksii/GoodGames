@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:goodgames/profile/ProfileScreen.dart';
 
 import 'apptheme.dart';
+import 'competitions/competitions_list_page.dart';
 import 'login/login.dart';
 import 'login/regist.dart';
 
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         textTheme: AppTheme.textTheme,
         platform: TargetPlatform.iOS,
       ),
-      home: LoginPage(),
+      home: RegistPage(),
     );
   }
 }

@@ -76,7 +76,7 @@ class _RegistState extends State<RegistPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     new Container(
-                      height: 500.0,
+                      height: 400.0,
                       width: 400.0,
                       alignment: Alignment(0.00, -0.50),
                       /*
