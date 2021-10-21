@@ -14,7 +14,6 @@ class ProfileScreen extends StatefulWidget{
   _ProfileState createState() => _ProfileState();
 }
 
-
 class _ProfileState extends State<ProfileScreen> with SingleTickerProviderStateMixin {
 
   List<InteresList> profileList = InteresList.profileList;

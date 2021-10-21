@@ -1,9 +1,11 @@
 import 'package:goodgames/global.dart';
 import 'package:flutter/material.dart';
 import 'package:goodgames/login/regist.dart';
+import 'package:goodgames/profile/ProfileScreen.dart';
 
 import '../../../home_screen.dart';
 import '../../../main.dart';
+import '../../../getdata.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -160,18 +162,20 @@ class _LoginState extends State<LoginPage> {
                                       ),
                                       onPressed: () {
                                         if (formKey.currentState!.validate()) {
-                                          /*
+
                                           getDatahttp.postDateLogin(
                                             loginControl.text,
                                             passControl.text);
+                                          
+                                          /*getDatahttp.getFavouriteSports(1)
+                                              .then((value) => print(value));*/
 
                                            Navigator.push<dynamic>(
-                                    context,
-                                    MaterialPageRoute<dynamic>(
-                                      builder: (BuildContext context) => MyApp(),
-                                    ),
-                                  );
-                                                */
+                                            context,
+                                            MaterialPageRoute<dynamic>(
+                                              builder: (BuildContext context) => ProfileScreen(),
+                                            ),
+                                          );
                                         }
                                       },
                                       color: Colors.orange,
