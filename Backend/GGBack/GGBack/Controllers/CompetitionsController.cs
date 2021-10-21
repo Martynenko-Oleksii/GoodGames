@@ -122,5 +122,28 @@ namespace GGBack.Controllers
 
             return Ok(competition);
         }
+
+        [Route("api/competitions/delete/{competitionId}")]
+        [HttpDelete]
+        public async Task<ActionResult<Competition>> PostDeleteCompetition(int competitionId)
+        {
+            if (competitionId == 0)
+            {
+                return BadRequest("invalid competition id");
+            }
+
+            Competition competiotion = context.Competitions
+                .FirstOrDefault(c => c.Id == competitionId);
+
+            if (competiotion == null)
+            {
+                return NotFound("Competition does not exist");
+            }
+
+            context.Competitions.Remove(competiotion);
+            await context.SaveChangesAsync();
+
+            return Ok(competiotion);
+        }
     }
 }
