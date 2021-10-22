@@ -78,6 +78,7 @@ namespace GGBack.Controllers
                 return BadRequest("password");
             }
 
+            await context.SaveChangesAsync();
             return Ok(findedUser);
         }
     }
