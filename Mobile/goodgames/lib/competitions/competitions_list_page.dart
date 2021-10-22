@@ -12,6 +12,10 @@ import '../apptheme.dart';
 import '../getdata.dart';
 
 class CompetitionsScreen extends StatefulWidget {
+  final User user;
+
+  CompetitionsScreen({Key? key, required this.user}) : super(key: key);
+
   @override
   _CompetitionsState createState() => _CompetitionsState();
 }
@@ -130,7 +134,7 @@ class _CompetitionsState extends State<CompetitionsScreen>
                         new Container(
                           height: MediaQuery.of(context).size.height - 360,
                           child: FutureBuilder(
-                            future: getDatahttp.getCompetitions("1"),
+                            future: getDatahttp.getCompetitions(widget.user.id!),
                             builder:
                                 (BuildContext context, AsyncSnapshot snapshot) {
                               if (!snapshot.hasData) {
