@@ -69,7 +69,7 @@
         </a>
 
         <span class="mobile">
-          <a class="nav__link" id="open-modal" onclick="document.getElementById('modal').style.zIndex = 1000"> 
+          <a class="nav__link" id="open-modal" onclick="document.getElementById('modal').style.zIndex = 1000">
               <ion-icon name="grid-outline" class="nav__icon"></ion-icon>
               <span class="nav__name" id="login_m">Профіль</span>
           </a>
@@ -181,7 +181,7 @@
 <!-- ===== Другие компоненты ===== -->
 
 <section class="modal" id="modal">
-                        
+
   <div class="modal__container" id="modal-container">
       <div class="modal__content">
           <div class="modal__close close-modal" title="Close" onclick="document.getElementById('modal').style.zIndex = -1000">
@@ -229,16 +229,5 @@
 
 <!-- ===== MAIN JS ===== -->
 <script src="../assets/js/main.js"></script>
-<script>
-  document.getElementById("profile_buttom").classList.add('active');
-  document.getElementById("open-modal").classList.add('active');
-  if(Cookies.get('login') == undefined){
-      document.location.href = "../";
-  }else{
-      document.getElementById('name_profile').textContent = Cookies.get('login');
-      document.getElementById('name_cook').textContent = Cookies.get('login');
-      document.getElementById('email_cook').textContent = Cookies.get('email');
-  }
-</script>
 </body>
 </html>

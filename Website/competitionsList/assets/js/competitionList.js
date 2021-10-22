@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", pageLoaded);
+
 function pageLoaded() {
     const userId = Cookies.get("id");
     if (!userId) {
@@ -18,7 +19,8 @@ function pageLoaded() {
     }
 
     function parseServerResponse(data) {
-        data = [
+        // test data
+        /*data = [
             {
                 ageLimit: null,
                 city: null,
@@ -49,7 +51,7 @@ function pageLoaded() {
                 title: "title2",
                 user: null
             }
-        ]
+        ]*/
 
         const competitionsWrapperEl =
             document.querySelector(".competition-list .row");
@@ -93,7 +95,7 @@ function pageLoaded() {
                             </p>
                         </h5>
                         <div class="post-meta d-flex justify-content-between align-items-center mt-3">
-                            <a href="competition#${competitionId}" class="text-muted readmore">
+                            <a href="/game" class="text-muted readmore" onclick="goToCompetition(${competitionId})">
                                 Детальніше
                             </a>
                             <button class="competition-list__delete-button" onclick="deleteCompetition(${competitionId})">
@@ -122,4 +124,8 @@ function deleteCompetition(competitionId) {
     ServerRequest.send("GET", requestUrl)
         .then(data => console.log(data))
         .catch(err => console.log(err));
+}
+
+function goToCompetition(competitionId) {
+    localStorage.setItem("openedCompetitionId", competitionId);
 }
