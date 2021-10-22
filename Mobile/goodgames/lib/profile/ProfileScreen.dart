@@ -1,3 +1,5 @@
+import 'package:goodgames/competitions/competitions_list_page.dart';
+import 'package:goodgames/getdata.dart';
 import 'package:goodgames/global.dart';
 import 'package:flutter/material.dart';
 import 'package:goodgames/login/regist.dart';
@@ -19,7 +21,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileState extends State<ProfileScreen>
     with SingleTickerProviderStateMixin {
-  List<InteresList> profileList = InteresList.profileList;
+  List<Sport> profileList = [];
   late AnimationController animationController;
   bool multiple = false;
   final ScrollController _scrollController = ScrollController();
@@ -29,6 +31,8 @@ class _ProfileState extends State<ProfileScreen>
     animationController = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
     super.initState();
+
+    getDatahttp.getFavouriteSports(1).then((value) => profileList = value);
   }
 
   Future<bool> getData() async {
@@ -156,14 +160,14 @@ class _ProfileState extends State<ProfileScreen>
                       height: 30,
                       child: new Row(children: <Widget>[
                         new Text(
-                          "subscribe",
+                          "subscription",
                           style: TextStyle(
                             fontSize: 22,
                             color: AppTheme.darkText,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        new Container(
+                        /*new Container(
                           // margin: const EdgeInsets.symmetric(vertical: 0.0),
                           padding: EdgeInsets.only(left: 100.0),
 
@@ -171,13 +175,13 @@ class _ProfileState extends State<ProfileScreen>
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0),
                             ),
-                            child: new Text("Prodliti"),
+                            child: new Text("prodliti"),
                             onPressed: onPressed,
                           ),
-                        ),
+                        ),*/
                       ]),
                     ),
-                    new Container(
+                    /*new Container(
                       padding: EdgeInsets.only(left: 10.0),
                       //margin: const EdgeInsets.symmetric(vertical: 8.0),
                       child: new RaisedButton(
@@ -195,12 +199,31 @@ class _ProfileState extends State<ProfileScreen>
                         },
                         color: Colors.redAccent.shade200,
                       ),
+                    ),*/
+                    new Container(
+                      padding: EdgeInsets.only(left: 10.0),
+                      //margin: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: new RaisedButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ),
+                        child: new Text("Мої змагання"),
+                        onPressed: () {
+                          Navigator.push<dynamic>(
+                            context,
+                            MaterialPageRoute<dynamic>(
+                              builder: (BuildContext context) => CompetitionsScreen(user: widget.user),
+                            ),
+                          );
+                        },
+                        color: Colors.redAccent.shade200,
+                      ),
                     ),
                     new Container(
                       // margin: const EdgeInsets.symmetric(vertical: 0.0),
                       padding: EdgeInsets.only(left: 10.0),
 
-                      child: new Text("ProfileInteresList"),
+                      child: new Text("Відстежуване:"),
                     ),
                     new Container(
                       height: MediaQuery.of(context).size.height - 360,
@@ -257,7 +280,7 @@ class ProfileInteresListView extends StatelessWidget {
     required this.animation,
   }) : super(key: key);
 
-  final InteresList listData;
+  final Sport listData;
   final AnimationController animationController;
   final Animation<double> animation;
 

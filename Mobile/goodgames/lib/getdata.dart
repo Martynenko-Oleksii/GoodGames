@@ -72,7 +72,7 @@ class getDatahttp {
     return user!;
   }
 
-  static Future<List<Sport>> getFavouriteSports(String userId) async{
+  static Future<List<Sport>> getFavouriteSports(int userId) async{
     List<Sport> sports = [];
 
     try {
@@ -106,8 +106,10 @@ class getDatahttp {
     return sports;
   }
 
-  static Future<List<Competition>> getCompetitions(String userId) async{
+  static Future<List<Competition>> getCompetitions(int userId) async{
     List<Competition> competitions = [];
+
+    print(userId);
 
     try {
       var response = await http.get(
