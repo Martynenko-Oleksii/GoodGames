@@ -84,13 +84,33 @@ class Competition {
 
   @override
   String toString() {
-    return "id:$id, title:$title";
+    return "id:$id, title:$title, isOpen:$isOpen, competitors:$competitors[0]";
   }
 }
 
 class Competitor {
+  int? id;
+  String? name;
+  String? email;
+  int? age;
+  String? gender;
+  int? weigth;
+  String? healthState;
+  String? team;
+
+  Competitor({
+    this.id,
+    this.name,
+    this.email,
+    this.age,
+    this.gender,
+    this.weigth,
+    this.healthState,
+    this.team
+  });
+
   @override
   String toString() {
-    return "null";
+    return "id:$id, name:$name";
   }
 }

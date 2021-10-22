@@ -163,20 +163,20 @@ class _LoginState extends State<LoginPage> {
                                       ),
                                       onPressed: () {
                                         if (formKey.currentState!.validate()) {
-
                                           getDatahttp.postDateLogin(
                                             loginControl.text,
-                                            passControl.text);
-
-                                           Navigator.push<dynamic>(
-                                            context,
-                                            MaterialPageRoute<dynamic>(
-                                              builder: (BuildContext context) => ProfileScreen(),
-                                            ),
-                                          );
+                                            passControl.text)
+                                              .then((value) =>
+                                              Navigator.push<dynamic>(
+                                                context,
+                                                MaterialPageRoute<dynamic>(
+                                                  builder: (BuildContext context) =>
+                                                      ProfileScreen(user: value),
+                                                ),
+                                              ));
                                         }
 
-                                        //getDatahttp.getCompetitions(1).then((value) => print(value));
+                                        //getDatahttp.getCompetition(1);
                                       },
                                       color: Colors.orange,
                                     ),

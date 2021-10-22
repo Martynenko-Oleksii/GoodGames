@@ -117,7 +117,7 @@ class _CompetitionsState extends State<CompetitionsScreen>
                                   context,
                                   MaterialPageRoute<dynamic>(
                                     builder: (BuildContext context) =>
-                                        ProfileScreen(),
+                                        MyApp(),
                                   ),
                                 );
                               },

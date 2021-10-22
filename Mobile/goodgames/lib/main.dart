@@ -32,7 +32,8 @@ class MyApp extends StatelessWidget {
         textTheme: AppTheme.textTheme,
         platform: TargetPlatform.iOS,
       ),
-      home: RegistPage(),
+      home: LoginPage(),
+      //home: RegistPage(),
     );
   }
 }
