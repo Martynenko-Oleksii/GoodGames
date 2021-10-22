@@ -1,0 +1,60 @@
+.theme_back {
+  background: #D1913C;
+  background: -webkit-linear-gradient(to right, #FFD194, #D1913C);
+  background: linear-gradient(to right, #FFD194, #D1913C);
+
+  border-radius: 15px;
+}
+
+
+.competition-list {
+  min-height: 50vh;
+  margin: 5% auto 5% auto;
+}
+
+.competition-list__logo {
+  text-align: center;
+  font-size: 30px;
+  color: #333;
+}
+
+.card {
+  top: 0;
+  padding: 0;
+  transition: top .3s ease;
+  box-shadow: 0 0 3px rgb(60 72 88 / 15%) !important;
+}
+
+.card:hover {
+  top: -3%;
+}
+
+.card:hover .author {
+  opacity: 1;
+}
+
+.card-title {
+  color: #333;
+}
+
+.author {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+.readmore {
+  font-size: 22px;
+}
+
+.competition-list__delete-button {
+  border: none;
+  background: none;
+}
+
+.competition-list-list__delete-icon {
+  width: 35px;
+  height: 35px;
+}
