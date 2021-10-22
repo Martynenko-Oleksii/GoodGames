@@ -9,7 +9,6 @@
         <link rel="stylesheet" href="/assets/css/plugins.css">
         <link rel="stylesheet" href="/assets/css/game.css">
         <link rel="stylesheet" href="/assets/css/modules-widgets.css">
-        <link rel="stylesheet" href="/assets/css/plugins/calendar.css">
         <!-- Bootstrap 5 --><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
         <!-- Landrick --><link href="/assets/css/Landrick.css" rel="stylesheet" type="text/css" id="theme-opt" />
         <!-- Наш стиль --><link rel="stylesheet" href="/assets/css/styles.css">
@@ -154,10 +153,19 @@
                                         </div>
                                         <div class="acc-action">
                                             <div class="">
-                                                <a href="javascript:void(0);">Надіслати запрошення</a>
+                                                <a href="javascript:void(0);" id="open_input" onclick="send_togo();">Надіслати запрошення</a>
+                                                <input type="email" placeholder="Пошта користувача" style="height: 36px; display: none; background-color: rgba(240, 248, 255, 0.3);" id="input_mail">
                                             </div>
-                                            <a href="javascript:void(0);">Запросити участь</a>
+                                            <a href="javascript:void(0);" id="send">Запросити участь</a>
                                         </div>
+                                        <script>
+                                            function send_togo(){
+                                                document.getElementById('send').style.height = "36px";
+                                                document.getElementById('send').textContent = "Відправити";
+                                                document.getElementById('open_input').style.display = "none";
+                                                document.getElementById('input_mail').style.display = "block";
+                                            }
+                                        </script>
                                     </div>
                                 </div>
                             </div>
@@ -376,7 +384,7 @@
                         </div><!--end col-->
 
                         <div class="col-6 mt-4 pt-2">
-                            <a href="#Sport" class="accounts rounded d-block shadow text-center py-3">
+                            <a href="/competitionsList/" class="accounts rounded d-block shadow text-center py-3">
                                 <span class="pro-icons h3 text-muted"><ion-icon name="stats-chart-outline"></ion-icon></span>
                                 <h6 class="title text-dark h6 my-0">Мої турніри</h6>
                             </a>
@@ -404,7 +412,6 @@
 
         <!-- ===== Иконки ===== -->
         <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
-        
         <!-- ===== MAIN JS ===== -->
         <script src="/assets/js/main.js"></script>
 
