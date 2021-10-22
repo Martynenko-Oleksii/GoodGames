@@ -3,6 +3,7 @@ import 'package:goodgames/global.dart';
 import 'package:flutter/material.dart';
 import 'package:goodgames/login/regist.dart';
 import 'package:goodgames/profile/ProfileScreen.dart';
+
 import 'package:goodgames/profile/profile_intereslist.dart';
 import 'package:flutter/cupertino.dart';
 
