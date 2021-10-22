@@ -30,6 +30,8 @@ namespace GGBack.Controllers
         [HttpPost]
         public async Task<ActionResult<Competitor>> Post(Competitor competitor)
         {
+            Competitor finalCompetitor = null;
+
             if (competitor == null)
             {
                 return BadRequest();
@@ -43,17 +45,18 @@ namespace GGBack.Controllers
 
             if (!context.Competitors.Any(c => c.Email == competitor.Email))
             {
-                context.Competitors.Add(new Competitor
+                finalCompetitor = new Competitor
                 {
                     Name = competitor.Name,
                     Email = competitor.Email,
-                    Age = competitor.Age,                        
+                    Age = competitor.Age,
                     Gender = competitor.Gender,
                     Weigth = competitor.Weigth,
                     HealthState = competitor.HealthState,
                     Team = competitor.Team,
                     Competitions = competitions
-                });
+                };
+                context.Competitors.Add(finalCompetitor);
             }
             else
             {
@@ -73,6 +76,8 @@ namespace GGBack.Controllers
                         oldCompetitor.Weigth = competitor.Weigth;
                         oldCompetitor.HealthState = competitor.HealthState;
                         oldCompetitor.Team = competitor.Team;
+
+                        finalCompetitor = oldCompetitor;
                     }
                     catch (Exception ex)
                     {
@@ -83,7 +88,7 @@ namespace GGBack.Controllers
 
             await context.SaveChangesAsync();
 
-            return Ok();
+            return Ok(new Competitor { Id = finalCompetitor.Id, Name = finalCompetitor.Name });
         }
     }
 }
