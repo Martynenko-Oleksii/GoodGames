@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:goodgames/profile/ProfileScreen.dart';
+
 
 import 'apptheme.dart';
 import 'competitions/competitions_list_page.dart';

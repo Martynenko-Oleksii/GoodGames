@@ -237,7 +237,6 @@ class _ProfileState extends State<ProfileScreen>
                   ],
                 ),
               ),
-              
             ],
           ),
         )));
