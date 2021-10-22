@@ -28,7 +28,6 @@ namespace GGBack.Models
         [MaxLength(30)]
         public string Team { get; set; }
 
-        [JsonIgnore]
         public List<Competition> Competitions { get; set; }
     }
 }
