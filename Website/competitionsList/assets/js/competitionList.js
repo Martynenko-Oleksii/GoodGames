@@ -117,9 +117,9 @@ function deleteCompetition(competitionId) {
         return;
     }
 
-    const requestUrl = "api/competitions/" + competitionId;
+    const requestUrl = "api/competitions/delete/" + competitionId;
 
-    ServerRequest.send("DELETE", requestUrl)
+    ServerRequest.send("GET", requestUrl)
         .then(data => console.log(data))
         .catch(err => console.log(err));
 }
