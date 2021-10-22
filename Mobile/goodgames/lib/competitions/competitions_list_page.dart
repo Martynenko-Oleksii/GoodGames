@@ -11,6 +11,7 @@ import '../../../home_screen.dart';
 import '../../../main.dart';
 import '../apptheme.dart';
 import '../getdata.dart';
+import 'competition_info.dart';
 
 class CompetitionsScreen extends StatefulWidget {
   final User user;
@@ -163,6 +164,16 @@ class _CompetitionsState extends State<CompetitionsScreen>
                                       listData: snapshot.data[index],
                                       animation: animation,
                                       animationController: animationController,
+                                      callBack: () {
+                                        Navigator.push<dynamic>(
+                                          context,
+                                          MaterialPageRoute<dynamic>(
+                                            builder: (BuildContext context) =>
+                                            CompetitionInfoScreen(comp: snapshot.data[index]),
+                                            //snapshot.data[index].navigateScreen,
+                                          ),
+                                        );
+                                      },
                                     );
                                   },
                                 );
@@ -219,9 +230,11 @@ class CompetitionListView extends StatelessWidget {
     required this.listData,
     required this.animationController,
     required this.animation,
+    required this.callBack,
   }) : super(key: key);
 
   final Competition listData;
+  final VoidCallback callBack;
   final AnimationController animationController;
   final Animation<double> animation;
 
@@ -307,6 +320,17 @@ class CompetitionListView extends StatelessWidget {
                             ),
                           ),
                         ],
+                      ),
+                      Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          splashColor: Colors.grey.withOpacity(0.2),
+                          borderRadius:
+                          const BorderRadius.all(Radius.circular(4.0)),
+                          onTap: () {
+                            callBack();
+                          },
+                        ),
                       ),
                     ],
                   ),

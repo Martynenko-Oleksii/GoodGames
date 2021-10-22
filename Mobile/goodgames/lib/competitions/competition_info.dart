@@ -11,8 +11,11 @@ import '../apptheme.dart';
 import '../getdata.dart';
 
 class CompetitionInfoScreen extends StatefulWidget {
+  final Competition comp;
+
   @override
   _CompetitionState createState() => _CompetitionState();
+  CompetitionInfoScreen({Key? key, required this.comp}) : super(key: key);
 }
 
 class _CompetitionState extends State<CompetitionInfoScreen>
@@ -58,7 +61,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
               new Container(
                 // alignment: Alignment(0.00, -0.50),
                 child: FutureBuilder(
-                    future: getDatahttp.getCompetition(1),
+                    future: getDatahttp.getCompetition(widget.comp.id!),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (!snapshot.hasData) {
                         return const SizedBox();
