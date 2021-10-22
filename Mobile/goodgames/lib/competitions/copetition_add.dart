@@ -18,7 +18,6 @@ class CompetitionAddPage extends StatefulWidget {
 }
 
 class _CompetitionAddState extends State<CompetitionAddPage> {
-
   final TextEditingController titleControl = TextEditingController();
   final TextEditingController sportControl = TextEditingController();
   final TextEditingController agelimitControl = TextEditingController();
@@ -27,6 +26,15 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
   bool isOpen = false;
   bool isPublic = false;
   final formKey = GlobalKey<FormState>();
+
+  Sport dropdownValueSport = new Sport(
+      id: 1,
+      title: "qweqweqwe",
+      hasTeam: false,
+      hasGrid: false,
+      competitorsLimit: 1,
+      hasTeamLimit: false,
+      teamLimit: 1);
 
   DateTime selectedDatestart = DateTime.now();
   DateTime selectedDateend = DateTime.now();
@@ -42,6 +50,7 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
         selectedDatestart = picked;
       });
   }
+
   Future<void> _selectDateend(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -68,36 +77,36 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
         ),
         body: Center(
             child: Container(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    stops: [
-                      0.1,
-                      0.3,
-                      0.8,
-                      0.9,
-                    ],
-                    colors: [
-                      Colors.orange.shade200,
-                      Colors.purple.shade100,
-                      Colors.indigo.shade200,
-                      Colors.lightBlue.shade200,
-                    ],
-                  )),
-              child: new Stack(
-                children: <Widget>[
-                  new Container(
-                    // alignment: Alignment(0.00, -0.50),
-                    child: new Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        new Container(
-                          // height: 300.0,
-                          // width: 400.0,
-                          //alignment: Alignment(0.00, -0.50),
-                          /*
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            stops: [
+              0.1,
+              0.3,
+              0.8,
+              0.9,
+            ],
+            colors: [
+              Colors.orange.shade200,
+              Colors.purple.shade100,
+              Colors.indigo.shade200,
+              Colors.lightBlue.shade200,
+            ],
+          )),
+          child: new Stack(
+            children: <Widget>[
+              new Container(
+                // alignment: Alignment(0.00, -0.50),
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    new Container(
+                      // height: 300.0,
+                      // width: 400.0,
+                      //alignment: Alignment(0.00, -0.50),
+                      /*
 
 
 
@@ -108,24 +117,24 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                         )
                     ),
                       */
-                          child: Form(
-                            key: formKey,
-                            child: new Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                new Padding(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: new Container(
-                                    // width: 275.0,
-                                    child: new TextFormField(
-                                      controller: titleControl,
-                                      decoration: new InputDecoration(
-                                        hintText: 'title',
-                                        filled: true,
-                                        fillColor: Colors.white70,
-                                      ),
-                                      /* validator: (value) {
+                      child: Form(
+                        key: formKey,
+                        child: new Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            new Padding(
+                              padding: EdgeInsets.all(5.0),
+                              child: new Container(
+                                // width: 275.0,
+                                child: new TextFormField(
+                                  controller: titleControl,
+                                  decoration: new InputDecoration(
+                                    hintText: 'title',
+                                    filled: true,
+                                    fillColor: Colors.white70,
+                                  ),
+                                  /* validator: (value) {
                                     if (value!.isEmpty ||
                                         !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
                                             .hasMatch(value)) {
@@ -134,50 +143,126 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                       return null;
                                     }
                                   },*/
+                                ),
+                              ),
+                            ),
+                            new Row(
+                              children: [
+                                new Checkbox(
+                                  checkColor: Colors.white,
+                                  fillColor: MaterialStateProperty.resolveWith(
+                                      getColor),
+                                  value: isOpen,
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      isOpen = value!;
+                                    });
+                                  },
+                                ),
+                                new Container(
+                                  // margin: const EdgeInsets.symmetric(vertical: 0.0),
+                                  padding: EdgeInsets.all(10.0),
+
+                                  child: new Text(
+                                    "isOpen",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: AppTheme.darkText,
+                                      fontWeight: FontWeight.w700,
                                     ),
                                   ),
                                 ),
-                                new Row(
-                                  children: [
-                                    new Checkbox(
-                                      checkColor: Colors.white,
-                                      fillColor: MaterialStateProperty
-                                          .resolveWith(
-                                          getColor),
-                                      value: isOpen,
-                                      onChanged: (bool? value) {
-                                        setState(() {
-                                          isOpen = value!;
-                                        });
-                                      },
+                              ],
+                            ),
+                            // TODO
+                            new Row(children: [
+                              new Container(
+                                padding: EdgeInsets.all(5.0),
+                                child: new DropdownButton<Sport>(
+                                  // value: dropdownValueSport,
+                                  hint: Text(
+                                    dropdownValueSport.title,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: AppTheme.darkText,
+                                      fontWeight: FontWeight.w700,
                                     ),
-                                    new Container(
-                                      // margin: const EdgeInsets.symmetric(vertical: 0.0),
-                                      padding: EdgeInsets.all(10.0),
-
-                                      child: new Text(
-                                        "isOpen",
+                                  ),
+                                  elevation: 16,
+                                  style: const TextStyle(color: Colors.green),
+                                  underline: Container(
+                                    height: 2,
+                                    color: Colors.green,
+                                  ),
+                                  onChanged: (Sport? newValue) {
+                                    setState(() {
+                                      dropdownValueSport = newValue!;
+                                    });
+                                  },
+                                  items: <Sport>[
+                                    new Sport(
+                                        id: 1,
+                                        title: "qweqweqwe",
+                                        hasTeam: false,
+                                        hasGrid: false,
+                                        competitorsLimit: 1,
+                                        hasTeamLimit: false,
+                                        teamLimit: 1),
+                                    new Sport(
+                                        id: 2,
+                                        title: "asdasd",
+                                        hasTeam: false,
+                                        hasGrid: false,
+                                        competitorsLimit: 1,
+                                        hasTeamLimit: false,
+                                        teamLimit: 1),
+                                    new Sport(
+                                        id: 3,
+                                        title: "adsdsa",
+                                        hasTeam: false,
+                                        hasGrid: false,
+                                        competitorsLimit: 1,
+                                        hasTeamLimit: false,
+                                        teamLimit: 1),
+                                  ].map<DropdownMenuItem<Sport>>((Sport value) {
+                                    return DropdownMenuItem<Sport>(
+                                      value: value,
+                                      child: Text(
+                                        value.title,
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: AppTheme.darkText,
                                           fontWeight: FontWeight.w700,
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    );
+                                  }).toList(),
                                 ),
-                                new Padding(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: new Container(
-                                    // width: 275.0,
-                                    child: new TextFormField(
-                                      controller: sportControl,
-                                      decoration: new InputDecoration(
-                                        hintText: 'sport',
-                                        filled: true,
-                                        fillColor: Colors.white70,
-                                      ),
-                                      /* validator: (value) {
+                              ),
+                              new Container(
+                                child: new Text(
+                                  "sport",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppTheme.darkText,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              )
+                            ]),
+
+                            new Padding(
+                              padding: EdgeInsets.all(5.0),
+                              child: new Container(
+                                // width: 275.0,
+                                child: new TextFormField(
+                                  controller: agelimitControl,
+                                  decoration: new InputDecoration(
+                                    hintText: 'ageLimit',
+                                    filled: true,
+                                    fillColor: Colors.white70,
+                                  ),
+                                  /* validator: (value) {
                                     if (value!.isEmpty ||
                                         !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
                                             .hasMatch(value)) {
@@ -186,21 +271,21 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                       return null;
                                     }
                                   },*/
-                                    ),
-                                  ),
                                 ),
-                                new Padding(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: new Container(
-                                    // width: 275.0,
-                                    child: new TextFormField(
-                                      controller: agelimitControl,
-                                      decoration: new InputDecoration(
-                                        hintText: 'ageLimit',
-                                        filled: true,
-                                        fillColor: Colors.white70,
-                                      ),
-                                      /* validator: (value) {
+                              ),
+                            ),
+                            new Padding(
+                              padding: EdgeInsets.all(5.0),
+                              child: new Container(
+                                // width: 275.0,
+                                child: new TextFormField(
+                                  controller: cityControl,
+                                  decoration: new InputDecoration(
+                                    hintText: 'city',
+                                    filled: true,
+                                    fillColor: Colors.white70,
+                                  ),
+                                  /* validator: (value) {
                                     if (value!.isEmpty ||
                                         !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
                                             .hasMatch(value)) {
@@ -209,96 +294,70 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                       return null;
                                     }
                                   },*/
-                                    ),
-                                  ),
                                 ),
-                                new Padding(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: new Container(
-                                    // width: 275.0,
-                                    child: new TextFormField(
-                                      controller: cityControl,
-                                      decoration: new InputDecoration(
-                                        hintText: 'city',
-                                        filled: true,
-                                        fillColor: Colors.white70,
-                                      ),
-                                      /* validator: (value) {
-                                    if (value!.isEmpty ||
-                                        !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-                                            .hasMatch(value)) {
-                                      return "Enter Correct Email Address";
-                                    } else {
-                                      return null;
-                                    }
-                                  },*/
-                                    ),
-                                  ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(5.0),
+                              child: new Row(children: [
+                                RaisedButton(
+                                  onPressed: () => _selectDatestart(context),
+                                  child: Text('Select startDate'),
                                 ),
                                 Container(
                                   padding: EdgeInsets.all(5.0),
-                                  child: new Row(children: [
-                                    RaisedButton(
-
-                                      onPressed: () => _selectDatestart(context),
-                                      child: Text('Select startDate'),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.all(5.0),
-                                      child: Text(
-                                        "${selectedDatestart.toLocal()}".split(
-                                            ' ')[0],
-                                      ),
-                                    ),
-                                  ]),
+                                  child: Text(
+                                    "${selectedDatestart.toLocal()}"
+                                        .split(' ')[0],
+                                  ),
+                                ),
+                              ]),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(5.0),
+                              child: new Row(children: [
+                                RaisedButton(
+                                  onPressed: () => _selectDateend(context),
+                                  child: Text('Select endDate'),
                                 ),
                                 Container(
                                   padding: EdgeInsets.all(5.0),
-                                  child: new Row(children: [
-                                    RaisedButton(
-
-                                      onPressed: () => _selectDateend(context),
-                                      child: Text('Select endDate'),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.all(5.0),
-                                      child: Text(
-                                        "${selectedDateend.toLocal()}".split(
-                                            ' ')[0],
-                                      ),
-                                    ),
-                                  ]),
+                                  child: Text(
+                                    "${selectedDateend.toLocal()}"
+                                        .split(' ')[0],
+                                  ),
                                 ),
-                                new Row(
-                                  children: [
-                                    new Checkbox(
-                                      checkColor: Colors.white,
-                                      fillColor: MaterialStateProperty
-                                          .resolveWith(
-                                          getColor),
-                                      value: isOpen,
-                                      onChanged: (bool? value) {
-                                        setState(() {
-                                          isOpen = value!;
-                                        });
-                                      },
-                                    ),
-                                    new Container(
-                                      // margin: const EdgeInsets.symmetric(vertical: 0.0),
-                                      padding: EdgeInsets.all(10.0),
-
-                                      child: new Text(
-                                        "isPublic",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: AppTheme.darkText,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                              ]),
+                            ),
+                            new Row(
+                              children: [
+                                new Checkbox(
+                                  checkColor: Colors.white,
+                                  fillColor: MaterialStateProperty.resolveWith(
+                                      getColor),
+                                  value: isOpen,
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      isOpen = value!;
+                                    });
+                                  },
                                 ),
-                                /*new Padding(
+                                new Container(
+                                  // margin: const EdgeInsets.symmetric(vertical: 0.0),
+                                  padding: EdgeInsets.all(10.0),
+
+                                  child: new Text(
+                                    "isPublic",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: AppTheme.darkText,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            /*new Padding(
                                   padding: EdgeInsets.all(5.0),
                                   child: new Container(
                                     // width: 275.0,
@@ -321,7 +380,7 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                     ),
                                   ),
                                 ),*/
-                                /* new Container(
+                            /* new Container(
                                   //margin: const EdgeInsets.only( bottom: 150.0),
                                   child: new Row(
                                     //crossAxisAlignment: CrossAxisAlignment.center,
@@ -379,54 +438,54 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                     ],
                                   ),
                                 ),*/
-                              ],
-                            ),
-                          ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                  new Expanded(
-                    child: new Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        new Container(
-                          //margin: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: new RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                            ),
-                            child: new Text("Create"),
-                            onPressed: () {
-                              getDatahttp.postNewCompetition(
-                                  titleControl.text,
-                                  isOpen,
-                                 // sportId TODO,
-                                  1,
-                                  agelimitControl.text,
-                                  cityControl.text,
-                                  selectedDatestart,
-                                  selectedDateend,
-                                  isPublic,
-                                  widget.user.id!);
-                              Navigator.push<dynamic>(
-                                context,
-                                MaterialPageRoute<dynamic>(
-                                  builder: (BuildContext context) =>
-                                      RegistPage(),
-                                ),
-                              );
-                            },
-                            color: Colors.redAccent.shade200,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            )));
+              new Expanded(
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    new Container(
+                      //margin: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: new RaisedButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ),
+                        child: new Text("Create"),
+                        onPressed: () {
+                          getDatahttp.postNewCompetition(
+                              titleControl.text,
+                              isOpen,
+                              // sportId TODO,
+                              dropdownValueSport.id,
+                              agelimitControl.text,
+                              cityControl.text,
+                              selectedDatestart,
+                              selectedDateend,
+                              isPublic,
+                              widget.user.id!
+                              );
+                          Navigator.push<dynamic>(
+                            context,
+                            MaterialPageRoute<dynamic>(
+                              builder: (BuildContext context) => RegistPage(),
+                            ),
+                          );
+                        },
+                        color: Colors.redAccent.shade200,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        )));
   }
 
   Color getColor(Set<MaterialState> states) {
