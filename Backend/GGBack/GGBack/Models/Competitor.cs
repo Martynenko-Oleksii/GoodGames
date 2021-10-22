@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace GGBack.Models
@@ -27,6 +28,7 @@ namespace GGBack.Models
         [MaxLength(30)]
         public string Team { get; set; }
 
+        [JsonIgnore]
         public List<Competition> Competitions { get; set; }
     }
 }

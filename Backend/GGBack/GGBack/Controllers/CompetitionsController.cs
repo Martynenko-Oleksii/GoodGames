@@ -74,6 +74,29 @@ namespace GGBack.Controllers
                 .ToListAsync();
         }
 
+        [Route("api/competitions/delete/{competitionId}")]
+        [HttpGet]
+        public async Task<ActionResult<Competition>> Get(int competitionId)
+        {
+            if (competitionId == 0)
+            {
+                return BadRequest("invalid competition id");
+            }
+
+            Competition competiotion = context.Competitions
+                .FirstOrDefault(c => c.Id == competitionId);
+
+            if (competiotion == null)
+            {
+                return NotFound("Competition does not exist");
+            }
+
+            context.Competitions.Remove(competiotion);
+            await context.SaveChangesAsync();
+
+            return Ok(competiotion);
+        }
+
         [Route("api/competitions/create")]
         [HttpPost]
         public async Task<ActionResult<Competition>> PostNewCompetition(Competition competition)
