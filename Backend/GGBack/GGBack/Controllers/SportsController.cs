@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GGBack.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
     public class SportsController : ControllerBase
     {
@@ -24,14 +25,28 @@ namespace GGBack.Controllers
             this.context = context;
         }
 
-        [Route("api/sports")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Sport>>> Get()
         {
             return await context.Sports.ToListAsync();
         }
 
-        [Route("api/spotrs/add")]
+        [HttpGet("{userId}")]
+        public async Task<ActionResult<IEnumerable<Sport>>> Get(int userId)
+        {
+            User user = context.Users
+                .Include(u => u.Sports)
+                .Where(u => u.Id == userId)
+                .ToList().FirstOrDefault();
+
+            if (user == null)
+            {
+                return NotFound($"Not found user with id: {userId}");
+            }
+
+            return Ok(user.Sports);
+        }
+
         [HttpPost]
         public async Task<ActionResult<Sport>> PostNewSport(Sport sport)
         {
