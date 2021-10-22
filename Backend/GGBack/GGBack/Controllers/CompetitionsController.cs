@@ -54,7 +54,7 @@ namespace GGBack.Controllers
                         Id = c.User.Id
                     },
                     StreamUrl = c.StreamUrl,
-                    State = c.StreamUrl
+                    State = c.State
                 })
                 .ToListAsync();
         }
