@@ -177,21 +177,18 @@ class _RegistState extends State<RegistPage> {
                               ),
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
-                                  //check if form data are valid,
-                                  // your process task ahed if all data are valid
                                   getDatahttp.postDateRegister(
                                             nameControl.text,
                                             loginControl.text,
-                                            passControl.text);
-
+                                            passControl.text)
+                                      .then((value) =>
                                       Navigator.push<dynamic>(
                                         context,
                                         MaterialPageRoute<dynamic>(
                                           builder: (BuildContext context) =>
-                                              ProfileScreen(),
+                                              ProfileScreen(user: value),
                                         ),
-                                      );
-                                  print(1);
+                                       ));
                                 }
                               },
                               color: Colors.orange,

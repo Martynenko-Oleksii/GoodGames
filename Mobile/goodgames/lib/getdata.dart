@@ -199,6 +199,83 @@ class getDatahttp {
 
     return competition!;
   }
+
+  static Future<Competition> getCompetition(int competitionId) async{
+    Competition? competition;
+
+    try {
+      var response = await http.get(
+          Uri.https("goodgames.kh.ua", "api/competitions/$competitionId"),
+          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
+      );
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+        //print(jsonData[0]["competitors"]);
+
+        competition = Competition(
+          id: jsonData[0]["id"],
+          title: jsonData[0]["title"],
+          isOpen: jsonData[0]["isOpen"],
+          /*sport: Sport(
+              id: jsonData[0]["sport"]["id"],
+              title: jsonData[0]["sport"]["title"],
+              hasTeam: jsonData[0]["sport"]["hasTeam"],
+              hasGrid: jsonData[0]["sport"]["hasGrid"],
+              competitorsLimit: jsonData[0]["sport"]["competitorsLimit"],
+              hasTeamLimit: jsonData[0]["sport"]["hasTeamLimit"],
+              teamLimit: jsonData[0]["sport"]["teamLimit"]
+          ),*/
+          ageLimit: jsonData[0]["ageLimit"],
+          city: jsonData[0]["city"],
+          startDate: DateTime.parse(
+              jsonData[0]["startDate"]
+                  .toString()
+                  .substring(0, 10) + " " +
+                  jsonData[0]["startDate"]
+                      .toString()
+                      .substring(11)),
+          endDate: DateTime.parse(
+              jsonData[0]["endDate"]
+                  .toString()
+                  .substring(0, 10) + " " +
+                  jsonData[0]["endDate"]
+                      .toString()
+                      .substring(11)),
+          isPublic: jsonData[0]["isPublic"],
+          user: User(
+            id: jsonData[0]["user"]["id"]
+          ),
+          streamUrl: jsonData[0]["streamUrl"],
+          state: jsonData[0]["state"]
+        );
+
+        List<Competitor> competitors = [];
+        for (var c in jsonData[0]["competitors"]) {
+          competitors.add(Competitor(
+              id: c["id"],
+              name: c["name"],
+              email: c["email"],
+              age: c["age"],
+              gender: c["gender"],
+              weigth: c["weigth"],
+              healthState: c["healthState"],
+              team: c["team"]
+          ));
+        }
+
+        competition.competitors = competitors;
+      } else {
+        print(response.body);
+      }
+    } catch (ex) {
+      print(ex);
+    }
+
+    //print(competition);
+
+    return competition!;
+  }
 }
 
 

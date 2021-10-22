@@ -9,6 +9,10 @@ import '../../../main.dart';
 import '../apptheme.dart';
 
 class ProfileScreen extends StatefulWidget {
+  final User user;
+
+  ProfileScreen({Key? key, required this.user}) : super(key: key);
+
   @override
   _ProfileState createState() => _ProfileState();
 }
@@ -116,7 +120,7 @@ class _ProfileState extends State<ProfileScreen>
                                 width: 200,
                                 height: 50,
                                 child: new Text(
-                                  "name",
+                                  widget.user.login!,
                                   style: TextStyle(
                                     fontSize: 22,
                                     color: AppTheme.darkText,
@@ -132,7 +136,7 @@ class _ProfileState extends State<ProfileScreen>
                                   width: 200,
                                   height: 50,
                                   child: new Text(
-                                    "email",
+                                    widget.user.email!,
                                     style: TextStyle(
                                       fontSize: 22,
                                       color: AppTheme.darkText,
@@ -152,7 +156,7 @@ class _ProfileState extends State<ProfileScreen>
                       height: 30,
                       child: new Row(children: <Widget>[
                         new Text(
-                          "podpicka",
+                          "subscribe",
                           style: TextStyle(
                             fontSize: 22,
                             color: AppTheme.darkText,
