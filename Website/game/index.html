@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="uk">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GoodGames - змагання</title>
+
+        <!-- ===== CSS ===== -->
+        <link rel="stylesheet" href="/assets/css/plugins.css">
+        <link rel="stylesheet" href="/assets/css/game.css">
+        <link rel="stylesheet" href="/assets/css/modules-widgets.css">
+        <link rel="stylesheet" href="/assets/css/plugins/calendar.css">
+        <!-- Bootstrap 5 --><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+        <!-- Landrick --><link href="/assets/css/Landrick.css" rel="stylesheet" type="text/css" id="theme-opt" />
+        <!-- Наш стиль --><link rel="stylesheet" href="/assets/css/styles.css">
+
+        <script src="/assets/js/js.cookie.js"></script>
+    </head>
+    <body id="body-pd">
+
+        
+        <!-- ===== PRELOADER ===== -->
+        <div class="preloader">
+            <svg class="pl" viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="pl-grad1" x1="1" y1="0.5" x2="0" y2="0.5">
+                        <stop offset="0%" stop-color="hsl(313,90%,55%)" />
+                        <stop offset="100%" stop-color="hsl(223,90%,55%)" />
+                    </linearGradient>
+                    <linearGradient id="pl-grad2" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="hsl(313,90%,55%)" />
+                        <stop offset="100%" stop-color="hsl(223,90%,55%)" />
+                    </linearGradient>
+                </defs>
+                <circle class="pl__ring" cx="100" cy="100" r="82" fill="none" stroke="url(#pl-grad1)" stroke-width="36" stroke-dasharray="0 257 1 257" stroke-dashoffset="0.01" stroke-linecap="round" transform="rotate(-90,100,100)" />
+                <line class="pl__ball" stroke="url(#pl-grad2)" x1="100" y1="18" x2="100.01" y2="182" stroke-width="36" stroke-dasharray="1 165" stroke-linecap="round" />
+            </svg>
+        </div>
+
+
+        <!-- ===== Навигация ===== -->
+
+        <div class="l-navbar" id="navbar">
+            <nav class="nav">
+                <div>
+                    <div class="nav__brand">
+                        <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
+                        <a class="nav__logo">GoodGames</a>
+                    </div>
+                    <div class="nav__list">
+                        <a href="/" class="nav__link">
+                            <ion-icon name="home-outline" class="nav__icon"></ion-icon>
+                            <span class="nav__name" id="home">Головна</span>
+                        </a>
+
+                        <a href="#" class="nav__link">
+                            <ion-icon name="videocam-outline" class="nav__icon"></ion-icon>
+                            <span class="nav__name" id="live">Трансляції</span>
+                        </a>
+
+                        <a href="#" class="nav__link" id="sport">
+                            <ion-icon name="baseball-outline" class="nav__icon"></ion-icon>
+                            <span class="nav__name" id="sport">Змагання</span>
+                        </a>
+
+                        <a href="#" class="nav__link">
+                            <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
+                            <span class="nav__name" id="settings">Налаштування</span>
+                        </a>
+
+                        <span class="mobile">
+                            <a class="nav__link" id="open-modal" onclick="document.getElementById('modal').style.zIndex = 1000"> 
+                                <ion-icon name="grid-outline" class="nav__icon"></ion-icon>
+                                <span class="nav__name" id="login_m">Профіль</span>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <a class="nav__link pc" id="profile_buttom" onclick="document.getElementById('open-modal').click();">
+                    <ion-icon name="grid-outline" class="nav__icon"></ion-icon>
+                    <span class="nav__name" id="login">Профіль</span>
+                </a>
+            </nav>
+        </div>
+        
+        <!-- ===== Контент ===== -->
+        <div>
+            <div class="main-content">
+                <div class="head_page" >
+                    <div class="theme_back">
+                        <div class="row" style="flex-wrap: inherit;">
+                            <h3 style="padding-top: 5px; padding-left: 10px;" id="profile_text">Змагання</h3>
+                            <button class="icon-button" style="z-index: 0; margin-right: 10px; display: flex; right: 50px; position: absolute;">
+                                <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  BEGIN MAIN CONTAINER  -->
+    <div class="main-container" id="container">
+        <!--  BEGIN CONTENT AREA  -->
+        <div id="content" class="main-content" style="margin-left: 0px;">
+            <div class="layout-px-spacing">
+
+                <div class="row layout-spacing">
+
+                    <!-- Content -->
+                    <div class="col-xl-4 col-lg-6 col-md-5 col-sm-12 layout-top-spacing">
+
+                        <div class="user-profile layout-spacing">
+                            <div class="widget-content widget-content-area">
+                                <div class="d-flex justify-content-between">
+                                    <h3 class="">Інформація</h3>
+                                </div>
+                                <div class="text-center user-info">
+                                    <img src="https://img.icons8.com/fluency/48/000000/counter-strike.png" alt="avatar">
+                                    <p class="">{НАЗВА ЗМАГАННЯ}</p>
+                                </div>
+                                <div class="user-info-list">
+
+                                    <div>
+                                        <ul class="contacts-block list-unstyled">
+                                            <li class="contacts-block__item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> {Организатор}
+                                            </li>
+                                            <li class="contacts-block__item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg> {Место проведения}
+                                            </li>
+                                        </ul>
+                                    </div>                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="layout-spacing">
+                            <div class="widget widget-account-invoice-two">
+                                <div class="widget-content">
+                                    <div class="account-box">
+                                        <div class="info">
+                                            <div class="inv-title">
+                                                <h5 class="">Кількість участників</h5>
+                                            </div>
+                                            <div class="inv-balance-info">
+    
+                                                <p class="inv-balance">3</p>
+                                                
+                                                <span class="inv-stats balance-credited">Premium</span>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="acc-action">
+                                            <div class="">
+                                                <a href="javascript:void(0);">Надіслати запрошення</a>
+                                            </div>
+                                            <a href="javascript:void(0);">Запросити участь</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="education layout-spacing ">
+                            <div class="widget-content widget-content-area">
+                                <h3 class="">Посилання</h3>
+                                <div class="timeline-alter">
+                                    <a href="#" class="buttom">Пряма трансляція</a><br>
+                                    <a href="#" class="buttom">Офіційна веб-сторінка</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="work-experience layout-spacing ">
+                            
+                            <div class="widget-content widget-content-area">
+
+                                <h3 class="">Останні дії</h3>
+                                
+                                <div class="timeline-alter">
+                                
+                                    <div class="item-timeline">
+                                        <div class="t-meta-date">
+                                            <p class="">22 Окт 2021</p>
+                                        </div>
+                                        <div class="t-dot">
+                                        </div>
+                                        <div class="t-text">
+                                            <p>Створено змагання</p>
+                                            <p>Організатор</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="item-timeline">
+                                        <div class="t-meta-date">
+                                            <p class="">22 Окт 2021</p>
+                                        </div>
+                                        <div class="t-dot">
+                                        </div>
+                                        <div class="t-text">
+                                            <p>Новий участник.</p>
+                                            <p>Simple</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-8 col-lg-6 col-md-7 col-sm-12 layout-top-spacing">
+
+                        <div class="layout-spacing">
+                            <div class="widget widget-card-four">
+                                <div class="widget-content">
+                                    <div class="w-header">
+                                        <div class="w-info">
+                                            <h6 class="value">Детальна інформація</h6>
+                                        </div>
+                                    </div>
+    
+                                    <div class="w-content">
+    
+                                        <div class="w-info">
+                                            <span>Вид спорта:<p class="value">Кіберспорт</p></span>
+                                            <p class="value">3 / 10 <span>членів</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trending-up"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></p>
+                                        </div>
+                                        
+                                    </div>
+    
+                                    <div class="w-progress-stats">
+                                        <p></p>                                    
+                                        <div class="progress">
+                                            <div class="progress-bar bg-gradient-secondary" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+    
+                                        <div style="width: 70px;">
+                                            <div class="w-icon">
+                                                <p>3 / 10</p>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        <div class="skills layout-spacing ">
+                            <div class="widget-content widget-content-area">
+                                <h3 class="">Опис змагання</h3>
+                                <p>{Опис змагання}</p>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing" style="width: 100%;">
+                            <div class="widget widget-table-two">
+    
+                                <div class="widget-heading">
+                                    <h5 class="">Учасники</h5>
+                                </div>
+    
+                                <div class="widget-content">
+                                    <div class="table-responsive" style="max-height: 300px; overflow-y:auto;">
+                                        <table class="table" style="overflow: hidden; max-height: 350px;">
+                                            <thead>
+                                                <tr>
+                                                    <th><div class="th-content">Ім'я</div></th>
+                                                    <th><div class="th-content">Роль</div></th>
+                                                    <th><div class="th-content">Статус</div></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>                                        
+                                                <tr>
+                                                    <td><div class="td-content customer-name"><img src="/assets/images/user-48.png" alt="avatar"><span>Олег</span></div></td>
+                                                    <td><div class="td-content product-brand text-warning">Жертва</div></td>
+                                                    <td><div class="td-content"><span class="badge badge-success">Грає</span></div></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><div class="td-content customer-name"><img src="/assets/images/user-48.png" alt="avatar"><span>Максим</span></div></td>
+                                                    <td><div class="td-content product-brand text-primary">Командир</div></td>
+                                                    <td><div class="td-content"><span class="badge badge-success">Грає</span></div></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><div class="td-content customer-name"><img src="/assets/images/user-48.png" alt="avatar"><span>Влад</span></div></td>
+                                                    <td><div class="td-content product-brand text-danger">Шпіон</div></td>
+                                                    <td><div class="td-content"><span class="badge badge-primary">Модерація</span></div></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skills layout-spacing ">
+                            <div class="widget-content widget-content-area">
+                                <h3 class="">Турнірна сітка</h3>
+                                
+                                <div style="width: 100%; height: 400px; background-color: rgb(119, 119, 119);">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!--  END CONTENT AREA  -->
+    </div>
+    <!-- END MAIN CONTAINER -->
+
+        <footer class="site-footer">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                  <h6>Про нас</h6>
+                  <p class="text-justify">ХТО Я?</p>
+                </div>
+      
+                <div class="col-xs-6 col-md-3">
+                  <h6>Змагання</h6>
+                  <ul class="footer-links">
+                    <li><a href="#">Стрічка новин</a></li>
+                    <li><a href="#">Прямі трансляції</a></li>
+                    <li><a href="#">Мій профіль</a></li>
+                  </ul>
+                </div>
+      
+                <div class="col-xs-6 col-md-3">
+                  <h6>Інша інфорація</h6>
+                  <ul class="footer-links">
+                    <li><a href="#">Розробники</a></li>
+                    <li><a href="#">Контакти</a></li>
+                  </ul>
+                </div>
+              </div>
+              <hr>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                  <p class="copyright-text">Copyright &copy; 2021 All Rights Reserved by GoodGames.</p>
+                </div>
+      
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <a class="a" href="#">Мобільний додаток<ion-icon name="logo-android" style="margin-left: 5px;"></ion-icon></a>.
+                </div>
+              </div>
+            </div>
+      </footer>
+
+      <section class="modal" id="modal">
+                        
+        <div class="modal__container" id="modal-container">
+            <div class="modal__content">
+                <div class="modal__close close-modal" title="Close" onclick="document.getElementById('modal').style.zIndex = -1000">
+                    <ion-icon name="close-outline"></ion-icon>
+                </div>
+
+                <div>
+                    <div class="row">
+                        <div class="col-6 mt-4 pt-2">
+                            <a href="/profile/" class="accounts rounded d-block shadow text-center py-3">
+                                <span class="pro-icons h3 text-muted"><ion-icon name="person-outline"></ion-icon></span>
+                                <h6 class="title text-dark h6 my-0">Мій профіль</h6>
+                            </a>
+                        </div><!--end col-->
+
+                        <div class="col-6 mt-4 pt-2">
+                            <a href="#Sport" class="accounts rounded d-block shadow text-center py-3">
+                                <span class="pro-icons h3 text-muted"><ion-icon name="stats-chart-outline"></ion-icon></span>
+                                <h6 class="title text-dark h6 my-0">Мої турніри</h6>
+                            </a>
+                        </div><!--end col-->
+
+
+                        <div class="col-6 mt-4 pt-2">
+                            <a href="#Settings" class="accounts rounded d-block shadow text-center py-3">
+                                <span class="pro-icons h3 text-muted"><ion-icon name="settings-outline"></ion-icon></span>
+                                <h6 class="title text-dark h6 my-0">Налаштування</h6>
+                            </a>
+                        </div><!--end col-->
+
+                        <div class="col-6 mt-4 pt-2" onclick="exit_login();">
+                            <a href="#Exit" class="accounts rounded d-block shadow text-center py-3">
+                                <span class="pro-icons h3 text-muted"><ion-icon name="exit-outline"></ion-icon></span>
+                                <h6 class="title text-dark h6 my-0">Вийти з акаунту</h6>
+                            </a>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- ===== Иконки ===== -->
+        <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+        
+        <!-- ===== MAIN JS ===== -->
+        <script src="/assets/js/main.js"></script>
+
+        <script>
+            document.getElementById("sport").classList.add('active');
+        </script>
+    </body>
+</html>

@@ -1,0 +1,13 @@
+@import url('cork_main.css');
+@import url('plugins/perfect-scrollbar.css');
+@import url('cork_structure.css');
+/*
+    Importing highlight.js CSS code 
+
+    Just for demo purpose only
+	
+	@Note:-  monokai-sublime.css stylesheet is for highliting the code;
+
+*/
+@import 'plugins/monokai-sublime.css';
+
