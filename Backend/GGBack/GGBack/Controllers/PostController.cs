@@ -13,6 +13,7 @@ using System.Net;
 
 namespace GGBack.Controllers
 {
+    /*
     [ApiController]
     public class PostController : Controller
     {
@@ -90,5 +91,5 @@ namespace GGBack.Controllers
             await context.SaveChangesAsync();
             return Ok(invition);
         }
-    }
+    }*/
 }

@@ -104,6 +104,7 @@ namespace GGBack.Controllers
             try
             {
                 competition.User = context.Users.Find(competition.User.Id);
+                competition.Sport = context.Sports.Find(competition.Sport.Id);
             }
             catch (Exception ex)
             {
@@ -132,6 +133,8 @@ namespace GGBack.Controllers
 
             competition.State = "planned";
 
+            Competition res = new Competition { Id = competition.Id, Title = competition.Title };
+
             try
             {
 
@@ -143,7 +146,7 @@ namespace GGBack.Controllers
                 return BadRequest(ex.InnerException);
             }
 
-            return Ok(new Competition { Id = competition.Id, Title = competition.Title });
+            return Ok(res);
         }
 
         [Route("api/competitions/delete/{competitionId}")]
