@@ -137,7 +137,7 @@ class _CompetitionsState extends State<CompetitionsScreen>
                         new Container(
                           height: MediaQuery.of(context).size.height - 360,
                           child: FutureBuilder(
-                            future: getDatahttp.getCompetitions(1),
+                            future: getDatahttp.getCompetitions(widget.user.id!),
                             builder:
                                 (BuildContext context, AsyncSnapshot snapshot) {
                               if (!snapshot.hasData) {
@@ -278,7 +278,25 @@ class CompetitionListView extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Expanded(
+                                ButtonTheme(
+                                  minWidth: 250.0,
+                                  child: RaisedButton(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                    ),
+                                    child: new Text(listData.title!),
+                                    onPressed: () {
+                                      Navigator.push<dynamic>(
+                                        context,
+                                        MaterialPageRoute<dynamic>(
+                                          builder: (BuildContext context) => CompetitionInfoScreen(comp: listData,),
+                                        ),
+                                      );
+                                    },
+                                    color: Colors.blue.shade200,
+                                  ),
+                                ),
+                                /*Expanded(
                                   child: Container(
                                     child: Padding(
                                       padding: const EdgeInsets.only(
@@ -303,7 +321,7 @@ class CompetitionListView extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                ),
+                                ),*/
                                 new RaisedButton(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0),
