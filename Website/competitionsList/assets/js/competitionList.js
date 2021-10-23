@@ -119,7 +119,7 @@ function deleteCompetition(competitionId) {
         return;
     }
 
-    const requestUrl = "api/competitions/delete/" + competitionId;
+    const requestUrl = "/api/competitions/delete/" + competitionId;
 
     ServerRequest.send("GET", requestUrl)
         .then(data => console.log(data))
