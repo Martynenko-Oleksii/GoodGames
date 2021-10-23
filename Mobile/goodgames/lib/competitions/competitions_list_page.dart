@@ -12,6 +12,7 @@ import '../../../main.dart';
 import '../apptheme.dart';
 import '../getdata.dart';
 import 'competition_info.dart';
+import 'copetition_add.dart';
 
 class CompetitionsScreen extends StatefulWidget {
   final User user;
@@ -122,7 +123,7 @@ class _CompetitionsState extends State<CompetitionsScreen>
                                   context,
                                   MaterialPageRoute<dynamic>(
                                     builder: (BuildContext context) =>
-                                        MyApp(),
+                                        CompetitionAddPage(user: widget.user),
                                   ),
                                 );
                               },
@@ -136,7 +137,7 @@ class _CompetitionsState extends State<CompetitionsScreen>
                         new Container(
                           height: MediaQuery.of(context).size.height - 360,
                           child: FutureBuilder(
-                            future: getDatahttp.getCompetitions(widget.user.id!),
+                            future: getDatahttp.getCompetitions(1),
                             builder:
                                 (BuildContext context, AsyncSnapshot snapshot) {
                               if (!snapshot.hasData) {
@@ -162,9 +163,10 @@ class _CompetitionsState extends State<CompetitionsScreen>
 
                                     return CompetitionListView(
                                       listData: snapshot.data[index],
+                                      user: widget.user,
                                       animation: animation,
                                       animationController: animationController,
-                                      callBack: () {
+                                      /*callBack: () {
                                         Navigator.push<dynamic>(
                                           context,
                                           MaterialPageRoute<dynamic>(
@@ -173,7 +175,7 @@ class _CompetitionsState extends State<CompetitionsScreen>
                                             //snapshot.data[index].navigateScreen,
                                           ),
                                         );
-                                      },
+                                      },*/
                                     );
                                   },
                                 );
@@ -228,13 +230,15 @@ class CompetitionListView extends StatelessWidget {
   const CompetitionListView({
     Key? key,
     required this.listData,
+    required this.user,
     required this.animationController,
     required this.animation,
-    required this.callBack,
+    //required this.callBack,
   }) : super(key: key);
 
   final Competition listData;
-  final VoidCallback callBack;
+  final User user;
+  //final VoidCallback callBack;
   final AnimationController animationController;
   final Animation<double> animation;
 
@@ -306,13 +310,27 @@ class CompetitionListView extends StatelessWidget {
                                   ),
                                   child: Icon(Icons.dangerous),
                                   onPressed: () {
-                                    Navigator.push<dynamic>(
+
+                                    getDatahttp.deleteCompetition(listData.id!)
+                                        .then(
+                                            (value) => {
+                                              if (value.id == listData.id) {
+                                                Navigator.push<dynamic>(
+                                                  context,
+                                                  MaterialPageRoute<dynamic>(
+                                                    builder: (BuildContext context) => CompetitionsScreen(user: user),
+                                                  ),
+                                                )
+                                              }
+                                            });
+
+                                    /*Navigator.push<dynamic>(
                                       context,
                                       MaterialPageRoute<dynamic>(
                                         builder: (BuildContext context) =>
                                             RegistPage(),
                                       ),
-                                    );
+                                    );*/
                                   },
                                   color: Colors.redAccent.shade200,
                                 ),
@@ -321,7 +339,7 @@ class CompetitionListView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Material(
+                      /*Material(
                         color: Colors.transparent,
                         child: InkWell(
                           splashColor: Colors.grey.withOpacity(0.2),
@@ -331,7 +349,7 @@ class CompetitionListView extends StatelessWidget {
                             callBack();
                           },
                         ),
-                      ),
+                      ),*/
                     ],
                   ),
                 ),

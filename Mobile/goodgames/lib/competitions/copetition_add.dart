@@ -7,6 +7,7 @@ import '../../../home_screen.dart';
 import '../../../main.dart';
 import '../../../getdata.dart';
 import '../apptheme.dart';
+import 'competitions_list_page.dart';
 
 class CompetitionAddPage extends StatefulWidget {
   @override
@@ -39,6 +40,8 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
   DateTime selectedDatestart = DateTime.now();
   DateTime selectedDateend = DateTime.now();
 
+  List<Sport> sports = [];
+
   Future<void> _selectDatestart(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -61,6 +64,14 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
       setState(() {
         selectedDateend = picked;
       });
+  }
+
+  @override
+  void initState() {
+    getDatahttp.getSports()
+        .then((value) => sports = value);
+
+    super.initState();
   }
 
   @override
@@ -199,32 +210,7 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                       dropdownValueSport = newValue!;
                                     });
                                   },
-                                  items: <Sport>[
-                                    new Sport(
-                                        id: 1,
-                                        title: "qweqweqwe",
-                                        hasTeam: false,
-                                        hasGrid: false,
-                                        competitorsLimit: 1,
-                                        hasTeamLimit: false,
-                                        teamLimit: 1),
-                                    new Sport(
-                                        id: 2,
-                                        title: "asdasd",
-                                        hasTeam: false,
-                                        hasGrid: false,
-                                        competitorsLimit: 1,
-                                        hasTeamLimit: false,
-                                        teamLimit: 1),
-                                    new Sport(
-                                        id: 3,
-                                        title: "adsdsa",
-                                        hasTeam: false,
-                                        hasGrid: false,
-                                        competitorsLimit: 1,
-                                        hasTeamLimit: false,
-                                        teamLimit: 1),
-                                  ].map<DropdownMenuItem<Sport>>((Sport value) {
+                                  items: sports.map<DropdownMenuItem<Sport>>((Sport value) {
                                     return DropdownMenuItem<Sport>(
                                       value: value,
                                       child: Text(
@@ -335,10 +321,10 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                   checkColor: Colors.white,
                                   fillColor: MaterialStateProperty.resolveWith(
                                       getColor),
-                                  value: isOpen,
+                                  value: isPublic,
                                   onChanged: (bool? value) {
                                     setState(() {
-                                      isOpen = value!;
+                                      isPublic = value!;
                                     });
                                   },
                                 ),
@@ -469,13 +455,18 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                               selectedDateend,
                               isPublic,
                               widget.user.id!
-                              );
-                          Navigator.push<dynamic>(
-                            context,
-                            MaterialPageRoute<dynamic>(
-                              builder: (BuildContext context) => RegistPage(),
-                            ),
-                          );
+                              ).then((value) => {
+                                if (value.title == titleControl.text) {
+                                  print(value),
+
+                                  Navigator.push<dynamic>(
+                                    context,
+                                    MaterialPageRoute<dynamic>(
+                                      builder: (BuildContext context) => CompetitionsScreen(user: widget.user),
+                                    ),
+                                  )
+                                }
+                              });
                         },
                         color: Colors.redAccent.shade200,
                       ),

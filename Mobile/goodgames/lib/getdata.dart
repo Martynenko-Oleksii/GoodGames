@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:goodgames/global.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class getDatahttp {
   static Future<User> postDateRegister(String name ,String email ,String pass) async {
@@ -222,19 +223,26 @@ class getDatahttp {
       DateTime startDate, DateTime endDate,
       bool isPublic, int userId) async {
 
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
     Competition? competition;
 
     var body = jsonEncode( {
       'title': title,
       'isOpen': isOpen,
-      'sport': '{id: $sportId}',
+      'sport': {
+        'id': sportId
+      },
       'ageLimit': ageLimit,
       'city': city,
-      'startDate': startDate,
-      'endDate': endDate,
+      'startDate': formatter.format(startDate),
+      'endDate': formatter.format(endDate),
       'isPublic': isPublic,
-      'user': '{id: $userId}'
+      'user': {
+        'id': userId
+      }
     });
+
+    print(body);
 
     try {
       var response = await http.post(
@@ -249,6 +257,9 @@ class getDatahttp {
           id: jsonData["id"],
           title: jsonData["title"]
         );
+      } else {
+        print(response.statusCode);
+        print(response.body);
       }
     } catch(ex) {
       print(ex);
@@ -317,6 +328,7 @@ class getDatahttp {
     return competitor!;
   }
 
+  //TODO
   static Future<bool> postEmail(String email) async{
 
     bool result = false;
@@ -345,6 +357,42 @@ class getDatahttp {
     print(result);
 
     return result;
+  }
+
+  static Future<List<Sport>> getSports() async{
+    List<Sport> sports = [];
+
+    try {
+      var response = await http.get(
+          Uri.https("goodgames.kh.ua", "api/sports"),
+          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
+      );
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+        for (var s in jsonData) {
+          Sport sport = Sport(
+              id: s["id"],
+              title: s["title"],
+              hasTeam: s["hasTeam"],
+              hasGrid: s["hasGrid"],
+              competitorsLimit: s["competitorsLimit"],
+              hasTeamLimit: s["hasTeamLimit"],
+              teamLimit: s["teamLimit"]
+          );
+
+          sports.add(sport);
+        }
+      } else {
+        print(response.body);
+      }
+    } catch (ex) {
+      print(ex);
+    }
+
+    print(sports);
+
+    return sports;
   }
 }
 
