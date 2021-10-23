@@ -19,6 +19,9 @@ function pageLoaded() {
     }
 
     function parseServerResponse(data) {
+        if (data.length === 0) {
+            return;
+        }
         // test data
         /*data = [
             {
