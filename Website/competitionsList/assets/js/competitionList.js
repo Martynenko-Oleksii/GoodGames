@@ -11,7 +11,7 @@ function pageLoaded() {
 
 
     function sendServerRequest(userId) {
-        const requestUrl = "api/competitions/users/" + userId;
+        const requestUrl = "/api/competitions/users/" + userId;
 
         ServerRequest.send("GET", requestUrl)
             .then(data => parseServerResponse(data))
