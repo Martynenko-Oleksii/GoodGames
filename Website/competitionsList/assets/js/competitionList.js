@@ -7,7 +7,7 @@ function pageLoaded() {
         return;
     }
 
-    sendServerRequest();
+    sendServerRequest(userId);
 
 
     function sendServerRequest(userId) {
