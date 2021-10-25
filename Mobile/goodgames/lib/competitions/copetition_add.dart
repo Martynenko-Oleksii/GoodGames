@@ -29,13 +29,13 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
   final formKey = GlobalKey<FormState>();
 
   Sport dropdownValueSport = new Sport(
-      id: 1,
+      id: 0,
       title: "qweqweqwe",
+      minCompetitorsCount: 0,
       hasTeam: false,
-      hasGrid: false,
-      competitorsLimit: 1,
-      hasTeamLimit: false,
-      teamLimit: 1);
+      minTeamsCount: 0,
+      teamSize: 0,
+      hasGrid: false,);
 
   DateTime selectedDatestart = DateTime.now();
   DateTime selectedDateend = DateTime.now();

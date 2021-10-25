@@ -88,11 +88,11 @@ class getDatahttp {
           Sport sport = Sport(
               id: s["id"],
               title: s["title"],
+              minCompetitorsCount: s["minCompetitorsCount"],
               hasTeam: s["hasTeam"],
-              hasGrid: s["hasGrid"],
-              competitorsLimit: s["competitorsLimit"],
-              hasTeamLimit: s["hasTeamLimit"],
-              teamLimit: s["teamLimit"]
+              minTeamsCount: s["minTeamsCount"],
+              teamSize: s["teamSize"],
+              hasGrid: s["hasGrid"]
           );
 
           sports.add(sport);
@@ -158,11 +158,11 @@ class getDatahttp {
             sport: Sport(
               id: jsonData[0]["sport"]["id"],
               title: jsonData[0]["sport"]["title"],
+              minCompetitorsCount: jsonData[0]["sport"]["minCompetitorsCount"],
               hasTeam: jsonData[0]["sport"]["hasTeam"],
-              hasGrid: jsonData[0]["sport"]["hasGrid"],
-              competitorsLimit: jsonData[0]["sport"]["competitorsLimit"],
-              hasTeamLimit: jsonData[0]["sport"]["hasTeamLimit"],
-              teamLimit: jsonData[0]["sport"]["teamLimit"]
+              minTeamsCount: jsonData[0]["sport"]["minTeamsCount"],
+              teamSize: jsonData[0]["sport"]["teamSize"],
+              hasGrid: jsonData[0]["sport"]["hasGrid"]
           ),
             ageLimit: jsonData[0]["ageLimit"],
             city: jsonData[0]["city"],
@@ -375,11 +375,11 @@ class getDatahttp {
           Sport sport = Sport(
               id: s["id"],
               title: s["title"],
+              minCompetitorsCount: s["minCompetitorsCount"],
               hasTeam: s["hasTeam"],
-              hasGrid: s["hasGrid"],
-              competitorsLimit: s["competitorsLimit"],
-              hasTeamLimit: s["hasTeamLimit"],
-              teamLimit: s["teamLimit"]
+              minTeamsCount: s["minTeamsCount"],
+              teamSize: s["teamSize"],
+              hasGrid: s["hasGrid"]
           );
 
           sports.add(sport);

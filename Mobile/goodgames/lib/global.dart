@@ -26,28 +26,28 @@ class User {
 class Sport {
   final int id;
   final String title;
+  final int minCompetitorsCount;
   final bool hasTeam;
+  final int minTeamsCount;
+  final int teamSize;
   final bool hasGrid;
-  final int competitorsLimit;
-  final bool hasTeamLimit;
-  final int teamLimit;
 
   Sport(
         {
           required this.id,
           required this.title,
+          required this.minCompetitorsCount,
           required this.hasTeam,
+          required this.minTeamsCount,
+          required this.teamSize,
           required this.hasGrid,
-          required this.competitorsLimit,
-          required this.hasTeamLimit,
-          required this.teamLimit,
         });
 
   @override
   String toString() {
-    return "id:$id, title:$title, hasTeam:$hasTeam, "
-        "hasGrid:$hasGrid, competitorsLimit:$competitorsLimit, "
-        "competitorsLimit:$competitorsLimit, teamLimit:$teamLimit";
+    return "id:$id, title:$title, minCompetitorsCount:$minCompetitorsCount, "
+        "hasTeam:$hasTeam, minTeamsCount:$minTeamsCount,"
+        "teamSize:$teamSize, hasGrid:$hasGrid";
   }
 }
 
