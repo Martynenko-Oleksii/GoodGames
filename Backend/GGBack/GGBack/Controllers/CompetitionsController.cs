@@ -43,6 +43,7 @@ namespace GGBack.Controllers
                     Id = c.Id,
                     Title = c.Title,
                     IsOpen = c.IsOpen,
+                    Sport = c.Sport,
                     AgeLimit = c.AgeLimit,
                     City = c.City,
                     StartDate = c.StartDate,
@@ -51,7 +52,8 @@ namespace GGBack.Controllers
                     Competitors = c.Competitors,
                     User = new User
                     {
-                        Id = c.User.Id
+                        Id = c.User.Id,
+                        Login = c.User.Login
                     },
                     StreamUrl = c.StreamUrl,
                     State = c.State
