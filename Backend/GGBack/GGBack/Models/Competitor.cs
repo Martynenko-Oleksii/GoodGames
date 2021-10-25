@@ -29,5 +29,11 @@ namespace GGBack.Models
         public string Team { get; set; }
 
         public List<Competition> Competitions { get; set; }
+
+        [JsonIgnore]
+        public List<TimetableCell> TimetableCells { get; set; }
+
+        [JsonIgnore]
+        public List<WinResult> WinResults { get; set; }
     }
 }

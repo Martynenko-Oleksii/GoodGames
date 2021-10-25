@@ -38,6 +38,6 @@ namespace GGBack.Models
 
         public string State { get; set; } // (“заплановане”, “проходить”, “завершене”)
 
-        //public TournamentGrid TournamentGrid { get; set; }
+        public List<TimetableCell> TimetableCells { get; set; }
     }
 }
