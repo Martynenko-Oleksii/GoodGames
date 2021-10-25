@@ -27,7 +27,7 @@ namespace GGBack.Controllers
         [HttpPost]
         public async Task<ActionResult<string>> CheckPayment([FromForm] SubResult result)
         {
-            const string privateKey = "sandbox_Q9i2UhViR6Upjq3WFZooI6WwkYSkHBGmHSYTsUTM";
+            const string privateKey = "sandbox_zUieTCma1qGVtkevC26yIzKJ4aRi5oIZzWVIufmg";
             string data = result.Data;
             string signature = result.Signature;
 
