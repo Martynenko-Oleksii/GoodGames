@@ -122,11 +122,11 @@ class _ProfileState extends State<ProfileScreen>
                               padding: EdgeInsets.symmetric(vertical: 5.0),
                               child: new Container(
                                 width: 200,
-                                height: 50,
+                                height:50,
                                 child: new Text(
                                   widget.user.login!,
                                   style: TextStyle(
-                                    fontSize: 22,
+                                    fontSize: 20,
                                     color: AppTheme.darkText,
                                     fontWeight: FontWeight.w700,
                                   ),
@@ -138,11 +138,11 @@ class _ProfileState extends State<ProfileScreen>
                               child: new Container(
                                 child: new Container(
                                   width: 200,
-                                  height: 50,
+                                  height: 80,
                                   child: new Text(
                                     widget.user.email!,
                                     style: TextStyle(
-                                      fontSize: 22,
+                                      fontSize: 14,
                                       color: AppTheme.darkText,
                                       fontWeight: FontWeight.w700,
                                     ),
@@ -160,9 +160,9 @@ class _ProfileState extends State<ProfileScreen>
                       height: 30,
                       child: new Row(children: <Widget>[
                         new Text(
-                          "subscription",
+                          "Статус підписки:",
                           style: TextStyle(
-                            fontSize: 22,
+                            fontSize: 16,
                             color: AppTheme.darkText,
                             fontWeight: FontWeight.w700,
                           ),

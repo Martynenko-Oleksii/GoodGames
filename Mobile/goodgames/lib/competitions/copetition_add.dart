@@ -40,7 +40,7 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
   DateTime selectedDatestart = DateTime.now();
   DateTime selectedDateend = DateTime.now();
 
-  List<Sport> sports = [];
+  //List<Sport> sports = [];
 
   Future<void> _selectDatestart(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -68,8 +68,7 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
 
   @override
   void initState() {
-    getDatahttp.getSports()
-        .then((value) => sports = value);
+    //getDatahttp.getSports().then((value) => sports = value);
 
     super.initState();
   }
@@ -82,7 +81,7 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
           centerTitle: true,
           elevation: 0.0,
           title: new Text(
-            "Welcome",
+            "Competition Add",
             textScaleFactor: 1.3,
           ),
         ),
@@ -109,9 +108,9 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
             children: <Widget>[
               new Container(
                 // alignment: Alignment(0.00, -0.50),
-                child: new Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                child: new ListView(
+                  //crossAxisAlignment: CrossAxisAlignment.start,
+                 // mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     new Container(
                       // height: 300.0,
@@ -189,40 +188,53 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                             new Row(children: [
                               new Container(
                                 padding: EdgeInsets.all(5.0),
-                                child: new DropdownButton<Sport>(
-                                  // value: dropdownValueSport,
-                                  hint: Text(
-                                    dropdownValueSport.title,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppTheme.darkText,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  elevation: 16,
-                                  style: const TextStyle(color: Colors.green),
-                                  underline: Container(
-                                    height: 2,
-                                    color: Colors.green,
-                                  ),
-                                  onChanged: (Sport? newValue) {
-                                    setState(() {
-                                      dropdownValueSport = newValue!;
-                                    });
-                                  },
-                                  items: sports.map<DropdownMenuItem<Sport>>((Sport value) {
-                                    return DropdownMenuItem<Sport>(
-                                      value: value,
-                                      child: Text(
-                                        value.title,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: AppTheme.darkText,
-                                          fontWeight: FontWeight.w700,
+                                child: FutureBuilder(
+                                  future:   getDatahttp.getSports(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot snapshot) {
+                                    if (!snapshot.hasData) {
+                                      return const SizedBox();
+                                    } else {
+                                      return new DropdownButton<Sport>(
+                                        // value: dropdownValueSport,
+                                        hint: Text(
+                                          snapshot.data[0].title,
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: AppTheme.darkText,
+                                            fontWeight: FontWeight.w700,
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  }).toList(),
+                                        elevation: 16,
+                                        style: const TextStyle(
+                                            color: Colors.green),
+                                        underline: Container(
+                                          height: 2,
+                                          color: Colors.green,
+                                        ),
+                                        onChanged: (Sport? newValue) {
+                                          setState(() {
+                                            dropdownValueSport = newValue!;
+                                          });
+                                        },
+                                        items: snapshot.data
+                                            .map<DropdownMenuItem<Sport>>(
+                                                (Sport value) {
+                                          return DropdownMenuItem<Sport>(
+                                            value: value,
+                                            child: Text(
+                                              value.title,
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                color: AppTheme.darkText,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                          );
+                                        }).toList(),
+                                      );
+                                    }
+                                  },
                                 ),
                               ),
                               new Container(
@@ -428,52 +440,53 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ),
-              new Expanded(
-                child: new Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
                     new Container(
-                      //margin: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: new RaisedButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ),
-                        child: new Text("Create"),
-                        onPressed: () {
-                          getDatahttp.postNewCompetition(
-                              titleControl.text,
-                              isOpen,
-                              // sportId TODO,
-                              dropdownValueSport.id,
-                              agelimitControl.text,
-                              cityControl.text,
-                              selectedDatestart,
-                              selectedDateend,
-                              isPublic,
-                              widget.user.id!
-                              ).then((value) => {
-                                if (value.title == titleControl.text) {
-                                  print(value),
+                            //margin: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: new RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                              ),
+                              child: new Text("Create"),
+                              onPressed: () {
+                                getDatahttp
+                                    .postNewCompetition(
+                                    titleControl.text,
+                                    isOpen,
+                                    // sportId TODO,
+                                    1,
+                                   // dropdownValueSport.id,
+                                    agelimitControl.text,
+                                    cityControl.text,
+                                    selectedDatestart,
+                                    selectedDateend,
+                                    isPublic,
+                                    widget.user.id!)
+                                    .then((value) => {
+                                  if (value.title == titleControl.text)
+                                    {
+                                      print(value),
+                                      Navigator.push<dynamic>(
+                                        context,
+                                        MaterialPageRoute<dynamic>(
+                                          builder: (BuildContext context) =>
+                                              CompetitionsScreen(
+                                                  user: widget.user),
+                                        ),
+                                      )
+                                    }
+                                });
+                              },
+                              color: Colors.redAccent.shade200,
+                            ),
+                          ),
 
-                                  Navigator.push<dynamic>(
-                                    context,
-                                    MaterialPageRoute<dynamic>(
-                                      builder: (BuildContext context) => CompetitionsScreen(user: widget.user),
-                                    ),
-                                  )
-                                }
-                              });
-                        },
-                        color: Colors.redAccent.shade200,
-                      ),
-                    ),
+
                   ],
+
+
                 ),
               ),
+
             ],
           ),
         )));

@@ -82,7 +82,7 @@ class _CompetitionsState extends State<CompetitionsScreen>
             new Container(
              // alignment: Alignment(0.00, -0.50),
               child: new Column(
-                //crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 //  mainAxisAlignment: MainAxisAlignment.start,
 
                 children: <Widget>[
@@ -104,14 +104,9 @@ class _CompetitionsState extends State<CompetitionsScreen>
 
                       new Row(
                         children: [
-                          new Container(
-                            // margin: const EdgeInsets.symmetric(vertical: 0.0),
-                             padding: EdgeInsets.only(left: 10.0),
 
-                            child: new Text("Competitions List"),
-                          ),
                           new Container(
-                            padding: EdgeInsets.only(left: 10.0),
+                            padding: EdgeInsets.only(left: 10.0 , bottom: 15),
                             //margin: const EdgeInsets.symmetric(vertical: 8.0),
                             child: new RaisedButton(
                               shape: RoundedRectangleBorder(
@@ -132,7 +127,12 @@ class _CompetitionsState extends State<CompetitionsScreen>
                           ),
                         ],
                       ),
+                  new Container(
+                    // margin: const EdgeInsets.symmetric(vertical: 0.0),
+                    padding: EdgeInsets.only(left: 15.0),
 
+                    child: new Text("Competitions List:"),
+                  ),
 
                         new Container(
                           height: MediaQuery.of(context).size.height - 360,

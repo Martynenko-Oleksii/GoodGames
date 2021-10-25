@@ -111,6 +111,17 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                         ),
                                       ],
                                     ),
+                                    new Container(
+                                      // margin: const EdgeInsets.symmetric(vertical: 0.0),
+                                      padding: EdgeInsets.all(10.0),
+
+                                      child: new Text(snapshot.data.sport.toString(),
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: AppTheme.darkText,
+                                          fontWeight: FontWeight.w700,
+                                        ),),
+                                    ),
                                     new Row(
                                       children: [
                                         new Container(
@@ -156,7 +167,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                           padding: EdgeInsets.all(10.0),
 
                                           child: new Text(
-                                              snapshot.data.endDate.toString(),
+                                            snapshot.data.endDate.toString(),
                                             style: TextStyle(
                                               fontSize: 14,
                                               color: AppTheme.darkText,
@@ -180,7 +191,8 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                       // margin: const EdgeInsets.symmetric(vertical: 0.0),
                                       padding: EdgeInsets.all(10.0),
 
-                                      child: new Text("author",
+                                      child: new Text(
+                                        snapshot.data.user.login.toString(),
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: AppTheme.darkText,
