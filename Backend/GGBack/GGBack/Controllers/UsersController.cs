@@ -31,6 +31,23 @@ namespace GGBack.Controllers
             return await context.Users.ToListAsync();
         }
 
+        [Route("api/users/{userId}")]
+        [HttpGet]
+        public async Task<ActionResult<User>> Get(int userId)
+        {
+            return await context.Users
+                .Include(u => u.Subscription)
+                .Include(u => u.Sports)
+                .Where(u => u.Id == userId)
+                .Select(u => new User 
+                {
+                    Id = u.Id,
+                    Subscription = u.Subscription,
+                    Sports = u.Sports
+                })
+                .FirstOrDefaultAsync();
+        }
+
         [Route("api/users/reg")]
         [HttpPost]
         public async Task<ActionResult<User>> PostForRegistration(User user)

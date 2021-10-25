@@ -11,6 +11,10 @@ namespace GGBack.Models
 
         public int Level { get; set; }
 
+        public DateTime Starat { get; set; }
+
+        public DateTime End { get; set; }
+
         public List<User> Users { get; set; }
     }
 }
