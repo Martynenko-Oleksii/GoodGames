@@ -155,7 +155,7 @@ class getDatahttp {
             id: jsonData[0]["id"],
             title: jsonData[0]["title"],
             isOpen: jsonData[0]["isOpen"],
-            /*sport: Sport(
+            sport: Sport(
               id: jsonData[0]["sport"]["id"],
               title: jsonData[0]["sport"]["title"],
               hasTeam: jsonData[0]["sport"]["hasTeam"],
@@ -163,7 +163,7 @@ class getDatahttp {
               competitorsLimit: jsonData[0]["sport"]["competitorsLimit"],
               hasTeamLimit: jsonData[0]["sport"]["hasTeamLimit"],
               teamLimit: jsonData[0]["sport"]["teamLimit"]
-          ),*/
+          ),
             ageLimit: jsonData[0]["ageLimit"],
             city: jsonData[0]["city"],
             startDate: DateTime.parse(
@@ -182,7 +182,8 @@ class getDatahttp {
                         .substring(11)),
             isPublic: jsonData[0]["isPublic"],
             user: User(
-                id: jsonData[0]["user"]["id"]
+                id: jsonData[0]["user"]["id"],
+                login: jsonData[0]["user"]["login"]
             ),
             streamUrl: jsonData[0]["streamUrl"],
             state: jsonData[0]["state"]

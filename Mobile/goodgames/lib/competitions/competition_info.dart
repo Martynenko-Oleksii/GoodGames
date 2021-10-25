@@ -115,7 +115,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                       // margin: const EdgeInsets.symmetric(vertical: 0.0),
                                       padding: EdgeInsets.all(10.0),
 
-                                      child: new Text(snapshot.data.sport.toString(),
+                                      child: new Text(snapshot.data.sport.title,
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: AppTheme.darkText,
@@ -192,7 +192,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                       padding: EdgeInsets.all(10.0),
 
                                       child: new Text(
-                                        snapshot.data.user.login.toString(),
+                                        snapshot.data.user.login,
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: AppTheme.darkText,
