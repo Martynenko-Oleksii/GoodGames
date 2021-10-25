@@ -35,17 +35,24 @@ namespace GGBack.Controllers
         [HttpGet]
         public async Task<ActionResult<User>> Get(int userId)
         {
-            return await context.Users
-                .Include(u => u.Subscription)
-                .Include(u => u.Sports)
-                .Where(u => u.Id == userId)
-                .Select(u => new User 
-                {
-                    Id = u.Id,
-                    Subscription = u.Subscription,
-                    Sports = u.Sports
-                })
-                .FirstOrDefaultAsync();
+            try
+            {
+                return await context.Users
+                    .Include(u => u.Subscription)
+                    .Include(u => u.Sports)
+                    .Where(u => u.Id == userId)
+                    .Select(u => new User
+                    {
+                        Id = u.Id,
+                        Subscription = u.Subscription,
+                        Sports = u.Sports
+                    })
+                    .FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message + "\n" + ex.InnerException);
+            }
         }
 
         [Route("api/users/reg")]
