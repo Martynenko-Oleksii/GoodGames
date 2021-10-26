@@ -28,7 +28,14 @@ namespace GGBack.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Sport>>> Get()
         {
-            return await context.Sports.ToListAsync();
+            try
+            {
+                return await context.Sports.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message + "\n" + ex.InnerException);
+            }
         }
 
         [HttpGet("{userId}")]
