@@ -125,18 +125,30 @@
 
 		                                    <div class="col-sm-10 col-sm-offset-1 addStort">
 
+												
 		                                        <div class="col-sm-4">
 													<div class="choice" data-toggle="wizard-radio" onclick="document.getElementById('sport').value = 0">
 														<input type="radio" value="0">
-														<div class="icon">
+														<div class="icon" onclick="change(); this.style = 'border-color: #f44336';">
 															<h6>Інше</h6>
 														</div>
 													</div>
 												</div>
 
+
 		                                    </div>
 		                                </div>
 		                            </div>
+
+									<script>
+										function change() {
+											var els = document.getElementsByClassName("icon");
+											for (var i=0; i<els.length; i++) {
+												els[i].style = "border-color: #CCCCCC;";
+											}
+										}
+									</script>
+
 		                            <div class="tab-pane" id="description">
 		                                <div class="row">
 		                                    <h4 class="info-text"> Опис вашего змагання.</h4>

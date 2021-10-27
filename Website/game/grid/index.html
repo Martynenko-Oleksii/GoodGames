@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="uk">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Турнирная сетка</title>
+
+        <!-- ===== CSS ===== -->
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script src="jquery.bracket.min.js"></script>
+        <link href="jquery.bracket.min.css" rel="stylesheet">
+
+
+        <script src="/assets/js/js.cookie.js"></script>
+    </head>
+    <body id="body-pd">
+
+    <!--  ПОЛЕ ДЛЯ ТУРНИРНОЙ СЕТКИ  -->
+
+
+    <div class="demo">
+    
+    </div>
+     
+
+    <!-- БЛЯ НЕ ТРОГАТЬ  -->
+
+
+    <script>
+
+        // СКРИПТЫ
+        // ИНСТРУКЦИЯ: http://www.aropupu.fi/bracket/
+
+        var TEAMS = {
+            "teams": [
+                ["Команда 1", "Команда 2"],
+                ["Команда 3", "Команда 4"]
+            ],
+            "results": [            // List of brackets (three since this is double elimination)
+                [                     // Winner bracket
+                    [[1, 2], [3, 4]],   // First round and results
+                    [[5, 6]]            // Second round
+                ],
+                [                     // Loser bracket
+                    [[7, 8]],           // First round
+                    [[9, 10]]           // Second round
+                ],
+                [                     // Final "bracket"
+                [                   // First round
+                    [11, 12],         // Match to determine 1st and 2nd
+                    [13, 14]          // Match to determine 3rd and 4th
+                ],
+                    [                   // Second round
+                        [15, 16]          // LB winner won first round (11-12) so need a final decisive round
+                    ]
+                ]
+            ]
+        }
+
+        $('.demo').bracket({ // ПОСТОРЕНИЕ 
+            teamWidth: 100,
+            scoreWidth: 36,
+            matchMargin: 40,
+            roundMargin: 65,
+            init: TEAMS
+        });
+
+        $('.demo').bracket({ // ГИБКАЯ НАСТРОЙКА
+            init: null, // data to initialize
+            save: null, // called whenever bracket is modified
+            userData: null, // custom user data
+            onMatchClick: null, // callback
+            onMatchHover: null, // callback
+            decorator: null, // a function
+            skipSecondaryFinal: false,
+            skipGrandFinalComeback: false,
+            skipConsolationRound: false,
+            dir: 'rl', // "rl" or  "lr",
+            disableToolbar: false,
+            disableTeamEdit: false,
+            teamWidth: '', // number
+            scoreWidth: '', // number
+            roundMargin: '', // number
+            matchMargin: '', // number
+        });
+    </script>
+
+
+        <!-- ===== Иконки ===== -->
+        <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+        <!-- ===== MAIN JS ===== -->
+        <script src="/assets/js/main.js"></script>
+
+        <script>
+            document.getElementById("sport").classList.add('active');
+        </script>
+        <script src="../assets/js/serverRequest.js"></script>
+        <script src="assets/js/game.js"></script>
+    </body>
+</html>

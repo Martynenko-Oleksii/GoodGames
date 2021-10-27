@@ -81,7 +81,7 @@ function pageLoaded() {
             `<div class="col-sm-4">
 				<div class="choice" data-toggle="wizard-radio" onclick="document.getElementById('sport').value = ${SportId}">
 					<input type="radio" value="0">
-						<div class="icon">
+						<div class="icon" onclick="change(); this.style = 'border-color: #f44336';">
 						<h6>${SportTitle}</h6>
 					</div>
 				</div>
