@@ -7,7 +7,7 @@ function pageLoaded() {
     }
 
     getCompetitionInfoFromServer(competitionId);
-
+    //parseServerResponse([true]);
 
     function getCompetitionInfoFromServer(competitionId) {
         const requestUrl = "/api/competitions/" + competitionId;
@@ -64,9 +64,48 @@ function pageLoaded() {
         }
 
         console.log(info);
+        parseCompetitionInfo(info);
+        parseCompetitorsList(info);
+    }
+
+    function parseCompetitionInfo(info) {
         document.querySelector(".competition-title").innerHTML = info.title;
         document.querySelector(".organizer").innerHTML = info.user.login;
         document.querySelector(".city").innerHTML = info.city;
         document.querySelector(".sport-title").innerHTML = info.sport.title;
+        document.querySelector(".competitors-number").innerHTML =
+            info.competitors.length.toString();
+    }
+
+    function parseCompetitorsList(info) {
+        const competitorsTableBodyEl =
+            document.querySelector(".competitors-table tbody");
+        competitorsTableBodyEl.innerHTML = "";
+
+        for (let competitor of info.competitors) {
+            let tr = document.createElement("tr");
+            tr.innerHTML =
+                `<tr>
+                    <td>
+                        <div class="td-content customer-name">
+                            <img src="/assets/images/user-48.png" alt="avatar">
+                            <span>${competitor.name}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="td-content product-brand text-warning">
+                            {Роль}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="td-content">
+                            <span class="badge badge-success">
+                                {Статус}
+                            </span>
+                        </div>
+                    </td>
+                </tr>`;
+            competitorsTableBodyEl.appendChild(tr);
+        }
     }
 }
