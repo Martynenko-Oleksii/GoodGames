@@ -116,28 +116,23 @@
 		                                	</div>
 		                            	</div>
 		                            </div>
+
 		                            <div class="tab-pane" id="captain">
 		                                <h4 class="info-text">До якої категорії належить змагання?</h4>
 		                                <div class="row scroll-row">
-		                                    <div class="col-sm-10 col-sm-offset-1">
+
+											<input type="text" id="sport" name="sport" style="display: none;">
+
+		                                    <div class="col-sm-10 col-sm-offset-1 addStort">
 
 		                                        <div class="col-sm-4">
-		                                            <div class="choice" data-toggle="wizard-radio" >
-		                                                <input type="radio" name="sport" value="Vlad"">
-		                                                <div class="icon">
-		                                                    <h6>Этим занимается Влад</h6>
-		                                                </div>
-		                                            </div>
-		                                        </div>
-
-												<div class="col-sm-4">
-		                                            <div class="choice" data-toggle="wizard-radio" >
-		                                                <input type="radio" name="sport" value="NotVlad">
-		                                                <div class="icon">
-		                                                    <h6>здесь запрос</h6>
-		                                                </div>
-		                                            </div>
-		                                        </div>
+													<div class="choice" data-toggle="wizard-radio" onclick="document.getElementById('sport').value = 0">
+														<input type="radio" value="0">
+														<div class="icon">
+															<h6>Інше</h6>
+														</div>
+													</div>
+												</div>
 
 		                                    </div>
 		                                </div>
@@ -163,7 +158,7 @@
 	                        	<div class="wizard-footer">
 	                            	<div class="pull-right">
 	                                    <input type='button' class='btn btn-next btn-fill btn-danger btn-wd' name='next' value='Наступна сторінка' />
-	                                    <input type='button' onclick="create_game();" class='btn btn-finish btn-fill btn-danger btn-wd' name='finish' value='Done' />
+	                                    <input type='button' onclick="create_game();" class='btn btn-finish btn-fill btn-danger btn-wd' name='finish' value='Готово' />
 	                                </div>
 	                                <div class="pull-left">
 	                                    <input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Назад' />
@@ -245,6 +240,7 @@
         <!-- ===== MAIN JS ===== -->
         <script src="/assets/js/main.js"></script>
 		<script src="/assets/js/forms.js"></script>
+		<script src="/assets/js/serverRequest.js"></script>
         <script src="script.js"></script>
     </body>
 </html>

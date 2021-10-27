@@ -189,7 +189,7 @@ function create_game(){ //Создание нового соревнования
     //Переменные = названием передаваемых значений.
     var Title = document.getElementById("Title").value;
     // var IsOpen = document.getElementsByName("").value;
-    var Sport = document.querySelector('input[name="sport"]:checked').value;
+    var Sport = document.getElementById('sport').value;
     var AgeLimit = document.getElementById("AgeLimit").value;
     var City = document.getElementById("City").value;
     var StartDate = document.getElementById("data_start").value;
