@@ -188,6 +188,7 @@ function reg_validation() {
 function create_game(){ //Создание нового соревнования
     //Переменные = названием передаваемых значений.
     var Title = document.getElementById("Title").value;
+    var Description = document.getElementById("Description").value;
     // var IsOpen = document.getElementsByName("").value;
     var Sport = document.getElementById('sport').value;
     var AgeLimit = document.getElementById("AgeLimit").value;
@@ -195,7 +196,6 @@ function create_game(){ //Создание нового соревнования
     var StartDate = document.getElementById("data_start").value;
     var EndDate = document.getElementById("data_end").value;
     var IsPublic = document.getElementById("IsPublic").value;
-    // var about = document.getElementById("about").value;
 
-    alert("Форма создания соревнования.\nTitle: " + Title + "\nSport: " + Sport + "\nAgeLimit: " + AgeLimit + "\nCity: " + City + "\nStartDate: " + StartDate + "\nEndDate: " + EndDate + "\nIsPublic: " + IsPublic);
+    alert("Форма создания соревнования.\nTitle: " + Title + "\nSport: " + Sport + "\nAgeLimit: " + AgeLimit + "\nCity: " + City + "\nStartDate: " + StartDate + "\nEndDate: " + EndDate + "\nIsPublic: " + IsPublic + "\nDescription: " + Description);
 }
