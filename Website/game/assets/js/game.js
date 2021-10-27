@@ -72,7 +72,8 @@ function pageLoaded() {
         document.querySelector(".competition-title").innerHTML = info.title;
         document.querySelector(".organizer").innerHTML = info.user.login;
         document.querySelector(".city").innerHTML = info.city;
-        document.querySelector(".sport-title").innerHTML = info.sport.title;
+        document.querySelector(".competition-description").innerHTML =
+            info.description;
         document.querySelector(".competitors-number").innerHTML =
             info.competitors.length.toString();
     }
@@ -85,26 +86,12 @@ function pageLoaded() {
         for (let competitor of info.competitors) {
             let tr = document.createElement("tr");
             tr.innerHTML =
-                `<tr>
-                    <td>
-                        <div class="td-content customer-name">
-                            <img src="/assets/images/user-48.png" alt="avatar">
-                            <span>${competitor.name}</span>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="td-content product-brand text-warning">
-                            {Роль}
-                        </div>
-                    </td>
-                    <td>
-                        <div class="td-content">
-                            <span class="badge badge-success">
-                                {Статус}
-                            </span>
-                        </div>
-                    </td>
-                </tr>`;
+                `<td>
+                    <div class="td-content customer-name">
+                        <img src="/assets/images/user-48.png" alt="avatar">
+                        <span>Влад</span>
+                    </div>
+                </td>`;
             competitorsTableBodyEl.appendChild(tr);
         }
     }
