@@ -14,6 +14,8 @@ namespace GGBack.Models
         [Required]
         public string Title { get; set; }
 
+        public string Description { get; set; }
+
         public bool IsOpen { get; set; }
 
         public Sport Sport { get; set; }

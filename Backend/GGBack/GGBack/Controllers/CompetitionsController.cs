@@ -37,11 +37,13 @@ namespace GGBack.Controllers
                 .Include(c => c.User)
                 .Include(c => c.Sport)
                 .Include(c => c.Competitors)
+                .Include(c => c.TimetableCells)
                 .Where(c => c.Id == competitionId)
                 .Select(c => new Competition
                 {
                     Id = c.Id,
                     Title = c.Title,
+                    Description = c.Description,
                     IsOpen = c.IsOpen,
                     Sport = c.Sport,
                     AgeLimit = c.AgeLimit,
@@ -56,7 +58,8 @@ namespace GGBack.Controllers
                         Login = c.User.Login
                     },
                     StreamUrl = c.StreamUrl,
-                    State = c.State
+                    State = c.State,
+                    TimetableCells = c.TimetableCells
                 })
                 .ToListAsync();
         }
