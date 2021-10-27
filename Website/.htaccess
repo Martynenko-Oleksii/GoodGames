@@ -1,0 +1,7 @@
+# Stas Miroshnichenko файл-обработчик перенаправлений.
+
+# редирект
+# Redirect / /
+
+# обработка ошибок:
+ErrorDocument 404 /assets/error/404/

@@ -184,3 +184,18 @@ function reg_validation() {
             });
     }
 }
+
+function create_game(){ //Создание нового соревнования
+    //Переменные = названием передаваемых значений.
+    var Title = document.getElementById("Title").value;
+    // var IsOpen = document.getElementsByName("").value;
+    var Sport = document.querySelector('input[name="sport"]:checked').value;
+    var AgeLimit = document.getElementById("AgeLimit").value;
+    var City = document.getElementById("City").value;
+    var StartDate = document.getElementById("data_start").value;
+    var EndDate = document.getElementById("data_end").value;
+    var IsPublic = document.getElementById("IsPublic").value;
+    // var about = document.getElementById("about").value;
+
+    alert("Форма создания соревнования.\nTitle: " + Title + "\nSport: " + Sport + "\nAgeLimit: " + AgeLimit + "\nCity: " + City + "\nStartDate: " + StartDate + "\nEndDate: " + EndDate + "\nIsPublic: " + IsPublic);
+}

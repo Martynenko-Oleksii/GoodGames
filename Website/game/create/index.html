@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="uk">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GoodGames - створення змагання</title>
+
+        <!-- ===== CSS ===== -->
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>     
+        <link rel="stylesheet" href="style.css">
+
+        <style>
+            @font-face {
+            font-family: "Samsung Sans"; 
+            src: url("/assets/fonts/font.ttf"); 
+            font-style: normal; 
+            font-weight: normal; 
+            } 
+            body {
+            font-family: "Samsung Sans";
+            }
+			.scroll-row{
+				flex-wrap: nowrap;
+				overflow-x: auto;
+				height: 220px;
+			}
+        </style>
+
+        <script src="/assets/js/js.cookie.js"></script>
+    </head>
+    <body id="body-pd">
+
+    <!--  BEGIN MAIN CONTAINER  -->
+    <div class="image-container set-full-height" style="background-image: url('/assets/images/Gradient.jpg')">
+	    <!--   Big container   -->
+	    <div class="container">
+	        <div class="row">
+		        <div class="col-sm-8 col-sm-offset-2">
+		            <!-- Wizard container -->
+		            <div class="wizard-container">
+		                <div class="card wizard-card" data-color="red" id="wizard">
+		                    <form action="" method="">
+		                    	<div class="wizard-header">
+		                        	<h3 class="wizard-title">
+		                        		Створення нового змагання
+		                        	</h3>
+									<h5>Майстер створення нового змагання на GoodGames</h5>
+		                    	</div>
+								<div class="wizard-navigation">
+									<ul>
+			                            <li><a href="#details" data-toggle="tab">Інформація</a></li>
+			                            <li><a href="#captain" data-toggle="tab">Категорія</a></li>
+			                            <li><a href="#description" data-toggle="tab">Завершення</a></li>
+			                        </ul>
+								</div>
+
+		                        <div class="tab-content">
+		                            <div class="tab-pane" id="details" style="margin-left: 30px; margin-right: 30px;">
+		                            	<div class="row">
+			                            	<div class="col-sm-12">
+			                                	<h4 class="info-text"> Базова інформація.</h4>
+			                            	</div>
+		                                	<div class="col-sm-6">
+												<div class="form-group label-floating">
+													<label class="control-label">Назва змагання</label>
+													<input name="Title" id="Title" type="text" class="form-control">
+											  	</div>
+
+											  	<div class="form-group label-floating">
+		                                        	<label class="control-label">Доступ</label>
+	                                        		<select class="form-control" name="IsPublic" id="IsPublic">
+	                                                	<option value="false" selected=""> Закритий </option>
+	                                                	<option value="true"> Відкритий </option>
+		                                        	</select>
+		                                    	</div>
+
+
+												<div class="form-group label-floating">
+													<label class="control-label" style="top: -28px; left: 0; font-size: 11px;">Дата почтаку</label>
+                                                    <input name="data_start" id="data_start" type="date" class="form-control">
+                                              	</div>
+
+		                                	</div>
+		                                	<div class="col-sm-6">
+		                                    	<div class="form-group label-floating">
+		                                        	<label class="control-label">Город</label>
+	                                        		<select class="form-control" name="City" id="City">
+														<option disabled="" selected=""></option>
+	                                                	<option value="Київ">⠀Київ </option>
+	                                                	<option value="Харків">⠀Харків </option>
+	                                                	<option value="Одесса">⠀Одесса </option>
+	                                                	<option value="Херсон">⠀Херсон </option>
+	                                                	<option value="Ужгород">⠀Ужгород </option>
+	                                                	<option value="Закарпаття">⠀Закарпаття </option>
+	                                                	<option value="Полтава">⠀Полтава </option>
+		                                        	</select>
+		                                    	</div>
+
+												<div class="form-group label-floating">
+		                                        	<label class="control-label">Вікове обмеження</label>
+	                                        		<select class="form-control" name="AgeLimit" id="AgeLimit">
+	                                                	<option value="0" selected="">⠀Без обмежень </option>
+	                                                	<option value="8">⠀8+ </option>
+														<option value="14">⠀14+ </option>
+														<option value="18">⠀18+ </option>
+														<option value="21">⠀21+ </option>
+		                                        	</select>
+		                                    	</div>
+
+												<div class="form-group label-floating">
+													<label class="control-label" style="top: -28px; left: 0; font-size: 11px;">Дата кінця</label>
+                                                    <input name="data_end" id="data_end" type="date" class="form-control">
+                                              	</div>
+		                                	</div>
+		                            	</div>
+		                            </div>
+		                            <div class="tab-pane" id="captain">
+		                                <h4 class="info-text">До якої категорії належить змагання?</h4>
+		                                <div class="row scroll-row">
+		                                    <div class="col-sm-10 col-sm-offset-1">
+
+		                                        <div class="col-sm-4">
+		                                            <div class="choice" data-toggle="wizard-radio" >
+		                                                <input type="radio" name="sport" value="Vlad"">
+		                                                <div class="icon">
+		                                                    <h6>Этим занимается Влад</h6>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+
+												<div class="col-sm-4">
+		                                            <div class="choice" data-toggle="wizard-radio" >
+		                                                <input type="radio" name="sport" value="NotVlad">
+		                                                <div class="icon">
+		                                                    <h6>здесь запрос</h6>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+
+		                                    </div>
+		                                </div>
+		                            </div>
+		                            <div class="tab-pane" id="description">
+		                                <div class="row">
+		                                    <h4 class="info-text"> Опис вашего змагання.</h4>
+		                                    <div class="col-sm-6 col-sm-offset-1">
+	                                    		<div class="form-group">
+		                                            <label>Опис</label>
+		                                            <textarea class="form-control" placeholder="" rows="6" id="about"></textarea>
+		                                        </div>
+		                                    </div>
+		                                    <div class="col-sm-4">
+		                                    	<div class="form-group">
+		                                            <label class="control-label">Рекомендації.</label>
+		                                            <p class="description">"Будь ласка, будьте ввічливими. Дотримуйтесь принципів спільноти. Вкажіть всю важливу інформацію, щоб якнайбільше людей приєдналися до вас."</p>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                        </div>
+	                        	<div class="wizard-footer">
+	                            	<div class="pull-right">
+	                                    <input type='button' class='btn btn-next btn-fill btn-danger btn-wd' name='next' value='Наступна сторінка' />
+	                                    <input type='button' onclick="create_game();" class='btn btn-finish btn-fill btn-danger btn-wd' name='finish' value='Done' />
+	                                </div>
+	                                <div class="pull-left">
+	                                    <input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Назад' />
+
+										<div class="footer-checkbox">
+											<div class="col-sm-12">
+											  <div class="checkbox">
+												  
+											  </div>
+										  </div>
+										</div>
+	                                </div>
+	                                <div class="clearfix"></div>
+	                        	</div>
+		                    </form>
+		                </div>
+		            </div> <!-- wizard container -->
+		        </div>
+	    	</div> <!-- row -->
+		</div> <!--  big container -->
+	</div>
+    <!-- END MAIN CONTAINER -->
+
+
+	<div class="tabs">
+		<input type="radio" id="radio-1" name="tabs" checked />
+		<a class="tab" for="radio-1" onclick="history.back();">Відмінити</a>
+		<span class="glider"></span>
+	</div>
+
+      <section class="modal" id="modal">
+                        
+        <div class="modal__container" id="modal-container">
+            <div class="modal__content">
+                <div class="modal__close close-modal" title="Close" onclick="document.getElementById('modal').style.zIndex = -1000">
+                    <ion-icon name="close-outline"></ion-icon>
+                </div>
+
+                <div>
+                    <div class="row">
+                        <div class="col-6 mt-4 pt-2">
+                            <a href="/profile/" class="accounts rounded d-block shadow text-center py-3">
+                                <span class="pro-icons h3 text-muted"><ion-icon name="person-outline"></ion-icon></span>
+                                <h6 class="title text-dark h6 my-0">Мій профіль</h6>
+                            </a>
+                        </div><!--end col-->
+
+                        <div class="col-6 mt-4 pt-2">
+                            <a href="/competitionsList/" class="accounts rounded d-block shadow text-center py-3">
+                                <span class="pro-icons h3 text-muted"><ion-icon name="stats-chart-outline"></ion-icon></span>
+                                <h6 class="title text-dark h6 my-0">Мої турніри</h6>
+                            </a>
+                        </div><!--end col-->
+
+
+                        <div class="col-6 mt-4 pt-2">
+                            <a href="#Settings" class="accounts rounded d-block shadow text-center py-3">
+                                <span class="pro-icons h3 text-muted"><ion-icon name="settings-outline"></ion-icon></span>
+                                <h6 class="title text-dark h6 my-0">Налаштування</h6>
+                            </a>
+                        </div><!--end col-->
+
+                        <div class="col-6 mt-4 pt-2" onclick="exit_login();">
+                            <a href="#Exit" class="accounts rounded d-block shadow text-center py-3">
+                                <span class="pro-icons h3 text-muted"><ion-icon name="exit-outline"></ion-icon></span>
+                                <h6 class="title text-dark h6 my-0">Вийти з акаунту</h6>
+                            </a>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- ===== Иконки ===== -->
+        <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+        <!-- ===== MAIN JS ===== -->
+        <script src="/assets/js/main.js"></script>
+		<script src="/assets/js/forms.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>

@@ -134,3 +134,14 @@ function closeModal(){
 	modalContainer.classList.remove('show-modal')
 }
 closeBtn.forEach(c => c.addEventListener('click', closeModal))
+
+/*=============== URL DATA ===============*/
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}
+
+// Пример:   var id = getUrlVars()["id"];

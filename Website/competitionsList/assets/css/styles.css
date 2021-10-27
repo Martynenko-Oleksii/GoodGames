@@ -76,3 +76,40 @@
   width: 35px;
   height: 35px;
 }
+
+
+/* Mobile */
+@media (max-width: 520px) {
+  .tab_create {
+    height: 53px;
+    position: fixed;
+    bottom: 90px;
+    right: 25px;
+    display: flex;
+    width: 214px;
+    background-color: #fff;
+    box-shadow: 0 0 1px 0 rgba(24, 94, 224, 0.15), 0 6px 12px 0 rgba(24, 94, 224, 0.15);
+    padding: 0.4rem;
+    border-radius: 99px;
+    z-index: 1;
+    border: 1px solid #16c79a;
+  }
+}
+
+/* PC */
+@media (min-width: 520px) {
+  .tab_create {
+    height: 53px;
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    display: flex;
+    width: 214px;
+    background-color: #fff;
+    box-shadow: 0 0 1px 0 rgba(24, 94, 224, 0.15), 0 6px 12px 0 rgba(24, 94, 224, 0.15);
+    padding: 0.4rem;
+    border-radius: 99px;
+    z-index: 1;
+    border: 1px solid #16c79a;
+  }
+}
