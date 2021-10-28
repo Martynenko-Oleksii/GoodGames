@@ -38,7 +38,7 @@ function pageLoaded() {
                 "startDate": "2021-10-08T00:00:00",
                 "endDate": "2021-10-30T00:00:00",
                 "isPublic": false,
-                "competitors": [{name: "Oleg"}],
+                "competitors": [],
                 "user": {
                     "id": 1,
                     "login": "testakk",
@@ -79,10 +79,6 @@ function pageLoaded() {
     }
 
     function parseCompetitorsList(info) {
-        if (!info.competitors.length) {
-            return;
-        }
-
         const competitorsTableBodyEl =
             document.querySelector(".competitors-table tbody");
         competitorsTableBodyEl.innerHTML = "";
@@ -93,7 +89,7 @@ function pageLoaded() {
                 `<td>
                     <div class="td-content customer-name">
                         <img src="/assets/images/user-48.png" alt="avatar">
-                        <span>${competitor.name}</span>
+                        <span>Влад</span>
                     </div>
                 </td>`;
             competitorsTableBodyEl.appendChild(tr);
