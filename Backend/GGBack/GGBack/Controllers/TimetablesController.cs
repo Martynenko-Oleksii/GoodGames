@@ -33,8 +33,8 @@ namespace GGBack.Controllers
                 .ToListAsync();
         }
 
-        [Route("api/timetables/create/{competitionId}")]
-        [HttpGet]
+        [Route("api/timetables/create")]
+        [HttpPost]
         public async Task<ActionResult<IEnumerable<TimetableCell>>> Create(TimeBoundary timeBoundary)
         {
             Competition competition = context.Competitions
