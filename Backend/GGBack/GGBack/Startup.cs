@@ -55,6 +55,17 @@ namespace GGBack
 
             app.UseRouting();
 
+            app.Use(async (context, next) => 
+            {
+                await next.Invoke();
+                if (context.Response.StatusCode == 404)
+                {
+                    //await context.Response.WriteAsync("Hello World!");
+                    context.Response.Redirect("/assets/error/404/");
+                    //await next.Invoke();
+                }
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
