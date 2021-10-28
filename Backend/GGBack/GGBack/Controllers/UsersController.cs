@@ -90,6 +90,7 @@ namespace GGBack.Controllers
             }
 
             User findedUser =  context.Users
+                .Include(u => u.Subscription)
                 .Where(u => u.Email == user.Email)
                 .First();
 
