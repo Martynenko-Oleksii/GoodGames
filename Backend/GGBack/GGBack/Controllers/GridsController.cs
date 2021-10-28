@@ -45,12 +45,20 @@ namespace GGBack.Controllers
                 string gridCell = "[\"" + teamsArray[0] + "\", " + teamsArray[1] + "\"],";
                 teams.Insert(teams.Length-1, gridCell);
             }
+            int stagesCount = cells
+                .Select(c => c.GridStage)
+                .Distinct().ToList().Count;
 
-            for (int i = 0; i < cells.Count; i++)
+            for (int i = 1; i <= stagesCount; i++)
             {
-                if (cells.ElementAt(i).WinResult != null)
+                List<TimetableCell> cellsByStage = cells
+                    .Where(c => c.GridStage == i).ToList();
+
+                StringBuilder stageResults = new StringBuilder("[],");
+
+                for (int j = 0; j < cellsByStage.Count; j++)
                 {
-                    //TODO
+
                 }
             }
 

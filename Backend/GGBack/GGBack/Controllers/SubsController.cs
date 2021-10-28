@@ -72,9 +72,11 @@ namespace GGBack.Controllers
                     .Where(u => u.Id == userId)
                     .FirstOrDefault();
 
-                if (dbUser == null) return NotFound("user");
+                if (dbUser == null) return BadRequest("user");
 
-                context.Subscriptions.Remove(dbUser?.Subscription);
+                if (dbUser.Subscription != null)
+                    context.Subscriptions.Remove(dbUser?.Subscription);
+
                 dbUser.Subscription = sub;
                 await context.SaveChangesAsync();
 
@@ -86,13 +88,11 @@ namespace GGBack.Controllers
             }
         }
 
-        /*
         [Route("api/subs")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Subscription>>> Get()
         {
             return await context.Subscriptions.ToListAsync();
         }
-        */
     }
 }
