@@ -61,6 +61,9 @@ namespace GGBack.Controllers
             DateTime startDate = competition.StartDate;
             DateTime endDate = competition.EndDate;
 
+            DateTime startTime = timeBoundary.Start;
+            DateTime endTime = timeBoundary.End;
+
             if (hasTeam)
             {
                 if (competitorsCount % teamSize != 0 || 
@@ -101,79 +104,22 @@ namespace GGBack.Controllers
                     return BadRequest("Wrong time for games");
                 }
 
-                if (teamsCount % 4 == 0)
+                List<TimetableCell> cells = ScheduleGenerator
+                    .GenerateForTeamSports(teams, 
+                        competitors, competition, 
+                        startDate, endDate, 
+                        startTime, endTime);
+
+                if (cells == null)
                 {
-                    //TODO
+                    return BadRequest("Wront end date for competition");
                 }
-                else
-                {
-                    List<DateTime> times = new List<DateTime>();
-                    string[] teamsArray = teams.ToArray();
-                    for (int i = 0; i < teamsCount; i += 2)
-                    {
-                        List<Competitor> competitorsPerTwoTeams = competitors
-                            .Where(c => 
-                                c.Team.Equals(teamsArray[i]) || 
-                                c.Team.Equals(teamsArray[i+1]))
-                            .ToList();
 
-                        DateTime dt = new DateTime();
+                context.TimetableCells.AddRange(cells);
+            }
+            else
+            {
 
-                        if (DateTime.UtcNow > competition.StartDate)
-                        {
-                            times.Add(new DateTime(DateTime.UtcNow.Year,
-                                                    DateTime.UtcNow.Month,
-                                                    DateTime.UtcNow.Day + 1,
-                                                    timeBoundary.Start.Hour - 2,
-                                                    timeBoundary.Start.Minute,
-                                                    0));
-                        }
-                        else
-                        {
-                            times.Add(new DateTime(startDate.Year,
-                                                    startDate.Month,
-                                                    startDate.Day,
-                                                    timeBoundary.Start.Hour - 2,
-                                                    timeBoundary.Start.Minute,
-                                                    0));
-                        }
-
-                        DateTime newDateTime = times.Last().AddHours(2);
-                        if (newDateTime < endDate.AddDays(1))
-                        {
-                            if (newDateTime.AddHours(2) < timeBoundary.End)
-                            {
-                                dt = newDateTime;
-                                times.Add(newDateTime);
-                            }
-                            else
-                            {
-                                DateTime temp = new DateTime(newDateTime.Year,
-                                    newDateTime.Month,
-                                    newDateTime.Day + 1,
-                                    timeBoundary.Start.Hour,
-                                    timeBoundary.Start.Minute,
-                                    0);
-                                dt = temp;
-                                times.Add(temp);
-                            }
-                        }
-                        else
-                        {
-                            return BadRequest("Wront end date for competition");
-                        }
-
-                        TimetableCell ttCell = new TimetableCell
-                        {
-                            DateTime = dt,
-                            Competitors = competitorsPerTwoTeams,
-                            Competition = competition,
-                            GridStage = 1
-                        };
-
-                        context.TimetableCells.Add(ttCell);
-                    }
-                }
             }
 
             await context.SaveChangesAsync();
