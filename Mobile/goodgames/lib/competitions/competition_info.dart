@@ -14,6 +14,7 @@ class CompetitionInfoScreen extends StatefulWidget {
 
   @override
   _CompetitionState createState() => _CompetitionState();
+
   CompetitionInfoScreen({Key? key, required this.comp}) : super(key: key);
 }
 
@@ -69,7 +70,6 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                           // crossAxisAlignment: CrossAxisAlignment.start,
                           //  mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
-
                             new Container(
                               height: 300,
                               padding: EdgeInsets.all(10.0),
@@ -102,12 +102,14 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                           // margin: const EdgeInsets.symmetric(vertical: 0.0),
                                           padding: EdgeInsets.all(10.0),
 
-                                          child: new Text(snapshot.data.title,
+                                          child: new Text(
+                                            snapshot.data.title,
                                             style: TextStyle(
-                                            fontSize: 16,
-                                            color: AppTheme.darkText,
-                                            fontWeight: FontWeight.w700,
-                                          ),),
+                                              fontSize: 16,
+                                              color: AppTheme.darkText,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -115,12 +117,14 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                       // margin: const EdgeInsets.symmetric(vertical: 0.0),
                                       padding: EdgeInsets.all(10.0),
 
-                                      child: new Text(snapshot.data.sport.title,
+                                      child: new Text(
+                                        snapshot.data.sport.title,
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: AppTheme.darkText,
                                           fontWeight: FontWeight.w700,
-                                        ),),
+                                        ),
+                                      ),
                                     ),
                                     new Row(
                                       children: [
@@ -128,24 +132,26 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                           // margin: const EdgeInsets.symmetric(vertical: 0.0),
                                           padding: EdgeInsets.all(10.0),
 
-                                          child: new Text("start data",
+                                          child: new Text(
+                                            "start data",
                                             style: TextStyle(
                                               fontSize: 16,
                                               color: AppTheme.darkText,
                                               fontWeight: FontWeight.w700,
-                                            ),),
+                                            ),
+                                          ),
                                         ),
                                         new Container(
                                           // margin: const EdgeInsets.symmetric(vertical: 0.0),
                                           padding: EdgeInsets.all(10.0),
-                                          child: new Text(snapshot
-                                              .data.startDate
-                                              .toString(),
+                                          child: new Text(
+                                            snapshot.data.startDate.toString(),
                                             style: TextStyle(
                                               fontSize: 14,
                                               color: AppTheme.darkText,
                                               fontWeight: FontWeight.w700,
-                                            ),),
+                                            ),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -155,12 +161,14 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                           // margin: const EdgeInsets.symmetric(vertical: 0.0),
                                           padding: EdgeInsets.all(10.0),
 
-                                          child: new Text("end data",
+                                          child: new Text(
+                                            "end data",
                                             style: TextStyle(
                                               fontSize: 16,
                                               color: AppTheme.darkText,
                                               fontWeight: FontWeight.w700,
-                                            ),),
+                                            ),
+                                          ),
                                         ),
                                         new Container(
                                           // margin: const EdgeInsets.symmetric(vertical: 0.0),
@@ -172,7 +180,8 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                               fontSize: 14,
                                               color: AppTheme.darkText,
                                               fontWeight: FontWeight.w700,
-                                            ),),
+                                            ),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -180,12 +189,14 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                       // margin: const EdgeInsets.symmetric(vertical: 0.0),
                                       padding: EdgeInsets.all(10.0),
 
-                                      child: new Text(snapshot.data.city,
+                                      child: new Text(
+                                        snapshot.data.city,
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: AppTheme.darkText,
                                           fontWeight: FontWeight.w700,
-                                        ),),
+                                        ),
+                                      ),
                                     ),
                                     new Container(
                                       // margin: const EdgeInsets.symmetric(vertical: 0.0),
@@ -197,7 +208,8 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                           fontSize: 16,
                                           color: AppTheme.darkText,
                                           fontWeight: FontWeight.w700,
-                                        ),),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -236,25 +248,27 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                           padding: EdgeInsets.all(10.0),
 
                                           child: new Text(
-                                              "number of participants",
+                                            "number of participants",
                                             style: TextStyle(
                                               fontSize: 16,
                                               color: AppTheme.darkText,
                                               fontWeight: FontWeight.w700,
-                                            ),),
+                                            ),
+                                          ),
                                         ),
                                         new Container(
                                           // margin: const EdgeInsets.symmetric(vertical: 0.0),
                                           padding: EdgeInsets.all(10.0),
 
-                                          child: new Text(snapshot
-                                              .data.competitors.length
-                                              .toString(),
+                                          child: new Text(
+                                            snapshot.data.competitors.length
+                                                .toString(),
                                             style: TextStyle(
                                               fontSize: 16,
                                               color: AppTheme.darkText,
                                               fontWeight: FontWeight.w700,
-                                            ),),
+                                            ),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -262,12 +276,14 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                       // margin: const EdgeInsets.symmetric(vertical: 0.0),
                                       padding: EdgeInsets.all(10.0),
 
-                                      child: new Text(snapshot.data.state,
+                                      child: new Text(
+                                        snapshot.data.state,
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: AppTheme.darkText,
                                           fontWeight: FontWeight.w700,
-                                        ),),
+                                        ),
+                                      ),
                                     ),
                                     new Row(
                                       children: [
@@ -279,20 +295,20 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                               borderRadius:
                                                   BorderRadius.circular(18.0),
                                             ),
-                                            child: new Text("send invitation",
+                                            child: new Text(
+                                              "send invitation",
                                               style: TextStyle(
                                                 fontSize: 16,
                                                 color: AppTheme.darkText,
                                                 fontWeight: FontWeight.w700,
-                                              ),),
+                                              ),
+                                            ),
                                             onPressed: () {
-                                              Navigator.push<dynamic>(
-                                                context,
-                                                MaterialPageRoute<dynamic>(
-                                                  builder:
-                                                      (BuildContext context) =>
-                                                          RegistPage(),
-                                                ),
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext
+                                                        context) =>
+                                                    _buildPopupDialog(context),
                                               );
                                             },
                                             color: Colors.redAccent.shade200,
@@ -304,12 +320,14 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                             borderRadius:
                                                 BorderRadius.circular(18.0),
                                           ),
-                                          child: new Text("enter",
+                                          child: new Text(
+                                            "enter",
                                             style: TextStyle(
                                               fontSize: 16,
                                               color: AppTheme.darkText,
                                               fontWeight: FontWeight.w700,
-                                            ),),
+                                            ),
+                                          ),
                                           onPressed: () {
                                             Navigator.push<dynamic>(
                                               context,
@@ -352,18 +370,20 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                       ],
                                     )),
                                 child: new Column(
-                                 // crossAxisAlignment: CrossAxisAlignment.start,
+                                  // crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     new Container(
                                       // margin: const EdgeInsets.symmetric(vertical: 0.0),
                                       padding: EdgeInsets.all(10.0),
 
-                                      child: new Text("links",
+                                      child: new Text(
+                                        "links",
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: AppTheme.darkText,
                                           fontWeight: FontWeight.w700,
-                                        ),),
+                                        ),
+                                      ),
                                     ),
                                     new RaisedButton(
                                       padding: EdgeInsets.all(10.0),
@@ -371,12 +391,14 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                         borderRadius:
                                             BorderRadius.circular(18.0),
                                       ),
-                                      child: new Text("streams",
+                                      child: new Text(
+                                        "streams",
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: AppTheme.darkText,
                                           fontWeight: FontWeight.w700,
-                                        ),),
+                                        ),
+                                      ),
                                       onPressed: () {
                                         Navigator.push<dynamic>(
                                           context,
@@ -394,12 +416,14 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                         borderRadius:
                                             BorderRadius.circular(18.0),
                                       ),
-                                      child: new Text("official web",
+                                      child: new Text(
+                                        "official web",
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: AppTheme.darkText,
                                           fontWeight: FontWeight.w700,
-                                        ),),
+                                        ),
+                                      ),
                                       onPressed: () {
                                         Navigator.push<dynamic>(
                                           context,
@@ -445,23 +469,27 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                       // margin: const EdgeInsets.symmetric(vertical: 0.0),
                                       padding: EdgeInsets.all(10.0),
 
-                                      child: new Text("description",
+                                      child: new Text(
+                                        "description",
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: AppTheme.darkText,
                                           fontWeight: FontWeight.w700,
-                                        ),),
+                                        ),
+                                      ),
                                     ),
                                     new Container(
                                       // margin: const EdgeInsets.symmetric(vertical: 0.0),
                                       padding: EdgeInsets.all(10.0),
 
-                                      child: new Text("description ",
+                                      child: new Text(
+                                        "description ",
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: AppTheme.darkText,
                                           fontWeight: FontWeight.w700,
-                                        ),),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -496,12 +524,14 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                     new Container(
                                       // margin: const EdgeInsets.symmetric(vertical: 0.0),
                                       padding: EdgeInsets.all(10.0),
-                                      child: new Text("list of participants",
+                                      child: new Text(
+                                        "list of participants",
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: AppTheme.darkText,
                                           fontWeight: FontWeight.w700,
-                                        ),),
+                                        ),
+                                      ),
                                     ),
                                     new Container(
                                       height:
@@ -590,12 +620,14 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                       // margin: const EdgeInsets.symmetric(vertical: 0.0),
                                       padding: EdgeInsets.all(10.0),
 
-                                      child: new Text("tournament grid",
+                                      child: new Text(
+                                        "tournament grid",
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: AppTheme.darkText,
                                           fontWeight: FontWeight.w700,
-                                        ),),
+                                        ),
+                                      ),
                                     ),
                                     new Container(
                                       // margin: const EdgeInsets.symmetric(vertical: 0.0),
@@ -613,6 +645,68 @@ class _CompetitionState extends State<CompetitionInfoScreen>
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  final TextEditingController emailsendControl = TextEditingController();
+  final formKeyinvite = GlobalKey<FormState>();
+
+  Widget _buildPopupDialog(BuildContext context) {
+    return Form(
+      key: formKeyinvite,
+      child: new AlertDialog(
+        title: const Text('Send invition'),
+        content: new Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            new Container(
+              // width: 275.0,
+              child: new TextFormField(
+                controller: emailsendControl,
+                decoration: new InputDecoration(
+                  hintText: 'Email',
+                  filled: true,
+                  fillColor: Colors.white70,
+                ),
+                validator: (value) {
+                  if (value!.isEmpty ||
+                      !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                          .hasMatch(value)) {
+                    return "Enter Correct Email Address";
+                  } else {
+                    return null;
+                  }
+                },
+              ),
+            ),
+            // Text("Hello"),
+          ],
+        ),
+        actions: <Widget>[
+          new FlatButton(
+            onPressed: () {
+              if (formKeyinvite.currentState!.validate()) {
+                getDatahttp.postEmail(emailsendControl.text).then((value) =>
+                    Navigator.of(context).pop()
+              );
+                emailsendControl.text = '';
+              }
+            //  Navigator.of(context).pop();
+            },
+            textColor: Theme.of(context).primaryColor,
+            child: const Text('Send'),
+          ),
+          new FlatButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              emailsendControl.text = '';
+            },
+            textColor: Theme.of(context).primaryColor,
+            child: const Text('Close'),
+          ),
+        ],
       ),
     );
   }
