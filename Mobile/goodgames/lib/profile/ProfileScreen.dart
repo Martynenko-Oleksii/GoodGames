@@ -155,18 +155,18 @@ class _ProfileState extends State<ProfileScreen>
                       ]),
                     ),
                     new Container(
-                      margin: const EdgeInsets.all(7.0),
+                      margin: const EdgeInsets.all(10.0),
                       width: 300,
                       height: 30,
                       child: new Row(children: <Widget>[
-                        new Text(
+                       /* new Text(
                           "Статус підписки:",
                           style: TextStyle(
                             fontSize: 16,
                             color: AppTheme.darkText,
                             fontWeight: FontWeight.w700,
                           ),
-                        ),
+                        ),*/
 
                       new Container(
                         child: sub(),
@@ -266,7 +266,7 @@ class _ProfileState extends State<ProfileScreen>
     if( widget.user.subscription == null){
       return new Container(
         // margin: const EdgeInsets.symmetric(vertical: 0.0),
-        padding: EdgeInsets.only(left: 10.0),
+      //  padding: EdgeInsets.only(left: 10.0),
 
         child: new RaisedButton(
           shape: RoundedRectangleBorder(
@@ -288,10 +288,10 @@ class _ProfileState extends State<ProfileScreen>
       );
     }else{
     return  new Text(
-
-    widget.user.subscription!,
+"діє до " + widget.user.subscription!.end.toString()
++ "lvl " +   widget.user.subscription!.lvl.toString(),
     style: TextStyle(
-    fontSize: 16,
+    fontSize: 14,
     color: AppTheme.darkText,
     fontWeight: FontWeight.w700,
     ),

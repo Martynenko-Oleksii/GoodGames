@@ -5,7 +5,7 @@ class User {
   String? login;
   String? email;
   String? password;
-  String? subscription;
+  Subscription? subscription;
   List<Sport>? sports;
 
  User({
@@ -112,5 +112,24 @@ class Competitor {
   @override
   String toString() {
     return "id:$id, name:$name";
+  }
+}
+
+class Subscription {
+  int? id;
+  int? lvl;
+  DateTime? start;
+  DateTime? end;
+
+  Subscription({
+    this.id,
+    this.lvl,
+    this.start,
+    this.end,
+  });
+
+  @override
+  String toString() {
+    return "id:$id, name:$lvl";
   }
 }

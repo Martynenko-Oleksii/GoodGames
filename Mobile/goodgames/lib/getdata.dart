@@ -24,14 +24,14 @@ class getDatahttp {
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
-        user = User(
-            id: jsonData["id"],
-            login: jsonData["login"],
-            email: jsonData["email"],
-            password: jsonData["password"],
-            subscription: jsonData["subscription"],
-            sports: jsonData["sports"]
-        );
+          user = User(
+              id: jsonData["id"],
+              login: jsonData["login"],
+              email: jsonData["email"],
+              password: jsonData["password"],
+              subscription:  jsonData["subscription"],
+              sports: jsonData["sports"]
+          );
       }
     } catch(ex) {
       print(ex);
@@ -57,14 +57,42 @@ class getDatahttp {
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
-        user = User(
-            id: jsonData["id"],
-            login: jsonData["login"],
-            email: jsonData["email"],
-            password: jsonData["password"],
-            subscription: jsonData["subscription"],
-            sports: jsonData["sports"]
-        );
+        if(jsonData[0]["subscription"] == null){
+          user = User(
+              id: jsonData[0]["id"],
+              login: jsonData[0]["login"],
+              email: jsonData[0]["email"],
+              password: jsonData[0]["password"],
+              subscription:  jsonData[0]["subscription"],
+              sports: jsonData[0]["sports"]
+          );
+        }else{
+          user = User(
+              id: jsonData[0]["id"],
+              login: jsonData[0]["login"],
+              email: jsonData[0]["email"],
+              password: jsonData[0]["password"],
+              subscription:  Subscription(
+                id: jsonData[0]["subscription"]["id"],
+                lvl: jsonData[0]["subscription"]["level"],
+                start: DateTime.parse(
+                    jsonData[0]["subscription"]["start"]
+                        .toString()
+                        .substring(0, 10) + " " +
+                        jsonData[0]["subscription"]["start"]
+                            .toString()
+                            .substring(11)),
+                end: DateTime.parse(
+                    jsonData[0]["subscription"]["end"]
+                        .toString()
+                        .substring(0, 10) + " " +
+                        jsonData[0]["subscription"]["end"]
+                            .toString()
+                            .substring(11)),
+              ),
+              sports: jsonData[0]["sports"]
+          );
+        }
       }
     } catch(ex) {
       print(ex);
@@ -408,7 +436,7 @@ class getDatahttp {
       );
 
       if (response.statusCode == 200) {
-
+print(id);
         result = true;
 
       } else {
