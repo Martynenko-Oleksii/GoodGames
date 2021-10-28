@@ -32,7 +32,7 @@ class _ProfileState extends State<ProfileScreen>
         duration: const Duration(milliseconds: 2000), vsync: this);
     super.initState();
 
-    getDatahttp.getFavouriteSports(1).then((value) => profileList = value);
+    getDatahttp.getFavouriteSports(widget.user.id!).then((value) => profileList = value);
   }
 
   Future<bool> getData() async {
@@ -167,18 +167,11 @@ class _ProfileState extends State<ProfileScreen>
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        /*new Container(
-                          // margin: const EdgeInsets.symmetric(vertical: 0.0),
-                          padding: EdgeInsets.only(left: 100.0),
 
-                          child: new RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                            ),
-                            child: new Text("prodliti"),
-                            onPressed: onPressed,
-                          ),
-                        ),*/
+                      new Container(
+                        child: sub(),
+                      ),
+
                       ]),
                     ),
                     /*new Container(
@@ -267,6 +260,43 @@ class _ProfileState extends State<ProfileScreen>
             ],
           ),
         )));
+  }
+
+  Widget sub(){
+    if( widget.user.subscription == null){
+      return new Container(
+        // margin: const EdgeInsets.symmetric(vertical: 0.0),
+        padding: EdgeInsets.only(left: 10.0),
+
+        child: new RaisedButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18.0),
+          ),
+          child: new Text("пібписатися"),
+          onPressed: (){
+          //  widget.user.subscription = "123";
+            getDatahttp.subscribe(widget.user.id!).then((value) =>
+                Navigator.push<dynamic>(
+                  context,
+                  MaterialPageRoute<dynamic>(
+                    builder: (BuildContext context) =>
+                        ProfileScreen(user: widget.user),
+                  ),
+                ));
+          },
+        ),
+      );
+    }else{
+    return  new Text(
+
+    widget.user.subscription!,
+    style: TextStyle(
+    fontSize: 16,
+    color: AppTheme.darkText,
+    fontWeight: FontWeight.w700,
+    ),
+    );
+    }
   }
 
   void onPressed() {}

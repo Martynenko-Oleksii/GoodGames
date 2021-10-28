@@ -656,7 +656,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
     return Form(
       key: formKeyinvite,
       child: new AlertDialog(
-        title: const Text('Send invition'),
+        title: const Text('Send invitation'),
         content: new Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,

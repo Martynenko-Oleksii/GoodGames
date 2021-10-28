@@ -395,6 +395,39 @@ class getDatahttp {
 
     return sports;
   }
+
+  //TODO
+  static Future<bool> subscribe(int id) async{
+
+    bool result = false;
+
+    var body = jsonEncode({
+      'id': id
+    });
+
+    try {
+      var response = await http.post(
+          Uri.https("goodgames.kh.ua", "api/"),
+          body: body,
+          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
+      );
+
+      if (response.statusCode == 200) {
+
+        result = true;
+
+      } else {
+        print(response.body);
+      }
+    } catch (ex) {
+      print(ex);
+    }
+    print(result);
+
+    return result;
+  }
+
+
 }
 
 
