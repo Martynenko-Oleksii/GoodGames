@@ -401,14 +401,9 @@ class getDatahttp {
 
     bool result = false;
 
-    var body = jsonEncode({
-      'id': id
-    });
-
     try {
-      var response = await http.post(
-          Uri.https("goodgames.kh.ua", "api/"),
-          body: body,
+      var response = await http.get(
+          Uri.https("goodgames.kh.ua", "api/subs/$id"),
           headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
       );
 
