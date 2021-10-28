@@ -35,21 +35,14 @@ namespace GGBack.Utils
 
                     if (DateTime.UtcNow > competition.StartDate)
                     {
-                        times.Add(new DateTime(DateTime.UtcNow.Year,
-                                                DateTime.UtcNow.Month,
-                                                DateTime.UtcNow.Day + 1,
-                                                startTime.Hour - 2,
-                                                startTime.Minute,
-                                                0));
+                        DateTime temp = DateTime.UtcNow.AddDays(1);
+                        times.Add(new DateTime(temp.Year, temp.Month, temp.Day, 
+                            startTime.Hour - 2, startTime.Minute, 0));
                     }
                     else
                     {
-                        times.Add(new DateTime(startDate.Year,
-                                                startDate.Month,
-                                                startDate.Day,
-                                                startTime.Hour - 2,
-                                                startTime.Minute,
-                                                0));
+                        times.Add(new DateTime(startDate.Year, startDate.Month, startDate.Day,
+                            startTime.Hour - 2, startTime.Minute, 0));
                     }
 
                     DateTime newDateTime = times.Last().AddHours(2);
@@ -62,12 +55,10 @@ namespace GGBack.Utils
                         }
                         else
                         {
-                            DateTime temp = new DateTime(newDateTime.Year,
-                                newDateTime.Month,
-                                newDateTime.Day + 1,
-                                startTime.Hour,
-                                startTime.Minute,
-                                0);
+                            DateTime temp = newDateTime.AddDays(1);
+                            temp = new DateTime(temp.Year, temp.Month, temp.Day,
+                                startTime.Hour, startTime.Minute, 0);
+
                             dt = temp;
                             times.Add(temp);
                         }
