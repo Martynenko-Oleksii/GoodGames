@@ -57,40 +57,40 @@ class getDatahttp {
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
-        if(jsonData[0]["subscription"] == null){
+        if(jsonData["subscription"] == null){
           user = User(
-              id: jsonData[0]["id"],
-              login: jsonData[0]["login"],
-              email: jsonData[0]["email"],
-              password: jsonData[0]["password"],
-              subscription:  jsonData[0]["subscription"],
-              sports: jsonData[0]["sports"]
+              id: jsonData["id"],
+              login: jsonData["login"],
+              email: jsonData["email"],
+              password: jsonData["password"],
+              subscription:  jsonData["subscription"],
+              sports: jsonData["sports"]
           );
         }else{
           user = User(
-              id: jsonData[0]["id"],
-              login: jsonData[0]["login"],
-              email: jsonData[0]["email"],
-              password: jsonData[0]["password"],
+              id: jsonData["id"],
+              login: jsonData["login"],
+              email: jsonData["email"],
+              password: jsonData["password"],
               subscription:  Subscription(
-                id: jsonData[0]["subscription"]["id"],
-                lvl: jsonData[0]["subscription"]["level"],
+                id: jsonData["subscription"]["id"],
+                lvl: jsonData["subscription"]["level"],
                 start: DateTime.parse(
-                    jsonData[0]["subscription"]["start"]
+                    jsonData["subscription"]["start"]
                         .toString()
                         .substring(0, 10) + " " +
-                        jsonData[0]["subscription"]["start"]
+                        jsonData["subscription"]["start"]
                             .toString()
                             .substring(11)),
                 end: DateTime.parse(
-                    jsonData[0]["subscription"]["end"]
+                    jsonData["subscription"]["end"]
                         .toString()
                         .substring(0, 10) + " " +
-                        jsonData[0]["subscription"]["end"]
+                        jsonData["subscription"]["end"]
                             .toString()
                             .substring(11)),
               ),
-              sports: jsonData[0]["sports"]
+              sports: jsonData["sports"]
           );
         }
       }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:goodgames/login/regist.dart';
 
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 
 import '../../../home_screen.dart';
 import '../../../main.dart';
@@ -288,8 +289,11 @@ class _ProfileState extends State<ProfileScreen>
       );
     }else{
     return  new Text(
-"діє до " + widget.user.subscription!.end.toString()
-+ "lvl " +   widget.user.subscription!.lvl.toString(),
+"діє до: " +
+
+    DateFormat('yyyy-MM-dd – kk:mm').format( widget.user.subscription!.end!)
+
++ " lvl: " +   widget.user.subscription!.lvl.toString(),
     style: TextStyle(
     fontSize: 14,
     color: AppTheme.darkText,
