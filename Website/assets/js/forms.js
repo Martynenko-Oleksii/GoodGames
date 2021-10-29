@@ -185,17 +185,22 @@ function reg_validation() {
     }
 }
 
-function create_game(){ //Создание нового соревнования
-    //Переменные = названием передаваемых значений.
-    var Title = document.getElementById("Title").value;
-    var Description = document.getElementById("Description").value;
-    // var IsOpen = document.getElementsByName("").value;
-    var Sport = document.getElementById('sport').value;
-    var AgeLimit = document.getElementById("AgeLimit").value;
-    var City = document.getElementById("City").value;
-    var StartDate = document.getElementById("data_start").value;
-    var EndDate = document.getElementById("data_end").value;
-    var IsPublic = document.getElementById("IsPublic").value;
+function create_game() { //Создание нового соревнования
+    const requestUrl = "/api/competitions/create";
 
-    alert("Форма создания соревнования.\nTitle: " + Title + "\nSport: " + Sport + "\nAgeLimit: " + AgeLimit + "\nCity: " + City + "\nStartDate: " + StartDate + "\nEndDate: " + EndDate + "\nIsPublic: " + IsPublic + "\nDescription: " + Description);
+    const body = {
+        Title:          document.querySelector("#Title").value,
+        Description:    document.querySelector("#Description").value,
+        // IsOpen:      document.querySelector("").value,
+        Sport:          document.querySelector('#sport').value,
+        AgeLimit:       document.querySelector("#AgeLimit").value,
+        City:           document.querySelector("#City").value,
+        StartDate:      document.querySelector("#data_start").value,
+        EndDate:        document.querySelector("#data_end").value,
+        IsPublic:       document.querySelector("#IsPublic").value
+    }
+
+    ServerRequest.send("POST", requestUrl, body)
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
 }
