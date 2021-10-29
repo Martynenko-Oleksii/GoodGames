@@ -10,18 +10,16 @@ namespace GGBack.Utils
 {
     public class PostEmail
     {
-        public static bool SendInvitation(Post post, ServerDbContext context)
+        public static string SendInvitation(Post post, ServerDbContext context)
         {
             try
             {
-                string fromPost = context.Users
-                    .Where(u => u.Id == post.UserId)
-                    .Select(u => u.Email)
-                    .FirstOrDefault();
-                string fromName = context.Users
-                    .Where(u => u.Id == post.UserId)
-                    .Select(u => u.Login)
-                    .FirstOrDefault(); ;
+                string fromPost = "goodgames.testing@gmail.com";
+                //string fromName = context.Users
+                //    .Where(u => u.Id == post.UserId)
+                //    .Select(u => u.Login)
+                //    .FirstOrDefault();
+                string fromName = "Dummy";
 
                 MailAddress from = new MailAddress(fromPost, fromName);
 
@@ -34,18 +32,18 @@ namespace GGBack.Utils
                     $" присоедениться к турниру {context.Competitions.Find(post.CompetitionId).Title}," +
                     $" время начала - {context.Competitions.Find(post.CompetitionId).StartDate}. /ссылка/";
 
-                message.IsBodyHtml = true;
+                message.IsBodyHtml = false;
                 SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-                smtp.Credentials = new NetworkCredential(fromPost, "mineworker");
+                smtp.Credentials = new NetworkCredential(fromPost, "frick4224");
                 smtp.EnableSsl = true;
                 smtp.Send(message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return false;
+                return ex.Message + "\n" + ex.InnerException;
             }
 
-            return true;
+            return "true";
         }
     }
 

@@ -29,12 +29,13 @@ namespace GGBack.Controllers
         {
             if (post.Equals(null))
             {
-                return BadRequest("null");
+                return BadRequest("object is null");
             }
 
-            if (!PostEmail.SendInvitation(post, context))
+            string result = PostEmail.SendInvitation(post, context);
+            if (!result.Equals("true"))
             {
-                return BadRequest("mail not sent");
+                return BadRequest(result);
             }
 
             return Ok("ok");
