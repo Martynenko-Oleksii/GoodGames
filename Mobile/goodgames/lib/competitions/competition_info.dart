@@ -23,6 +23,8 @@ class _CompetitionState extends State<CompetitionInfoScreen>
   late AnimationController animationController;
   bool multiple = false;
   final ScrollController _scrollController = ScrollController();
+  final TextEditingController emailsendControl = TextEditingController();
+  final formKeyinvite = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -306,9 +308,87 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                             onPressed: () {
                                               showDialog(
                                                 context: context,
-                                                builder: (BuildContext
-                                                        context) =>
-                                                    _buildPopupDialog(context),
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        Form(
+                                                  key: formKeyinvite,
+                                                  child: new AlertDialog(
+                                                    title: const Text(
+                                                        'Send invitation'),
+                                                    content: new Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        new Container(
+                                                          // width: 275.0,
+                                                          child:
+                                                              new TextFormField(
+                                                            controller:
+                                                                emailsendControl,
+                                                            decoration:
+                                                                new InputDecoration(
+                                                              hintText: 'Email',
+                                                              filled: true,
+                                                              fillColor: Colors
+                                                                  .white70,
+                                                            ),
+                                                            validator: (value) {
+                                                              if (value!
+                                                                      .isEmpty ||
+                                                                  !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                                                                      .hasMatch(
+                                                                          value)) {
+                                                                return "Enter Correct Email Address";
+                                                              } else {
+                                                                return null;
+                                                              }
+                                                            },
+                                                          ),
+                                                        ),
+                                                        // Text("Hello"),
+                                                      ],
+                                                    ),
+                                                    actions: <Widget>[
+                                                      new FlatButton(
+                                                        onPressed: () {
+                                                          if (formKeyinvite
+                                                              .currentState!
+                                                              .validate()) {
+                                                            getDatahttp.postEmail(emailsendControl.text, snapshot.data.id, snapshot.data.user.id)
+                                                                .then((value) =>
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop());
+                                                            emailsendControl
+                                                                .text = '';
+                                                          }
+                                                          //  Navigator.of(context).pop();
+                                                        },
+                                                        textColor:
+                                                            Theme.of(context)
+                                                                .primaryColor,
+                                                        child:
+                                                            const Text('Send'),
+                                                      ),
+                                                      new FlatButton(
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                          emailsendControl
+                                                              .text = '';
+                                                        },
+                                                        textColor:
+                                                            Theme.of(context)
+                                                                .primaryColor,
+                                                        child:
+                                                            const Text('Close'),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                               );
                                             },
                                             color: Colors.redAccent.shade200,
@@ -649,9 +729,6 @@ class _CompetitionState extends State<CompetitionInfoScreen>
     );
   }
 
-  final TextEditingController emailsendControl = TextEditingController();
-  final formKeyinvite = GlobalKey<FormState>();
-
   Widget _buildPopupDialog(BuildContext context) {
     return Form(
       key: formKeyinvite,
@@ -688,12 +765,13 @@ class _CompetitionState extends State<CompetitionInfoScreen>
           new FlatButton(
             onPressed: () {
               if (formKeyinvite.currentState!.validate()) {
-                getDatahttp.postEmail(emailsendControl.text).then((value) =>
-                    Navigator.of(context).pop()
-              );
+                getDatahttp
+                    .postEmail(emailsendControl.text, widget.comp.id!,
+                        widget.comp.user!.id!)
+                    .then((value) => Navigator.of(context).pop());
                 emailsendControl.text = '';
               }
-            //  Navigator.of(context).pop();
+              //  Navigator.of(context).pop();
             },
             textColor: Theme.of(context).primaryColor,
             child: const Text('Send'),

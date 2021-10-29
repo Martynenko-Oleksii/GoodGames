@@ -164,7 +164,7 @@ class TimetableCell {
     this.dateTime,
     this.competitors,
     this.competition,
-    this.gridStage,,
+    this.gridStage,
     this.winResult,
   });
 

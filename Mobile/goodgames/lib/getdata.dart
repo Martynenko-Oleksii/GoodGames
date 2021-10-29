@@ -358,12 +358,14 @@ class getDatahttp {
   }
 
   //TODO
-  static Future<bool> postEmail(String email) async{
+  static Future<bool> postEmail(String email , int competitionId , int id) async{
 
     bool result = false;
 
     var body = jsonEncode({
-      'email': email
+      'competitionId' : competitionId,
+      'email': email,
+      'userId' : id,
     });
 
     try {
