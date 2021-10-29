@@ -22,7 +22,7 @@
 			
 
 			<div class="field">
-				<input type="text" name="name" placeholder="Назва команди">
+				<input type="text" name="team" id="team" placeholder="Назва команди">
 				<i class="fas fa-user-friends" style="padding-top: 5px;"></i>
 			</div>
 		</div>
@@ -31,7 +31,7 @@
 
 		<div class="dbl-field">
 			<div class="field">
-			<input type="text" name="name" placeholder="Ваше ім'я">
+			<input type="text" name="name" id="name" placeholder="Ваше ім'я">
 			<i class='fas fa-user' style="padding-top: 5px;"></i>
 			</div>
 			<div class="field">
@@ -42,12 +42,12 @@
 
 		<div class="dbl-field">
 			<div class="field">
-			<input type="text" name="age" placeholder="Ваш вік">
+			<input type="text" name="age" id="age" placeholder="Ваш вік">
 			<i class="fas fa-passport" style="padding-top: 5px;"></i>
 			</div>
 
 			<div class="field">
-				<input type="number" name="weigth" placeholder="Ваша вага, кг">
+				<input type="number" name="weigth" id="weigth" placeholder="Ваша вага, кг">
 				<i class="fas fa-weight" style="padding-top: 5px;"></i>
 			</div>
 		</div>
@@ -75,7 +75,7 @@
 		</div>
 
 		<div class="button-area">
-			<button class="buttom ghost fuckingBUTTOM" type="submit" style="position: relative; left: 50%; transform: translate(-50%, 0);">Приєднатись</button>
+			<a class="buttom ghost fuckingBUTTOM" onclick="sendjoin();" style="position: relative; left: 50%; transform: translate(-50%, 0);">Приєднатись</a>
 			<span style="padding-top: 10px;"></span>
 		</div>
 		</form>
