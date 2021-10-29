@@ -214,12 +214,16 @@ function create_game() { //Создание нового соревновани�
     }
 
     ServerRequest.send("POST", requestUrl, body)
-      .then(data => console.log(data))
+      .then(() => goToCompetitionsList())
       .catch(err => console.log(err));
 
 
     function dateInputValueToUTC (dateInputValue) {
         const date = new Date(dateInputValue);
         return date.toJSON().substr(0, 19);
+    }
+
+    function goToCompetitionsList() {
+        location = "/competitionsList";
     }
 }
