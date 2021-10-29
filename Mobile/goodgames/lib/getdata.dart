@@ -450,7 +450,117 @@ print(id);
     return result;
   }
 
+  static Future<List<TimetableCell>> getTimetable(int competitionId) async{
+    List<TimetableCell> cells = [];
 
+    try {
+      var response = await http.get(
+          Uri.https("goodgames.kh.ua", "api/sports/$competitionId"),
+          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
+      );
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+        for (var s in jsonData) {
+          TimetableCell cell = TimetableCell(
+            id: s[0]["id"],
+            dateTime: DateTime.parse(
+                s[0]["dateTime"]
+                    .toString()
+                    .substring(0, 10) + " " +
+                    s[0]["dateTime"]
+                        .toString()
+                        .substring(11)),
+            competition: Competition(
+              id: s[0]["competition"]["id"],
+              title: s[0]["competition"]["title"],
+            ),
+            gridStage: s[0]["gridStage"],
+          );
+
+          List<Competitor> cellCompetitors = [];
+          for (var c in s[0]["competitors"])
+          {
+            cellCompetitors.add(Competitor(
+                id: c["id"],
+                name: c["name"],
+                email: c["email"],
+                age: c["age"],
+                gender: c["gender"],
+                weigth: c["weigth"],
+                healthState: c["healthState"],
+                team: c["team"]
+            ));
+          }
+          cell.competitors = cellCompetitors;
+
+          if (s[0]["winResult"] != null)
+          {
+            cell.winResult = WinResult(
+                id: s[0]["winResult"]["id"],
+                score: s[0]["winResult"]["score"]
+            );
+
+            List<Competitor> winCompetitors = [];
+            for (var c in s[0]["winResult"]["competitors"])
+            {
+              winCompetitors.add(Competitor(
+                  id: c["id"],
+                  name: c["name"],
+                  email: c["email"],
+                  age: c["age"],
+                  gender: c["gender"],
+                  weigth: c["weigth"],
+                  healthState: c["healthState"],
+                  team: c["team"]
+              ));
+            }
+            cell.winResult?.competitors = winCompetitors;
+          }
+
+          cells.add(cell);
+        }
+      } else {
+        print(response.body);
+      }
+    } catch (ex) {
+      print(ex);
+    }
+
+    print(cells);
+
+    return cells;
+  }
+
+  static Future<bool> generateSchedule(int competitionId, DateTime start, DateTime end) async {
+    bool result = false;
+
+    var body = jsonEncode({
+      'id': competitionId,
+      'start': start,
+      'end': end
+    });
+
+    try {
+      var response = await http.post(
+          Uri.https("goodgames.kh.ua", "api/timetables/create"),
+          body: body,
+          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
+      );
+
+      if (response.statusCode == 200) {
+        result = true;
+      } else {
+        print(response.body);
+      }
+    } catch (ex) {
+      print(ex);
+    }
+
+    print(result);
+
+    return result;
+  }
 }
 
 

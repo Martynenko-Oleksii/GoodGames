@@ -133,3 +133,43 @@ class Subscription {
     return "id:$id, name:$lvl";
   }
 }
+
+class WinResult {
+  int? id;
+  List<Competitor>? competitors;
+  String? score;
+
+  WinResult({
+    this.id,
+    this.competitors,
+    this.score,
+  });
+
+  @override
+  String toString() {
+    return "id:$id, name:$score";
+  }
+}
+
+class TimetableCell {
+  int? id;
+  DateTime? dateTime;
+  List<Competitor>? competitors;
+  Competition? competition;
+  int? gridStage;
+  WinResult? winResult;
+
+  TimetableCell({
+    this.id,
+    this.dateTime,
+    this.competitors,
+    this.competition,
+    this.gridStage,,
+    this.winResult,
+  });
+
+  @override
+  String toString() {
+    return "id:$id, name:$dateTime";
+  }
+}
