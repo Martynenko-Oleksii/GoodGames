@@ -75,7 +75,7 @@ function getUrlVars() {
 var id = getUrlVars()["id"]; // Идентификатор пользователя
 var game = getUrlVars()["game"]; // Идентификатор соревнования
 
-if(id == undefined){
+if(game == undefined){
   document.location.href = "/";
 }
 
