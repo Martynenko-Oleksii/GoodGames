@@ -75,6 +75,10 @@ function getUrlVars() {
 var id = getUrlVars()["id"]; // Идентификатор пользователя
 var game = getUrlVars()["game"]; // Идентификатор соревнования
 
+if(id == undefined){
+  document.location.href = "/";
+}
+
 function sendjoin(){
   statusTxt.style.color = "#0D6EFD";
   statusTxt.style.display = "block";
@@ -98,10 +102,6 @@ function sendjoin(){
   }
 
   ServerRequest.send("POST", requestUrl, body)
-    .then(() => redirectToCompetitionPage)
+    .then(() => document.location = "/game/?id=" + game)
     .catch(err => console.log(err));
-}
-
-function redirectToCompetitionPage() {
-  document.location = "/game/?id=" + game;
 }
