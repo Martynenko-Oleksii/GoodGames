@@ -98,6 +98,41 @@ function pageLoaded() {
 }
 
 
+function sendInvitation(email) {
+    if (!mail) {
+        console.log("Bag email");
+        return;
+    }
+
+    const requestUrl = "/api/post";
+
+    // get competition id
+    const competitionId = parseInt(getUrlVars().id);
+    if (!competitionId) {
+        console.log("Can`t define current competition id from url variables");
+        console.log("So I can`t send request for invitation(");
+        return;
+    }
+
+    // get user id
+    const userId = Cookies.get("id");
+    if (!userId) {
+        console.log("Can`t get user id from Cookies");
+        return;
+    }
+
+    const body = {
+        competitionId: competitionId,
+        userId: userId,
+        email: email,
+    }
+
+    ServerRequest.send("POST", requestUrl, body)
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
+}
+
+
 function generateTimetable() {
     const requestUrl = "/api/timetables/create";
 
