@@ -85,7 +85,7 @@ function pageLoaded() {
             document.querySelector(".competition-list .row");
 
         competitionsWrapperEl.innerHTML +=
-            `<div class="col-lg-4 col-md-6 mt-4 pt-2">
+            `<div class="col-lg-4 col-md-6 mt-4 pt-2" id="competition-${competitionId}">
                 <div class="card blog rounded border-0 shadow overflow-hidden">
                     <div class="position-relative">
                         <img src="assets/img/competition-placeholder.png" class="card-img-top" alt="...">
@@ -101,7 +101,8 @@ function pageLoaded() {
                             <a href="/game?id=${competitionId}" class="text-muted readmore">
                                 Детальніше
                             </a>
-                            <button class="competition-list__delete-button" onclick="deleteCompetition(${competitionId})">
+                            <button class="competition-list__delete-button"
+                                onclick="deleteCompetition(${competitionId})">
                                 <ion-icon name="trash-bin-outline" class="competition-list-list__delete-icon"></ion-icon>
                             </button>
                         </div>
@@ -125,6 +126,15 @@ function deleteCompetition(competitionId) {
     const requestUrl = "/api/competitions/delete/" + competitionId;
 
     ServerRequest.send("GET", requestUrl)
-        .then(data => console.log(data))
+        .then(data => removeCompetitionEl(data))
         .catch(err => console.log(err));
+}
+
+function removeCompetitionEl(competitionId) {
+    const competitionsWrapperEl =
+      document.querySelector(".competition-list .row");
+    const competitionEl =
+      document.querySelector("#competition-" + competitionId);
+
+    competitionsWrapperEl.removeChild(competitionEl);
 }
