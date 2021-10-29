@@ -43,7 +43,7 @@ namespace GGBack.Controllers
                     .ToArray();
 
                 string gridCell = "[\"" + teamsArray[0] + "\", " + teamsArray[1] + "\"],";
-                teams.Insert(teams.Length-1, gridCell);
+                teams.Insert(teams.Length-2, gridCell);
             }
             int stagesCount = cells
                 .Select(c => c.GridStage)
@@ -58,8 +58,14 @@ namespace GGBack.Controllers
 
                 for (int j = 0; j < cellsByStage.Count; j++)
                 {
-
+                    if (cellsByStage.ElementAt(j).WinResult != null)
+                    {
+                        StringBuilder result = new StringBuilder($"[{cellsByStage.ElementAt(j).WinResult.Score}],");
+                        stageResults.Insert(stageResults.Length - 2, result);
+                    }
                 }
+
+                results.Insert(results.Length - 1, stageResults);
             }
 
             StringBuilder tournamentGrid = new StringBuilder();
