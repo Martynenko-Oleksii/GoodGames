@@ -161,11 +161,20 @@
                                             <a href="javascript:void(0);" id="send">Запросити участь</a>
                                         </div>
                                         <script>
-                                            function send_togo(){
-                                                document.getElementById('send').style.height = "36px";
-                                                document.getElementById('send').textContent = "Відправити";
-                                                document.getElementById('open_input').style.display = "none";
-                                                document.getElementById('input_mail').style.display = "block";
+                                            function send_togo() {
+                                                const sendButtonEl = document.querySelector("#send");
+                                                const openInputEl = document.querySelector("#open_input");
+                                                const inputMailEl = document.querySelector("#input_mail");
+
+                                                sendButtonEl.style.height = "36px";
+                                                sendButtonEl.textContent = "Відправити";
+                                                openInputEl.style.display = "none";
+                                                inputMailEl.style.display = "block";
+
+                                                // add ability to run request function by clicking send button
+                                                sendButtonEl.addEventListener("click", () => {
+                                                    sendInvitation(inputMailEl.value);
+                                                });
                                             }
                                         </script>
                                     </div>
