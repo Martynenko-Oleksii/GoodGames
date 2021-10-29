@@ -15,11 +15,11 @@ namespace GGBack.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PostsController : Controller
+    public class PostController : Controller
     {
         private ServerDbContext context;
 
-        public PostsController(ServerDbContext context)
+        public PostController(ServerDbContext context)
         {
             this.context = context;
         }
