@@ -15,11 +15,11 @@ namespace GGBack.Utils
             try
             {
                 string fromPost = "goodgames.testing@gmail.com";
-                //string fromName = context.Users
-                //    .Where(u => u.Id == post.UserId)
-                //    .Select(u => u.Login)
-                //    .FirstOrDefault();
-                string fromName = "Dummy";
+                string fromName = context.Users
+                    .Where(u => u.Id == post.UserId)
+                    .Select(u => u.Login)
+                    .FirstOrDefault();
+                //string fromName = "Dummy";
 
                 MailAddress from = new MailAddress(fromPost, fromName);
 
