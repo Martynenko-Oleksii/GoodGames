@@ -322,7 +322,8 @@ class getDatahttp {
   static Future<Competitor?> postNewCompetitor(
       String name, String email, int age,
       String gender, int weigth,
-      String healthState, String team) async {
+      String healthState, String team,
+      int competitionId) async {
 
     Competitor? competitor;
 
@@ -333,7 +334,8 @@ class getDatahttp {
       'gender': gender,
       'weigth': weigth,
       'healthState': healthState,
-      'team': team
+      'team': team,
+      'competitions': [{"id": competitionId}]
     });
 
     try {
