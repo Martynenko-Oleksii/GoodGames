@@ -24,7 +24,6 @@
 
     <!-- БЛЯ НЕ ТРОГАТЬ  -->
 
-
     <script>
 
         var TEAMS;
@@ -51,19 +50,18 @@
             function parseTeams(data) {
                 TEAMS = JSON.parse("{" + data + "}");
                 console.log(TEAMS);
+                $('.demo').bracket({ // ПОСТОРЕНИЕ
+                    teamWidth: 100,
+                    scoreWidth: 36,
+                    matchMargin: 40,
+                    roundMargin: 65,
+                    init: TEAMS
+                });
             }
         }
 
         // СКРИПТЫ
         // ИНСТРУКЦИЯ: http://www.aropupu.fi/bracket/
-
-        $('.demo').bracket({ // ПОСТОРЕНИЕ
-            teamWidth: 100,
-            scoreWidth: 36,
-            matchMargin: 40,
-            roundMargin: 65,
-            init: TEAMS
-        });
 
         $('.demo').bracket({ // ГИБКАЯ НАСТРОЙКА
             init: null, // data to initialize

@@ -89,9 +89,11 @@ function pageLoaded() {
                 `<td>
                     <div class="td-content customer-name">
                         <img src="/assets/images/user-48.png" alt="avatar">
-                        <span>Влад</span>
+                        <span>${competitor.name}</span>
                     </div>
-                </td>`;
+                </td>
+                <td><div class="td-content product-brand text-primary">${competitor.age}</div></td>
+                <td><div class="td-content"><span class="badge badge-success">${competitor.team}</span></div></td>`;
             competitorsTableBodyEl.appendChild(tr);
         }
     }
