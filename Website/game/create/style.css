@@ -1187,7 +1187,7 @@ select.form-control[multiple], .form-group.is-focused select.form-control[multip
   box-shadow: 0 2px 2px 0 rgba(153, 153, 153, 0.14), 0 3px 1px -2px rgba(153, 153, 153, 0.2), 0 1px 5px 0 rgba(153, 153, 153, 0.12);
 }
 .btn, .btn:hover, .btn:focus, .btn:active, .btn.active, .btn:active:focus, .btn:active:hover, .btn.active:focus, .btn.active:hover, .open > .btn.dropdown-toggle, .open > .btn.dropdown-toggle:focus, .open > .btn.dropdown-toggle:hover, .btn.btn-default, .btn.btn-default:hover, .btn.btn-default:focus, .btn.btn-default:active, .btn.btn-default.active, .btn.btn-default:active:focus, .btn.btn-default:active:hover, .btn.btn-default.active:focus, .btn.btn-default.active:hover, .open > .btn.btn-default.dropdown-toggle, .open > .btn.btn-default.dropdown-toggle:focus, .open > .btn.btn-default.dropdown-toggle:hover {
-  background-color: #999999;
+  background-color: #292423;
   color: #FFFFFF;
 }
 .btn:focus, .btn:active, .btn:hover, .btn.btn-default:focus, .btn.btn-default:active, .btn.btn-default:hover {
@@ -1198,12 +1198,12 @@ select.form-control[multiple], .form-group.is-focused select.form-control[multip
 }
 .btn.btn-simple, .btn.btn-default.btn-simple {
   background-color: transparent;
-  color: #999999;
+  color: #292423;
   box-shadow: none;
 }
 .btn.btn-simple:hover, .btn.btn-simple:focus, .btn.btn-simple:active, .btn.btn-default.btn-simple:hover, .btn.btn-default.btn-simple:focus, .btn.btn-default.btn-simple:active {
   background-color: transparent;
-  color: #999999;
+  color: #292423;
 }
 .btn.btn-primary {
   box-shadow: 0 2px 2px 0 rgba(156, 39, 176, 0.14), 0 3px 1px -2px rgba(156, 39, 176, 0.2), 0 1px 5px 0 rgba(156, 39, 176, 0.12);
@@ -2561,4 +2561,21 @@ input[id=radio-2]:checked ~ .glider {
   z-index: 1;
   border-radius: 99px;
   transition: 0.25s ease-out;
+}
+
+.btn-next{
+  border-radius: 5px;
+	background-color: #292423;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+  border-color: #FFFFFF;
+}
+
+.btn:active {
+	transform: scale(0.95);
 }

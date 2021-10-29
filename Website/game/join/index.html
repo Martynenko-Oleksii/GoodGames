@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - youtube.com/codingnepal -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoodGames - Запросити участь</title>
+  <!-- Наш стиль --><link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+</head>
+<body>
+  <div class="wrapper">
+    <header><div style="text-align: center;">Приєднатися до змагання</div></header>
+    <form action="#" class="forms">
+		<div class="dbl-field">
+			<div class="field" style="display: block;">
+				<p>Змагання</p>
+				<h2 style="color: blue;">{Назва змагання}</h2>
+			</div>
+			
+
+			<div class="field">
+				<input type="text" name="name" placeholder="Назва команди">
+				<i class="fas fa-user-friends" style="padding-top: 5px;"></i>
+			</div>
+		</div>
+
+		<hr/><br>
+
+		<div class="dbl-field">
+			<div class="field">
+			<input type="text" name="name" placeholder="Ваше ім'я">
+			<i class='fas fa-user' style="padding-top: 5px;"></i>
+			</div>
+			<div class="field">
+			<input type="text" name="email" id="email" placeholder="Ваша пошта">
+			<i class='fas fa-envelope' style="padding-top: 5px;"></i>
+			</div>
+		</div>
+
+		<div class="dbl-field">
+			<div class="field">
+			<input type="text" name="age" placeholder="Ваш вік">
+			<i class="fas fa-passport" style="padding-top: 5px;"></i>
+			</div>
+
+			<div class="field">
+				<input type="number" name="weigth" placeholder="Ваша вага, кг">
+				<i class="fas fa-weight" style="padding-top: 5px;"></i>
+			</div>
+		</div>
+
+		<div class="dbl-field">
+			<div class="field">
+				<select class="form-control" name="gender" id="gender" style="margin-top: 4px;">
+					<option value="0" disabled="" selected="">Ваша стать</option>
+					<option value="Чоловік">Чоловік</option>
+					<option value="Жінка">Жінка</option>
+				</select>
+				<i class="fas fa-restroom" style="padding-top: 5px;"></i>
+			</div>
+
+			<div class="field">
+				<select class="form-control" name="healthstate" id="healthstate" style="margin-top: 4px;">
+					<option value="0" disabled="" selected="">Стан здоров'я</option>
+					<option value="Відмінне">Відмінне</option>
+					<option value="Спеціальна група">Спеціальна група</option>
+					<option value="Не має значення">Не має значення</option>
+					
+				</select>
+				<i class="fas fa-heartbeat" style="padding-top: 5px;"></i>
+			</div>
+		</div>
+
+		<div class="button-area">
+			<button class="buttom ghost fuckingBUTTOM" type="submit" style="position: relative; left: 50%; transform: translate(-50%, 0);">Приєднатись</button>
+			<span style="padding-top: 10px;"></span>
+		</div>
+		</form>
+  	</div>
+
+  <script src="/assets/js/js.cookie.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>

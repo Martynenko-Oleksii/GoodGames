@@ -91,6 +91,10 @@ button:active {
 	transform: scale(0.95);
 }
 
+button:hover {
+	border: 2px solid #000;
+}
+
 button:focus {
 	outline: none;
 }

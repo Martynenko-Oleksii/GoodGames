@@ -158,15 +158,19 @@
                                                 <a href="javascript:void(0);" id="open_input" onclick="send_togo();">Надіслати запрошення</a>
                                                 <input type="email" placeholder="Пошта користувача" style="color: #fff; height: 36px; display: none; background-color: rgba(240, 248, 255, 0.3);" id="input_mail">
                                             </div>
-                                            <a href="javascript:void(0);" id="send">Запросити участь</a>
+                                            <a id="send" href="#send" style="display: none;">Відправити</a>
+                                            <a id="join" href="#Join">Запросити участь</a>
                                         </div>
                                         <script>
                                             function send_togo() {
                                                 const sendButtonEl = document.querySelector("#send");
                                                 const openInputEl = document.querySelector("#open_input");
                                                 const inputMailEl = document.querySelector("#input_mail");
-
+                                                const joinEl = document.querySelector("#join");
+                                                
+                                                joinEl.style.display = "none";
                                                 sendButtonEl.style.height = "36px";
+                                                sendButtonEl.style.display = "inline";
                                                 sendButtonEl.textContent = "Відправити";
                                                 openInputEl.style.display = "none";
                                                 inputMailEl.style.display = "block";
@@ -174,6 +178,10 @@
                                                 // add ability to run request function by clicking send button
                                                 sendButtonEl.addEventListener("click", () => {
                                                     sendInvitation(inputMailEl.value);
+                                                    joinEl.style.display = "inline";
+                                                    sendButtonEl.style.display = "none";
+                                                    openInputEl.style.display = "inline";
+                                                    inputMailEl.style.display = "none";
                                                 });
                                             }
                                         </script>
@@ -275,7 +283,7 @@
                             <div class="widget-content widget-content-area">
                                 <h3 class="">Турнірна сітка</h3>
 
-                                    <iframe src="grid/" style="width: 100%; height: 400px;">
+                                    <iframe src="grid/" style="width: 100%; height: 400px;" id="grid_frame">
 
                                     </iframe>
 
@@ -386,5 +394,17 @@
         </script>
         <script src="../assets/js/serverRequest.js"></script>
         <script src="assets/js/game.js"></script>
+
+        <script>
+            var id = getUrlVars()["id"];
+            if(getUrlVars()["id"] == undefined){
+                //history.back();
+            }else{
+
+            }
+            document.getElementById("join").href = "join/?game=" + id;
+            document.getElementById("grid_frame").src = "grid/?game=" + id;
+        </script>
+
     </body>
 </html>
