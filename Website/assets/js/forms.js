@@ -185,17 +185,41 @@ function reg_validation() {
     }
 }
 
-function create_game(){ //Создание нового соревнования
-    //Переменные = названием передаваемых значений.
-    var Title = document.getElementById("Title").value;
-    var Description = document.getElementById("Description").value;
-    // var IsOpen = document.getElementsByName("").value;
-    var Sport = document.getElementById('sport').value;
-    var AgeLimit = document.getElementById("AgeLimit").value;
-    var City = document.getElementById("City").value;
-    var StartDate = document.getElementById("data_start").value;
-    var EndDate = document.getElementById("data_end").value;
-    var IsPublic = document.getElementById("IsPublic").value;
+function create_game() { //Создание нового соревнования
+    const requestUrl = "/api/competitions/create";
 
-    alert("Форма создания соревнования.\nTitle: " + Title + "\nSport: " + Sport + "\nAgeLimit: " + AgeLimit + "\nCity: " + City + "\nStartDate: " + StartDate + "\nEndDate: " + EndDate + "\nIsPublic: " + IsPublic + "\nDescription: " + Description);
+    // convert dates to UTC format
+    const startDateInputValue = document.querySelector("#data_start").value;
+    const endDateInputValue = document.querySelector("#data_end").value;
+    const startDateUTC = dateInputValueToUTC(startDateInputValue);
+    const endDateUTC = dateInputValueToUTC(endDateInputValue);
+
+    // get user id
+    const userId = Cookies.get("id");
+    if (!userId) {
+        console.log("Can`t get id from Cookies");
+        return;
+    }
+
+    const body = {
+        title:          document.querySelector("#Title").value,
+        description:    document.querySelector("#Description").value,
+        city:           document.querySelector("#City").value,
+        ageLimit:       document.querySelector("#AgeLimit").value,
+        isPublic:       (document.querySelector("#IsPublic").value !== false),
+        startDate:      startDateUTC,
+        endDate:        endDateUTC,
+        sport:          { id: document.querySelector('#sport').value },
+        user:           { id: userId },
+    }
+
+    ServerRequest.send("POST", requestUrl, body)
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
+
+
+    function dateInputValueToUTC (dateInputValue) {
+        const date = new Date(dateInputValue);
+        return date.toJSON().substr(0, 19);
+    }
 }
