@@ -37,9 +37,13 @@
 
             const requestUrl = "/api/grids/" + competitionId;
 
-            ServerRequest.send("GET", requestUrl)
-              .then(data => console.log(data))
+            ServerRequest.send("GET", requestUrl, null, "text")
+              .then(data => parseTeams(data))
               .catch(err => console.log(err));
+        }
+
+        function parseTeams(data) {
+            console.log(JSON.parse(data));
         }
 
 
