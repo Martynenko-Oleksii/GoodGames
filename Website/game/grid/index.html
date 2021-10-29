@@ -35,7 +35,7 @@
                 return;
             }
 
-            const requestUrl = "/api/";
+            const requestUrl = "/api/grids/" + competitionId;
 
             ServerRequest.send("GET", requestUrl)
               .then(data => console.log(data))
