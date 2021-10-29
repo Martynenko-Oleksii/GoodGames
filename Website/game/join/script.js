@@ -81,24 +81,23 @@ function sendjoin(){
   statusTxt.innerText = "Реєструємо вас...";
   form.classList.add("disabled");
 
-  // Запрос...
-  const requestUrl = "/api/";
+  const requestUrl = "/api/competitors";
 
+  const genderInputValue = document.querySelector("#gender").value;
+  const genderChar = (genderInputValue === "жінка") ? "f" : "m";
 
-  const team = document.querySelector("#team").value;
-  const name = document.querySelector("#name").value;
-  const email = document.querySelector("#email").value;
-  const age = document.querySelector("#age").value;
-  const weigth = document.querySelector("#weigth").value;
-  const gender = document.querySelector("#gender").value;
-  const healthstate = document.querySelector("#healthstate").value;
-  const competitions = getUrlVars()["game"];
+  const body = {
+    team: document.querySelector("#team").value,
+    name: document.querySelector("#name").value,
+    email: document.querySelector("#email").value,
+    age: document.querySelector("#age").value,
+    weigth: document.querySelector("#weigth").value,
+    gender: genderChar,
+    healthState: document.querySelector("#healthstate").value,
+    competitions: [ {id: getUrlVars()["game"]} ],
+  }
 
-  const userId = game;
-    if (!userId) {
-        console.log("Соревнования нет.");
-        //return;
-    }
-
-  alert(team + "\n" + name + "\n" + email + "\n" + age + "\n" + weigth + "\n" +gender + "\n" +healthstate);
+  ServerRequest.send("POST", requestUrl, body)
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
 }
