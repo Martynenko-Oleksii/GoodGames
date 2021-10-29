@@ -1,10 +1,10 @@
 class ServerRequest {
-    static send(method, url, body = null) {
+    static send(method, url, body = null, responseType = "json") {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.open(method, url);
 
-            xhr.responseType = "json";
+            xhr.responseType = responseType;
             xhr.setRequestHeader("Content-Type", "application/json");
 
             xhr.onload = () => {
