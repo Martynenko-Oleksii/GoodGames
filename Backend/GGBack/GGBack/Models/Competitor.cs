@@ -14,7 +14,6 @@ namespace GGBack.Models
         [MaxLength(30)]
         public string Name { get; set; }
 
-        [MaxLength(20)]
         public string Email { get; set; }
 
         public int Age { get; set; }
