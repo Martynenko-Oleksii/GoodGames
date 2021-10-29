@@ -335,7 +335,7 @@ class getDatahttp {
       'weigth': weigth,
       'healthState': healthState,
       'team': team,
-      'competitions': [{"id": competitionId}]
+      'competitions': [{'id': competitionId}]
     });
 
     try {
@@ -344,7 +344,7 @@ class getDatahttp {
           body: body,
           headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
       );
-
+      //print(response.body);
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
         competitor = Competitor(
@@ -355,8 +355,9 @@ class getDatahttp {
     } catch(ex) {
       print(ex);
     }
-    print("$name , $email,$age ,$gender ,$weigth , $healthState ,$team ");
-    print(competitor);
+   // print("$name , $email,$age ,$gender ,$weigth , $healthState ,$team , $competitionId");
+   // print(competitor);
+
     return competitor;
   }
 

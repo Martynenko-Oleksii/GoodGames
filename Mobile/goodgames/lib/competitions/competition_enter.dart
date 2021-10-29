@@ -26,7 +26,7 @@ class _CompetitionEnterState extends State<CompetitionEnterPage> {
   final TextEditingController teamControl = TextEditingController();
   final formKey = GlobalKey<FormState>();
   String dropdownValuehealthState = 'good';
-  String dropdownValuegender = 'man';
+  String dropdownValuegender = 'm';
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -176,8 +176,8 @@ class _CompetitionEnterState extends State<CompetitionEnterPage> {
                                     });
                                   },
                                   items: <String>[
-                                    'man',
-                                    'woman'
+                                    'm',
+                                    'f'
                                   ].map<DropdownMenuItem<String>>((String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
@@ -286,7 +286,7 @@ class _CompetitionEnterState extends State<CompetitionEnterPage> {
                                             if (formKey.currentState!.validate()) {
                                               getDatahttp
                                                   .postNewCompetitor(nameControl.text,
-                                                  emailControl.text ,  int. parse(ageControl.text),dropdownValuegender,  int. parse(weigthControl.text) , dropdownValuehealthState , teamControl.text)
+                                                  emailControl.text ,  int. parse(ageControl.text),dropdownValuegender,  int. parse(weigthControl.text) , dropdownValuehealthState , teamControl.text, widget.comp.id!)
                                                   .then((value) =>
                                                   Navigator.push<dynamic>(
                                                     context,
