@@ -93,7 +93,7 @@ function pageLoaded() {
                     </div>
                 </td>
                 <td><div class="td-content product-brand text-primary">${competitor.age}</div></td>
-                <td><div class="td-content"><span class="badge badge-success">${competitor.team}</span></div></td>`;
+                <td><div class="td-content"><span class="badge badge-primary">${competitor.team}</span></div></td>`;
             competitorsTableBodyEl.appendChild(tr);
         }
     }
