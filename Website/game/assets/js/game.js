@@ -96,3 +96,47 @@ function pageLoaded() {
         }
     }
 }
+
+
+function generateTimetable() {
+    const requestUrl = "/api/timetables/create";
+
+    // get competition id
+    const competitionId = parseInt(getUrlVars().id);
+    if (!competitionId) {
+        console.log("Can`t define current competition id from url variables");
+        console.log("So I can`t send request for generating timetable(");
+        return;
+    }
+
+    // test dates range
+    const dateStart = new Date().toJSON().substr(0, 11) + "10:00:00";
+    const dateEnd = new Date().toJSON().substr(0, 11) + "18:00:00";
+
+    const body = {
+        id: competitionId,
+        start: dateStart,
+        end: dateEnd,
+    }
+
+    ServerRequest.send("POST", requestUrl, body)
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
+}
+
+
+function getTimetable() {
+    // get competition id
+    const competitionId = parseInt(getUrlVars().id);
+    if (!competitionId) {
+        console.log("Can`t define current competition id from url variables");
+        console.log("So I can`t send request for generating timetable(");
+        return;
+    }
+
+    const requestUrl = "/api/timetables/" + competitionId;
+
+    ServerRequest.send("GET", requestUrl)
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
+}
