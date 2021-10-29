@@ -103,5 +103,5 @@ function sendjoin(){
 }
 
 function redirectToCompetitionPage() {
-  location = "/game?id=" + game;
+  location = "/game/?id=" + game;
 }
