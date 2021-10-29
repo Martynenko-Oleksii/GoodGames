@@ -126,7 +126,7 @@ function deleteCompetition(competitionId) {
     const requestUrl = "/api/competitions/delete/" + competitionId;
 
     ServerRequest.send("GET", requestUrl)
-        .then(data => removeCompetitionEl(data))
+        .then(data => removeCompetitionEl(competitionId))
         .catch(err => console.log(err));
 }
 
