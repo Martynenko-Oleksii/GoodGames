@@ -98,6 +98,10 @@ function sendjoin(){
   }
 
   ServerRequest.send("POST", requestUrl, body)
-    .then(data => console.log(data))
+    .then(() => redirectToCompetitionPage)
     .catch(err => console.log(err));
+}
+
+function redirectToCompetitionPage() {
+  location = "/game?id=" + game;
 }
