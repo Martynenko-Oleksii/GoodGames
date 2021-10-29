@@ -19,14 +19,33 @@
 
 
     <div class="demo">
-    
+
     </div>
-     
+
 
     <!-- БЛЯ НЕ ТРОГАТЬ  -->
 
 
     <script>
+        document.addEventListener("DOMContentLoaded", getTeams);
+        function getTeams() {
+            const competitionId = parseInt(getUrlVars().id);
+            if (!competitionId) {
+                console.log("can`t get a competition id")
+                return;
+            }
+
+            const requestUrl = "/api/grids/" + competitionId;
+
+            ServerRequest.send("GET", requestUrl, null, "text")
+              .then(data => parseTeams(data))
+              .catch(err => console.log(err));
+        }
+
+        function parseTeams(data) {
+            console.log(JSON.parse(data));
+        }
+
 
         // СКРИПТЫ
         // ИНСТРУКЦИЯ: http://www.aropupu.fi/bracket/
@@ -57,7 +76,7 @@
             ]
         }
 
-        $('.demo').bracket({ // ПОСТОРЕНИЕ 
+        $('.demo').bracket({ // ПОСТОРЕНИЕ
             teamWidth: 100,
             scoreWidth: 36,
             matchMargin: 40,
@@ -94,7 +113,7 @@
         <script>
             document.getElementById("sport").classList.add('active');
         </script>
-        <script src="../assets/js/serverRequest.js"></script>
+        <script src="/assets/js/serverRequest.js"></script>
         <script src="assets/js/game.js"></script>
     </body>
 </html>
