@@ -19,6 +19,18 @@ function pageLoaded() {
   }
 
   function parseServerResponse(data) {
-    console.log(data);
+    const sportKindBlock = document.querySelector(".sport-kind-block");
+    if (!data || data.length === 0) {
+      sportKindBlock.innerHTML = "Тут будуть ваші спортивні дисципліни";
+      return;
+    }
+
+    for (let sportKind of data) {
+      let sportKindEl = document.createElement("p");
+      sportKindEl.className = "sport-kind";
+      sportKindEl.innerHTML = sportKind;
+
+      sportKindBlock.appendChild(sportKind);
+    }
   }
 }
