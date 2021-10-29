@@ -99,7 +99,7 @@ function pageLoaded() {
 
 
 function sendInvitation(email) {
-    if (!mail) {
+    if (!email) {
         console.log("Bag email");
         return;
     }
