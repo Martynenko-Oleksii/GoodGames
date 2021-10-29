@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace GGBack.Models
@@ -15,6 +16,7 @@ namespace GGBack.Models
 
         public DateTime End { get; set; }
 
+        [JsonIgnore]
         public List<User> Users { get; set; }
     }
 }
