@@ -98,7 +98,7 @@ function pageLoaded() {
                             </p>
                         </h5>
                         <div class="post-meta d-flex justify-content-between align-items-center mt-3">
-                            <a href="/game" class="text-muted readmore" onclick="goToCompetition(${competitionId})">
+                            <a href="/game?id=${competitionId}" class="text-muted readmore">
                                 Детальніше
                             </a>
                             <button class="competition-list__delete-button" onclick="deleteCompetition(${competitionId})">
@@ -127,8 +127,4 @@ function deleteCompetition(competitionId) {
     ServerRequest.send("GET", requestUrl)
         .then(data => console.log(data))
         .catch(err => console.log(err));
-}
-
-function goToCompetition(competitionId) {
-    localStorage.setItem("openedCompetitionId", competitionId);
 }
