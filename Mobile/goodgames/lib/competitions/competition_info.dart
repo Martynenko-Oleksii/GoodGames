@@ -8,6 +8,7 @@ import '../../../home_screen.dart';
 import '../../../main.dart';
 import '../apptheme.dart';
 import '../getdata.dart';
+import 'competition_enter.dart';
 
 class CompetitionInfoScreen extends StatefulWidget {
   final Competition comp;
@@ -56,8 +57,8 @@ class _CompetitionState extends State<CompetitionInfoScreen>
           textScaleFactor: 1.3,
         ),
       ),
-      body: Center(
-        child: Container(
+      body:
+       Container(
           child: new Stack(
             children: <Widget>[
               new Container(
@@ -73,7 +74,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                           //  mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             new Container(
-                              height: 300,
+                             // height: 300,
                               padding: EdgeInsets.all(10.0),
                               child: new Container(
                                 decoration: BoxDecoration(
@@ -357,7 +358,17 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                                           if (formKeyinvite
                                                               .currentState!
                                                               .validate()) {
-                                                            getDatahttp.postEmail(emailsendControl.text, snapshot.data.id, snapshot.data.user.id)
+                                                            getDatahttp
+                                                                .postEmail(
+                                                                    emailsendControl
+                                                                        .text,
+                                                                    snapshot
+                                                                        .data
+                                                                        .id,
+                                                                    snapshot
+                                                                        .data
+                                                                        .user
+                                                                        .id)
                                                                 .then((value) =>
                                                                     Navigator.of(
                                                                             context)
@@ -414,7 +425,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                               MaterialPageRoute<dynamic>(
                                                 builder:
                                                     (BuildContext context) =>
-                                                        RegistPage(),
+                                                        CompetitionEnterPage(comp: widget.comp),
                                               ),
                                             );
                                           },
@@ -725,7 +736,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
             ],
           ),
         ),
-      ),
+
     );
   }
 

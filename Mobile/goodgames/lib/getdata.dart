@@ -319,7 +319,7 @@ class getDatahttp {
     return competition!;
   }
 
-  static Future<Competitor> postNewCompetitor(
+  static Future<Competitor?> postNewCompetitor(
       String name, String email, int age,
       String gender, int weigth,
       String healthState, String team) async {
@@ -353,8 +353,9 @@ class getDatahttp {
     } catch(ex) {
       print(ex);
     }
-
-    return competitor!;
+    print("$name , $email,$age ,$gender ,$weigth , $healthState ,$team ");
+    print(competitor);
+    return competitor;
   }
 
   //TODO
