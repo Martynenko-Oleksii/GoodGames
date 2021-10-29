@@ -27,28 +27,29 @@
 
         var TEAMS;
 
-        document.addEventListener("DOMContentLoaded", getTeams);
-        function getTeams() {
-            const competitionId = parseInt(getUrlVars().id);
-            if (!competitionId) {
-                console.log("can`t get a competition id")
-                return;
-            }
-
-            const requestUrl = "/api/grids/" + competitionId;
-
-            ServerRequest.send("GET", requestUrl, null, "text")
-              .then(data => parseTeams(data))
-              .catch(err => console.log(err));
-        }
-
-        function parseTeams(data) {
-            TEAMS = JSON.parse("{" + data + "}");
-            console.log(TEAMS);
-        }
-
+        
         if(getUrlVars().id == 0){
             TEAMS = {"teams": [["Команда 1", "Команда 2"],["Команда 3", "Команда 4"]], "results": [[[[1, 2], [3, 4]],[[5, 6]]],[[[7, 8]],[[9, 10]]],[[[11, 12],[13, 14]],[[15, 16]]]]}
+        }else{
+            document.addEventListener("DOMContentLoaded", getTeams);
+            function getTeams() {
+                const competitionId = parseInt(getUrlVars().id);
+                if (!competitionId) {
+                    console.log("can`t get a competition id")
+                    return;
+                }
+
+                const requestUrl = "/api/grids/" + competitionId;
+
+                ServerRequest.send("GET", requestUrl, null, "text")
+                .then(data => parseTeams(data))
+                .catch(err => console.log(err));
+            }
+
+            function parseTeams(data) {
+                TEAMS = JSON.parse("{" + data + "}");
+                console.log(TEAMS);
+            }
         }
 
         // СКРИПТЫ
