@@ -188,19 +188,30 @@ function reg_validation() {
 function create_game() { //Создание нового соревнования
     const requestUrl = "/api/competitions/create";
 
+    // convert dates to UTC format
+    const startDateInputValue = document.querySelector("#data_start").value;
+    const endDateInputValue = document.querySelector("#data_end").value;
+    const startDateUTC = dateInputValueToUTC(startDateInputValue);
+    const endDateUTC = dateInputValueToUTC(endDateInputValue);
+
     const body = {
         Title:          document.querySelector("#Title").value,
-        Description:    document.querySelector("#Description").value,
-        // IsOpen:      document.querySelector("").value,
-        Sport:          document.querySelector('#sport').value,
+        IsOpen:         (document.querySelector("#IsPublic").value !== false),
+        Sport:          { id: document.querySelector('#sport').value },
         AgeLimit:       document.querySelector("#AgeLimit").value,
         City:           document.querySelector("#City").value,
-        StartDate:      document.querySelector("#data_start").value,
-        EndDate:        document.querySelector("#data_end").value,
-        IsPublic:       document.querySelector("#IsPublic").value
+        StartDate:      startDateUTC,
+        EndDate:        endDateUTC,
+        Description:    document.querySelector("#Description").value
     }
 
     ServerRequest.send("POST", requestUrl, body)
       .then(data => console.log(data))
       .catch(err => console.log(err));
+
+
+    function dateInputValueToUTC (dateInputValue) {
+        const date = new Date(dateInputValue);
+        return date.toJSON().substr(0, 19);
+    }
 }
