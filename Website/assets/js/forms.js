@@ -194,15 +194,23 @@ function create_game() { //Создание нового соревновани�
     const startDateUTC = dateInputValueToUTC(startDateInputValue);
     const endDateUTC = dateInputValueToUTC(endDateInputValue);
 
+    // get user id
+    const userId = Cookies.get("id");
+    if (!userId) {
+        console.log("Can`t get id from Cookies");
+        return;
+    }
+
     const body = {
-        Title:          document.querySelector("#Title").value,
-        IsOpen:         (document.querySelector("#IsPublic").value !== false),
-        Sport:          { id: document.querySelector('#sport').value },
-        AgeLimit:       document.querySelector("#AgeLimit").value,
-        City:           document.querySelector("#City").value,
-        StartDate:      startDateUTC,
-        EndDate:        endDateUTC,
-        Description:    document.querySelector("#Description").value
+        title:          document.querySelector("#Title").value,
+        description:    document.querySelector("#Description").value,
+        city:           document.querySelector("#City").value,
+        ageLimit:       document.querySelector("#AgeLimit").value,
+        isPublic:       (document.querySelector("#IsPublic").value !== false),
+        startDate:      startDateUTC,
+        endDate:        endDateUTC,
+        sport:          { id: document.querySelector('#sport').value },
+        user:           { id: userId },
     }
 
     ServerRequest.send("POST", requestUrl, body)
