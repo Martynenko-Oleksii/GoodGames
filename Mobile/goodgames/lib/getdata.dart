@@ -370,7 +370,7 @@ class getDatahttp {
 
     try {
       var response = await http.post(
-          Uri.https("goodgames.kh.ua", "api/mails"),
+          Uri.https("goodgames.kh.ua", "api/post"),
           body: body,
           headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
       );
