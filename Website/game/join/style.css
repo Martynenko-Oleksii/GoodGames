@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Samsung Sans"; 
+  font-family: "Samsung Sans";
 }
 @media (max-width: 520px) {
   .forms{
@@ -22,6 +22,7 @@ body{
   padding: 0 10px;
   min-height: 100vh;
   background-image: url('monterey.jpg');
+  background-size: cover;
   align-items: center;
   justify-content: center;
 }
