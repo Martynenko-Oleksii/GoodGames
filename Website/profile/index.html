@@ -248,16 +248,20 @@
                                         </div>
                                     </div>
 
-                                    <div class="liqpay-form">
-                                        <form method="POST" accept-charset="utf-8" target="_blank" action="https://www.liqpay.ua/api/3/checkout">
-                                            <input type="hidden" name="data" value="eyJ2ZXJzaW9uIjozLCJhY3Rpb24iOiJzdWJzY3JpYmUiLCJhbW91bnQiOiIxMDAiLCJjdXJyZW5jeSI6IlVBSCIsImRlc2NyaXB0aW9uIjoi0J/RltC00L/QuNGB0LrQsCIsInB1YmxpY19rZXkiOiJzYW5kYm94X2kyODg3MDU5MzQ3NSIsImxhbmd1YWdlIjoidWsiLCJzZXJ2ZXJfdXJsIjoiaHR0cHM6Ly93d3cuZ29vZGdhbWVzLmtoLnVhL2FwaS9zdWJzIiwicmVzdWx0X3VybCI6Imh0dHBzOi8vd3d3Lmdvb2RnYW1lcy5raC51YS9hcGkvc3VicyIsInN1YnNjcmliZSI6MSwic3Vic2NyaWJlX2RhdGVfc3RhcnQiOiJub3ciLCJzdWJzY3JpYmVfcGVyaW9kaWNpdHkiOiJtb250aCJ9" />
+                                    <div class="liq-pay-form">
+                                        <form method="POST"
+                                              accept-charset="utf-8"
+                                              target="_blank"
+                                              action="https://www.liqpay.ua/api/3/checkout">
+                                            <input
+                                              type="hidden"
+                                              name="data"
+                                              value="eyJ2ZXJzaW9uIjozLCJhY3Rpb24iOiJzdWJzY3JpYmUiLCJhbW91bnQiOiIxMDAiLCJjdXJyZW5jeSI6IlVBSCIsImRlc2NyaXB0aW9uIjoi0J/RltC00L/QuNGB0LrQsCIsInB1YmxpY19rZXkiOiJzYW5kYm94X2kyODg3MDU5MzQ3NSIsImxhbmd1YWdlIjoidWsiLCJzZXJ2ZXJfdXJsIjoiaHR0cHM6Ly93d3cuZ29vZGdhbWVzLmtoLnVhL2FwaS9zdWJzIiwicmVzdWx0X3VybCI6Imh0dHBzOi8vd3d3Lmdvb2RnYW1lcy5raC51YS9hcGkvc3VicyIsInN1YnNjcmliZSI6MSwic3Vic2NyaWJlX2RhdGVfc3RhcnQiOiJub3ciLCJzdWJzY3JpYmVfcGVyaW9kaWNpdHkiOiJtb250aCJ9" />
                                             <input type="hidden" name="signature" value="BgH0yCLv+053O2O0/qlUAkBdyHQ=" />
-                                            <button class="liqpay-button" style="border: none !important; display:inline-block !important;text-align: center !important;padding: 7px 20px !important;
-    color: #fff !important; font-size:16px !important; font-weight: 600 !important; font-family:OpenSans, sans-serif; cursor: pointer !important; border-radius: 2px !important;
-    background: rgba(122,183,43,1) !important;"onmouseover="this.style.opacity='0.5';" onmouseout="this.style.opacity='1';">
-                                                <img src="https://static.liqpay.ua/buttons/logo-small.png" name="btn_text"
-                                                     style="margin-right: 7px !important; vertical-align: middle !important;"/>
-                                                <span style="vertical-align:middle; !important">Сплатити 100 UAH</span>
+                                            <button class="liq-pay-form__button">
+                                                <img src="https://static.liqpay.ua/buttons/logo-small.png"
+                                                     name="btn_text" alt="" class="liq-pay-form__img"/>
+                                                <span class="liq-pay-form__span">Оформити підписку 100 UAH</span>
                                             </button>
                                         </form>
                                     </div>
