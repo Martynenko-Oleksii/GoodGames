@@ -1,3 +1,34 @@
 .subscription-exist-message {
   display: none;
 }
+
+.liq-pay-form__button {
+  display: inline-block !important;
+  padding: 7px 20px !important;
+
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  font-family: OpenSans, sans-serif;
+  text-align: center !important;
+
+  color: #fff !important;
+  background: rgba(122, 183, 43, 1) !important;
+  border: none !important;
+  border-radius: 2px !important;
+
+  cursor: pointer !important;
+  transition: opacity .1s ease;
+}
+
+.liq-pay-form__button:hover {
+  opacity: 0.5;
+}
+
+.liq-pay-form__img {
+  margin-right: 7px !important;
+  vertical-align: middle !important;
+}
+
+.liq-pay-form__span {
+  vertical-align: middle !important;
+}

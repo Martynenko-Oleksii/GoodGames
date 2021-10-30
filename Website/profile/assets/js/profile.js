@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", pageLoaded);
-document.querySelector(".liqpay-button").addEventListener("click", () => {
+document.querySelector(".liq-pay-form__button").addEventListener("click", () => {
   getSubscriptionRequest();
 })
 
