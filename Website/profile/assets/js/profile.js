@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", pageLoaded);
+document.querySelector(".liqpay-button").addEventListener("click", () => {
+  getSubscriptionRequest();
+})
 
 function pageLoaded() {
   const userId = Cookies.get("id");
@@ -33,4 +36,20 @@ function pageLoaded() {
       sportKindBlock.appendChild(sportKind);
     }
   }
+}
+
+
+function getSubscriptionRequest() {
+  // get user id
+  const userId = Cookies.get("id");
+  if (!userId) {
+    console.log("Can`t get id from Cookies");
+    return;
+  }
+
+  const requestUrl = "/api/subs/" + userId;
+
+  ServerRequest.send("GET", requestUrl)
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
 }
