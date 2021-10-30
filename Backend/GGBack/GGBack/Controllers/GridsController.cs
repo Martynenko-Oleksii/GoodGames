@@ -35,14 +35,22 @@ namespace GGBack.Controllers
             StringBuilder teams = new StringBuilder("\"teams\":[],");
             StringBuilder results = new StringBuilder("\"results\":[]");
 
-            for (int i = 0; i < cells.Where(c => c.GridStage == 1).ToList().Count; i++)
+            int count = cells.Where(c => c.GridStage == 1).ToList().Count;
+
+            for (int i = 0; i < count; i++)
             {
                 string[] teamsArray = cells.Where(c => c.GridStage == 1)
                     .ElementAt(i).Competitors
                     .Select(c => c.Team).Distinct()
                     .ToArray();
 
-                string gridCell = "[\"" + teamsArray[0] + "\", " + teamsArray[1] + "\"],";
+                string gridCell = "[\"" + teamsArray[0] + "\", \"" + teamsArray[1] + "\"]";
+
+                if (i != count - 1)
+                {
+                    gridCell += ",";
+                }
+
                 teams.Insert(teams.Length-2, gridCell);
             }
             int stagesCount = cells
@@ -54,15 +62,26 @@ namespace GGBack.Controllers
                 List<TimetableCell> cellsByStage = cells
                     .Where(c => c.GridStage == i).ToList();
 
-                StringBuilder stageResults = new StringBuilder("[],");
+                StringBuilder stageResults = new StringBuilder("[]");
+
+                if (i != stagesCount)
+                {
+                    stageResults.Append(",");
+                }
 
                 for (int j = 0; j < cellsByStage.Count; j++)
                 {
+                    StringBuilder result = new StringBuilder();
                     if (cellsByStage.ElementAt(j).WinResult != null)
                     {
-                        StringBuilder result = new StringBuilder($"[{cellsByStage.ElementAt(j).WinResult.Score}],");
-                        stageResults.Insert(stageResults.Length - 2, result);
+                        result.Append($"[{cellsByStage.ElementAt(j).WinResult.Score}],");
                     }
+                    else
+                    {
+                        result.Append("[0,0]");
+                    }
+
+                    stageResults.Insert(stageResults.Length - 1, result);
                 }
 
                 results.Insert(results.Length - 1, stageResults);

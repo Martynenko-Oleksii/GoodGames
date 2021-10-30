@@ -25,12 +25,19 @@ namespace GGBack.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TimetableCell>>> Get(int competitionId)
         {
-            return await context.TimetableCells
-                .Include(t => t.Competitors)
-                .Include(t => t.Competition)
-                .Include(t => t.WinResult)
-                .Where(t => t.Competition.Id == competitionId)
-                .ToListAsync();
+            try
+            {
+                return await context.TimetableCells
+                    .Include(t => t.Competitors)
+                    //.Include(t => t.Competition)
+                    .Include(t => t.WinResult)
+                    .Where(t => t.Competition.Id == competitionId)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("api/timetables/create")]
@@ -130,7 +137,12 @@ namespace GGBack.Controllers
             context.TimetableCells.AddRange(cells);
             await context.SaveChangesAsync();
 
-            return await context.TimetableCells.ToListAsync();
+            return await context.TimetableCells
+                    .Include(t => t.Competitors)
+                    //.Include(t => t.Competition)
+                    .Include(t => t.WinResult)
+                    .Where(t => t.Competition.Id == competition.Id)
+                    .ToListAsync();
         }
     }
 }
