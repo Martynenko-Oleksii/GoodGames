@@ -34,7 +34,8 @@ namespace GGBack.Utils
 
                 Competition competition =
                     context.Competitions.Find(post.CompetitionId);
-                string body = CreateBody(env, fromName, competition);
+                string body = CreateBody(env, 
+                    fromName, competition, post.Email);
 
                 if (body == null)
                 {
@@ -57,7 +58,7 @@ namespace GGBack.Utils
         }
 
         private static string CreateBody(IWebHostEnvironment env, 
-            string login, Competition competition)
+            string login, Competition competition, string email)
         {
             string path = env.WebRootPath;
             DirectoryInfo dirInfo = new DirectoryInfo(path);
@@ -76,13 +77,13 @@ namespace GGBack.Utils
             }
 
             StringBuilder body = new StringBuilder(bodyFromFile);
-            string url = "https://goodgames.kh.ua/game/join/?game=" + competition.Id;
             body.Replace("{userLogin}", login);
             body.Replace("{competitionTitle}", competition.Title);
             body.Replace("{competitionCity}", competition.City);
             body.Replace("{startDate}", competition.StartDate.ToString("D"));
             body.Replace("{endDate}", competition.EndDate.ToString("D"));
-            body.Replace("{url}", url);
+            body.Replace("{compatitionId}", competition.Id.ToString());
+            body.Replace("{competitorEmail}", email);
 
             return body.ToString();
         }
