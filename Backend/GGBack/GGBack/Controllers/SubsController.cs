@@ -25,7 +25,7 @@ namespace GGBack.Controllers
 
         [Route("api/subs")]
         [HttpPost]
-        public async Task<ActionResult<string>> CheckPayment([FromForm] SubResult result)
+        public ActionResult<string> CheckPayment([FromForm] SubResult result)
         {
             const string privateKey = "sandbox_zUieTCma1qGVtkevC26yIzKJ4aRi5oIZzWVIufmg";
             string data = result.Data;

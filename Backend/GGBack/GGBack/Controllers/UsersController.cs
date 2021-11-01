@@ -82,7 +82,7 @@ namespace GGBack.Controllers
 
         [Route("api/users/login")]
         [HttpPost]
-        public async Task<ActionResult<User>> PostForLogin(User user)
+        public ActionResult<User> PostForLogin(User user)
         {
             if (user == null)
             {
