@@ -184,5 +184,10 @@ namespace GGBack.Utils
 
             return timetableCells;
         }
+
+        public static bool GenerateForNewResults(TimetableCell cellWithResults)
+        {
+            return true;
+        }
     }
 }

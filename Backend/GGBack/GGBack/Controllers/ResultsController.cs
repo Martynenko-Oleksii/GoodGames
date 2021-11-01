@@ -1,5 +1,6 @@
 ﻿using GGBack.Data;
 using GGBack.Models;
+using GGBack.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -43,7 +44,7 @@ namespace GGBack.Controllers
             cell.WinResult = actualResult;
             await context.SaveChangesAsync();
 
-
+            ScheduleGenerator.GenerateForNewResults(cell);
 
             return Ok();
         }
