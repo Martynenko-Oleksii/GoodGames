@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:goodgames/global.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -244,8 +245,6 @@ class getDatahttp {
     return competition!;
   }
 
-  //TODO TESTS!!!
-
   static Future<Competition> postNewCompetition(
       String title, bool isOpen, int sportId,
       String ageLimit, String city,
@@ -361,7 +360,6 @@ class getDatahttp {
     return competitor;
   }
 
-  //TODO
   static Future<bool> postEmail(String email , int competitionId , int id) async{
 
     bool result = false;
@@ -566,6 +564,158 @@ print(id);
     print(result);
 
     return result;
+  }
+
+  static Future<User> changeLogin(User u) async {
+    User? user;
+
+    var body = jsonEncode({
+      'id': u.id,
+      'login': u.login
+    });
+
+    try {
+      var response = await http.post(
+          Uri.https("goodgames.kh.ua", "api/users/change/login"),
+          body: body,
+          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
+      );
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+        user = User(
+            id: jsonData["id"],
+            login: jsonData["login"],
+            email: jsonData["email"]
+        );
+      }
+    } catch (ex) {
+      print(ex);
+    }
+
+    return user!;
+  }
+
+  static Future<User> changeEmail(User u) async {
+    User? user;
+
+    var body = jsonEncode({
+      'id': u.id,
+      'email': u.email
+    });
+
+    try {
+      var response = await http.post(
+          Uri.https("goodgames.kh.ua", "api/users/change/email"),
+          body: body,
+          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
+      );
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+        user = User(
+            id: jsonData["id"],
+            login: jsonData["login"],
+            email: jsonData["email"]
+        );
+      }
+    } catch (ex) {
+      print(ex);
+    }
+
+    return user!;
+  }
+
+  static Future<User> changePassword(User u) async {
+    User? user;
+
+    var body = jsonEncode({
+      'id': u.id,
+      'password': u.password
+    });
+
+    try {
+      var response = await http.post(
+          Uri.https("goodgames.kh.ua", "api/users/change/password"),
+          body: body,
+          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
+      );
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+        user = User(
+            id: jsonData["id"],
+            login: jsonData["login"],
+            email: jsonData["email"],
+            password: jsonData["password"]
+        );
+      }
+    } catch (ex) {
+      print(ex);
+    }
+
+    return user!;
+  }
+
+  // generate token to change forgotten password
+  static Future<bool> generateToken(String email) async {
+    bool result = false;
+
+    var body = jsonEncode({ 'email': email });
+
+    try {
+      var response = await http.post(
+          Uri.https("goodgames.kh.ua", "api/users/token"),
+          body: body,
+          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
+      );
+
+      if (response.statusCode == 200) {
+        result = true;
+      } else {
+        print(response.body);
+      }
+    } catch (ex) {
+      print(ex);
+    }
+
+    print(result);
+
+    return result;
+  }
+
+  static Future<User> changeForgottenPassword(String token, String email, String newPassword) async {
+    User? user;
+
+    var body = jsonEncode({
+      'token': token,
+      'email': email,
+      'newPassword': newPassword
+    });
+
+    try {
+      var response = await http.post(
+          Uri.https("goodgames.kh.ua", "api/users/change/forgotten"),
+          body: body,
+          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
+      );
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+        user = User(
+            id: jsonData["id"],
+            login: jsonData["login"],
+            email: jsonData["email"],
+            password: jsonData["password"]
+        );
+      } else {
+        print(response.body);
+      }
+    } catch (ex) {
+      print(ex);
+    }
+
+    return user!;
   }
 }
 
