@@ -25,11 +25,16 @@ namespace GGBack.Utils
                 string[] teamsArray = teams.ToArray();
                 for (int i = 0; i < teams.Count; i += 2)
                 {
-                    List<Competitor> competitorsPerTwoTeams = competitors
-                        .Where(c =>
-                            c.Team.Equals(teamsArray[i]) ||
-                            c.Team.Equals(teamsArray[i + 1]))
+                    List<Competitor> competitorsTeamOne = competitors
+                        .Where(c => c.Team.Equals(teamsArray[i]))
                         .ToList();
+                    List<Competitor> competitorsTeamTwo = competitors
+                        .Where(c => c.Team.Equals(teamsArray[i + 1]))
+                        .ToList();
+                    List<Competitor> competitorsPerTwoTeams =
+                        new List<Competitor>();
+                    competitorsPerTwoTeams.AddRange(competitorsTeamOne);
+                    competitorsPerTwoTeams.AddRange(competitorsTeamTwo);
 
                     DateTime dt = new DateTime();
 
