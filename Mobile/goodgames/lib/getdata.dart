@@ -717,6 +717,32 @@ print(id);
 
     return user!;
   }
+
+  static Future<bool> postResults(String teamOneResult, String teamTwoResult) async {
+    bool result = false;
+
+    var body = jsonEncode({
+      'score': "$teamOneResult,$teamTwoResult"
+    });
+
+    try {
+      var response = await http.post(
+          Uri.https("goodgames.kh.ua", "api/results"),
+          body: body,
+          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
+      );
+
+      if (response.statusCode == 200) {
+        result = true;
+      } else {
+        print(response.body);
+      }
+    } catch (ex) {
+      print(ex);
+    }
+
+    return result;
+  }
 }
 
 
