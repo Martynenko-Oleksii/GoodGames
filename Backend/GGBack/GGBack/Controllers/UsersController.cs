@@ -105,5 +105,117 @@ namespace GGBack.Controllers
 
             return Ok(findedUser);
         }
+
+        [Route("api/users/change/login")]
+        [HttpPost]
+        public async Task<ActionResult<User>> UpdateLogin(User user)
+        {
+            User dbUser = context.Users.Find(user.Id);
+
+            if (!dbUser.Login.Equals(user.Login))
+            {
+                dbUser.Login = user.Login;
+            }
+            else
+            {
+                return BadRequest("Logins are the same");
+            }
+
+            await context.SaveChangesAsync();
+
+            return Ok(dbUser);
+        }
+
+        [Route("api/users/change/email")]
+        [HttpPost]
+        public async Task<ActionResult<User>> UpdateEmail(User user)
+        {
+            User dbUser = context.Users.Find(user.Id);
+
+            if (!dbUser.Email.Equals(user.Email))
+            {
+                dbUser.Email = user.Email;
+            }
+            else
+            {
+                return BadRequest("Passwords are the same");
+            }
+
+            await context.SaveChangesAsync();
+
+            return Ok(dbUser);
+        }
+
+        [Route("api/users/change/password")]
+        [HttpPost]
+        public async Task<ActionResult<User>> UpdatePassword(User user)
+        {
+            User dbUser = context.Users.Find(user.Id);
+
+            if (!dbUser.Password.Equals(user.Password))
+            {
+                dbUser.Password = user.Password;
+            }
+            else
+            {
+                return BadRequest("Passwords are the same");
+            }
+
+            await context.SaveChangesAsync();
+
+            return Ok(dbUser);
+        }
+
+        [Route("api/users/token")]
+        [HttpPost]
+        public async Task<ActionResult> GetToken(User user)
+        {
+            User dbUser = context.Users
+                .Where(u => u.Email.Equals(user.Email))
+                .FirstOrDefault();
+
+            if (dbUser == null)
+            {
+                return BadRequest("Wrong email");
+            }
+
+            Random rand = new Random();
+            int token = rand.Next(100000, 999999);
+            dbUser.Token = token.ToString();
+            await context.SaveChangesAsync();
+
+            string result = PostEmail.SendToken(dbUser.Token, dbUser.Email);
+            if (!result.Equals("true"))
+            {
+                return BadRequest(result);
+            }
+
+            return Ok();
+        }
+
+        [Route("api/users/change/forgotten")]
+        [HttpPost]
+        public async Task<ActionResult<User>> ChangeForgottenPassword(ForgottenPassword fp)
+        {
+            User dbUser = context.Users
+                .Where(u => u.Email.Equals(fp.Email))
+                .FirstOrDefault();
+
+            if (dbUser == null)
+            {
+                return BadRequest("Wrong email");
+            }
+
+            if (!dbUser.Token.Equals(fp.Token))
+            {
+                return BadRequest("Wrong token");
+            }
+
+            dbUser.Password = fp.NewPassword;
+            dbUser.Token = null;
+            await context.SaveChangesAsync();
+
+            return Ok(dbUser);
+        }
     }
 }
