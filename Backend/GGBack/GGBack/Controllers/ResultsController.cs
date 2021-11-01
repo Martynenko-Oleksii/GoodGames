@@ -44,7 +44,12 @@ namespace GGBack.Controllers
             cell.WinResult = actualResult;
             await context.SaveChangesAsync();
 
-            ScheduleGenerator.GenerateForNewResults(cell);
+            bool isGenerated = ScheduleGenerator.GenerateForNewResults(cell);
+
+            if (!isGenerated)
+            {
+                return BadRequest("Generating error");
+            }
 
             return Ok();
         }
