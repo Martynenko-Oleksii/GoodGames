@@ -57,6 +57,35 @@ namespace GGBack.Utils
             return "true";
         }
 
+        public static string SendToken(string token, string email)
+        {
+            try
+            {
+                string fromPost = "goodgames.testing@gmail.com";
+                string fromName = "System";
+
+                MailAddress from = new MailAddress(fromPost, fromName);
+                MailAddress to = new MailAddress(email);
+
+                MailMessage message = new MailMessage(from, to);
+
+                message.Subject = "GoodGames: зміна паролю";
+
+                message.Body = "<h1>Код для зміни паролю: " + token + "</h1>";
+                message.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+                smtp.Credentials = new NetworkCredential(fromPost, "frick4224");
+                smtp.EnableSsl = true;
+                smtp.Send(message);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message + "\n" + ex.InnerException;
+            }
+
+            return "true";
+        }
+
         private static string CreateBody(IWebHostEnvironment env, 
             string login, Competition competition, string email)
         {

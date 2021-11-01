@@ -182,8 +182,13 @@ namespace GGBack.Controllers
             Random rand = new Random();
             int token = rand.Next(100000, 999999);
             dbUser.Token = token.ToString();
-
             await context.SaveChangesAsync();
+
+            string result = PostEmail.SendToken(dbUser.Token, dbUser.Email);
+            if (!result.Equals("true"))
+            {
+                return BadRequest(result);
+            }
 
             return Ok();
         }
@@ -207,6 +212,7 @@ namespace GGBack.Controllers
             }
 
             dbUser.Password = fp.NewPassword;
+            dbUser.Token = null;
             await context.SaveChangesAsync();
 
             return Ok(dbUser);
