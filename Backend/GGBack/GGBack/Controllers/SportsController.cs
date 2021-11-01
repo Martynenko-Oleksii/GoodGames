@@ -39,7 +39,7 @@ namespace GGBack.Controllers
         }
 
         [HttpGet("{userId}")]
-        public async Task<ActionResult<IEnumerable<Sport>>> Get(int userId)
+        public ActionResult<IEnumerable<Sport>> Get(int userId)
         {
             User user = context.Users
                 .Include(u => u.Sports)
