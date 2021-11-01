@@ -9,8 +9,6 @@ namespace GGBack.Models
     {
         public int Id { get; set; }
 
-        public List<Competitor> Competitors { get; set; }
-
         public string Score { get; set; }
     }
 }
