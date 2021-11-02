@@ -9,6 +9,9 @@ using GGBack.Utils;
 using GGBack.Data;
 using GGBack.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Http.Headers;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace GGBack.Controllers
 {
@@ -18,10 +21,12 @@ namespace GGBack.Controllers
         private static JsonSerializerOptions options = new JsonSerializerOptions { IgnoreNullValues = true };
 
         private ServerDbContext context;
+        private readonly IWebHostEnvironment env;
 
-        public UsersController(ServerDbContext context)
+        public UsersController(ServerDbContext context, IWebHostEnvironment env)
         {
             this.context = context;
+            this.env = env;
         }
 
         [Route("api/users")]
@@ -104,6 +109,42 @@ namespace GGBack.Controllers
             }
 
             return Ok(findedUser);
+        }
+
+        [Route("api/users/change/image/{userId}")]
+        [HttpPost]
+        public async Task<ActionResult<string>> UpdateProfileImage(int userId, IFormFile image)
+        {
+            string imagePath;
+            try
+            {
+                if (image == null)
+                {
+                    return BadRequest("Image is null");
+                }
+
+                string filename =
+                    ContentDispositionHeaderValue.Parse(image.ContentDisposition)
+                    .FileName.Trim('"');
+
+                filename = ImageSaver.EnsureCorrectFilename(filename);
+
+                imagePath = ImageSaver.GetPathAndFilename(filename, env);
+                using (FileStream output = System.IO.File.Create(imagePath))
+                {
+                    await image.CopyToAsync(output);
+                }
+
+                User dbUser = context.Users.Find(userId);
+                dbUser.AvatarPath = imagePath;
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message + "\n" + ex.InnerException);
+            }
+
+            return Ok(imagePath);
         }
 
         [Route("api/users/change/login")]
