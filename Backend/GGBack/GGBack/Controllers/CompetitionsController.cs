@@ -74,7 +74,8 @@ namespace GGBack.Controllers
                 .Select(c => new Competition
                 {
                     Id = c.Id,
-                    Title = c.Title
+                    Title = c.Title,
+                    StartDate = c.StartDate
                 })
                 .ToListAsync();
         }
