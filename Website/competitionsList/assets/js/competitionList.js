@@ -87,7 +87,7 @@ function pageLoaded() {
         competitionsWrapperEl.innerHTML +=
             `<div class="col-lg-4 col-md-6 mt-4 pt-2" style="cursor: pointer;" id="competition-${competitionId}">
             <div class="card blog rounded border-0 shadow overflow-hidden">
-              <div class="card-body content">
+              <div class="card-hover card-body content">
                 <h5>
                   <p class="card-title title text-dark">
                     ${competitionTitle}
