@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="uk">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GoodGames - профіль користувача</title>
+
+        <!-- ===== CSS ===== -->
+        <!-- Bootstrap 5 --><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+        <!-- Landrick --><link href="/assets/css/Landrick.css" rel="stylesheet" type="text/css" id="theme-opt" />
+
+        <!-- Наш стиль -->
+        <link rel="stylesheet" href="/assets/css/styles.css">
+        <style>
+            .sport-kind {
+                margin-bottom: 0;
+            }
+        </style>
+
+
+        <script src="/assets/js/js.cookie.js"></script>
+    </head>
+    <body id="body-pd">
+
+
+        <!-- ===== PRELOADER ===== -->
+        <div class="preloader">
+            <svg class="pl" viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="pl-grad1" x1="1" y1="0.5" x2="0" y2="0.5">
+                        <stop offset="0%" stop-color="hsl(313,90%,55%)" />
+                        <stop offset="100%" stop-color="hsl(223,90%,55%)" />
+                    </linearGradient>
+                    <linearGradient id="pl-grad2" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="hsl(313,90%,55%)" />
+                        <stop offset="100%" stop-color="hsl(223,90%,55%)" />
+                    </linearGradient>
+                </defs>
+                <circle class="pl__ring" cx="100" cy="100" r="82" fill="none" stroke="url(#pl-grad1)" stroke-width="36" stroke-dasharray="0 257 1 257" stroke-dashoffset="0.01" stroke-linecap="round" transform="rotate(-90,100,100)" />
+                <line class="pl__ball" stroke="url(#pl-grad2)" x1="100" y1="18" x2="100.01" y2="182" stroke-width="36" stroke-dasharray="1 165" stroke-linecap="round" />
+            </svg>
+        </div>
+
+
+        <!-- ===== Навигация ===== -->
+
+        <div class="l-navbar" id="navbar">
+            <nav class="nav">
+                <div>
+                    <div class="nav__brand">
+                        <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
+                        <a class="nav__logo">GoodGames</a>
+                    </div>
+                    <div class="nav__list">
+                        <a href="/" class="nav__link">
+                            <ion-icon name="home-outline" class="nav__icon"></ion-icon>
+                            <span class="nav__name" id="home">Головна</span>
+                        </a>
+
+                        <a href="#" class="nav__link">
+                            <ion-icon name="videocam-outline" class="nav__icon"></ion-icon>
+                            <span class="nav__name" id="live">Трансляції</span>
+                        </a>
+
+                        <a href="../competitionsList" class="nav__link">
+                            <ion-icon name="baseball-outline" class="nav__icon"></ion-icon>
+                            <span class="nav__name" id="sport">Змагання</span>
+                        </a>
+
+                        <a href="#" class="nav__link" id="settings_icon">
+                            <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
+                            <span class="nav__name" id="settings">Налаштування</span>
+                        </a>
+
+                        <span class="mobile">
+                            <a class="nav__link" id="open-modal" onclick="document.getElementById('modal').style.zIndex = 1000">
+                                <ion-icon name="grid-outline" class="nav__icon"></ion-icon>
+                                <span class="nav__name" id="login_m">Профіль</span>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <a class="nav__link pc" id="profile_buttom" onclick="document.getElementById('open-modal').click();">
+                    <ion-icon name="grid-outline" class="nav__icon"></ion-icon>
+                    <span class="nav__name" id="login">Профіль</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- ===== Контент ===== -->
+        <div>
+
+            <div class="main-content">
+                <div class="head_page" >
+                    <div class="theme_back" id="theme">
+                        <div class="row" style="flex-wrap: inherit;">
+                            <h3 style="padding-top: 5px; padding-left: 10px;" id="profile_text">Налаштування</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+        <section class="section" style="padding-top: 20px;">
+            <div class="container mt-lg-3">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-12 d-lg-block d-none">
+                        <div class="sidebar sticky-bar p-4 rounded shadow">
+
+                            <div class="widget mt-4 pt-2">
+                                <h5 class="widget-title">Профіль заповнено:</h5>
+                                <div class="progress-box mt-4">
+                                    <h6 class="title text-muted">Прогрес</h6>
+                                    <div class="progress">
+                                        <div class="progress-bar position-relative bg-primary" style="width:30%;">
+                                            <div class="progress-value d-block text-muted h6">30%</div>
+                                        </div>
+                                    </div>
+                                </div><!--end process box-->
+                            </div>
+
+                            <div class="widget">
+                                <div class="row">
+                                    <div class="col-6 mt-4 pt-2">
+                                        <a href="/profile/" class="accounts rounded d-block shadow text-center py-3">
+                                            <span class="pro-icons h3 text-muted"><ion-icon name="person-outline"></ion-icon></span>
+                                            <h6 class="title text-dark h6 my-0">Мій профіль</h6>
+                                        </a>
+                                    </div><!--end col-->
+
+                                    <div class="col-6 mt-4 pt-2">
+                                        <a href="/competitionsList/" class="accounts rounded d-block shadow text-center py-3">
+                                            <span class="pro-icons h3 text-muted"><ion-icon name="stats-chart-outline"></ion-icon></span>
+                                            <h6 class="title text-dark h6 my-0">Мої турніри</h6>
+                                        </a>
+                                    </div><!--end col-->
+
+
+                                    <div class="col-6 mt-4 pt-2">
+                                        <a href="/settings/" class="accounts active rounded d-block shadow text-center py-3">
+                                            <span class="pro-icons h3 text-muted"><ion-icon name="settings-outline"></ion-icon></span>
+                                            <h6 class="title text-dark h6 my-0">Налаштування</h6>
+                                        </a>
+                                    </div><!--end col-->
+
+                                    <div class="col-6 mt-4 pt-2" onclick="exit_login();">
+                                        <a href="#Exit" class="accounts rounded d-block shadow text-center py-3">
+                                            <span class="pro-icons h3 text-muted"><ion-icon name="exit-outline"></ion-icon></span>
+                                            <h6 class="title text-dark h6 my-0">Вийти з акаунту</h6>
+                                        </a>
+                                    </div><!--end col-->
+                                </div><!--end row-->
+                            </div>
+
+                            <div class="widget mt-4 pt-2">
+                                <h5 class="widget-title">Інше:</h5>
+                                <a href="#" class="buttom">Підтримка користувачів</a>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+
+                    <div class="col-lg-8 col-12">
+                        <div class="border-bottom pb-4">
+                            <h5>Налаштування сервісу</h5>
+                            <p class="text-muted mb-0">Змінити всі основні параметри GoodGames.</p><hr>
+                            <div style="padding-top: 5px;">
+                                <a id="profile" class="btn btn-warning" onclick="profile(); this.classList.add('btn-warning'); this.classList.remove('btn-outline-warning');">Профіль</a>
+                                <a id="subs" class="btn btn-outline-warning" onclick="subs(); this.classList.add('btn-warning'); this.classList.remove('btn-outline-warning');">Підписки</a>
+                                <a id="themes" class="btn btn-outline-warning" onclick="theme(); this.classList.add('btn-warning'); this.classList.remove('btn-outline-warning');">Теми</a>
+                            </div>
+                        </div>
+
+                        <div id="profile_settings">
+                            <h5 class="text-md-left mt-4">Персональна інформація:</h5>
+                            <div class="mt-3 text-md-left text-center d-sm-flex">
+                                <img src="/assets/images/user-48.png" id="image_blocks" class="avatar float-md-left avatar-medium rounded-circle shadow mr-md-4" alt="">
+                                
+                                <div class="mt-md-4 ml-4 mt-sm-0" style="margin-left: 15px;">
+                                    <input style="display: none;" onchange="getFiles(this.files)" type="file" id="photo_butt" name="uploadfile" name="photo" multiple accept="image/*,image/jpeg, image/gif">
+                                    <a style="cursor: pointer;" onclick="upload_files();" class="btn btn-primary mt-2"> Змінити аватар </a>
+                                    <a onclick="resetFile();" id="form_photo_close" class="btn btn-outline-danger mt-2 ml-2" style="cursor: pointer;"> Видалити </a>
+                                </div>
+                            </div>
+                            <label id="error_photo" style="display: none;" for="form_street" class="form-label"><a id="files_error" style="color: red; cursor: default;">Ви не виблали зображення.</a></label>
+
+                        
+                                <div class="row mt-4">
+                                    <div class="col-md-6">
+                                        <div class="form-group position-relative">
+                                            <label>Мій логін</label>
+                                            <input name="name" id="first" type="text" class="form-control pl-5" placeholder="Логін">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group position-relative">
+                                            <label>Моя пошта</label>
+                                            <input name="email" id="email" type="email" class="form-control pl-5" placeholder="Пошта">
+                                        </div> 
+                                    </div>
+                                </div><!--end row-->
+                                <label id="error_main" style="display: none;" for="form_street" class="form-label"><a id="files_error" style="color: red; cursor: default;">Помилка. Перевірте данні.</a></label>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <button class="btn btn-primary">Зберегти зміни</button>
+                                    </div>
+                                </div>
+
+                            <h5 class="text-md-left mt-4">Зміна паролю:</h5>
+
+                            <div class="row mt-4">
+                                <div class="col-md-6">
+                                    <div class="form-group position-relative">
+                                        <label>Старий пароль:</label>
+                                        <input type="password" class="form-control pl-5" placeholder="Старий пароль" required="">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group position-relative">
+                                        <label>Новий пароль:</label>
+                                        <input type="password" class="form-control pl-5" placeholder="Новий пароль" required="">
+                                    </div>
+                                </div>
+                            </div>
+                            <label id="error_pass" style="display: none;" for="form_street" class="form-label"><a id="files_error" style="color: red; cursor: default;">Помилка. Перевірте данні.</a></label>
+
+                            <div class="col-lg-12 mt-2 mb-0">
+                                <button class="btn btn-primary" onclick="chan_pass();">Змінити пароль</button>
+                            </div>
+                        </div>
+
+                        <div id="sub_settings" style="display: none;">
+                            <h5 class="text-md-left mt-4">Улюблені види спорту:</h5>
+                            <div class="row">
+
+                                <div class="col-lg-6 mt-4 pt-2" style="cursor: pointer;">
+                                    <a class="text-dark">
+                                        <div class="key-feature d-flex align-items-center p-3 bg-white rounded shadow">
+                                            <div style="margin-right: 15px;" class="icon text-center rounded-circle mr-5">
+                                                <ion-icon name="game-controller-outline"></ion-icon>
+                                            </div>
+
+                                            <div class="content">
+                                                <h4 class="title mb-0">Кіберспорт</h4>
+                                                <p class="text-muted mb-0">51 змагання</p>    
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div><!--end col-->
+                                
+                                <div class="col-lg-6 mt-4 pt-2" style="cursor: pointer;">
+                                    <a class="text-dark">
+                                        <div class="key-feature d-flex align-items-center p-3 bg-white rounded shadow">
+                                            <div style="margin-right: 15px;" class="icon text-center rounded-circle mr-5">
+                                                <ion-icon name="american-football-outline"></ion-icon>
+                                            </div>
+
+                                            <div class="content">
+                                                <h4 class="title mb-0">Футбол</h4>
+                                                <p class="text-muted mb-0">26 змаганнь</p>    
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div><!--end col-->
+
+                                <div class="col-12 mt-4 pt-2">
+                                    <a href="#add" class="btn btn-primary">Дадати підписку</a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div id="theme_settings" style="display: none;">
+                            <h5 class="text-md-left mt-4">Тема сессії:</h5>
+
+                            <div style="box-shadow: 0 0 2px rgba(0, 0, 0, 0.4); padding: 10px; border-radius: 5px;">
+                                <div class="row">
+                                    <style>
+                                        .select{
+                                            border: 3px solid rgb(255, 0, 242);
+                                            border-radius: 20px;
+                                        }
+                                    </style>
+                                    <div class="main-content" style="width: 175px; cursor: pointer; padding-top: 5px;" onclick="bg1()">
+                                        <div class="head_page" id="bg1">
+                                            <div class="theme_back" style="height: 85px; background-image: url('/assets/images/back-abstract.png'); background-size: cover;">
+                                                <div class="row" style="flex-wrap: inherit;">
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="main-content"  style="width: 175px; cursor: pointer; padding-top: 5px;"  onclick="bg2()">
+                                        <div class="head_page" id="bg2">
+                                            <div class="theme_back" style="height: 85px; background-image: url('/assets/images/bg2.png'); background-size: cover;">
+                                                <div class="row" style="flex-wrap: inherit;">
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="main-content"  style="width: 175px; cursor: pointer; padding-top: 5px;"  onclick="bg3()">
+                                        <div class="head_page" id="bg3">
+                                            <div class="theme_back" style="height: 85px; background-image: url('/assets/images/bg3.png'); background-size: cover;">
+                                                <div class="row" style="flex-wrap: inherit;">
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                </div>
+                                <label for="form_street" class="form-label" style="padding-top: 10px;"><a id="files_error" style="color: rgb(87, 87, 87); cursor: default;">Тема зберігається лише на цьому компьютері.</a></label>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <footer class="site-footer">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                  <h6>Про нас</h6>
+                  <p class="text-justify">ХТО Я?</p>
+                </div>
+
+                <div class="col-xs-6 col-md-3">
+                  <h6>Змагання</h6>
+                  <ul class="footer-links">
+                    <li><a href="#">Стрічка новин</a></li>
+                    <li><a href="#">Прямі трансляції</a></li>
+                    <li><a href="#">Мій профіль</a></li>
+                  </ul>
+                </div>
+
+                <div class="col-xs-6 col-md-3">
+                  <h6>Інша інфорація</h6>
+                  <ul class="footer-links">
+                    <li><a href="#">Розробники</a></li>
+                    <li><a href="#">Контакти</a></li>
+                  </ul>
+                </div>
+              </div>
+              <hr>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                  <p class="copyright-text">Copyright &copy; 2021 All Rights Reserved by GoodGames.</p>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <a class="a" href="#">Мобільний додаток<ion-icon name="logo-android" style="margin-left: 5px;"></ion-icon></a>.
+                </div>
+              </div>
+            </div>
+      </footer>
+
+      <section class="modal" id="modal">
+
+        <div class="modal__container" id="modal-container">
+            <div class="modal__content">
+                <div class="modal__close close-modal" title="Close" onclick="document.getElementById('modal').style.zIndex = -1000">
+                    <ion-icon name="close-outline"></ion-icon>
+                </div>
+
+                <div class="widget">
+                    <div class="row">
+                        <div class="col-6 mt-4 pt-2">
+                            <a href="/profile/" class="accounts rounded d-block shadow text-center py-3">
+                                <span class="pro-icons h3 text-muted"><ion-icon name="person-outline"></ion-icon></span>
+                                <h6 class="title text-dark h6 my-0">Мій профіль</h6>
+                            </a>
+                        </div><!--end col-->
+
+                        <div class="col-6 mt-4 pt-2">
+                            <a href="/competitionsList/" class="accounts rounded d-block shadow text-center py-3">
+                                <span class="pro-icons h3 text-muted"><ion-icon name="stats-chart-outline"></ion-icon></span>
+                                <h6 class="title text-dark h6 my-0">Мої турніри</h6>
+                            </a>
+                        </div><!--end col-->
+
+
+                        <div class="col-6 mt-4 pt-2">
+                            <a href="/settings/" class="accounts active rounded d-block shadow text-center py-3">
+                                <span class="pro-icons h3 text-muted"><ion-icon name="settings-outline"></ion-icon></span>
+                                <h6 class="title text-dark h6 my-0">Налаштування</h6>
+                            </a>
+                        </div><!--end col-->
+
+                        <div class="col-6 mt-4 pt-2" onclick="exit_login();">
+                            <a href="#Exit" class="accounts rounded d-block shadow text-center py-3">
+                                <span class="pro-icons h3 text-muted"><ion-icon name="exit-outline"></ion-icon></span>
+                                <h6 class="title text-dark h6 my-0">Вийти з акаунту</h6>
+                            </a>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- ===== Иконки ===== -->
+        <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+
+        <!-- ===== MAIN JS ===== -->
+        <script src="/assets/js/main.js"></script>
+
+        <script>
+            function bg1(){
+                document.getElementById('bg1').classList.add("select");
+                document.getElementById('bg2').classList.remove("select");
+                document.getElementById('bg3').classList.remove("select");
+                document.getElementById('theme').style = "background-image: url('/assets/images/back-abstract.png');";
+                Cookies.set('theme_bg', "background-image: url('/assets/images/back-abstract.png');", { expires: 365, path: '/' });
+            }
+
+            function bg2(){
+                document.getElementById('bg1').classList.remove("select");
+                document.getElementById('bg2').classList.add("select");
+                document.getElementById('bg3').classList.remove("select");
+                document.getElementById('theme').style = "background-image: url('/assets/images/back_bg2.png');";
+                Cookies.set('theme_bg', "background-image: url('/assets/images/back_bg2.png');", { expires: 365, path: '/' });
+            }
+
+            function bg3(){
+                document.getElementById('bg1').classList.remove("select");
+                document.getElementById('bg2').classList.remove("select");
+                document.getElementById('bg3').classList.add("select");
+                document.getElementById('theme').style = "background-image: url('/assets/images/back_bg3.png');";
+                Cookies.set('theme_bg', "background-image: url('/assets/images/back_bg3.png');", { expires: 365, path: '/' });
+            }
+
+            if(Cookies.get('theme_bg') != undefined){
+                if(Cookies.get('theme_bg') == "background-image: url('/assets/images/back-abstract.png');"){
+                    document.getElementById('bg1').classList.add("select");
+                }
+                if(Cookies.get('theme_bg') == "background-image: url('/assets/images/back_bg2.png');"){
+                    document.getElementById('bg2').classList.add("select");
+                }
+                if(Cookies.get('theme_bg') == "background-image: url('/assets/images/back_bg3.png');"){
+                    document.getElementById('bg3').classList.add("select");
+                }
+            }else{
+                document.getElementById('bg1').classList.add("select");
+            }
+
+            function profile(){
+                document.getElementById("subs").classList.remove('btn-warning');
+                document.getElementById("subs").classList.add('btn-outline-warning');
+                document.getElementById("themes").classList.remove('btn-warning');
+                document.getElementById("themes").classList.add('btn-outline-warning');
+                document.getElementById("profile_settings").style.display = "block";
+                document.getElementById("sub_settings").style.display = "none";
+                document.getElementById("theme_settings").style.display = "none";
+            }
+            
+            function subs(){
+                document.getElementById("profile").classList.remove('btn-warning');
+                document.getElementById("profile").classList.add('btn-outline-warning');
+                document.getElementById("themes").classList.remove('btn-warning');
+                document.getElementById("themes").classList.add('btn-outline-warning');
+                document.getElementById("profile_settings").style.display = "none";
+                document.getElementById("sub_settings").style.display = "block";
+                document.getElementById("theme_settings").style.display = "none";
+            }
+
+            function theme(){
+                document.getElementById("profile").classList.remove('btn-warning');
+                document.getElementById("profile").classList.add('btn-outline-warning');
+                document.getElementById("subs").classList.remove('btn-warning');
+                document.getElementById("subs").classList.add('btn-outline-warning');
+                document.getElementById("profile_settings").style.display = "none";
+                document.getElementById("sub_settings").style.display = "none";
+                document.getElementById("theme_settings").style.display = "block";
+            }
+            
+            function chan_pass(){
+
+            }
+
+            function getFiles(files) {
+                  if (files[0].size <= 2000000) {
+                    photo = true;
+                    document.getElementById("error_photo").style = "display: none;";
+
+                    var fr = new FileReader();
+                    fr.addEventListener("load", function() {
+                      document.getElementById("image_blocks").src = fr.result;
+                    }, false);
+
+                    fr.readAsDataURL(files[0]);
+                  } else {
+                    document.getElementById("error_photo").style = "display: inline;";
+                    document.getElementById("files_error").textContent = "Зображення бішьше ніж 2 Мб. Зменьшіть розмір.";
+                  }
+
+                }
+
+                function resetFile() {
+                  document.getElementById('photo_butt').value = "";
+                  document.getElementById("error_photo").style = "display: none;";
+                  document.getElementById("image_blocks").src = "/assets/images/user-48.png";
+                }
+
+                function upload_files() {
+                  document.getElementById('photo_butt').click();
+                }
+
+            document.getElementById("settings_icon").classList.add('active');
+            if(Cookies.get('login') == undefined){
+                document.location.href = "../";
+            }else{
+                
+            }
+        </script>
+        <script src="/assets/js/serverRequest.js"></script>
+    </body>
+</html>
