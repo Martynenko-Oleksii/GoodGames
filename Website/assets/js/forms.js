@@ -76,6 +76,7 @@ function login_validation() {
                 document.getElementById('profile').onclick = "";
                 document.getElementById('showModal').onclick = "";
                 setTimeout("sayHi()", 1000);
+                document.getElementById('login_name').textContent = Cookies.get('login');
             })
             .catch(err => {
                 console.log(err);

@@ -11,26 +11,63 @@
         <script src="/assets/js/js.cookie.js"></script>
         <script src="/assets/js/main.js"></script>
         <script src="/assets/js/serverRequest.js"></script>
+        <script src="dragscroll.js"></script>
+
+        <style>
+            .nav_fix{
+                bottom: 20px; right: 20px; position: fixed; z-index: 1000;
+            }
+            .nav{
+                background-color: rgba(97, 95, 99, 0.50); padding: 5px 9px 5px 9px; border-radius: 5px; color: #fff; font-weight: 900;
+                cursor: pointer;
+            }
+            .nav:hover{
+                background-color: rgb(97, 95, 99);
+            }
+        </style>
     </head>
-    <body id="body-pd">
+    <body class="dragscroll" id="body-pd" style="zoom: 1.1;">
 
     <!--  ПОЛЕ ДЛЯ ТУРНИРНОЙ СЕТКИ  -->
 
-
-    <div class="demo">
-
+    <div id="grid" class="demo">
+        
     </div>
-
 
     <!-- БЛЯ НЕ ТРОГАТЬ  -->
 
+    <div class="nav_fix">
+        <a class="nav" onclick="if(scale < 2){scale += 0.05;} document.getElementById('grid').style.zoom = scale;">+</a>
+        <a class="nav" onclick="if(scale > 0.9){scale -= 0.05;} document.getElementById('grid').style.zoom = scale;" style="padding: 5px 10px 5px 10px;">-</a>
+    </div>
+
     <script>
-
         var TEAMS;
-
         
         if(getUrlVars().id == 0){
             TEAMS = {"teams": [["Команда 1", "Команда 2"],["Команда 3", "Команда 4"]], "results": [[[[1, 2], [3, 4]],[[5, 6]]],[[[7, 8]],[[9, 10]]],[[[11, 12],[13, 14]],[[15, 16]]]]}
+                console.log(TEAMS);
+
+                if(getUrlVars().options == "edit"){
+                    $('.demo').bracket({ // ПОСТОРЕНИЕ и редактирование
+                        teamWidth: 100,
+                        scoreWidth: 36,
+                        matchMargin: 40,
+                        roundMargin: 65,
+                        init: TEAMS, 
+                        save: saveResults,
+                        disableToolbar: true,
+                        disableTeamEdit: true
+                    });
+                }else{
+                    $('.demo').bracket({ // ПОСТОРЕНИЕ
+                        teamWidth: 100,
+                        scoreWidth: 36,
+                        matchMargin: 40,
+                        roundMargin: 65,
+                        init: TEAMS
+                    });
+                }
         }else{
             document.addEventListener("DOMContentLoaded", getTeams);
             function getTeams() {
@@ -50,19 +87,48 @@
             function parseTeams(data) {
                 TEAMS = JSON.parse("{" + data + "}");
                 console.log(TEAMS);
-                $('.demo').bracket({ // ПОСТОРЕНИЕ
-                    teamWidth: 100,
-                    scoreWidth: 36,
-                    matchMargin: 40,
-                    roundMargin: 65,
-                    init: TEAMS
-                });
+                if(getUrlVars().options == "edit"){
+                    $('.demo').bracket({ // ПОСТОРЕНИЕ и редактирование
+                        teamWidth: 100,
+                        scoreWidth: 36,
+                        matchMargin: 40,
+                        roundMargin: 65,
+                        init: TEAMS, 
+                        save: saveResults,
+                        disableToolbar: true,
+                        disableTeamEdit: true
+                    });
+                }else{
+                    $('.demo').bracket({ // ПОСТОРЕНИЕ
+                        teamWidth: 100,
+                        scoreWidth: 36,
+                        matchMargin: 40,
+                        roundMargin: 65,
+                        init: TEAMS
+                    });
+                }
             }
+
+           
+        }
+
+        function saveFn(data) {
+            var json = jQuery.toJSON(data)
+            $('#saveOutput').text(json)
+        }
+
+        function saveResults(){
+            /*
+            var data = bracket('data')
+            var json = jQuery.toJSON(data);
+            console.log(json);
+            */
         }
 
         // СКРИПТЫ
         // ИНСТРУКЦИЯ: http://www.aropupu.fi/bracket/
 
+        /*
         $('.demo').bracket({ // ГИБКАЯ НАСТРОЙКА
             init: null, // data to initialize
             save: null, // called whenever bracket is modified
@@ -81,6 +147,51 @@
             roundMargin: '', // number
             matchMargin: '', // number
         });
+        */
+    </script>
+
+    <script>
+        function addOnWheel(elem, handler) {
+            if (elem.addEventListener) {
+                if ('onwheel' in document) {
+                // IE9+, FF17+
+                elem.addEventListener("wheel", handler);
+                } else if ('onmousewheel' in document) {
+                // устаревший вариант события
+                elem.addEventListener("mousewheel", handler);
+                } else {
+                // 3.5 <= Firefox < 17, более старое событие DOMMouseScroll пропустим
+                elem.addEventListener("MozMousePixelScroll", handler);
+                }
+            } else { // IE8-
+                document.getElementById("grid").attachEvent("onmousewheel", handler);
+            }
+        }
+
+        var scale = 1;
+
+        addOnWheel(document.getElementById("grid"), function(e) {
+
+        var delta = e.deltaY || e.detail || e.wheelDelta;
+
+        // отмасштабируем при помощи CSS
+        if (delta > 0) {
+            if(scale < 2){
+                scale += 0.05;
+            }
+        }
+        else {
+            if(scale > 0.9){
+                scale -= 0.05;
+            }
+        }
+
+        document.getElementById("grid").style.zoom = scale;
+
+        // отменим прокрутку
+        e.preventDefault();
+        });
+
     </script>
     </body>
 </html>
