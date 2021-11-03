@@ -191,13 +191,13 @@
                                     <div class="col-md-6">
                                         <div class="form-group position-relative">
                                             <label>Мій логін</label>
-                                            <input name="name" id="first" type="text" class="form-control pl-5" placeholder="Логін">
+                                            <input name="name" id="first" type="text" class="login-input form-control pl-5" placeholder="Логін">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group position-relative">
                                             <label>Моя пошта</label>
-                                            <input name="email" id="email" type="email" class="form-control pl-5" placeholder="Пошта">
+                                            <input name="email" id="email" type="email" class="email-input form-control pl-5" placeholder="Пошта">
                                         </div>
                                     </div>
                                 </div><!--end row-->
@@ -488,32 +488,31 @@
             }
 
             function getFiles(files) {
-                  if (files[0].size <= 2000000) {
-                    photo = true;
-                    document.getElementById("error_photo").style = "display: none;";
+              if (files[0].size <= 2000000) {
+                photo = true;
+                document.getElementById("error_photo").style = "display: none;";
 
-                    var fr = new FileReader();
-                    fr.addEventListener("load", function() {
-                      document.getElementById("image_blocks").src = fr.result;
-                    }, false);
+                var fr = new FileReader();
+                fr.addEventListener("load", function() {
+                  document.getElementById("image_blocks").src = fr.result;
+                }, false);
 
-                    fr.readAsDataURL(files[0]);
-                  } else {
-                    document.getElementById("error_photo").style = "display: inline;";
-                    document.getElementById("files_error").textContent = "Зображення бішьше ніж 2 Мб. Зменьшіть розмір.";
-                  }
+                fr.readAsDataURL(files[0]);
+              } else {
+                document.getElementById("error_photo").style = "display: inline;";
+                document.getElementById("files_error").textContent = "Зображення бішьше ніж 2 Мб. Зменьшіть розмір.";
+              }
+            }
 
-                }
+            function resetFile() {
+              document.getElementById('photo_butt').value = "";
+              document.getElementById("error_photo").style = "display: none;";
+              document.getElementById("image_blocks").src = "/assets/images/user-48.png";
+            }
 
-                function resetFile() {
-                  document.getElementById('photo_butt').value = "";
-                  document.getElementById("error_photo").style = "display: none;";
-                  document.getElementById("image_blocks").src = "/assets/images/user-48.png";
-                }
-
-                function upload_files() {
-                  document.getElementById('photo_butt').click();
-                }
+            function upload_files() {
+              document.getElementById('photo_butt').click();
+            }
 
             document.getElementById("settings_icon").classList.add('active');
             if(Cookies.get('login') == undefined){
