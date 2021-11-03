@@ -116,7 +116,7 @@
                                     <h3 class="">Інформація</h3>
 
                                     <!-- Показывать, если автор простматривает страницу -->
-                                    <div id="edit_autor_show">
+                                    <div>
                                         <a id="edit_autor" class="btn btn-outline-primary btn-sm" onclick="edit_shedule();"><ion-icon name="create-outline"></ion-icon> Розклад</a>
                                         <a id="show_main" class="btn btn-outline-primary btn-sm" onclick="show_main();" style="display: none;"><ion-icon name="arrow-back-circle-outline"></ion-icon> Назад</a>    
                                     </div>
@@ -171,31 +171,6 @@
                                             <a id="send" href="#send" style="display: none;">Відправити</a>
                                             <a id="join" href="#Join">Приєднатись</a>
                                         </div>
-                                        <script>
-                                            function send_togo() {
-                                                const sendButtonEl = document.querySelector("#send");
-                                                const openInputEl = document.querySelector("#open_input");
-                                                const inputMailEl = document.querySelector("#input_mail");
-                                                const joinEl = document.querySelector("#join");
-                                                
-                                                joinEl.style.display = "none";
-                                                sendButtonEl.style.height = "36px";
-                                                sendButtonEl.style.display = "inline";
-                                                sendButtonEl.textContent = "Відправити";
-                                                openInputEl.style.display = "none";
-                                                inputMailEl.style.display = "block";
-
-                                                // add ability to run request function by clicking send button
-                                                sendButtonEl.addEventListener("click", () => {
-                                                    sendInvitation(inputMailEl.value);
-                                                    joinEl.style.display = "inline";
-                                                    sendButtonEl.style.display = "none";
-                                                    openInputEl.style.display = "inline";
-                                                    inputMailEl.style.display = "none";
-                                                    document.getElementById('done_info').style.display = 'block';
-                                                });
-                                            }
-                                        </script>
                                     </div>
                                 </div>
                             </div>
@@ -325,17 +300,22 @@
                                             <div class="order-summary">
                                                 <div style="text-align: center;">
                                                     <img src="/competitionsList/assets/img/empty.png" alt="" class="no-competitions__image" style="height: 150px; width: 150px;">
-                                                    <p>Розклад пустий. Почніть змагання для генерації розкладу.</p>
+                                                    <p>Розклад пустий. Після початку змагання він згенерується. 😉</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
     
 
-                                    <!--        БЛОК ИНФОРМАЦИИ С РАССПИСАНИЯ
+                                    <h4 style="text-align: center; margin-top: 30px;">ДЛЯ ТЕСТИРОВАНИЯ И РАЗРАБОТКИ ↘️</h4>
+
+
+                                    <!--        БЛОК ИНФОРМАЦИИ С РАССПИСАНИЯ -->
+                                    
                                     <div class="widget widget-four" style="margin-bottom: 20px;">
                                         <div class="widget-heading">
                                             <h5 class="">{Дата}</h5>
+                                            <a class="btn btn-outline-info btn-sm" id="edit_autor_show" onclick="fixation('0');">Фіксація результатів</a>
                                         </div>
     
                                         <div class="widget-content">
@@ -347,8 +327,8 @@
                                                         </div>
                                                         <div class="w-summary-details">
                                                             <div class="w-summary-info">
-                                                                <h6>Команда <span class="summary-count">{NAME TEAM 1}</span></h6>
-                                                                <p class="summary-average"><a class="card" style="padding: 0.75rem; margin-top: 0px;">0</a></p>
+                                                                <h6>Команда <span class="summary-count" id="name_t1_0"> Крепкие яйца </span></h6>
+                                                                <p class="summary-average"><a class="card" style="padding: 0.75rem; margin-top: 0px;" id="result_t1_0">0</a></p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -361,8 +341,8 @@
                                                         </div>
                                                         <div class="w-summary-details">
                                                             <div class="w-summary-info">
-                                                                <h6>Команда <span class="summary-count">{NAME TEAM 2}</span></h6>
-                                                                <p class="summary-average"><a class="card" style="padding: 0.75rem; margin-top: 0px;">0</a></p>
+                                                                <h6>Команда <span class="summary-count" id="name_t2_0"> Сладкие огурчики </span></h6>
+                                                                <p class="summary-average"><a class="card" style="padding: 0.75rem; margin-top: 0px;" id="result_t2_0">0</a></p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -371,7 +351,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    -->
+                                    
                                     
                                 </div>
 
@@ -386,6 +366,48 @@
         </div>
     </div>
     <!--  END CONTENT AREA  -->
+
+    <div id="modal_edit" class="modal-window">
+        <div>
+            <div class="widget widget-four" style="margin-bottom: 20px; border: 0.5px solid rgba(0, 0, 0, 0.4); border-radius: 5px;">
+                <div class="widget-heading" style="margin-bottom: 20px;">
+                    <h5 class="">Фіксація результатів</h5>
+                    <a class="btn btn-outline-danger btn-sm" onclick="document.getElementById('modal_edit').style.display = 'none';">Закрити</a>
+                </div>
+
+                <div class="widget-content">
+                    <div class="order-summary">
+                        <div class="summary-list summary-income" style="margin-bottom: 10px; border: 0.2px solid rgba(0, 0, 0, 0.2);">
+                                <div class="w-summary-details">
+                                    <div class="w-summary-info">
+                                        <h6>Команда <span class="summary-count" id="name_t1_edit">{NAME TEAM 1}</span></h6>
+                                        <p class="summary-average" style="width: 70px;"><input type="number" class="card" style="padding: 0.75rem; margin-top: 0px;" id="result_t1_edit"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="summary-list summary-expenses"style="margin-bottom: 5px; border: 0.2px solid rgba(0, 0, 0, 0.2);">
+                            <div class="summery-info">
+                                <div class="w-summary-details">
+                                    <div class="w-summary-info">
+                                        <h6>Команда <span class="summary-count" id="name_t2_edit">{NAME TEAM 2}</span></h6>
+                                        <p class="summary-average" style="width: 70px;"><input type="number" class="card" style="padding: 0.75rem; margin-top: 0px;" id="result_t2_edit"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div style="text-align: right; margin-top: 10px;">
+                        <a class="btn btn-outline-warning" id="save_edit" onclick="save_edit_f(0);">Зберегти зміни</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
         <footer class="site-footer">
             <div class="container">
@@ -489,37 +511,5 @@
         </script>
         <script src="../assets/js/serverRequest.js"></script>
         <script src="assets/js/game.js"></script>
-
-        <script>
-            var id = getUrlVars()["id"];
-            if(getUrlVars()["id"] == undefined){
-                //history.back();
-            }
-            var options = "none";
-            document.getElementById("join").href = "join/?game=" + id;
-            document.getElementById("grid_frame").src = "grid/?id=" + id + "&options=" + options;
-
-            if (devices.test(navigator.userAgent))
-            { /* События для телефонов */  }
-            else{ document.getElementById("grid_frame").setAttribute("scrolling", "no"); }
-            
-            function edit_shedule(){
-                document.getElementById('main_apps').style.display = "none";
-                document.getElementById('edit_autor').style.display = "none";
-                document.getElementById('edit_shedule').style.display = "block";
-                document.getElementById('show_main').style.display = "block";
-                if(devices.test(navigator.userAgent)){
-                    document.getElementById("edit_shedule").scrollIntoView({block: "center", behavior: "smooth"});
-                }
-            }
-
-            function show_main(){
-                document.getElementById('main_apps').style.display = "block";
-                document.getElementById('edit_autor').style.display = "block";
-                document.getElementById('edit_shedule').style.display = "none";
-                document.getElementById('show_main').style.display = "none";
-            }
-        </script>
-
     </body>
 </html>
