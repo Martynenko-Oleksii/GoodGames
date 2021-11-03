@@ -58,12 +58,12 @@
           <span class="nav__name" id="live">Трансляції</span>
         </a>
 
-        <a href="/competitionsList/" class="nav__link active">
+        <a href="#" class="nav__link active">
           <ion-icon name="baseball-outline" class="nav__icon"></ion-icon>
           <span class="nav__name" id="sport">Змагання</span>
         </a>
 
-        <a href="/settings/" class="nav__link">
+        <a href="#" class="nav__link">
           <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
           <span class="nav__name" id="settings">Налаштування</span>
         </a>
@@ -89,7 +89,7 @@
 <div>
   <div class="main-content">
     <div class="head_page" >
-      <div class="theme_back" id="theme">
+      <div class="theme_back">
         <div class="row" style="flex-wrap: inherit;">
           <h3 style="padding-top: 5px; padding-left: 10px;">Змагання онлайн</h3>
           <div class="icon-button" style="z-index: 0; margin-right: 10px; display: flex; right: 50px; position: absolute;">
@@ -106,38 +106,42 @@
 
   <div class="container mt-100 mt-60 competition-list">
     <div class="row">
-
       <div class="no-competitions">
-        <img src="assets/img/empty.png" alt="" class="no-competitions__image" style="height: 200px; width: 200px;">
+        <img src="assets/img/no-events.svg" alt="" class="no-competitions__image">
         <p class="no-competitions__message">
           Наразі у вас немає жодного змагання
         </p>
       </div>
 
-      <!--div class="col-lg-4 col-md-6 mt-4 pt-2" style="cursor: pointer;" id="competition-${competitionId}">
+      <!--<div class="col-lg-4 col-md-6 mt-4 pt-2">
         <div class="card blog rounded border-0 shadow overflow-hidden">
-          <div class="card-hover card-body content">
+          <div class="position-relative">
+            <img src="assets/img/competition-placeholder.png" class="card-img-top" alt="...">
+            <div class="overlay rounded-top bg-dark"></div>
+          </div>
+          <div class="card-body content">
             <h5>
               <p class="card-title title text-dark">
-                ${competitionTitle}
+                Назва змагання та ще більше тексту
               </p>
-              <small class="text-dark date" style="font-size: 14px;">Дата: ${competitionDate}</small>
             </h5>
             <div class="post-meta d-flex justify-content-between align-items-center mt-3">
-              <a href="/game?id=${competitionId}" class="btn btn-primary">
+              <a href="#" class="text-muted readmore">
                 Детальніше
               </a>
-              <button class="btn btn-danger" onclick="deleteCompetition(${competitionId})">
-                <ion-icon name="trash-bin-outline" style="font-size: 18px;"></ion-icon>
+              <button class="competition-list__delete-button">
+                <ion-icon name="trash-bin-outline" class="competition-list-list__delete-icon"></ion-icon>
               </button>
             </div>
           </div>
+          <div class="author">
+            <small class="text-light user d-block">Міжнародна федерація спорту</small>
+            <small class="text-light date">13 вересня, 2021</small>
+          </div>
         </div>
-      </div-->
-
+      </div>&lt;!&ndash;end col&ndash;&gt;-->
     </div><!--end row-->
   </div>
-
 </div>
 
 <footer class="site-footer">
@@ -214,7 +218,7 @@
 
 
                   <div class="col-6 mt-4 pt-2">
-                      <a href="/settings/" class="accounts rounded d-block shadow text-center py-3">
+                      <a href="#Settings" class="accounts rounded d-block shadow text-center py-3">
                           <span class="pro-icons h3 text-muted"><ion-icon name="settings-outline"></ion-icon></span>
                           <h6 class="title text-dark h6 my-0">Налаштування</h6>
                       </a>

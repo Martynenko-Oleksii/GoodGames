@@ -145,7 +145,3 @@ function getUrlVars() {
 }
 
 // Пример:   var id = getUrlVars()["id"];
-
-if(Cookies.get('theme_bg') != undefined){
-	document.getElementById('theme').style = Cookies.get('theme_bg');
-}

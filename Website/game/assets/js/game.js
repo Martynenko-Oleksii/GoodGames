@@ -102,7 +102,7 @@ function pageLoaded() {
 
 function sendInvitation(email) {
     if (!email) {
-        console.log("Bad email");
+        console.log("Bag email");
         return;
     }
 

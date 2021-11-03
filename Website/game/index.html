@@ -62,7 +62,7 @@
                             <span class="nav__name" id="sport">Змагання</span>
                         </a>
 
-                        <a href="/settings/" class="nav__link">
+                        <a href="#" class="nav__link">
                             <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
                             <span class="nav__name" id="settings">Налаштування</span>
                         </a>
@@ -87,7 +87,7 @@
         <div>
             <div class="main-content">
                 <div class="head_page" >
-                    <div class="theme_back" id="theme">
+                    <div class="theme_back">
                         <div class="row" style="flex-wrap: inherit;">
                             <h3 style="padding-top: 5px; padding-left: 10px;" id="profile_text">Змагання</h3>
                             <button class="icon-button" style="z-index: 0; margin-right: 10px; display: flex; right: 50px; position: absolute;">
@@ -182,7 +182,6 @@
                                                     sendButtonEl.style.display = "none";
                                                     openInputEl.style.display = "inline";
                                                     inputMailEl.style.display = "none";
-                                                    document.getElementById('done_info').style.display = 'block';
                                                 });
                                             }
                                         </script>
@@ -288,8 +287,8 @@
                             <div class="widget-content widget-content-area">
                                 <h3 class="">Турнірна сітка</h3>
 
-                                    <iframe src="grid/" scrolling="no" style="width: 100%; height: 400px; overflow: hidden;" id="grid_frame">
-                                        Браузер не поддерживается
+                                    <iframe src="grid/" style="width: 100%; height: 400px;" id="grid_frame">
+
                                     </iframe>
 
                                 </div>
@@ -345,14 +344,6 @@
             </div>
       </footer>
 
-        <div class="back_fon" id="done_info" style="display: none;">
-            <div class="done_modal">
-                <div><img src="https://img.icons8.com/fluent/100/000000/checkmark.png"/></div>
-                <div style="padding-top: 10px;"><H4>Запрошення відправлено</H4></div>
-                <a href="#" class="buttom" style="margin-top: 20px;" onclick="document.getElementById('done_info').style.display = 'none';">Закрити</a><br>
-            </div>
-        </div>
-
       <section class="modal" id="modal">
 
         <div class="modal__container" id="modal-container">
@@ -379,7 +370,7 @@
 
 
                         <div class="col-6 mt-4 pt-2">
-                            <a href="/settings/" class="accounts rounded d-block shadow text-center py-3">
+                            <a href="#Settings" class="accounts rounded d-block shadow text-center py-3">
                                 <span class="pro-icons h3 text-muted"><ion-icon name="settings-outline"></ion-icon></span>
                                 <h6 class="title text-dark h6 my-0">Налаштування</h6>
                             </a>
@@ -412,10 +403,11 @@
             var id = getUrlVars()["id"];
             if(getUrlVars()["id"] == undefined){
                 //history.back();
+            }else{
+
             }
-            var options = "none";
             document.getElementById("join").href = "join/?game=" + id;
-            document.getElementById("grid_frame").src = "grid/?id=" + id + "&options=" + options;
+            document.getElementById("grid_frame").src = "grid/?id=" + id;
         </script>
 
     </body>
