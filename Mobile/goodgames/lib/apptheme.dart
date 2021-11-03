@@ -35,7 +35,14 @@ class AppTheme {
     fontSize: 36,
     letterSpacing: 0.4,
     height: 0.9,
-    color: darkerText,
+    color: white,
+    shadows: <Shadow>[
+      Shadow(
+        blurRadius: 10.0,
+        color: Colors.black38,
+        offset: Offset(3.0, 3.0),
+      ),
+    ],
   );
 
   static const TextStyle headline = TextStyle( // h5 -> headline
@@ -43,7 +50,14 @@ class AppTheme {
     fontWeight: FontWeight.bold,
     fontSize: 24,
     letterSpacing: 0.27,
-    color: darkerText,
+    color: white,
+    shadows: <Shadow>[
+      Shadow(
+        blurRadius: 10.0,
+        color: Colors.black38,
+        offset: Offset(3.0, 3.0),
+      ),
+    ],
   );
 
   static const TextStyle title = TextStyle( // h6 -> title
@@ -52,6 +66,7 @@ class AppTheme {
     fontSize: 16,
     letterSpacing: 0.18,
     color: darkerText,
+
   );
 
   static const TextStyle subtitle = TextStyle( // subtitle2 -> subtitle
@@ -60,6 +75,7 @@ class AppTheme {
     fontSize: 14,
     letterSpacing: -0.04,
     color: darkText,
+
   );
 
   static const TextStyle body2 = TextStyle( // body1 -> body2
@@ -68,6 +84,7 @@ class AppTheme {
     fontSize: 14,
     letterSpacing: 0.2,
     color: darkText,
+
   );
 
   static const TextStyle body1 = TextStyle( // body2 -> body1
@@ -84,6 +101,7 @@ class AppTheme {
     fontSize: 12,
     letterSpacing: 0.2,
     color: lightText, // was lightText
+
   );
 
 }
