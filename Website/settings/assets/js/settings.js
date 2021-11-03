@@ -1,5 +1,7 @@
 const loginInputEl = document.querySelector(".login-input");
 const emailInputEl = document.querySelector(".email-input");
+const oldPasswordInputEl = document.querySelector(".old-password-input");
+const newPasswordInputEl = document.querySelector(".new-password-input");
 
 
 function saveChanges() {
@@ -43,6 +45,19 @@ function sendEmailChangeServerRequest() {
 
   sendServerRequest(requestUrl, body);
 }
+
+
+function sendPasswordChangeRequest() {
+  const requestUrl = "/api/users/change/password";
+
+  const body = {
+    oldPassword: oldPasswordInputEl.value,
+    newPasswordInputEl: newPasswordInputEl.value,
+  }
+
+  sendServerRequest(requestUrl, body);
+}
+
 
 
 function sendServerRequest(requestUrl, body) {
