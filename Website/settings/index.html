@@ -177,7 +177,7 @@
                             <h5 class="text-md-left mt-4">Персональна інформація:</h5>
                             <div class="mt-3 text-md-left text-center d-sm-flex">
                                 <img src="/assets/images/user-48.png" id="image_blocks" class="avatar float-md-left avatar-medium rounded-circle shadow mr-md-4" alt="">
-                                
+
                                 <div class="mt-md-4 ml-4 mt-sm-0" style="margin-left: 15px;">
                                     <input style="display: none;" onchange="getFiles(this.files)" type="file" id="photo_butt" name="uploadfile" name="photo" multiple accept="image/*,image/jpeg, image/gif">
                                     <a style="cursor: pointer;" onclick="upload_files();" class="btn btn-primary mt-2"> Змінити аватар </a>
@@ -186,7 +186,7 @@
                             </div>
                             <label id="error_photo" style="display: none;" for="form_street" class="form-label"><a id="files_error" style="color: red; cursor: default;">Ви не виблали зображення.</a></label>
 
-                        
+
                                 <div class="row mt-4">
                                     <div class="col-md-6">
                                         <div class="form-group position-relative">
@@ -198,7 +198,7 @@
                                         <div class="form-group position-relative">
                                             <label>Моя пошта</label>
                                             <input name="email" id="email" type="email" class="form-control pl-5" placeholder="Пошта">
-                                        </div> 
+                                        </div>
                                     </div>
                                 </div><!--end row-->
                                 <label id="error_main" style="display: none;" for="form_street" class="form-label"><a id="files_error" style="color: red; cursor: default;">Помилка. Перевірте данні.</a></label>
@@ -245,12 +245,12 @@
 
                                             <div class="content">
                                                 <h4 class="title mb-0">Кіберспорт</h4>
-                                                <p class="text-muted mb-0">51 змагання</p>    
+                                                <p class="text-muted mb-0">51 змагання</p>
                                             </div>
                                         </div>
                                     </a>
                                 </div><!--end col-->
-                                
+
                                 <div class="col-lg-6 mt-4 pt-2" style="cursor: pointer;">
                                     <a class="text-dark">
                                         <div class="key-feature d-flex align-items-center p-3 bg-white rounded shadow">
@@ -260,7 +260,7 @@
 
                                             <div class="content">
                                                 <h4 class="title mb-0">Футбол</h4>
-                                                <p class="text-muted mb-0">26 змаганнь</p>    
+                                                <p class="text-muted mb-0">26 змаганнь</p>
                                             </div>
                                         </div>
                                     </a>
@@ -288,34 +288,34 @@
                                         <div class="head_page" id="bg1">
                                             <div class="theme_back" style="height: 85px; background-image: url('/assets/images/back-abstract.png'); background-size: cover;">
                                                 <div class="row" style="flex-wrap: inherit;">
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="main-content"  style="width: 175px; cursor: pointer; padding-top: 5px;"  onclick="bg2()">
                                         <div class="head_page" id="bg2">
                                             <div class="theme_back" style="height: 85px; background-image: url('/assets/images/bg2.png'); background-size: cover;">
                                                 <div class="row" style="flex-wrap: inherit;">
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-    
+
                                     <div class="main-content"  style="width: 175px; cursor: pointer; padding-top: 5px;"  onclick="bg3()">
                                         <div class="head_page" id="bg3">
                                             <div class="theme_back" style="height: 85px; background-image: url('/assets/images/bg3.png'); background-size: cover;">
                                                 <div class="row" style="flex-wrap: inherit;">
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-    
+
                                 </div>
-                                <label for="form_street" class="form-label" style="padding-top: 10px;"><a id="files_error" style="color: rgb(87, 87, 87); cursor: default;">Тема зберігається лише на цьому компьютері.</a></label>    
+                                <label for="form_street" class="form-label" style="padding-top: 10px;"><a id="files_error" style="color: rgb(87, 87, 87); cursor: default;">Тема зберігається лише на цьому компьютері.</a></label>
                             </div>
                         </div>
                     </div>
@@ -462,7 +462,7 @@
                 document.getElementById("sub_settings").style.display = "none";
                 document.getElementById("theme_settings").style.display = "none";
             }
-            
+
             function subs(){
                 document.getElementById("profile").classList.remove('btn-warning');
                 document.getElementById("profile").classList.add('btn-outline-warning');
@@ -482,7 +482,7 @@
                 document.getElementById("sub_settings").style.display = "none";
                 document.getElementById("theme_settings").style.display = "block";
             }
-            
+
             function chan_pass(){
 
             }
@@ -519,9 +519,10 @@
             if(Cookies.get('login') == undefined){
                 document.location.href = "../";
             }else{
-                
+
             }
         </script>
         <script src="/assets/js/serverRequest.js"></script>
+        <script src="assets/js/settings.js"></script>
     </body>
 </html>
