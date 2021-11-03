@@ -78,6 +78,7 @@ function pageLoaded() {
             info.competitors.length.toString();
         if(info.user.login != Cookies.get('login')){
             document.getElementById('edit_autor_show').remove();
+            document.getElementById('start_competitions').remove();
         }
     }
 
