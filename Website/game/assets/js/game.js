@@ -76,6 +76,9 @@ function pageLoaded() {
             info.description;
         document.querySelector(".competitors-number").innerHTML =
             info.competitors.length.toString();
+        if(info.user.login != Cookies.get('login')){
+            document.getElementById('edit_autor_show').remove();
+        }
     }
 
     function parseCompetitorsList(info) {
@@ -102,7 +105,7 @@ function pageLoaded() {
 
 function sendInvitation(email) {
     if (!email) {
-        console.log("Bag email");
+        console.log("Bad email");
         return;
     }
 

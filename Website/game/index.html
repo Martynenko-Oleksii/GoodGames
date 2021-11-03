@@ -62,7 +62,7 @@
                             <span class="nav__name" id="sport">Змагання</span>
                         </a>
 
-                        <a href="#" class="nav__link">
+                        <a href="/settings/" class="nav__link">
                             <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
                             <span class="nav__name" id="settings">Налаштування</span>
                         </a>
@@ -87,7 +87,7 @@
         <div>
             <div class="main-content">
                 <div class="head_page" >
-                    <div class="theme_back">
+                    <div class="theme_back" id="theme">
                         <div class="row" style="flex-wrap: inherit;">
                             <h3 style="padding-top: 5px; padding-left: 10px;" id="profile_text">Змагання</h3>
                             <button class="icon-button" style="z-index: 0; margin-right: 10px; display: flex; right: 50px; position: absolute;">
@@ -98,7 +98,7 @@
                 </div>
             </div>
         </div>
-    </div>
+
     <!--  BEGIN MAIN CONTAINER  -->
     <div class="main-container" id="container">
         <!--  BEGIN CONTENT AREA  -->
@@ -114,6 +114,13 @@
                             <div class="widget-content widget-content-area">
                                 <div class="d-flex justify-content-between">
                                     <h3 class="">Інформація</h3>
+
+                                    <!-- Показывать, если автор простматривает страницу -->
+                                    <div id="edit_autor_show">
+                                        <a id="edit_autor" class="btn btn-outline-primary btn-sm" onclick="edit_shedule();"><ion-icon name="create-outline"></ion-icon> Розклад</a>
+                                        <a id="show_main" class="btn btn-outline-primary btn-sm" onclick="show_main();" style="display: none;"><ion-icon name="arrow-back-circle-outline"></ion-icon> Назад</a>    
+                                    </div>
+                                    
                                 </div>
                                 <div class="text-center user-info">
                                     <img src="https://img.icons8.com/fluency/48/000000/counter-strike.png" alt="avatar">
@@ -154,12 +161,12 @@
                                             </div>
                                         </div>
                                         <div class="acc-action">
-                                            <div class="">
-                                                <a href="javascript:void(0);" id="open_input" onclick="send_togo();">Надіслати запрошення</a>
-                                                <input type="email" placeholder="Пошта користувача" style="color: #fff; height: 36px; display: none; background-color: rgba(240, 248, 255, 0.3);" id="input_mail">
+                                            <div style="margin-right: 10px;">
+                                                <a href="javascript:void(0);" id="open_input" onclick="send_togo();">Запрошення</a>
+                                                <input type="email" placeholder="Пошта користувача" style="margin: 0; color: #fff; height: 36px; display: none; background-color: rgba(240, 248, 255, 0.3);" id="input_mail">
                                             </div>
                                             <a id="send" href="#send" style="display: none;">Відправити</a>
-                                            <a id="join" href="#Join">Запросити участь</a>
+                                            <a id="join" href="#Join">Приєднатись</a>
                                         </div>
                                         <script>
                                             function send_togo() {
@@ -182,6 +189,7 @@
                                                     sendButtonEl.style.display = "none";
                                                     openInputEl.style.display = "inline";
                                                     inputMailEl.style.display = "none";
+                                                    document.getElementById('done_info').style.display = 'block';
                                                 });
                                             }
                                         </script>
@@ -239,7 +247,8 @@
 
                     </div>
 
-                    <div class="col-xl-8 col-lg-6 col-md-7 col-sm-12 layout-top-spacing">
+                    <div class="col-xl-8 col-lg-6 col-md-7 col-sm-12 layout-top-spacing" id="main_apps">
+
                         <div class="skills layout-spacing ">
                             <div class="widget-content widget-content-area">
                                 <h3 class="">Опис змагання</h3>
@@ -287,22 +296,92 @@
                             <div class="widget-content widget-content-area">
                                 <h3 class="">Турнірна сітка</h3>
 
-                                    <iframe src="grid/" style="width: 100%; height: 400px;" id="grid_frame">
-
+                                    <iframe src="grid/" seamless style="width: 100%; height: 400px; overflow: hidden;" id="grid_frame">
+                                        Браузер не поддерживается
                                     </iframe>
 
                                 </div>
 
                             </div>
+                    </div>
+
+
+                    <div class="col-xl-8 col-lg-6 col-md-7 col-sm-12 layout-top-spacing" id="edit_shedule" style="display: none;">
+
+                        <div class="skills layout-spacing ">
+                            <div class="widget-content widget-content-area">
+                                <div class="d-flex justify-content-between">
+                                    <h3 class="">Розклад</h3>
+                                    <a class="buttom" style="height: 40px;"><ion-icon name="add-outline"></ion-icon>  Додати подію</a>
+                                </div>
+
+
+                                <div class="generate_shedule">
+                                    <div id="empty_match" class="widget widget-four">
+                                        <div class="widget-content">
+                                            <div class="order-summary">
+                                                <div style="text-align: center;">
+                                                    <img src="/competitionsList/assets/img/empty.png" alt="" class="no-competitions__image" style="height: 150px; width: 150px;">
+                                                    <p>Розклад пустий. Створій перший матч!</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <!-- ШАБЛОН РАССПИСАНИЯ
+                                    <div class="widget widget-four" style="margin-bottom: 20px;">
+                                        <div class="widget-heading">
+                                            <h5 class="">{Дата}</h5>
+                                        </div>
+    
+                                        <div class="widget-content">
+                                            <div class="order-summary">
+            
+                                                <div class="summary-list summary-income">
+                                                    <div class="summery-info">
+                                                        <div class="w-icon">
+                                                            <ion-icon name="people-circle-outline"></ion-icon>
+                                                        </div>
+                                                        <div class="w-summary-details">
+                                                            <div class="w-summary-info">
+                                                                <h6>Команда <span class="summary-count">{NAME TEAM 1}</span></h6>
+                                                                <p class="summary-average"><a class="btn btn-outline-primary btn-sm">Рахунок</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+            
+                                                <div class="summary-list summary-expenses">
+                                                    <div class="summery-info">
+                                                        <div class="w-icon">
+                                                            <ion-icon name="people-circle-outline"></ion-icon>
+                                                        </div>
+                                                        <div class="w-summary-details">
+                                                            <div class="w-summary-info">
+                                                                <h6>Команда <span class="summary-count">{NAME TEAM 2}</span></h6>
+                                                                <p class="summary-average"><a class="btn btn-outline-primary btn-sm">Рахунок</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+            
+                                            </div>
+                                        </div>
+                                    </div>
+                                    -->    
+                                </div>
+
+                                
+                            </div>
                         </div>
+                        
                     </div>
 
                 </div>
             </div>
         </div>
-        <!--  END CONTENT AREA  -->
     </div>
-    <!-- END MAIN CONTAINER -->
+    <!--  END CONTENT AREA  -->
 
         <footer class="site-footer">
             <div class="container">
@@ -344,6 +423,14 @@
             </div>
       </footer>
 
+        <div class="back_fon" id="done_info" style="display: none;">
+            <div class="done_modal">
+                <div><img src="https://img.icons8.com/fluent/100/000000/checkmark.png"/></div>
+                <div style="padding-top: 10px;"><H4>Запрошення відправлено</H4></div>
+                <a href="#" class="buttom" style="margin-top: 20px;" onclick="document.getElementById('done_info').style.display = 'none';">Закрити</a><br>
+            </div>
+        </div>
+
       <section class="modal" id="modal">
 
         <div class="modal__container" id="modal-container">
@@ -370,7 +457,7 @@
 
 
                         <div class="col-6 mt-4 pt-2">
-                            <a href="#Settings" class="accounts rounded d-block shadow text-center py-3">
+                            <a href="/settings/" class="accounts rounded d-block shadow text-center py-3">
                                 <span class="pro-icons h3 text-muted"><ion-icon name="settings-outline"></ion-icon></span>
                                 <h6 class="title text-dark h6 my-0">Налаштування</h6>
                             </a>
@@ -403,11 +490,28 @@
             var id = getUrlVars()["id"];
             if(getUrlVars()["id"] == undefined){
                 //history.back();
-            }else{
-
             }
+            var options = "none";
             document.getElementById("join").href = "join/?game=" + id;
-            document.getElementById("grid_frame").src = "grid/?id=" + id;
+            document.getElementById("grid_frame").src = "grid/?id=" + id + "&options=" + options;
+
+            if (devices.test(navigator.userAgent))
+            { /* События для телефонов */  }
+            else{ document.getElementById("grid_frame").setAttribute("scrolling", "no"); }
+            
+            function edit_shedule(){
+                document.getElementById('main_apps').style.display = "none";
+                document.getElementById('edit_autor').style.display = "none";
+                document.getElementById('edit_shedule').style.display = "block";
+                document.getElementById('show_main').style.display = "block";
+            }
+
+            function show_main(){
+                document.getElementById('main_apps').style.display = "block";
+                document.getElementById('edit_autor').style.display = "block";
+                document.getElementById('edit_shedule').style.display = "none";
+                document.getElementById('show_main').style.display = "none";
+            }
         </script>
 
     </body>

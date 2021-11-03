@@ -152,7 +152,7 @@ code {
   padding-bottom: 40px; }
 
 .layout-px-spacing {
-  padding: 0 20px 0 20px !important;
+  padding: 0 10px 0 10px !important;
   min-height: calc(100vh - 95px) !important; }
 
 .widget.box .widget-header {

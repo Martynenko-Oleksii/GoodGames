@@ -1464,3 +1464,6 @@ input[id=radio-2]:checked ~ .glider {
   align-items: center;
   display: grid;
 }
+#empty_match{
+  margin-bottom: 20px; background-color: rgba(70, 70, 70, 0.1); border: 2px dashed rgba(22, 22, 22, 0.4);
+}

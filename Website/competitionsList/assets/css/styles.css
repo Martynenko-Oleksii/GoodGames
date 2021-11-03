@@ -1,3 +1,8 @@
+.card-hover:hover{
+  background: url('/competitionsList/assets/img/bg.png') center top;
+  transition-duration: 0.5s;
+}
+
 .theme_back {
   background: #D1913C;
   background: -webkit-linear-gradient(to right, #FFD194, #D1913C);
