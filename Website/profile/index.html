@@ -68,7 +68,7 @@
                             <span class="nav__name" id="sport">Змагання</span>
                         </a>
 
-                        <a href="/settings/" class="nav__link">
+                        <a href="#" class="nav__link">
                             <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
                             <span class="nav__name" id="settings">Налаштування</span>
                         </a>
@@ -94,7 +94,7 @@
 
             <div class="main-content">
                 <div class="head_page" >
-                    <div class="theme_back" id="theme">
+                    <div class="theme_back">
                         <div class="row" style="flex-wrap: inherit;">
                             <h3 style="padding-top: 5px; padding-left: 10px;" id="profile_text">Профіль користувача</h3>
                             <button class="icon-button" style="z-index: 0; margin-right: 10px; display: flex; right: 50px; position: absolute;">
@@ -163,7 +163,7 @@
                             <div class="widget">
                                 <div class="row">
                                     <div class="col-6 mt-4 pt-2">
-                                        <a href="/profile/" class="accounts active rounded d-block shadow text-center py-3">
+                                        <a href="#Profile" class="accounts active rounded d-block shadow text-center py-3">
                                             <span class="pro-icons h3 text-muted"><ion-icon name="person-outline"></ion-icon></span>
                                             <h6 class="title text-dark h6 my-0">Мій профіль</h6>
                                         </a>
@@ -178,7 +178,7 @@
 
 
                                     <div class="col-6 mt-4 pt-2">
-                                        <a href="/settings/" class="accounts rounded d-block shadow text-center py-3">
+                                        <a href="#Settings" class="accounts rounded d-block shadow text-center py-3">
                                             <span class="pro-icons h3 text-muted"><ion-icon name="settings-outline"></ion-icon></span>
                                             <h6 class="title text-dark h6 my-0">Налаштування</h6>
                                         </a>
@@ -243,30 +243,29 @@
                                         <img src="https://img.icons8.com/fluency/48/000000/business-management.png" class="avatar avatar-ex-sm" alt="">
                                         <div class="media-body content ml-3">
                                             <h4 class="title mb-0">FREE</h4>
-
-                                            <form method="POST" style="display: none;"
-                                                accept-charset="utf-8"
-                                                target="_blank"
-                                                action="https://www.liqpay.ua/api/3/checkout">
-                                                <input
-                                                type="hidden"
-                                                name="data"
-                                                value="eyJ2ZXJzaW9uIjozLCJhY3Rpb24iOiJzdWJzY3JpYmUiLCJhbW91bnQiOiIxMDAiLCJjdXJyZW5jeSI6IlVBSCIsImRlc2NyaXB0aW9uIjoi0J/RltC00L/QuNGB0LrQsCIsInB1YmxpY19rZXkiOiJzYW5kYm94X2kyODg3MDU5MzQ3NSIsImxhbmd1YWdlIjoidWsiLCJzZXJ2ZXJfdXJsIjoiaHR0cHM6Ly93d3cuZ29vZGdhbWVzLmtoLnVhL2FwaS9zdWJzIiwicmVzdWx0X3VybCI6Imh0dHBzOi8vd3d3Lmdvb2RnYW1lcy5raC51YS9hcGkvc3VicyIsInN1YnNjcmliZSI6MSwic3Vic2NyaWJlX2RhdGVfc3RhcnQiOiJub3ciLCJzdWJzY3JpYmVfcGVyaW9kaWNpdHkiOiJtb250aCJ9" />
-                                                <input type="hidden" name="signature" value="BgH0yCLv+053O2O0/qlUAkBdyHQ=" />
-
-                                                <button class="liq-pay-form__button" id="pay_sub">
-                                                    <img src="https://static.liqpay.ua/buttons/logo-small.png"
-                                                        name="btn_text" alt="" class="liq-pay-form__img"/>
-                                                    <span class="liq-pay-form__span">Оформити щомісячну підписку 100 UAH</span>
-                                                </button>
-
-                                            </form>
-                                        
                                             <p class="text-muted mb-0">Необмежений термін</p>
-
-                                            <p class="text-muted mb-0"><a href="#" class="text-primary" onclick="document.getElementById('pay_sub').click();">Купити підписку GoodGames за 100₴</a></p>
+                                            <p class="text-muted mb-0"><a href="#" class="text-primary">Змінити підписку</a> GoodGames</p>
                                         </div>
                                     </div>
+
+                                    <div class="liq-pay-form">
+                                        <form method="POST"
+                                              accept-charset="utf-8"
+                                              target="_blank"
+                                              action="https://www.liqpay.ua/api/3/checkout">
+                                            <input
+                                              type="hidden"
+                                              name="data"
+                                              value="eyJ2ZXJzaW9uIjozLCJhY3Rpb24iOiJzdWJzY3JpYmUiLCJhbW91bnQiOiIxMDAiLCJjdXJyZW5jeSI6IlVBSCIsImRlc2NyaXB0aW9uIjoi0J/RltC00L/QuNGB0LrQsCIsInB1YmxpY19rZXkiOiJzYW5kYm94X2kyODg3MDU5MzQ3NSIsImxhbmd1YWdlIjoidWsiLCJzZXJ2ZXJfdXJsIjoiaHR0cHM6Ly93d3cuZ29vZGdhbWVzLmtoLnVhL2FwaS9zdWJzIiwicmVzdWx0X3VybCI6Imh0dHBzOi8vd3d3Lmdvb2RnYW1lcy5raC51YS9hcGkvc3VicyIsInN1YnNjcmliZSI6MSwic3Vic2NyaWJlX2RhdGVfc3RhcnQiOiJub3ciLCJzdWJzY3JpYmVfcGVyaW9kaWNpdHkiOiJtb250aCJ9" />
+                                            <input type="hidden" name="signature" value="BgH0yCLv+053O2O0/qlUAkBdyHQ=" />
+                                            <button class="liq-pay-form__button">
+                                                <img src="https://static.liqpay.ua/buttons/logo-small.png"
+                                                     name="btn_text" alt="" class="liq-pay-form__img"/>
+                                                <span class="liq-pay-form__span">Оформити щомісячну підписку 100 UAH</span>
+                                            </button>
+                                        </form>
+                                    </div>
+
                                 </div><!--end col-->
                             </div><!--end row-->
                         </div>
@@ -351,7 +350,7 @@
                 <div class="widget">
                     <div class="row">
                         <div class="col-6 mt-4 pt-2">
-                            <a href="/profile/" class="accounts active rounded d-block shadow text-center py-3">
+                            <a href="#Profile" class="accounts active rounded d-block shadow text-center py-3">
                                 <span class="pro-icons h3 text-muted"><ion-icon name="person-outline"></ion-icon></span>
                                 <h6 class="title text-dark h6 my-0">Мій профіль</h6>
                             </a>
@@ -366,7 +365,7 @@
 
 
                         <div class="col-6 mt-4 pt-2">
-                            <a href="/settings/" class="accounts  rounded d-block shadow text-center py-3">
+                            <a href="#Settings" class="accounts rounded d-block shadow text-center py-3">
                                 <span class="pro-icons h3 text-muted"><ion-icon name="settings-outline"></ion-icon></span>
                                 <h6 class="title text-dark h6 my-0">Налаштування</h6>
                             </a>

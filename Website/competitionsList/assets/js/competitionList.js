@@ -85,57 +85,7 @@ function pageLoaded() {
             document.querySelector(".competition-list .row");
 
         competitionsWrapperEl.innerHTML +=
-            `<div class="col-lg-4 col-md-6 mt-4 pt-2" style="cursor: pointer;" id="competition-${competitionId}">
-            <div class="card blog rounded border-0 shadow overflow-hidden">
-              <div class="card-hover card-body content">
-                <h5>
-                  <p class="card-title title text-dark">
-                    ${competitionTitle}
-                  </p>
-                  <small class="text-dark date" style="font-size: 14px;">Дата: ${competitionDate}</small>
-                </h5>
-                <div class="post-meta d-flex justify-content-between align-items-center mt-3">
-                  <a href="/game?id=${competitionId}" class="btn btn-primary">
-                    Детальніше
-                  </a>
-                  <button class="btn btn-danger" onclick="deleteCompetition(${competitionId})">
-                    <ion-icon name="trash-bin-outline" style="font-size: 18px;"></ion-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>`;
-    }
-}
-
-
-function deleteCompetition(competitionId) {
-    if (!competitionId) {
-        console.log("No competition id");
-        return;
-    }
-
-    const requestUrl = "/api/competitions/delete/" + competitionId;
-
-    ServerRequest.send("GET", requestUrl)
-        .then(data => removeCompetitionEl(competitionId))
-        .catch(err => console.log(err));
-}
-
-function removeCompetitionEl(competitionId) {
-    const competitionsWrapperEl =
-      document.querySelector(".competition-list .row");
-    const competitionEl =
-      document.querySelector("#competition-" + competitionId);
-
-    competitionsWrapperEl.removeChild(competitionEl);
-}
-
-
-
-/* Страный блок соревнования
-
-            <div class="col-lg-4 col-md-6 mt-4 pt-2" id="competition-${competitionId}">
+            `<div class="col-lg-4 col-md-6 mt-4 pt-2" id="competition-${competitionId}">
                 <div class="card blog rounded border-0 shadow overflow-hidden">
                     <div class="position-relative">
                         <img src="assets/img/competition-placeholder.png" class="card-img-top" alt="...">
@@ -162,6 +112,29 @@ function removeCompetitionEl(competitionId) {
                         <small class="text-light date">${competitionDate}</small>
                     </div>
                 </div>
-            </div><!--end col-->`
+            </div><!--end col-->`;
+    }
+}
 
-*/
+
+function deleteCompetition(competitionId) {
+    if (!competitionId) {
+        console.log("No competition id");
+        return;
+    }
+
+    const requestUrl = "/api/competitions/delete/" + competitionId;
+
+    ServerRequest.send("GET", requestUrl)
+        .then(data => removeCompetitionEl(competitionId))
+        .catch(err => console.log(err));
+}
+
+function removeCompetitionEl(competitionId) {
+    const competitionsWrapperEl =
+      document.querySelector(".competition-list .row");
+    const competitionEl =
+      document.querySelector("#competition-" + competitionId);
+
+    competitionsWrapperEl.removeChild(competitionEl);
+}

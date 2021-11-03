@@ -1,4 +1,6 @@
-
+.subscription-exist-message {
+  display: none;
+}
 
 .liq-pay-form__button {
   display: inline-block !important;

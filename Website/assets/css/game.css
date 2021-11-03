@@ -377,27 +377,3 @@
     text-align: center; }
     .work-experience .widget-content-area .timeline-alter .item-timeline .t-meta-date p, .work-experience .widget-content-area .timeline-alter .item-timeline .t-usr-txt p {
       margin: 0 auto; } }
-      .done_modal{
-        background-color: #fff;
-        box-shadow: 0 0 5px rgba(0,0,0,0.5);
-        padding: 20px;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        margin-right: -50%;
-        transform: translate(-50%, -50%);
-        border-radius: 15px;
-        text-align: center;
-        padding-bottom: 0px;
-      }
-      .back_fon{
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        margin-right: -50%;
-        transform: translate(-50%, -50%);
-        background-color: rgba(100, 100, 100, 0.7);
-        z-index: 100;
-      }
