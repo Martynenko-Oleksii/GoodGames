@@ -3,6 +3,7 @@ using GGBack.Models;
 using GGBack.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,12 @@ namespace GGBack.Controllers
                 return BadRequest();
             }
 
-            TimetableCell cell = context.TimetableCells.Find(winResult.Id);
+            TimetableCell cell = context.TimetableCells
+                .Include(c => c.Competitors)
+                .Include(c => c.Competition)
+                .Include(c => c.WinResult)
+                .Where(c => c.Id == winResult.Id)
+                .ToList().FirstOrDefault();
 
             if (cell == null)
             {
@@ -42,14 +48,15 @@ namespace GGBack.Controllers
             };
             context.WinResults.Add(actualResult);
             cell.WinResult = actualResult;
-            await context.SaveChangesAsync();
 
-            bool isGenerated = ScheduleGenerator.GenerateForNewResults(cell);
+            bool isGenerated = ScheduleGenerator.GenerateForNewResults(cell, context);
 
             if (!isGenerated)
             {
                 return BadRequest("Generating error");
             }
+
+            await context.SaveChangesAsync();
 
             return Ok();
         }
