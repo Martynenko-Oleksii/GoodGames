@@ -6,6 +6,7 @@ import 'package:goodgames/login/login.dart';
 import 'package:goodgames/login/regist.dart';
 
 import 'package:flutter/cupertino.dart';
+import 'package:goodgames/profile/profile_edit.dart';
 import 'package:intl/intl.dart';
 
 import '../../../home_screen.dart';
@@ -125,6 +126,13 @@ class _ProfileState extends State<ProfileScreen>
                               child:  IconButton(
                                 icon: const Icon(Icons.edit_outlined , color: Colors.black,),
                                 onPressed: () {
+                                  Navigator.push<dynamic>(
+                                    context,
+                                    MaterialPageRoute<dynamic>(
+                                      builder: (BuildContext context) => ProfileeditPage(user: widget.user),
+                                    ),
+                                  );
+
                                 },
                               ),
                             ),
