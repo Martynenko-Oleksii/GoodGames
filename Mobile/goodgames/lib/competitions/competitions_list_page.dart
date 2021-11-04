@@ -30,6 +30,8 @@ class _CompetitionsState extends State<CompetitionsScreen>
   bool multiple = false;
   final ScrollController _scrollController = ScrollController();
 
+  int currentIndex = 3;
+
   @override
   void initState() {
     animationController = AnimationController(
@@ -267,8 +269,46 @@ class _CompetitionsState extends State<CompetitionsScreen>
             ],
             ),
           ),
-        ],),
-
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentIndex,
+        onTap: (index) {
+          if (index == 0) {}
+          if (index == 1) {}
+          if (index == 2) {}
+          if (index == 4) {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        ProfileScreen(user: widget.user)));
+          }
+        },
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: "Головна"
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.videocam_outlined),
+              label: "Трансляції"
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.sports_baseball_outlined),
+              label: "Змагання"
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.list_alt_outlined),
+              label: "Список"
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle_outlined),
+              label: "Профіль"
+          ),
+        ],
+      ),
 
     );
   }

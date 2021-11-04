@@ -29,6 +29,8 @@ class _ProfileState extends State<ProfileScreen>
   bool multiple = false;
   final ScrollController _scrollController = ScrollController();
 
+  int currentIndex = 4;
+
   @override
   void initState() {
     animationController = AnimationController(
@@ -178,9 +180,9 @@ class _ProfileState extends State<ProfileScreen>
                           IconButton(
                             icon: const Icon(Icons.logout),
                             onPressed: () {
-                              Navigator.push<dynamic>(
+                              Navigator.pushReplacement(
                                 context,
-                                MaterialPageRoute<dynamic>(
+                                MaterialPageRoute(
                                   builder: (BuildContext context) => LoginPage(),
                                 ),
                               );
@@ -309,7 +311,47 @@ class _ProfileState extends State<ProfileScreen>
               ),
             ],
           ),
-        ],),);
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentIndex,
+        onTap: (index) {
+          if (index == 0) {}
+          if (index == 1) {}
+          if (index == 2) {}
+          if (index == 3) {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        CompetitionsScreen(user: widget.user)));
+          }
+        },
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Головна"
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.videocam_outlined),
+            label: "Трансляції"
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.sports_baseball_outlined),
+              label: "Змагання"
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list_alt_outlined),
+            label: "Список"
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle_outlined),
+            label: "Профіль"
+          ),
+        ],
+      ),
+    );
   }
 
   Widget sub(){
