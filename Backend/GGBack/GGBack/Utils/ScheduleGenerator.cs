@@ -1,4 +1,6 @@
-﻿using GGBack.Models;
+﻿using GGBack.Data;
+using GGBack.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -185,8 +187,72 @@ namespace GGBack.Utils
             return timetableCells;
         }
 
-        public static bool GenerateForNewResults(TimetableCell cellWithResults)
+        public static bool GenerateForNewResults(TimetableCell cellWithResults, ServerDbContext context)
         {
+            TimetableCell lastCell = context.TimetableCells
+                .Include(c => c.Competition)
+                    .ThenInclude(c => c.Sport)
+                .Include(c => c.Competitors)
+                .Include(c => c.WinResult)
+                .Where(c => c.Competition.Id == cellWithResults.Competition.Id)
+                .OrderBy(c => c.Id).Last();
+
+            var lastHour = context.TimetableCells
+                .Where(c => c.Competition.Id == cellWithResults.Competition.Id)
+                .Select(c => new
+                    {
+                        Hour = c.DateTime.Hour,
+                        Minute = c.DateTime.Minute
+                    }).Distinct()
+                .LastOrDefault();
+
+            WinResult result = cellWithResults.WinResult;
+            int resultOne = Int32.Parse(result.Score.Split(',')[0]);
+            int resultTwo = Int32.Parse(result.Score.Split(',')[1]);
+
+            List<Competitor> winCompetitors = new List<Competitor>();
+            if (resultOne > resultTwo)
+            {
+                winCompetitors = cellWithResults.Competitors
+                    .GetRange(0, lastCell.Competition.Sport.TeamSize);
+            }
+            else if (resultOne < resultTwo)
+            {
+                winCompetitors = cellWithResults.Competitors
+                    .GetRange(lastCell.Competition.Sport.TeamSize,
+                        lastCell.Competition.Sport.TeamSize);
+            }
+
+            if (lastCell.Competitors.Count != lastCell.Competition.Sport.MinCompetitorsCount)
+            {
+                lastCell.Competitors.AddRange(winCompetitors);
+            }
+            else if (lastCell.Competitors.Count == lastCell.Competition.Sport.MinCompetitorsCount)
+            {
+                TimetableCell newCell = new TimetableCell
+                {
+                    Competitors = winCompetitors,
+                    Competition = cellWithResults.Competition,
+                    GridStage = cellWithResults.GridStage + 1
+                };
+
+                DateTime newCellDateTime = lastCell.DateTime.AddHours(2);
+                DateTime endDayBoundary = new DateTime(newCellDateTime.Year,
+                    newCellDateTime.Month, newCellDateTime.Day,
+                    lastHour.Hour, lastHour.Minute, 0);
+                if (newCellDateTime > lastCell.Competition.EndDate ||
+                    newCellDateTime > endDayBoundary)
+                {
+                    return false;
+                }
+                else
+                {
+                    newCell.DateTime = newCellDateTime;
+                }
+
+                context.TimetableCells.Add(newCell);
+            }
+
             return true;
         }
     }
