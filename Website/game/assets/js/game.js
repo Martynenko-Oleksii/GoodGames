@@ -72,6 +72,20 @@ function pageLoaded() {
         document.querySelector(".competition-title").innerHTML = info.title;
         document.querySelector(".organizer").innerHTML = info.user.login;
         document.querySelector(".city").innerHTML = info.city;
+        if(info.state == 0 || info.state == "0"){
+            document.querySelector(".state_sport").innerHTML = "Планування та набір";
+        }
+        if(info.state == 1 || info.state == "1"){
+            document.querySelector(".state_sport").innerHTML = "Проводиться";
+            document.getElementById('start_competitions').remove();
+        }
+        if(info.state == 2 || info.state == "2"){
+            document.querySelector(".state_sport").innerHTML = "Завершено";
+            document.getElementById('start_competitions').remove();
+        }
+        if(info.state != 0 && info.state != 1 && info.state != 2){
+            document.querySelector(".state_sport").innerHTML = "Статус не визначено.";
+        }
         document.querySelector(".competition-description").innerHTML =
             info.description;
         document.querySelector(".competitors-number").innerHTML =
@@ -79,6 +93,11 @@ function pageLoaded() {
         if(info.user.login != Cookies.get('login')){
             document.getElementById('edit_autor_show').remove();
             document.getElementById('start_competitions').remove();
+            if(info.isOpen == false){
+                document.getElementById('send_add_player').remove();
+            }
+        }else{
+
         }
     }
 
