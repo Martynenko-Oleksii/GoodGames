@@ -14,6 +14,8 @@ namespace GGBack.Data
         public DbSet<Sport> Sports { get; set; }
         public DbSet<Competition> Competitions { get; set; }
         public DbSet<Competitor> Competitors { get; set; }
+        public DbSet<TimetableCell> TimetableCells { get; set; }
+        public DbSet<WinResult> WinResults { get; set; }
 
         public ServerDbContext(DbContextOptions<ServerDbContext> options) 
             : base(options)
