@@ -245,13 +245,11 @@ class _RegistState extends State<RegistPage> {
                           loginControl.text,
                           passControl.text)
                           .then((value) =>
-                          Navigator.push<dynamic>(
-                            context,
-                            MaterialPageRoute<dynamic>(
+                          Navigator.pushAndRemoveUntil(context,
+                            MaterialPageRoute(
                               builder: (BuildContext context) =>
                                   ProfileScreen(user: value),
-                            ),
-                          ));
+                            ), (route) => false ));
                     }
 
                     //getDatahttp.getCompetition(1);

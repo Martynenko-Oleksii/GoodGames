@@ -216,13 +216,11 @@ class _LoginState extends State<LoginPage> {
                           loginControl.text,
                           passControl.text)
                           .then((value) =>
-                          Navigator.push<dynamic>(
-                            context,
-                            MaterialPageRoute<dynamic>(
-                              builder: (BuildContext context) =>
-                                  ProfileScreen(user: value),
-                            ),
-                          ));
+                            Navigator.pushAndRemoveUntil(context,
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      ProfileScreen(user: value),
+                                ), (route) => false));
                     }
 
                     //getDatahttp.getCompetition(1);
