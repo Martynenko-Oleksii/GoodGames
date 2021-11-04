@@ -29,7 +29,6 @@ namespace GGBack.Controllers
             {
                 return await context.TimetableCells
                     .Include(t => t.Competitors)
-                    //.Include(t => t.Competition)
                     .Include(t => t.WinResult)
                     .Where(t => t.Competition.Id == competitionId)
                     .ToListAsync();
@@ -135,11 +134,11 @@ namespace GGBack.Controllers
             }
 
             context.TimetableCells.AddRange(cells);
+            competition.State = 1;
             await context.SaveChangesAsync();
 
             return await context.TimetableCells
                     .Include(t => t.Competitors)
-                    //.Include(t => t.Competition)
                     .Include(t => t.WinResult)
                     .Where(t => t.Competition.Id == competition.Id)
                     .ToListAsync();
