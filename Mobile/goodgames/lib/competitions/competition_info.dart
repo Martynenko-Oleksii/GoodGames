@@ -3,6 +3,7 @@ import 'package:goodgames/global.dart';
 import 'package:flutter/material.dart';
 import 'package:goodgames/login/regist.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../home_screen.dart';
 import '../../../main.dart';
@@ -280,7 +281,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                       padding: EdgeInsets.all(10.0),
 
                                       child: new Text(
-                                        snapshot.data.state,
+                                        snapshot.data.state.toString(),
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: AppTheme.darkText,
@@ -721,8 +722,14 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                       ),
                                     ),
                                     new Container(
-                                      // margin: const EdgeInsets.symmetric(vertical: 0.0),
+                                          height: 230,
+                                     // width: 100,
+                                      margin: const EdgeInsets.only(left: 5.0 , right: 5),
                                       padding: EdgeInsets.only(left: 10.0),
+                                      child: WebView(
+                                        initialUrl: "https://www.goodgames.kh.ua/game/grid/?id=" + widget.comp.id.toString() ,
+                                        javascriptMode: JavascriptMode.unrestricted,
+                                      ),
                                     ),
                                   ],
                                 ),

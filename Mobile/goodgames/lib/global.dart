@@ -64,7 +64,7 @@ class Competition {
   List<Competitor>? competitors;
   User? user;
   String? streamUrl;
-  String? state;
+  int? state;
 
   Competition({
     this.id,
