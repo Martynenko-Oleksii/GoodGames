@@ -74,7 +74,8 @@ namespace GGBack.Controllers
                 .Select(c => new Competition
                 {
                     Id = c.Id,
-                    Title = c.Title
+                    Title = c.Title,
+                    StartDate = c.StartDate
                 })
                 .ToListAsync();
         }
@@ -136,7 +137,7 @@ namespace GGBack.Controllers
                 return BadRequest("title collision");
             }
 
-            competition.State = "planned";
+            competition.State = 0;
 
             Competition res = new Competition { Id = competition.Id, Title = competition.Title };
 

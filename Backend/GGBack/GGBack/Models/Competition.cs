@@ -37,7 +37,7 @@ namespace GGBack.Models
         [MaxLength(120)]
         public string StreamUrl { get; set; }
 
-        public string State { get; set; } // (“заплановане”, “проходить”, “завершене”)
+        public int State { get; set; } // (“заплановане”, “проходить”, “завершене”)
 
         public List<TimetableCell> TimetableCells { get; set; }
     }
