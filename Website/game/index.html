@@ -98,7 +98,7 @@
                 </div>
             </div>
         </div>
-    </div>
+
     <!--  BEGIN MAIN CONTAINER  -->
     <div class="main-container" id="container">
         <!--  BEGIN CONTENT AREA  -->
@@ -114,6 +114,13 @@
                             <div class="widget-content widget-content-area">
                                 <div class="d-flex justify-content-between">
                                     <h3 class="">Інформація</h3>
+
+                                    <!-- Показывать, если автор простматривает страницу -->
+                                    <div>
+                                        <a id="edit_autor" class="btn btn-primary btn-sm" onclick="edit_shedule();"><ion-icon name="create-outline"></ion-icon> Розклад</a>
+                                        <a id="show_main" class="btn btn-primary btn-sm" onclick="show_main();" style="display: none;"><ion-icon name="arrow-back-circle-outline"></ion-icon> Назад</a>    
+                                    </div>
+                                    
                                 </div>
                                 <div class="text-center user-info">
                                     <img src="https://img.icons8.com/fluency/48/000000/counter-strike.png" alt="avatar">
@@ -131,8 +138,15 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
                                                 <span class="city">{Место проведения}</span>
                                             </li>
+                                            <li class="contacts-block__item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-hexagon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                                                <span class="state_sport">{Состояние}</span>
+                                            </li>
                                         </ul>
                                     </div>
+
+                                    <a id="start_competitions" class="btn btn-outline-warning" style="display: block;">Почати змагання</a>
+
                                 </div>
                             </div>
                         </div>
@@ -153,39 +167,14 @@
 
                                             </div>
                                         </div>
-                                        <div class="acc-action">
-                                            <div class="">
-                                                <a href="javascript:void(0);" id="open_input" onclick="send_togo();">Надіслати запрошення</a>
-                                                <input type="email" placeholder="Пошта користувача" style="color: #fff; height: 36px; display: none; background-color: rgba(240, 248, 255, 0.3);" id="input_mail">
+                                        <div class="acc-action" id="send_add_player">
+                                            <div style="margin-right: 10px;">
+                                                <a href="javascript:void(0);" id="open_input" onclick="send_togo();">Запрошення</a>
+                                                <input type="email" placeholder="Пошта користувача" style="margin: 0; color: #fff; height: 36px; display: none; background-color: rgba(240, 248, 255, 0.3);" id="input_mail">
                                             </div>
                                             <a id="send" href="#send" style="display: none;">Відправити</a>
-                                            <a id="join" href="#Join">Запросити участь</a>
+                                            <a id="join" href="#Join">Приєднатись</a>
                                         </div>
-                                        <script>
-                                            function send_togo() {
-                                                const sendButtonEl = document.querySelector("#send");
-                                                const openInputEl = document.querySelector("#open_input");
-                                                const inputMailEl = document.querySelector("#input_mail");
-                                                const joinEl = document.querySelector("#join");
-                                                
-                                                joinEl.style.display = "none";
-                                                sendButtonEl.style.height = "36px";
-                                                sendButtonEl.style.display = "inline";
-                                                sendButtonEl.textContent = "Відправити";
-                                                openInputEl.style.display = "none";
-                                                inputMailEl.style.display = "block";
-
-                                                // add ability to run request function by clicking send button
-                                                sendButtonEl.addEventListener("click", () => {
-                                                    sendInvitation(inputMailEl.value);
-                                                    joinEl.style.display = "inline";
-                                                    sendButtonEl.style.display = "none";
-                                                    openInputEl.style.display = "inline";
-                                                    inputMailEl.style.display = "none";
-                                                    document.getElementById('done_info').style.display = 'block';
-                                                });
-                                            }
-                                        </script>
                                     </div>
                                 </div>
                             </div>
@@ -240,7 +229,8 @@
 
                     </div>
 
-                    <div class="col-xl-8 col-lg-6 col-md-7 col-sm-12 layout-top-spacing">
+                    <div class="col-xl-8 col-lg-6 col-md-7 col-sm-12 layout-top-spacing" id="main_apps">
+
                         <div class="skills layout-spacing ">
                             <div class="widget-content widget-content-area">
                                 <h3 class="">Опис змагання</h3>
@@ -288,22 +278,140 @@
                             <div class="widget-content widget-content-area">
                                 <h3 class="">Турнірна сітка</h3>
 
-                                    <iframe src="grid/" scrolling="no" style="width: 100%; height: 400px; overflow: hidden;" id="grid_frame">
+                                    <iframe src="grid/" seamless style="width: 100%; height: 400px; overflow: hidden;" id="grid_frame">
                                         Браузер не поддерживается
                                     </iframe>
 
                                 </div>
 
                             </div>
+                    </div>
+
+
+                    <div class="col-xl-8 col-lg-6 col-md-7 col-sm-12 layout-top-spacing" id="edit_shedule" style="display: none;">
+
+                        <div class="skills layout-spacing ">
+                            <div class="widget-content widget-content-area">
+
+                                <div class="d-flex justify-content-between">
+                                    <h3 class="">Розклад</h3>
+                                </div>
+
+
+                                <div class="generate_shedule" style="max-height: 1000px; overflow-y: auto;">
+                                    <div id="empty_match" class="widget widget-four">
+                                        <div class="widget-content">
+                                            <div class="order-summary">
+                                                <div style="text-align: center;">
+                                                    <img src="/competitionsList/assets/img/empty.png" alt="" class="no-competitions__image" style="height: 150px; width: 150px;">
+                                                    <p>Розклад пустий. Після початку змагання він згенерується. 😉</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+
+                                    <h4 style="text-align: center; margin-top: 30px;">ДЛЯ ТЕСТИРОВАНИЯ И РАЗРАБОТКИ ↘️</h4>
+
+
+                                    <!--        БЛОК ИНФОРМАЦИИ С РАССПИСАНИЯ -->
+                                    
+                                    <div class="widget widget-four" style="margin-bottom: 20px;">
+                                        <div class="widget-heading">
+                                            <h5 class="">{Дата}</h5>
+                                            <a class="btn btn-outline-info btn-sm" id="edit_autor_show" onclick="fixation('0');">Фіксація результатів</a>
+                                        </div>
+    
+                                        <div class="widget-content">
+                                            <div class="order-summary">
+                                                <div class="summary-list summary-income">
+                                                    <div class="summery-info">
+                                                        <div class="w-icon">
+                                                            <ion-icon name="people-circle-outline"></ion-icon>
+                                                        </div>
+                                                        <div class="w-summary-details">
+                                                            <div class="w-summary-info">
+                                                                <h6>Команда <span class="summary-count" id="name_t1_0"> Крепкие яйца </span></h6>
+                                                                <p class="summary-average"><a class="card" style="padding: 0.75rem; margin-top: 0px;" id="result_t1_0">0</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+            
+                                                <div class="summary-list summary-expenses">
+                                                    <div class="summery-info">
+                                                        <div class="w-icon">
+                                                            <ion-icon name="people-circle-outline"></ion-icon>
+                                                        </div>
+                                                        <div class="w-summary-details">
+                                                            <div class="w-summary-info">
+                                                                <h6>Команда <span class="summary-count" id="name_t2_0"> Сладкие огурчики </span></h6>
+                                                                <p class="summary-average"><a class="card" style="padding: 0.75rem; margin-top: 0px;" id="result_t2_0">0</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+            
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                </div>
+
+                                
+                            </div>
                         </div>
+                        
                     </div>
 
                 </div>
             </div>
         </div>
-        <!--  END CONTENT AREA  -->
     </div>
-    <!-- END MAIN CONTAINER -->
+    <!--  END CONTENT AREA  -->
+
+    <div id="modal_edit" class="modal-window">
+        <div>
+            <div class="widget widget-four" style="margin-bottom: 20px; border: 0.5px solid rgba(0, 0, 0, 0.4); border-radius: 5px;">
+                <div class="widget-heading" style="margin-bottom: 20px;">
+                    <h5 class="">Фіксація результатів</h5>
+                    <a class="btn btn-outline-danger btn-sm" onclick="document.getElementById('modal_edit').style.display = 'none';">Закрити</a>
+                </div>
+
+                <div class="widget-content">
+                    <div class="order-summary">
+                        <div class="summary-list summary-income" style="margin-bottom: 10px; border: 0.2px solid rgba(0, 0, 0, 0.2);">
+                                <div class="w-summary-details">
+                                    <div class="w-summary-info">
+                                        <h6>Команда <span class="summary-count" id="name_t1_edit">{NAME TEAM 1}</span></h6>
+                                        <p class="summary-average" style="width: 70px;"><input type="number" class="card" style="padding: 0.75rem; margin-top: 0px;" id="result_t1_edit"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="summary-list summary-expenses"style="margin-bottom: 5px; border: 0.2px solid rgba(0, 0, 0, 0.2);">
+                            <div class="summery-info">
+                                <div class="w-summary-details">
+                                    <div class="w-summary-info">
+                                        <h6>Команда <span class="summary-count" id="name_t2_edit">{NAME TEAM 2}</span></h6>
+                                        <p class="summary-average" style="width: 70px;"><input type="number" class="card" style="padding: 0.75rem; margin-top: 0px;" id="result_t2_edit"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div style="text-align: right; margin-top: 10px;">
+                        <a class="btn btn-outline-warning" id="save_edit" onclick="save_edit_f(0);">Зберегти зміни</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
         <footer class="site-footer">
             <div class="container">
@@ -407,16 +515,5 @@
         </script>
         <script src="../assets/js/serverRequest.js"></script>
         <script src="assets/js/game.js"></script>
-
-        <script>
-            var id = getUrlVars()["id"];
-            if(getUrlVars()["id"] == undefined){
-                //history.back();
-            }
-            var options = "none";
-            document.getElementById("join").href = "join/?game=" + id;
-            document.getElementById("grid_frame").src = "grid/?id=" + id + "&options=" + options;
-        </script>
-
     </body>
 </html>

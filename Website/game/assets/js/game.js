@@ -72,10 +72,33 @@ function pageLoaded() {
         document.querySelector(".competition-title").innerHTML = info.title;
         document.querySelector(".organizer").innerHTML = info.user.login;
         document.querySelector(".city").innerHTML = info.city;
+        if(info.state == 0 || info.state == "0"){
+            document.querySelector(".state_sport").innerHTML = "Планування та набір";
+        }
+        if(info.state == 1 || info.state == "1"){
+            document.querySelector(".state_sport").innerHTML = "Проводиться";
+            document.getElementById('start_competitions').remove();
+        }
+        if(info.state == 2 || info.state == "2"){
+            document.querySelector(".state_sport").innerHTML = "Завершено";
+            document.getElementById('start_competitions').remove();
+        }
+        if(info.state != 0 && info.state != 1 && info.state != 2){
+            document.querySelector(".state_sport").innerHTML = "Статус не визначено.";
+        }
         document.querySelector(".competition-description").innerHTML =
             info.description;
         document.querySelector(".competitors-number").innerHTML =
             info.competitors.length.toString();
+        if(info.user.login != Cookies.get('login')){
+            document.getElementById('edit_autor_show').remove();
+            document.getElementById('start_competitions').remove();
+            if(info.isOpen == false){
+                document.getElementById('send_add_player').remove();
+            }
+        }else{
+
+        }
     }
 
     function parseCompetitorsList(info) {
@@ -176,4 +199,73 @@ function getTimetable() {
     ServerRequest.send("GET", requestUrl)
       .then(data => console.log(data))
       .catch(err => console.log(err));
+}
+
+function send_togo() {
+    const sendButtonEl = document.querySelector("#send");
+    const openInputEl = document.querySelector("#open_input");
+    const inputMailEl = document.querySelector("#input_mail");
+    const joinEl = document.querySelector("#join");
+    
+    joinEl.style.display = "none";
+    sendButtonEl.style.height = "36px";
+    sendButtonEl.style.display = "inline";
+    sendButtonEl.textContent = "Відправити";
+    openInputEl.style.display = "none";
+    inputMailEl.style.display = "block";
+
+    // add ability to run request function by clicking send button
+    sendButtonEl.addEventListener("click", () => {
+        sendInvitation(inputMailEl.value);
+        joinEl.style.display = "inline";
+        sendButtonEl.style.display = "none";
+        openInputEl.style.display = "inline";
+        inputMailEl.style.display = "none";
+        document.getElementById('done_info').style.display = 'block';
+    });
+}
+
+function fixation(id){
+    document.getElementById("modal_edit").style.display = "block";
+    document.getElementById("name_t1_edit").textContent = document.getElementById("name_t1_" + id).textContent;
+    document.getElementById("name_t2_edit").textContent = document.getElementById("name_t2_" + id).textContent;
+    document.getElementById("result_t1_edit").value = document.getElementById("result_t1_" + id).textContent;
+    document.getElementById("result_t2_edit").value = document.getElementById("result_t2_" + id).textContent;
+    document.getElementById("save_edit").setAttribute("onclick", "save_edit_f(" + id + ")");
+}
+
+// ЗАПРОС НА СОХРАНЕНИЕ РЕЗУЛЬТАТА
+function save_edit_f(id){
+    document.getElementById("modal_edit").style.display = "none";
+    document.getElementById("result_t1_" + id).textContent = document.getElementById("result_t1_edit").value;
+    document.getElementById("result_t2_" + id).textContent = document.getElementById("result_t2_edit").value;
+}
+
+var id = getUrlVars()["id"];
+if(getUrlVars()["id"] == undefined){
+    //history.back();
+}
+var options = "none";
+document.getElementById("join").href = "join/?game=" + id;
+document.getElementById("grid_frame").src = "grid/?id=" + id + "&options=" + options;
+
+if (devices.test(navigator.userAgent))
+{ /* События для телефонов */  }
+else{ document.getElementById("grid_frame").setAttribute("scrolling", "no"); }
+
+function edit_shedule(){
+    document.getElementById('main_apps').style.display = "none";
+    document.getElementById('edit_autor').style.display = "none";
+    document.getElementById('edit_shedule').style.display = "block";
+    document.getElementById('show_main').style.display = "block";
+    if(devices.test(navigator.userAgent)){
+        document.getElementById("edit_shedule").scrollIntoView({block: "center", behavior: "smooth"});
+    }
+}
+
+function show_main(){
+    document.getElementById('main_apps').style.display = "block";
+    document.getElementById('edit_autor').style.display = "block";
+    document.getElementById('edit_shedule').style.display = "none";
+    document.getElementById('show_main').style.display = "none";
 }
