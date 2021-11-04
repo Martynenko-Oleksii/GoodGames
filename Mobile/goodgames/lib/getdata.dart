@@ -459,7 +459,7 @@ print(id);
 
     try {
       var response = await http.get(
-          Uri.https("goodgames.kh.ua", "api/sports/$competitionId"),
+          Uri.https("goodgames.kh.ua", " api/timetables/$competitionId"),
           headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
       );
 
@@ -508,16 +508,6 @@ print(id);
             List<Competitor> winCompetitors = [];
             for (var c in s[0]["winResult"]["competitors"])
             {
-              winCompetitors.add(Competitor(
-                  id: c["id"],
-                  name: c["name"],
-                  email: c["email"],
-                  age: c["age"],
-                  gender: c["gender"],
-                  weigth: c["weigth"],
-                  healthState: c["healthState"],
-                  team: c["team"]
-              ));
             }
             cell.winResult?.competitors = winCompetitors;
           }
@@ -530,7 +520,6 @@ print(id);
     } catch (ex) {
       print(ex);
     }
-
     print(cells);
 
     return cells;

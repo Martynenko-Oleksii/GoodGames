@@ -10,6 +10,7 @@ import '../../../main.dart';
 import '../apptheme.dart';
 import '../getdata.dart';
 import 'competition_enter.dart';
+import 'competition_shedule.dart';
 
 class CompetitionInfoScreen extends StatefulWidget {
   final Competition comp;
@@ -568,6 +569,38 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                           color: AppTheme.darkText,
                                           fontWeight: FontWeight.w700,
                                         ),
+                                      ),
+                                    ),
+                                    new Container(
+                                      width: 200,
+                                      height: 40,
+                                      child: new RaisedButton(
+                                        child: new Text(
+                                          "shedule",
+                                          style: TextStyle(
+                                            // h4 -> display1
+
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14,
+                                            letterSpacing: 0.4,
+                                            height: 0.9,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(5.0),
+                                            side: BorderSide(
+                                                color: Colors.white, width: 3)),
+                                        onPressed: () {
+                                          Navigator.push<dynamic>(
+                                            context,
+                                            MaterialPageRoute<dynamic>(
+                                              builder: (BuildContext context) => CompetitionsheduleScreen(comp: widget.comp,),
+                                            ),
+                                          );
+
+                                        },
+                                        color: Colors.black.withOpacity(0.05),
                                       ),
                                     ),
                                     new Container(
