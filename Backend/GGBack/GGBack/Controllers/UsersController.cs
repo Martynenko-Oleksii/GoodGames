@@ -154,7 +154,7 @@ namespace GGBack.Controllers
                 return BadRequest(ex.Message + "\n" + ex.InnerException);
             }
 
-            return Ok($"/avatars/{filename}");
+            return Ok(imagePath);
         }
 
         [Route("api/users/change/deleteimage/{userId}")]
@@ -164,6 +164,11 @@ namespace GGBack.Controllers
             try
             {
                 User dbUser = context.Users.Find(userId);
+                string avatarPath = dbUser.AvatarPath;
+                string path = 
+                    $"C:\\HostingSpaces\\user16437\\goodgames.kh.ua\\wwwroot\\avatars\\{avatarPath.Substring(avatarPath.LastIndexOf("/") + 1)}";
+                System.IO.File.Delete(path);
+
                 dbUser.AvatarPath = null;
                 await context.SaveChangesAsync();
             }
