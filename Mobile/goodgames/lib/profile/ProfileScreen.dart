@@ -30,15 +30,39 @@ class _ProfileState extends State<ProfileScreen>
   bool multiple = false;
   final ScrollController _scrollController = ScrollController();
 
+  Text subState = new Text(
+    "",
+    style: TextStyle(
+      fontSize: 14,
+      color: AppTheme.darkText,
+      fontWeight: FontWeight.w700,
+    ),
+  );
+
   int currentIndex = 4;
 
   @override
   void initState() {
+    profileList = widget.user.sports!;
+
+    if (widget.user.subscription != null) {
+      subState = new Text(
+        "діє до: " +
+
+            DateFormat('yyyy-MM-dd – kk:mm').format( widget.user.subscription!.end!)
+
+            + " lvl: " +   widget.user.subscription!.lvl.toString(),
+        style: TextStyle(
+          fontSize: 14,
+          color: AppTheme.darkText,
+          fontWeight: FontWeight.w700,
+        ),
+      );
+    }
+
     animationController = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
     super.initState();
-
-    getDatahttp.getFavouriteSports(widget.user.id!).then((value) => profileList = value);
   }
 
   Future<bool> getData() async {
@@ -128,13 +152,12 @@ class _ProfileState extends State<ProfileScreen>
                               child:  IconButton(
                                 icon: const Icon(Icons.edit_outlined , color: Colors.black,),
                                 onPressed: () {
-                                  Navigator.push<dynamic>(
+                                  Navigator.pushReplacement(
                                     context,
-                                    MaterialPageRoute<dynamic>(
+                                    MaterialPageRoute(
                                       builder: (BuildContext context) => ProfileeditPage(user: widget.user),
                                     ),
                                   );
-
                                 },
                               ),
                             ),
@@ -208,24 +231,10 @@ class _ProfileState extends State<ProfileScreen>
                     ),
 
                     new Container(
-                      //  margin: const EdgeInsets.only( top: 5 ),
-                      // width: 300,
-                      //height: 30,
-                      child:
-                      /* new Text(
-                          "Статус підписки:",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: AppTheme.darkText,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),*/
-
-                      new Container(
-                        child: sub(),
-                      ),
-
-
+                      child: new Container( child: subState ),
+                    ),
+                    new Container(
+                      child: sub(),
                     ),
                     new Padding(
                         padding: EdgeInsets.only(left: 15.0 , right: 15 , top: 5),
@@ -234,49 +243,30 @@ class _ProfileState extends State<ProfileScreen>
                           color: Colors.black,
                         )
                     ),
-                    /*new Container(
-                      padding: EdgeInsets.only(left: 10.0),
-                      //margin: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: new RaisedButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ),
-                        child: new Text("redact"),
-                        onPressed: () {
-                          Navigator.push<dynamic>(
-                            context,
-                            MaterialPageRoute<dynamic>(
-                              builder: (BuildContext context) => RegistPage(),
-                            ),
-                          );
-                        },
-                        color: Colors.redAccent.shade200,
-                      ),
-                    ),*/
                     new Container(
-                      padding: EdgeInsets.only(left: 10.0),
-                      //margin: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: new RaisedButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
+                      child: new DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: Colors.black54,
+                          border: Border.all(width: 5.0, color: Colors.white),
+                          borderRadius: BorderRadius.circular(22),
                         ),
-                        child: new Text("Мої змагання"),
-                        onPressed: () {
-                          Navigator.push<dynamic>(
-                            context,
-                            MaterialPageRoute<dynamic>(
-                              builder: (BuildContext context) => CompetitionsScreen(user: widget.user),
-                            ),
-                          );
-                        },
-                        color: Colors.redAccent.shade200,
-                      ),
-                    ),
-                    new Container(
-                      // margin: const EdgeInsets.symmetric(vertical: 0.0),
-                      padding: EdgeInsets.only(left: 10.0),
+                        child: new Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 18,
+                              horizontal: 45),
+                          child: new Text(
+                            "Підписки на спорт",
+                            style: TextStyle( // h4 -> display1
 
-                      child: new Text("Відстежуване:"),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 28,
+                              letterSpacing: 0.4,
+                              height: 0.9,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                     new Container(
                       height: MediaQuery.of(context).size.height - 360,
@@ -388,26 +378,32 @@ class _ProfileState extends State<ProfileScreen>
                   ),
                 ),
                 onPressed: (){
-                  //  widget.user.subscription = "123";
-                  getDatahttp.subscribe(widget.user.id!).then((value) =>
-                      Navigator.push<dynamic>(
-                        context,
-                        MaterialPageRoute<dynamic>(
-                          builder: (BuildContext context) =>
-                              ProfileScreen(user: widget.user),
-                        ),
-                      ));
+                  getDatahttp.subscribe(widget.user.id!).then((value) {
+                    if (value?.subscription != null) {
+                      widget.user.subscription = value?.subscription;
+                      setState(() {
+                        subState = new Text(
+                          "діє до: " +
+
+                              DateFormat('yyyy-MM-dd – kk:mm').format( widget.user.subscription!.end!)
+
+                              + " lvl: " +   widget.user.subscription!.lvl.toString(),
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: AppTheme.darkText,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        );
+                      });
+                    }
+                  });
                 },
               ), ],
           )
       );
-    }else{
-      return  new Text(
-        "діє до: " +
-
-            DateFormat('yyyy-MM-dd – kk:mm').format( widget.user.subscription!.end!)
-
-            + " lvl: " +   widget.user.subscription!.lvl.toString(),
+    } else {
+      return new Text(
+        "",
         style: TextStyle(
           fontSize: 14,
           color: AppTheme.darkText,

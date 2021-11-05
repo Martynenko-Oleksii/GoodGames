@@ -288,9 +288,9 @@ class _CompetitionEnterState extends State<CompetitionEnterPage> {
                                                   .postNewCompetitor(nameControl.text,
                                                   emailControl.text ,  int. parse(ageControl.text),dropdownValuegender,  int. parse(weigthControl.text) , dropdownValuehealthState , teamControl.text, widget.comp.id!)
                                                   .then((value) =>
-                                                  Navigator.push<dynamic>(
+                                                  Navigator.pushReplacement(
                                                     context,
-                                                    MaterialPageRoute<dynamic>(
+                                                    MaterialPageRoute(
                                                       builder: (BuildContext
                                                       context) =>
                                                           CompetitionInfoScreen(
