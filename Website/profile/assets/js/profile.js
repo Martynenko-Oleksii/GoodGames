@@ -47,7 +47,6 @@ function pageLoaded() {
 
 
 function getSubscriptionRequest() {
-  // get user id
   const userId = Cookies.get("id");
   if (!userId) {
     console.log("Can`t get id from Cookies");
@@ -58,7 +57,7 @@ function getSubscriptionRequest() {
   requestParams.url = "/api/subs/" + userId;
 
   ServerRequest.send(requestParams)
-    .then(data => console.log(data))
+    .then(data => updateSubscriptionInterface())
     .catch(err => console.log(err));
 }
 
@@ -86,7 +85,7 @@ function updateSubscriptionInterface() {
 
       const dateString = new Date(subscriptionInfo.end).toLocaleDateString();
 
-      subscriptionStatusEl.innerHTML = "Преміум";
+      subscriptionStatusEl.innerHTML = "GoodGames Преміум";
       subscriptionTermEl.style.display = "block";
       subscriptionTermEl.innerHTML = "до " + dateString;
       buySubscriptionButtonEl.style.display = "none";
