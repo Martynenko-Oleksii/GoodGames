@@ -55,6 +55,7 @@ function updateAvatarInterface() {
 changeProfileInfoButtonEl.addEventListener("click", () => changeProfileInfo());
 
 function changeProfileInfo() {
+  document.getElementById("error_main").style.display = "none";
   const userId = Cookies.get("id");
   if (!userId) {
     console.log("Can`t get id from Cookies");
@@ -94,16 +95,23 @@ function changeProfileInfo() {
       return;
     }
 
-    const requestParams = new RequestParams("POST");
-    requestParams.url = "/api/users/change/login";
-    requestParams.body = {
-      id: userId,
-      login: loginInputEl.value,
+    if(loginInputEl.value.length > 4){
+      const requestParams = new RequestParams("POST");
+      requestParams.url = "/api/users/change/login";
+      requestParams.body = {
+        id: userId,
+        login: loginInputEl.value,
+      }
+  
+      ServerRequest.send(requestParams)
+        .then(data => changeLocalLogin(data.login))
+        .catch(err => console.log(err));
+    }else{
+      document.getElementById("error_main").textContent = "Короткий нікнейм.";
+      document.getElementById("error_main").style.display = "block";
+      return;
     }
-
-    ServerRequest.send(requestParams)
-      .then(data => changeLocalLogin(data.login))
-      .catch(err => console.log(err));
+    
   }
 
   function sendEmailChangeRequest() {
@@ -111,31 +119,51 @@ function changeProfileInfo() {
       return;
     }
 
-    const requestParams = new RequestParams("POST");
-    requestParams.url = "/api/users/change/email";
-    requestParams.body = {
-      id: userId,
-      email: emailInputEl.value,
+    //Валидация почты
+    var re = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+    if (re.test(String(emailInputEl.value).toLowerCase())) {
+        //Ок
+        const requestParams = new RequestParams("POST");
+        requestParams.url = "/api/users/change/email";
+        requestParams.body = {
+          id: userId,
+          email: emailInputEl.value,
+        }
+
+        ServerRequest.send(requestParams)
+          .then(data => changeLocalEmail(data.email))
+          .catch(err => console.log(err));
+    } else {
+        if (emailInputEl.value.length === 0) {
+            document.getElementById("error_main").textContent = "Введіть пошту.";
+            document.getElementById("error_main").style.display = "block";
+            return;
+        } else {
+            document.getElementById("error_main").textContent = "Невірний адрес пошти.";
+            document.getElementById("error_main").style.display = "block";
+            return;
+        }
+        return;
     }
 
-    ServerRequest.send(requestParams)
-      .then(data => changeLocalEmail(data.email))
-      .catch(err => console.log(err));
   }
 
 
   function changeLocalLogin(newLogin) {
     Cookies.set("login", newLogin);
-    alert("Логін успішно змінено");
+    document.getElementById("done_info").style.display = "block";
+    //alert("Логін успішно змінено");
   }
 
   function changeLocalEmail(newEmail) {
     Cookies.set("email", newEmail);
-    alert("Пошту успішно змінено");
+    document.getElementById("done_info").style.display = "block";
+    //alert("Пошту успішно змінено");
   }
 
   function changeLocalAvatar() {
-    alert("Аватар успішно змінено");
+    document.getElementById("done_info").style.display = "block";
+    //alert("Аватар успішно змінено");
   }
 }
 
@@ -143,14 +171,39 @@ function changeProfileInfo() {
 changePasswordButtonEl.addEventListener("click", () => changePassword());
 
 function changePassword() {
+  document.getElementById("error_pass").style.display = "none";
+
   const userId = Cookies.get("id");
   if (!userId) {
     console.log("Can`t get id from Cookies");
     return;
   }
 
-  sendPasswordChangeRequest();
 
+  var rep = /^[a-zA-Z0-9]+$/;
+  if (rep.test(String(passwordInputEl.value).toLowerCase())) {
+      if (passwordInputEl.value.length === 0) {
+          document.getElementById("error_pass").textContent = "Введіть пароль.";
+          document.getElementById("error_pass").style.display = "block";
+      } else {
+          if (passwordInputEl.value.length < 8) {
+              document.getElementById("error_pass").textContent = "Мінімум 8 символів.";
+              document.getElementById("error_pass").style.display = "block";
+          } else {
+              sendPasswordChangeRequest();
+          }
+      }
+  } else {
+      if (passwordInputEl.value.length === 0) {
+          document.getElementById("error_pass").textContent = "Введіть пароль.";
+          return;
+      } else {
+          document.getElementById("error_pass").textContent = "Тільки латинськи літери";
+          return;
+      }
+      return;
+  }
+  
   function sendPasswordChangeRequest() {
     if (!passwordInputEl.value) {
       return;
