@@ -67,6 +67,10 @@ function changeProfileInfo() {
   function sendAvatarChangeRequest() {
     let file = avatarInputEl.files[0];
 
+    if (!file) {
+      return;
+    }
+
     let formData = new FormData();
     formData.append("image", file);
 
