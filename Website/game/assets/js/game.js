@@ -219,7 +219,10 @@ function startCompetition() {
           console.log(data);
           pageLoaded();
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+          console.log(err);
+          location.reload();
+      });
 }
 
 
