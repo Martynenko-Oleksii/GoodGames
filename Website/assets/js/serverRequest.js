@@ -1,18 +1,11 @@
 class ServerRequest {
-    static send(method,
-                url,
-                body = null,
-                responseType = "json",
-                contentType = "application/json",
-                stringify = true) {
+    static send(requestParams) {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
-            xhr.open(method, url);
-
-            xhr.responseType = responseType;
-
-            if (contentType) {
-                xhr.setRequestHeader("Content-Type", contentType);
+            xhr.open(requestParams.method, requestParams.url);
+            xhr.responseType = requestParams.responseType;
+            if (requestParams.contentType) {
+                xhr.setRequestHeader("Content-Type", requestParams.contentType);
             }
 
             xhr.onload = () => {
@@ -27,34 +20,11 @@ class ServerRequest {
                 reject(xhr.response);
             }
 
-            if (stringify) {
-                body = JSON.stringify(body);
+            if (requestParams.stringify) {
+                requestParams.body = JSON.stringify(requestParams.body);
             }
 
-            xhr.send(body);
+            xhr.send(requestParams.body);
         });
     }
 }
-
-
-/* GET request example
-const requestUrl = "https://jsonplaceholder.typicode.com/users";
-
-ServerRequest.send("GET", requestUrl)
-  .then(data => console.log(data))
-  .catch(err => console.log(err));
-*/
-
-
-/* POST request example
-const requestUrl = "https://jsonplaceholder.typicode.com/users";
-
-const body = {
-  name: "Vladyslav",
-  age: 18
-}
-
-ServerRequest.send("POST", requestUrl, body)
-  .then(data => console.log(data))
-  .catch(err => console.log(err));
-*/
