@@ -86,7 +86,7 @@ function updateSubscriptionInterface() {
 
       const dateString = new Date(subscriptionInfo.end).toLocaleDateString();
 
-      subscriptionStatusEl.innerHTML = "Преміум";
+      subscriptionStatusEl.innerHTML = "GoodGames Преміум";
       subscriptionTermEl.style.display = "block";
       subscriptionTermEl.innerHTML = "до " + dateString;
       buySubscriptionButtonEl.style.display = "none";
