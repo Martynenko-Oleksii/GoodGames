@@ -1,6 +1,6 @@
 class RequestParams {
-  constructor(method,
-              url,
+  constructor(method = "GET",
+              url = "/",
               body = null,
               responseType = "json",
               contentType = "application/json",
