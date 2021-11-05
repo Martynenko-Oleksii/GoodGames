@@ -86,9 +86,11 @@ function changeProfileInfo() {
 
   function changeLocalLogin(newLogin) {
     Cookies.set("login", newLogin);
+    alert("Логін успішно змінено");
   }
 
   function changeLocalEmail(newEmail) {
     Cookies.set("email", newEmail);
+    alert("Пошту успішно змінено");
   }
 }
