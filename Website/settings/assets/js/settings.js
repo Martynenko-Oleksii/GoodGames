@@ -67,14 +67,15 @@ function changeProfileInfo() {
     let file = avatarInputEl.files[0];
 
     let formData = new FormData();
-    formData.append("file", file);
+    formData.append("image", file);
 
-    const body = {
-      id: userId,
-      image: formData,
-    }
-
-    ServerRequest.send("POST", requestUrl, body)
+    ServerRequest.send(
+      "POST",
+      requestUrl,
+      formData,
+      "text/plain",
+      false,
+      false)
       .then(data => console.log(data))
       .catch(err => console.log(err));
   }
