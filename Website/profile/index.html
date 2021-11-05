@@ -112,7 +112,7 @@
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-lg-2 col-md-3 text-md-left text-center">
-                        <img src="/assets/images/user-48.png" class="avatar avatar-large rounded-circle shadow d-block mx-auto" alt="">
+                        <img src="/assets/images/user-48.png" id="avatar" class="avatar avatar-large rounded-circle shadow d-block mx-auto" alt="">
                     </div>
 
                     <div class="col-lg-10 col-md-9">
@@ -399,6 +399,12 @@
                 document.getElementById('name_profile').textContent = Cookies.get('login');
                 document.getElementById('name_cook').textContent = Cookies.get('login');
                 document.getElementById('email_cook').textContent = Cookies.get('email');
+            }
+
+            if(Cookies.get("avatarPath") == null || Cookies.get("avatarPath") == "null"){
+                document.getElementById("avatar").src = "/assets/images/user-48.png"; 
+            }else{
+                document.getElementById("avatar").src = Cookies.get("avatarPath"); 
             }
         </script>
         <script src="/assets/js/requestParams.js"></script>
