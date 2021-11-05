@@ -81,6 +81,11 @@ namespace GGBack.Controllers
                         result.Append("[0,0]");
                     }
 
+                    if (j != cellsByStage.Count - 1)
+                    {
+                        result.Append(",");
+                    }
+
                     stageResults.Insert(stageResults.Length - 1, result);
                 }
 
