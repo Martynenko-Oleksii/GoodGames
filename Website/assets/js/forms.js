@@ -70,8 +70,10 @@ function login_validation() {
                 Cookies.set('email', data.email, { expires: 7, path: '/' });
                 if(data.avatarPath != null){
                     Cookies.set('avatarPath', data.avatarPath, { expires: 7, path: '/' });
+                    document.getElementById("avatar").src = data.avatarPath;
                 }else{
-                    Cookies.set('avatarPath', "/assets/images/user-48.png", { expires: 7, path: '/' }); 
+                    Cookies.set('avatarPath', "/assets/images/user-48.png", { expires: 7, path: '/' });
+                    document.getElementById("avatar").src = "/assets/images/user-48.png";
                 }
                 document.getElementById('login').textContent = "Профіль";
                 document.getElementById('login_m').textContent = "Профіль";
