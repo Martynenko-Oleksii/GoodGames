@@ -31,8 +31,5 @@ namespace GGBack.Models
 
         [JsonIgnore]
         public List<TimetableCell> TimetableCells { get; set; }
-
-        [JsonIgnore]
-        public List<WinResult> WinResults { get; set; }
     }
 }

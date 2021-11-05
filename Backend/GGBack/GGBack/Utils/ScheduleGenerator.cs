@@ -117,17 +117,19 @@ namespace GGBack.Utils
                 for (int j = 0; j < competitorsTeamOne.Count; j++)
                 {
                     DateTime dt = new DateTime();
-
-                    if (DateTime.UtcNow > competition.StartDate)
+                    if (times.Count == 0)
                     {
-                        DateTime temp = DateTime.UtcNow.AddDays(1);
-                        times.Add(new DateTime(temp.Year, temp.Month, temp.Day,
-                            startTime.Hour, startTime.Minute, 0), 0);
-                    }
-                    else
-                    {
-                        times.Add(new DateTime(startDate.Year, startDate.Month, startDate.Day,
-                            startTime.Hour, startTime.Minute, 0), 0);
+                        if (DateTime.UtcNow > competition.StartDate)
+                        {
+                            DateTime temp = DateTime.UtcNow.AddDays(1);
+                            times.Add(new DateTime(temp.Year, temp.Month, temp.Day,
+                                startTime.Hour, startTime.Minute, 0), 0);
+                        }
+                        else
+                        {
+                            times.Add(new DateTime(startDate.Year, startDate.Month, startDate.Day,
+                                startTime.Hour, startTime.Minute, 0), 0);
+                        }
                     }
 
                     KeyValuePair<DateTime, int> timePair = times.Last();
@@ -144,7 +146,7 @@ namespace GGBack.Utils
 
                     if (newDateTime < endDate.AddDays(1))
                     {
-                        if (newDateTime < endTime)
+                        if (newDateTime.Hour < endTime.Hour)
                         {
                             dt = newDateTime;
 

@@ -43,105 +43,108 @@ namespace GGBack.Controllers
         [HttpPost]
         public async Task<ActionResult<IEnumerable<TimetableCell>>> Create(TimeBoundary timeBoundary)
         {
-            Competition competition = context.Competitions
-                .Include(c => c.Sport)
-                .Include(c => c.Competitors)
-                .Where(c => c.Id == timeBoundary.Id)
-                .FirstOrDefault();
-
-            List<Competitor> competitors = competition.Competitors;
-            List<string> teams = competition.Competitors
-                .Select(c => c.Team)
-                .Distinct()
-                .ToList();
-
-            int competitorsCount = competitors.Count;
-            int teamsCount = teams.Count;
-
-            bool hasTeam = competition.Sport.HasTeam;
-            bool ghasGrid = competition.Sport.HasGrid;
-            int minCompetitorsCount = competition.Sport.MinCompetitorsCount;
-            int minTeamsCount = competition.Sport.MinTeamsCount;
-            int teamSize = competition.Sport.TeamSize;
-
-            DateTime startDate = competition.StartDate;
-            DateTime endDate = competition.EndDate;
-
-            DateTime startTime = timeBoundary.Start;
-            DateTime endTime = timeBoundary.End;
-
-            if (competitorsCount < minCompetitorsCount)
+            try
             {
-                return BadRequest("Wrong competitors count");
-            }
+                Competition competition = context.Competitions
+                    .Include(c => c.Sport)
+                    .Include(c => c.Competitors)
+                    .Where(c => c.Id == timeBoundary.Id)
+                    .FirstOrDefault();
 
-            if (teamsCount % 2 != 0)
-            {
-                return BadRequest("teams count % 2 != 0");
-            }
+                List<Competitor> competitors = competition.Competitors;
+                List<string> teams = competition.Competitors
+                    .Select(c => c.Team)
+                    .Distinct()
+                    .ToList();
 
-            if (timeBoundary.End.Hour - timeBoundary.Start.Hour < 2)
-            {
-                return BadRequest("Wrong time for games");
-            }
+                int competitorsCount = competitors.Count;
+                int teamsCount = teams.Count;
 
-            foreach (string team in teams)
-            {
-                int competitorsCountPerTeam = competitors
-                    .Where(c => c.Name.Equals(team))
-                    .ToList().Count;
+                bool hasTeam = competition.Sport.HasTeam;
+                bool ghasGrid = competition.Sport.HasGrid;
+                int minCompetitorsCount = competition.Sport.MinCompetitorsCount;
+                int minTeamsCount = competition.Sport.MinTeamsCount;
+                int teamSize = competition.Sport.TeamSize;
 
-                if (competitorsCountPerTeam != teamSize)
-                {
-                    return BadRequest($"Wrong competitors count in team {team}");
-                }
-            }
+                DateTime startDate = competition.StartDate;
+                DateTime endDate = competition.EndDate;
 
-            List<TimetableCell> cells = new List<TimetableCell>();
-            if (hasTeam)
-            {
-                if (competitorsCount % teamSize != 0)
+                DateTime startTime = timeBoundary.Start;
+                DateTime endTime = timeBoundary.End;
+
+                if (competitorsCount < minCompetitorsCount)
                 {
                     return BadRequest("Wrong competitors count");
                 }
 
-                if (teamsCount < minTeamsCount)
+                if (teamsCount % 2 != 0)
                 {
-                    return BadRequest("Wrong teams count");
+                    return BadRequest("teams count % 2 != 0");
                 }
 
-                if (competitorsCount - teamsCount * teamSize != 0)
+                if (timeBoundary.End.Hour - timeBoundary.Start.Hour < 2)
                 {
-                    return BadRequest("Wrong competitors count per team");
+                    return BadRequest("Wrong time for games");
                 }
 
-                cells = ScheduleGenerator.GenerateForTeamSports(teams, 
-                                            competitors, competition, 
-                                            startDate, endDate, 
-                                            startTime, endTime);
+                foreach (string team in teams)
+                {
+                    int competitorsCountPerTeam = competitors
+                        .Where(c => c.Name.Equals(team))
+                        .ToList().Count;
+
+                    if (competitorsCountPerTeam != teamSize)
+                    {
+                        return BadRequest($"Wrong competitors count in team {team}");
+                    }
+                }
+
+                List<TimetableCell> cells = new List<TimetableCell>();
+                if (hasTeam)
+                {
+                    if (competitorsCount % teamSize != 0)
+                    {
+                        return BadRequest("Wrong competitors count");
+                    }
+
+                    if (teamsCount < minTeamsCount)
+                    {
+                        return BadRequest("Wrong teams count");
+                    }
+
+                    if (competitorsCount - teamsCount * teamSize != 0)
+                    {
+                        return BadRequest("Wrong competitors count per team");
+                    }
+
+                    cells = ScheduleGenerator.GenerateForTeamSports(teams,
+                                                competitors, competition,
+                                                startDate, endDate,
+                                                startTime, endTime);
+                }
+                else
+                {
+                    cells = ScheduleGenerator.GenerateForNoTeamSports(teams,
+                                                competitors, competition,
+                                                startDate, endDate,
+                                                startTime, endTime);
+                }
+
+                if (cells == null)
+                {
+                    return BadRequest("Error :(");
+                }
+
+                context.TimetableCells.AddRange(cells);
+                competition.State = 1;
+                await context.SaveChangesAsync();
+
+                return Ok();
             }
-            else
+            catch (Exception ex)
             {
-                cells = ScheduleGenerator.GenerateForNoTeamSports(teams,
-                                            competitors, competition,
-                                            startDate, endDate,
-                                            startTime, endTime);
+                return BadRequest(ex.Message + "\n" + ex.InnerException);
             }
-
-            if (cells == null)
-            {
-                return BadRequest("Error :(");
-            }
-
-            context.TimetableCells.AddRange(cells);
-            competition.State = 1;
-            await context.SaveChangesAsync();
-
-            return await context.TimetableCells
-                    .Include(t => t.Competitors)
-                    .Include(t => t.WinResult)
-                    .Where(t => t.Competition.Id == competition.Id)
-                    .ToListAsync();
         }
     }
 }
