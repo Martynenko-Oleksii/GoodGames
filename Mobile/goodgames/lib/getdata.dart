@@ -555,7 +555,7 @@ class getDatahttp {
     return cells;
   }
 
-  static Future<bool> generateSchedule(int competitionId, DateTime start, DateTime end) async {
+  static Future<bool> generateSchedule(int competitionId, String start, String end) async {
     bool result = false;
 
     var body = jsonEncode({
