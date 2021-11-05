@@ -27,7 +27,10 @@ function updateAvatarInterface() {
     return;
   }
 
-  ServerRequest.send("GET", "/api/users/" + userId)
+  const requestParams = new RequestParams();
+  requestParams.url = "/api/users/" + userId;
+
+  ServerRequest.send(requestParams)
     .then(data => {
       const avatarPath = data.avatarPath;
 
@@ -62,14 +65,19 @@ function changeProfileInfo() {
 
 
   function sendAvatarChangeRequest() {
-    const requestUrl = "/api/users/change/image/" + userId;
-
     let file = avatarInputEl.files[0];
 
     let formData = new FormData();
     formData.append("image", file);
 
-    ServerRequest.send("POST", requestUrl, formData, "text/plain", false, false)
+    const requestParams = new RequestParams("POST");
+    requestParams.url = "/api/users/change/image/" + userId;
+    requestParams.body = formData;
+    requestParams.responseType = "text";
+    requestParams.contentType = "";
+    requestParams.stringify = false;
+
+    ServerRequest.send(requestParams)
       .then(data => console.log(data))
       .catch(err => console.log(err));
   }
@@ -77,25 +85,27 @@ function changeProfileInfo() {
   function sendLoginChangeRequest() {
     const requestUrl = "/api/users/change/login";
 
-    const body = {
+    const requestParams = new RequestParams("POST");
+    requestParams.url = "/api/users/change/login";
+    requestParams.body = {
       id: userId,
       login: loginInputEl.value,
     }
 
-    ServerRequest.send("POST", requestUrl, body)
+    ServerRequest.send(requestParams)
       .then(data => changeLocalLogin(data.login))
       .catch(err => console.log(err));
   }
 
   function sendEmailChangeRequest() {
-    const requestUrl = "/api/users/change/email";
-
-    const body = {
+    const requestParams = new RequestParams("POST");
+    requestParams.url = "/api/users/change/email";
+    requestParams.body = {
       id: userId,
       email: emailInputEl.value,
     }
 
-    ServerRequest.send("POST", requestUrl, body)
+    ServerRequest.send(requestParams)
       .then(data => changeLocalEmail(data.email))
       .catch(err => console.log(err));
   }

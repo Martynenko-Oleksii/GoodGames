@@ -10,6 +10,7 @@
         <link href="jquery.bracket.min.css" rel="stylesheet">
         <script src="/assets/js/js.cookie.js"></script>
         <script src="/assets/js/main.js"></script>
+        <script src="/assets/js/requestParams.js"></script>
         <script src="/assets/js/serverRequest.js"></script>
         <script src="dragscroll.js"></script>
 
@@ -31,7 +32,7 @@
     <!--  ПОЛЕ ДЛЯ ТУРНИРНОЙ СЕТКИ  -->
 
     <div id="grid" class="demo">
-        
+
     </div>
 
     <!-- БЛЯ НЕ ТРОГАТЬ  -->
@@ -43,7 +44,7 @@
 
     <script>
         var TEAMS;
-        
+
         if(getUrlVars().id == 0){
             TEAMS = {"teams": [["Команда 1", "Команда 2"],["Команда 3", "Команда 4"]], "results": [[[[1, 2], [3, 4]],[[5, 6]]],[[[7, 8]],[[9, 10]]],[[[11, 12],[13, 14]],[[15, 16]]]]}
                 console.log(TEAMS);
@@ -54,7 +55,7 @@
                         scoreWidth: 36,
                         matchMargin: 40,
                         roundMargin: 65,
-                        init: TEAMS, 
+                        init: TEAMS,
                         save: saveResults,
                         disableToolbar: true,
                         disableTeamEdit: true
@@ -77,11 +78,13 @@
                     return;
                 }
 
-                const requestUrl = "/api/grids/" + competitionId;
+                const requestParams = new RequestParams();
+                requestParams.url = "/api/grids/" + competitionId;
+                requestParams.responseType = "text";
 
-                ServerRequest.send("GET", requestUrl, null, "text")
-                .then(data => parseTeams(data))
-                .catch(err => console.log(err));
+                ServerRequest.send(requestParams)
+                    .then(data => parseTeams(data))
+                    .catch(err => console.log(err));
             }
 
             function parseTeams(data) {
@@ -93,7 +96,7 @@
                         scoreWidth: 36,
                         matchMargin: 40,
                         roundMargin: 65,
-                        init: TEAMS, 
+                        init: TEAMS,
                         save: saveResults,
                         disableToolbar: true,
                         disableTeamEdit: true
@@ -109,7 +112,7 @@
                 }
             }
 
-           
+
         }
 
         function saveFn(data) {

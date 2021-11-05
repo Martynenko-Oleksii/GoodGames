@@ -10,9 +10,10 @@ function pageLoaded() {
     //parseServerResponse([true]);
 
     function getCompetitionInfoFromServer(competitionId) {
-        const requestUrl = "/api/competitions/" + competitionId;
+        const requestParams = new RequestParams();
+        requestParams.url = "/api/competitions/" + competitionId;
 
-        ServerRequest.send("GET", requestUrl)
+        ServerRequest.send(requestParams)
             .then(data => parseServerResponse(data))
             .catch(err => console.log(err));
     }
@@ -146,21 +147,21 @@ function sendInvitation(email) {
         return;
     }
 
-    const body = {
+    const requestParams = new RequestParams("POST");
+    requestParams.url = "/api/competitions/" + competitionId;
+    requestParams.body = {
         competitionId: competitionId,
         userId: userId,
         email: email,
     }
 
-    ServerRequest.send("POST", requestUrl, body)
+    ServerRequest.send(requestParams)
       .then(data => console.log(data))
       .catch(err => console.log(err));
 }
 
 
 function generateTimetable() {
-    const requestUrl = "/api/timetables/create";
-
     // get competition id
     const competitionId = parseInt(getUrlVars().id);
     if (!competitionId) {
@@ -173,13 +174,15 @@ function generateTimetable() {
     const dateStart = new Date().toJSON().substr(0, 11) + "10:00:00";
     const dateEnd = new Date().toJSON().substr(0, 11) + "18:00:00";
 
-    const body = {
+    const requestParams = new RequestParams("POST");
+    requestParams.url = "/api/timetables/create";
+    requestParams.body = {
         id: competitionId,
         start: dateStart,
         end: dateEnd,
     }
 
-    ServerRequest.send("POST", requestUrl, body)
+    ServerRequest.send(requestParams)
       .then(data => console.log(data))
       .catch(err => console.log(err));
 }
@@ -194,9 +197,10 @@ function getTimetable() {
         return;
     }
 
-    const requestUrl = "/api/timetables/" + competitionId;
+    const requestParams = new RequestParams();
+    requestParams.url = "/api/timetables/" + competitionId;
 
-    ServerRequest.send("GET", requestUrl)
+    ServerRequest.send(requestParams)
       .then(data => console.log(data))
       .catch(err => console.log(err));
 }
@@ -206,7 +210,7 @@ function send_togo() {
     const openInputEl = document.querySelector("#open_input");
     const inputMailEl = document.querySelector("#input_mail");
     const joinEl = document.querySelector("#join");
-    
+
     joinEl.style.display = "none";
     sendButtonEl.style.height = "36px";
     sendButtonEl.style.display = "inline";

@@ -43,9 +43,10 @@ function insertCompetitionInfo() {
       return;
     }
 
-    const requestUrl = "/api/competitions/" + competitionId;
+    const requestParams = new RequestParams();
+    requestParams.url = "/api/competitions/" + competitionId;
 
-    ServerRequest.send("GET", requestUrl)
+    ServerRequest.send(requestParams)
       .then(data => parseResponse(data))
       .catch(err => console.log(err));
   }
@@ -85,12 +86,12 @@ function sendjoin(){
   statusTxt.innerText = "Реєструємо вас...";
   form.classList.add("disabled");
 
-  const requestUrl = "/api/competitors";
-
   const genderInputValue = document.querySelector("#gender").value;
   const genderChar = (genderInputValue === "жінка") ? "f" : "m";
 
-  const body = {
+  const requestParams = new RequestParams("POST");
+  requestParams.url = "/api/competitors";
+  requestParams.body = {
     team: document.querySelector("#team").value,
     name: document.querySelector("#name").value,
     email: document.querySelector("#email").value,
@@ -101,7 +102,7 @@ function sendjoin(){
     competitions: [ {id: getUrlVars()["game"]} ],
   }
 
-  ServerRequest.send("POST", requestUrl, body)
+  ServerRequest.send(requestParams)
     .then(() => document.location = "/game/?id=" + game)
     .catch(err => console.log(err));
 }
