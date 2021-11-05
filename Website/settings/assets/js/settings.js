@@ -26,7 +26,7 @@ function updateAvatarInterface() {
     return;
   }
 
-  ServerRequest.send("POST", "/api/users/" + userId)
+  ServerRequest.send("GET", "/api/users/" + userId)
     .then(data => {
       const avatarPath = data.avatarPath;
 
