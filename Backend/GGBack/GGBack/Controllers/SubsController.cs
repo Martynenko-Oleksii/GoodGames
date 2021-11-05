@@ -51,7 +51,7 @@ namespace GGBack.Controllers
 
         [Route("api/subs/{userId}")]
         [HttpGet]
-        public async Task<ActionResult<string>> GetSub(int userId)
+        public async Task<ActionResult<User>> GetSub(int userId)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace GGBack.Controllers
                 dbUser.Subscription = sub;
                 await context.SaveChangesAsync();
 
-                return Ok();
+                return Ok(new User { Subscription = dbUser.Subscription });
             }
             catch (Exception ex)
             {
