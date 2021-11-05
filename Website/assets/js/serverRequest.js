@@ -10,7 +10,10 @@ class ServerRequest {
             xhr.open(method, url);
 
             xhr.responseType = responseType;
-            xhr.setRequestHeader("Content-Type", contentType);
+
+            if (contentType) {
+                xhr.setRequestHeader("Content-Type", contentType);
+            }
 
             xhr.onload = () => {
                 if (xhr.status >= 400) {
