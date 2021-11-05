@@ -1,3 +1,6 @@
+const startCompetitionButtonEl = document.querySelector("#start_competitions");
+
+
 document.addEventListener("DOMContentLoaded", pageLoaded);
 
 function pageLoaded() {
@@ -161,7 +164,9 @@ function sendInvitation(email) {
 }
 
 
-function generateTimetable() {
+startCompetitionButtonEl.addEventListener("click", () => startCompetition());
+
+function startCompetition() {
     // get competition id
     const competitionId = parseInt(getUrlVars().id);
     if (!competitionId) {
