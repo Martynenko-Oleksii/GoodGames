@@ -36,10 +36,11 @@ function updateAvatarInterface() {
   ServerRequest.send(requestParams)
     .then(data => {
       const avatarPath = data.avatarPath;
-
+      
       if (avatarPath) {
         changeAvatarButtonEl.innerHTML = "Змінити аватар";
         avatarEl.src = avatarPath;
+        Cookies.set('avatarPath', data.avatarPath, { expires: 7, path: '/' });
         resetFileButtonEl.style.display = "inline-block";
         return;
       }
@@ -162,6 +163,7 @@ function changeProfileInfo() {
   }
 
   function changeLocalAvatar() {
+    updateAvatarInterface();
     document.getElementById("done_info").style.display = "block";
     //alert("Аватар успішно змінено");
   }
