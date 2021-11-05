@@ -429,9 +429,9 @@ class getDatahttp {
   }
 
   //TODO
-  static Future<bool> subscribe(int id) async{
+  static Future<User?> subscribe(int id) async{
 
-    bool result = false;
+    User? subUser;
 
     try {
       var response = await http.get(
@@ -440,18 +440,35 @@ class getDatahttp {
       );
 
       if (response.statusCode == 200) {
-print(id);
-        result = true;
-
+        var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+        subUser = User(
+          subscription:  Subscription(
+            id: jsonData["subscription"]["id"],
+            lvl: jsonData["subscription"]["level"],
+            start: DateTime.parse(
+                jsonData["subscription"]["start"]
+                    .toString()
+                    .substring(0, 10) + " " +
+                    jsonData["subscription"]["start"]
+                        .toString()
+                        .substring(11)),
+            end: DateTime.parse(
+                jsonData["subscription"]["end"]
+                    .toString()
+                    .substring(0, 10) + " " +
+                    jsonData["subscription"]["end"]
+                        .toString()
+                        .substring(11)),
+          ),
+        );
       } else {
         print(response.body);
       }
     } catch (ex) {
       print(ex);
     }
-    print(result);
 
-    return result;
+    return subUser;
   }
 
   static Future<List<TimetableCell>> getTimetable(int competitionId) async{
