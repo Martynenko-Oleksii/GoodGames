@@ -1,4 +1,5 @@
 const avatarEl = document.querySelector(".avatar");
+const avatarInputEl = document.querySelector(".avatar-input");
 const changeAvatarButtonEl = document.querySelector(".change-avatar-button");
 const resetFileButtonEl = document.querySelector(".reset-file-button");
 const loginInputEl = document.querySelector(".login-input");
@@ -55,8 +56,28 @@ function changeProfileInfo() {
   }
 
 
+  sendAvatarChangeRequest();
   sendLoginChangeRequest();
   sendEmailChangeRequest();
+
+
+  function sendAvatarChangeRequest() {
+    const requestUrl = "/api/users/change/image/" + userId;
+
+    let file = avatarInputEl.files[0];
+
+    let formData = new FormData();
+    formData.append("file", file);
+
+    const body = {
+      id: userId,
+      image: formData,
+    }
+
+    ServerRequest.send("POST", requestUrl, body)
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
+  }
 
   function sendLoginChangeRequest() {
     const requestUrl = "/api/users/change/login";
@@ -86,9 +107,11 @@ function changeProfileInfo() {
 
   function changeLocalLogin(newLogin) {
     Cookies.set("login", newLogin);
+    alert("Логін успішно змінено");
   }
 
   function changeLocalEmail(newEmail) {
     Cookies.set("email", newEmail);
+    alert("Пошту успішно змінено");
   }
 }
