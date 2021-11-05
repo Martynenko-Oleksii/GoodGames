@@ -43,7 +43,7 @@ class _ProfileState extends State<ProfileScreen>
 
   @override
   void initState() {
-    getDatahttp.getFavouriteSports(widget.user.id!).then((value) => profileList = value);
+    profileList = widget.user.sports!;
 
     if (widget.user.subscription != null) {
       subState = new Text(
