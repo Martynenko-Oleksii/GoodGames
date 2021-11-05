@@ -65,9 +65,8 @@ class getDatahttp {
               email: jsonData["email"],
               password: jsonData["password"],
               subscription:  jsonData["subscription"],
-              sports: jsonData["sports"]
           );
-        }else{
+        } else {
           user = User(
               id: jsonData["id"],
               login: jsonData["login"],
@@ -91,8 +90,22 @@ class getDatahttp {
                             .toString()
                             .substring(11)),
               ),
-              sports: jsonData["sports"]
           );
+        }
+
+        List<Sport> sports = [];
+        for (var s in jsonData["sports"]) {
+          Sport sport = Sport(
+              id: s["id"],
+              title: s["title"],
+              minCompetitorsCount: s["minCompetitorsCount"],
+              hasTeam: s["hasTeam"],
+              minTeamsCount: s["minTeamsCount"],
+              teamSize: s["teamSize"],
+              hasGrid: s["hasGrid"]
+          );
+          sports.add(sport);
+          user.sports = sports;
         }
       }
     } catch(ex) {
