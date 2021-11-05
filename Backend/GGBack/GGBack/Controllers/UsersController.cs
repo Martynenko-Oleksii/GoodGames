@@ -49,6 +49,9 @@ namespace GGBack.Controllers
                     .Select(u => new User
                     {
                         Id = u.Id,
+                        AvatarPath = u.AvatarPath,
+                        Login = u.Login,
+                        Email = u.Email,
                         Subscription = u.Subscription,
                         Sports = u.Sports
                     })
