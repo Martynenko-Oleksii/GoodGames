@@ -82,7 +82,7 @@ function changeProfileInfo() {
     requestParams.stringify = false;
 
     ServerRequest.send(requestParams)
-      .then(data => console.log(data))
+      .then(data => changeLocalAvatar())
       .catch(err => console.log(err));
   }
 
@@ -120,6 +120,7 @@ function changeProfileInfo() {
       .catch(err => console.log(err));
   }
 
+
   function changeLocalLogin(newLogin) {
     Cookies.set("login", newLogin);
     alert("Логін успішно змінено");
@@ -128,5 +129,9 @@ function changeProfileInfo() {
   function changeLocalEmail(newEmail) {
     Cookies.set("email", newEmail);
     alert("Пошту успішно змінено");
+  }
+
+  function changeLocalAvatar() {
+    alert("Аватар успішно змінено");
   }
 }
