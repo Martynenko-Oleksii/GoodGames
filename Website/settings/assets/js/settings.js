@@ -76,6 +76,7 @@ function changeProfileInfo() {
       return;
     }
 
+    document.getElementById("error_photo").style.display = "block";
     let formData = new FormData();
     formData.append("image", file);
 
@@ -165,6 +166,7 @@ function changeProfileInfo() {
   function changeLocalAvatar() {
     updateAvatarInterface();
     document.getElementById("done_info").style.display = "block";
+    document.getElementById("error_photo").style.display = "none";
     //alert("Аватар успішно змінено");
   }
 }
