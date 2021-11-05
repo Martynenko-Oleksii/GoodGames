@@ -43,6 +43,7 @@ class _ProfileState extends State<ProfileScreen>
 
   @override
   void initState() {
+    if (widget.user.sports != null)
     profileList = widget.user.sports!;
 
     if (widget.user.subscription != null) {
