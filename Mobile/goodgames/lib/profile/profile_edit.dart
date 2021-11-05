@@ -95,7 +95,7 @@ class _ProfileeditState extends State<ProfileeditPage> {
                 new Container(
                   margin: EdgeInsets.only(left: 10.0, right: 10),
                   height: MediaQuery.of(context).size.height -
-                      MediaQuery.of(context).size.height / 4,
+                      MediaQuery.of(context).size.height / 8,
                   width: MediaQuery.of(context).size.height - 20,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
