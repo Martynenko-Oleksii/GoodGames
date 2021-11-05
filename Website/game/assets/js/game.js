@@ -126,7 +126,7 @@ function pageLoaded() {
                 teamsArr.push(competitorTeam);
             }
 
-            if (teamsArr < 2) {
+            if (teamsArr.length < 2) {
                 startCompetitionButtonEl.style.display = "none";
             }
         }
