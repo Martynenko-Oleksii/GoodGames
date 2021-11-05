@@ -117,18 +117,24 @@ namespace GGBack.Controllers
 
         [Route("api/users/change/image/{userId}")]
         [HttpPost]
-        public async Task<ActionResult<string>> UpdateProfileImage(int userId, IFormFile image)
+        public async Task<ActionResult<string>> UpdateProfileImage([FromRoute] int userId, [FromForm(Name = "image")] IFormFile image)
         {
+            string filename;
             string imagePath;
             try
             {
+                if (userId == 0)
+                {
+                    return BadRequest(userId);
+                }
+
                 if (image == null)
                 {
                     return BadRequest("Image is null");
                 }
 
-                string filename =
-                    ContentDispositionHeaderValue.Parse(image.ContentDisposition)
+                filename = ContentDispositionHeaderValue
+                    .Parse(image.ContentDisposition)
                     .FileName.Trim('"');
 
                 filename = ImageSaver.EnsureCorrectFilename(filename);
@@ -140,7 +146,7 @@ namespace GGBack.Controllers
                 }
 
                 User dbUser = context.Users.Find(userId);
-                dbUser.AvatarPath = imagePath;
+                dbUser.AvatarPath = $"/avatars/{filename}";
                 await context.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -148,7 +154,25 @@ namespace GGBack.Controllers
                 return BadRequest(ex.Message + "\n" + ex.InnerException);
             }
 
-            return Ok(imagePath);
+            return Ok($"/avatars/{filename}");
+        }
+
+        [Route("api/users/change/deleteimage/{userId}")]
+        [HttpGet]
+        public async Task<ActionResult> DeleteProfileImage(int userId)
+        {
+            try
+            {
+                User dbUser = context.Users.Find(userId);
+                dbUser.AvatarPath = null;
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message + "\n" + ex.InnerException);
+            }
+
+            return Ok();
         }
 
         [Route("api/users/change/login")]
