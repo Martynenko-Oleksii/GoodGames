@@ -25,7 +25,7 @@ function changeProfileInfo() {
     return;
   }
 
-  
+
   sendLoginChangeRequest();
   sendEmailChangeRequest();
 
@@ -37,7 +37,9 @@ function changeProfileInfo() {
       login: loginInputEl.value,
     }
 
-    sendRequest(requestUrl, body);
+    ServerRequest.send("POST", requestUrl, body)
+      .then(data => changeLocalLogin(data.login))
+      .catch(err => console.log(err));
   }
 
   function sendEmailChangeRequest() {
@@ -48,12 +50,16 @@ function changeProfileInfo() {
       email: emailInputEl.value,
     }
 
-    sendRequest(requestUrl, body);
+    ServerRequest.send("POST", requestUrl, body)
+      .then(data => changeLocalEmail(data.email))
+      .catch(err => console.log(err));
   }
 
-  function sendRequest(requestUrl, body) {
-    ServerRequest.send("POST", requestUrl, body)
-      .then(data => console.log(data))
-      .catch(err => console.log(err));
+  function changeLocalLogin(newLogin) {
+    Cookies.set("login", newLogin);
+  }
+
+  function changeLocalEmail(newEmail) {
+    Cookies.set("email", newEmail);
   }
 }
