@@ -103,6 +103,33 @@ function pageLoaded() {
         }else{
 
         }
+
+        // if teams number less than 2 - hide start competition button
+        if (!info.competitors.length) {
+            startCompetitionButtonEl.style.display = "none";
+        } else {
+            let teamsArr = [];
+            for (let competitor of info.competitors) {
+                const competitorTeam = competitor.team;
+                let teamExist = false;
+                for (let team of teamsArr) {
+                    if (competitorTeam === team) {
+                        teamExist = true;
+                        break;
+                    }
+                }
+
+                if (teamExist) {
+                    continue;
+                }
+
+                teamsArr.push(competitorTeam);
+            }
+
+            if (teamsArr < 2) {
+                startCompetitionButtonEl.style.display = "none";
+            }
+        }
     }
 
     function parseCompetitorsList(info) {
@@ -188,7 +215,10 @@ function startCompetition() {
     }
 
     ServerRequest.send(requestParams)
-      .then(data => console.log(data))
+      .then(data => {
+          console.log(data);
+          pageLoaded();
+      })
       .catch(err => console.log(err));
 }
 
