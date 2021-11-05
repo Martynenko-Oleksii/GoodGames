@@ -43,6 +43,8 @@ class _ProfileState extends State<ProfileScreen>
 
   @override
   void initState() {
+    getDatahttp.getFavouriteSports(widget.user.id!).then((value) => profileList = value);
+
     if (widget.user.subscription != null) {
       subState = new Text(
         "діє до: " +
@@ -61,8 +63,6 @@ class _ProfileState extends State<ProfileScreen>
     animationController = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
     super.initState();
-
-    getDatahttp.getFavouriteSports(widget.user.id!).then((value) => profileList = value);
   }
 
   Future<bool> getData() async {
@@ -243,6 +243,31 @@ class _ProfileState extends State<ProfileScreen>
                           height: 3,
                           color: Colors.black,
                         )
+                    ),
+                    new Container(
+                      child: new DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: Colors.black54,
+                          border: Border.all(width: 5.0, color: Colors.white),
+                          borderRadius: BorderRadius.circular(22),
+                        ),
+                        child: new Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 18,
+                              horizontal: 45),
+                          child: new Text(
+                            "Підписки на спорт",
+                            style: TextStyle( // h4 -> display1
+
+                              fontWeight: FontWeight.bold,
+                              fontSize: 28,
+                              letterSpacing: 0.4,
+                              height: 0.9,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                     new Container(
                       height: MediaQuery.of(context).size.height - 360,
