@@ -8,7 +8,7 @@ const changeProfileInfoButtonEl =
   document.querySelector(".change-profile-info-button");
 const passwordInputEl = document.querySelector(".password-input");
 const changePasswordButtonEl =
-  document.querySelector(".changePasswordButton")
+  document.querySelector(".change-password-button")
 
 
 document.addEventListener("DOMContentLoaded", pageLoaded);
