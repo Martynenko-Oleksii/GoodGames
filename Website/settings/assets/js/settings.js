@@ -6,6 +6,9 @@ const loginInputEl = document.querySelector(".login-input");
 const emailInputEl = document.querySelector(".email-input");
 const changeProfileInfoButtonEl =
   document.querySelector(".change-profile-info-button");
+const passwordInputEl = document.querySelector(".password-input");
+const changePasswordButtonEl =
+  document.querySelector(".changePasswordButton")
 
 
 document.addEventListener("DOMContentLoaded", pageLoaded);
@@ -67,6 +70,10 @@ function changeProfileInfo() {
   function sendAvatarChangeRequest() {
     let file = avatarInputEl.files[0];
 
+    if (!file) {
+      return;
+    }
+
     let formData = new FormData();
     formData.append("image", file);
 
@@ -78,12 +85,14 @@ function changeProfileInfo() {
     requestParams.stringify = false;
 
     ServerRequest.send(requestParams)
-      .then(data => console.log(data))
+      .then(data => changeLocalAvatar())
       .catch(err => console.log(err));
   }
 
   function sendLoginChangeRequest() {
-    const requestUrl = "/api/users/change/login";
+    if (loginInputEl.value === Cookies.get("login")) {
+      return;
+    }
 
     const requestParams = new RequestParams("POST");
     requestParams.url = "/api/users/change/login";
@@ -98,6 +107,10 @@ function changeProfileInfo() {
   }
 
   function sendEmailChangeRequest() {
+    if (emailInputEl.value === Cookies.get("email")) {
+      return;
+    }
+
     const requestParams = new RequestParams("POST");
     requestParams.url = "/api/users/change/email";
     requestParams.body = {
@@ -110,6 +123,7 @@ function changeProfileInfo() {
       .catch(err => console.log(err));
   }
 
+
   function changeLocalLogin(newLogin) {
     Cookies.set("login", newLogin);
     alert("Логін успішно змінено");
@@ -118,5 +132,43 @@ function changeProfileInfo() {
   function changeLocalEmail(newEmail) {
     Cookies.set("email", newEmail);
     alert("Пошту успішно змінено");
+  }
+
+  function changeLocalAvatar() {
+    alert("Аватар успішно змінено");
+  }
+}
+
+
+changePasswordButtonEl.addEventListener("click", () => changePassword());
+
+function changePassword() {
+  const userId = Cookies.get("id");
+  if (!userId) {
+    console.log("Can`t get id from Cookies");
+    return;
+  }
+
+  sendPasswordChangeRequest();
+
+  function sendPasswordChangeRequest() {
+    if (!passwordInputEl.value) {
+      return;
+    }
+
+    const requestParams = new RequestParams("POST");
+    requestParams.url = "/api/users/change/password";
+    requestParams.body = {
+      id: userId,
+      password: passwordInputEl.value,
+    }
+
+    ServerRequest.send(requestParams)
+      .then(data => getPasswordChangeResponse())
+      .catch(err => console.log(err));
+  }
+
+  function getPasswordChangeResponse() {
+    alert("Пароль успішно змінено");
   }
 }
