@@ -6,6 +6,9 @@ const loginInputEl = document.querySelector(".login-input");
 const emailInputEl = document.querySelector(".email-input");
 const changeProfileInfoButtonEl =
   document.querySelector(".change-profile-info-button");
+const passwordInputEl = document.querySelector(".password-input");
+const changePasswordButtonEl =
+  document.querySelector(".changePasswordButton")
 
 
 document.addEventListener("DOMContentLoaded", pageLoaded);
@@ -133,5 +136,39 @@ function changeProfileInfo() {
 
   function changeLocalAvatar() {
     alert("Аватар успішно змінено");
+  }
+}
+
+
+changePasswordButtonEl.addEventListener("click", () => changePassword());
+
+function changePassword() {
+  const userId = Cookies.get("id");
+  if (!userId) {
+    console.log("Can`t get id from Cookies");
+    return;
+  }
+
+  sendPasswordChangeRequest();
+
+  function sendPasswordChangeRequest() {
+    if (!passwordInputEl.value) {
+      return;
+    }
+
+    const requestParams = new RequestParams("POST");
+    requestParams.url = "/api/users/change/password";
+    requestParams.body = {
+      id: userId,
+      password: passwordInputEl.value,
+    }
+
+    ServerRequest.send(requestParams)
+      .then(data => getPasswordChangeResponse())
+      .catch(err => console.log(err));
+  }
+
+  function getPasswordChangeResponse() {
+    alert("Пароль успішно змінено");
   }
 }
