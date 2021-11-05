@@ -1,5 +1,10 @@
 class ServerRequest {
-    static send(method, url, body = null, responseType = "json", contentType = "application/json") {
+    static send(method,
+                url,
+                body = null,
+                responseType = "json",
+                contentType = "application/json",
+                stringify = true) {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.open(method, url);
@@ -19,7 +24,11 @@ class ServerRequest {
                 reject(xhr.response);
             }
 
-            xhr.send(JSON.stringify(body));
+            if (stringify) {
+                body = JSON.stringify(body);
+            }
+
+            xhr.send(body);
         });
     }
 }
