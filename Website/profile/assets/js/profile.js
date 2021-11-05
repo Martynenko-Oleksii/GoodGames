@@ -14,9 +14,10 @@ function pageLoaded() {
 
 
   function sendServerRequest(userId) {
-    const requestUrl = "/api/sports/" + userId;
+    const requestParams = new RequestParams();
+    requestParams.url = "/api/sports/" + userId;
 
-    ServerRequest.send("GET", requestUrl)
+    ServerRequest.send(requestParams)
       .then(data => parseServerResponse(data))
       .catch(err => console.log(err));
   }
@@ -47,9 +48,10 @@ function getSubscriptionRequest() {
     return;
   }
 
-  const requestUrl = "/api/subs/" + userId;
+  const requestParams = new RequestParams();
+  requestParams.url = "/api/subs/" + userId;
 
-  ServerRequest.send("GET", requestUrl)
+  ServerRequest.send(requestParams)
     .then(data => console.log(data))
     .catch(err => console.log(err));
 }

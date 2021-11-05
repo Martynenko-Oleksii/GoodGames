@@ -11,9 +11,10 @@ function pageLoaded() {
 
 
     function sendServerRequest(userId) {
-        const requestUrl = "/api/competitions/users/" + userId;
+        const requestParams = new RequestParams();
+        requestParams.url = "/api/competitions/users/" + userId;
 
-        ServerRequest.send("GET", requestUrl)
+        ServerRequest.send(requestParams)
             .then(data => parseServerResponse(data))
             .catch(err => console.log(err));
     }
@@ -115,9 +116,10 @@ function deleteCompetition(competitionId) {
         return;
     }
 
-    const requestUrl = "/api/competitions/delete/" + competitionId;
+    const requestParams = new RequestParams();
+    requestParams.url = "/api/competitions/delete/" + competitionId;
 
-    ServerRequest.send("GET", requestUrl)
+    ServerRequest.send(requestParams)
         .then(data => removeCompetitionEl(competitionId))
         .catch(err => console.log(err));
 }
