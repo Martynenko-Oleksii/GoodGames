@@ -221,7 +221,7 @@ function startCompetition() {
       })
       .catch(err => {
           console.log(err);
-          location.reload();
+          //location.reload();
       });
 }
 
