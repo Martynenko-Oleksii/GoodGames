@@ -38,6 +38,7 @@ namespace GGBack.Controllers
                 .Include(c => c.Sport)
                 .Include(c => c.Competitors)
                 .Include(c => c.TimetableCells)
+                    .ThenInclude(t => t.Competitors)
                 .Where(c => c.Id == competitionId)
                 .Select(c => new Competition
                 {
@@ -90,15 +91,32 @@ namespace GGBack.Controllers
             }
 
             Competition competiotion = context.Competitions
-                .FirstOrDefault(c => c.Id == competitionId);
+                .Include(c => c.Competitors)
+                .Include(c => c.TimetableCells)
+                    .ThenInclude(t => t.Competitors)
+                .Where(c => c.Id == competitionId)
+                .FirstOrDefault();
 
             if (competiotion == null)
             {
                 return NotFound("Competition does not exist");
             }
 
-            context.Competitions.Remove(competiotion);
-            await context.SaveChangesAsync();
+            try
+            {
+                competiotion.Competitors = null;
+                foreach (TimetableCell cell in competiotion.TimetableCells)
+                {
+                    cell.Competitors = null;
+                }
+                context.SaveChanges();
+                context.Competitions.Remove(competiotion);
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message + "\n" + ex.InnerException);
+            }
 
             return Ok(competiotion);
         }
