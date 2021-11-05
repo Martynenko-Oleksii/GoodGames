@@ -69,13 +69,7 @@ function changeProfileInfo() {
     let formData = new FormData();
     formData.append("image", file);
 
-    ServerRequest.send(
-      "POST",
-      requestUrl,
-      formData,
-      "text/plain",
-      false,
-      false)
+    ServerRequest.send("POST", requestUrl, formData, "text/plain", false, false)
       .then(data => console.log(data))
       .catch(err => console.log(err));
   }
