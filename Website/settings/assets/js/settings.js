@@ -83,7 +83,9 @@ function changeProfileInfo() {
   }
 
   function sendLoginChangeRequest() {
-    const requestUrl = "/api/users/change/login";
+    if (loginInputEl.value === Cookies.get("login")) {
+      return;
+    }
 
     const requestParams = new RequestParams("POST");
     requestParams.url = "/api/users/change/login";
@@ -98,6 +100,10 @@ function changeProfileInfo() {
   }
 
   function sendEmailChangeRequest() {
+    if (emailInputEl.value === Cookies.get("email")) {
+      return;
+    }
+
     const requestParams = new RequestParams("POST");
     requestParams.url = "/api/users/change/email";
     requestParams.body = {
