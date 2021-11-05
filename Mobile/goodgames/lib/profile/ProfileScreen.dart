@@ -152,13 +152,12 @@ class _ProfileState extends State<ProfileScreen>
                               child:  IconButton(
                                 icon: const Icon(Icons.edit_outlined , color: Colors.black,),
                                 onPressed: () {
-                                  Navigator.push<dynamic>(
+                                  Navigator.pushReplacement(
                                     context,
-                                    MaterialPageRoute<dynamic>(
+                                    MaterialPageRoute(
                                       builder: (BuildContext context) => ProfileeditPage(user: widget.user),
                                     ),
                                   );
-
                                 },
                               ),
                             ),

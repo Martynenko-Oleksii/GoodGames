@@ -80,9 +80,9 @@ class _ProfileeditState extends State<ProfileeditPage> {
                               color: Colors.white,
                             ),
                             onPressed: () {
-                              Navigator.push<dynamic>(
+                              Navigator.pushReplacement(
                                 context,
-                                MaterialPageRoute<dynamic>(
+                                MaterialPageRoute(
                                   builder: (BuildContext context) =>
                                       ProfileScreen(user: widget.user),
                                 ),

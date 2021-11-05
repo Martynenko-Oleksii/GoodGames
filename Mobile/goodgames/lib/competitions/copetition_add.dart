@@ -473,9 +473,9 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                     if (value.title == titleControl.text)
                                       {
                                         print(value),
-                                        Navigator.push<dynamic>(
+                                        Navigator.pushReplacement(
                                           context,
-                                          MaterialPageRoute<dynamic>(
+                                          MaterialPageRoute(
                                             builder: (BuildContext context) =>
                                                 CompetitionsScreen(
                                                     user: widget.user),
