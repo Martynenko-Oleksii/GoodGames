@@ -8,6 +8,6 @@ function pageLoaded() {
   const oldLogin = Cookies.get("login");
   const oldEmail = Cookies.get("email");
 
-  loginInputEl.placeholder = oldLogin;
-  emailInputEl.placeholder = oldEmail;
+  loginInputEl.value = oldLogin;
+  emailInputEl.value = oldEmail;
 }
