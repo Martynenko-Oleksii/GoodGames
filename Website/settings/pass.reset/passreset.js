@@ -100,7 +100,7 @@ function new_Pass(){
                             document.getElementById("avatar").src = "/assets/images/user-48.png";
                         }
                         document.getElementById("steap3").style.display = "none";
-                        document.getElementById("steap4").style.display = "block";
+                        document.getElementById("steap4").style.display = "inline-grid";
                     })
                     .catch(err => {
                         console.log(err);
