@@ -89,8 +89,16 @@ function new_Pass(){
 
                 ServerRequest.send(requestParams)
                     .then(data => {
-                        console.log("Пароль изменён.");
-                        console.log(data);
+                        Cookies.set('id', data.id, { expires: 7, path: '/' });
+                        Cookies.set('login', data.login, { expires: 7, path: '/' });
+                        Cookies.set('email', data.email, { expires: 7, path: '/' });
+                        if(data.avatarPath != null){
+                            Cookies.set('avatarPath', data.avatarPath, { expires: 7, path: '/' });
+                            document.getElementById("avatar").src = data.avatarPath;
+                        }else{
+                            Cookies.set('avatarPath', "/assets/images/user-48.png", { expires: 7, path: '/' });
+                            document.getElementById("avatar").src = "/assets/images/user-48.png";
+                        }
                         document.getElementById("steap3").style.display = "none";
                         document.getElementById("steap4").style.display = "block";
                     })
