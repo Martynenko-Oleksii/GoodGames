@@ -20,7 +20,7 @@ namespace GGBack.Data
         public ServerDbContext(DbContextOptions<ServerDbContext> options) 
             : base(options)
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
     }
 }
