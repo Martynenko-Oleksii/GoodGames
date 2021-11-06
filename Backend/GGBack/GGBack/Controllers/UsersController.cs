@@ -240,7 +240,7 @@ namespace GGBack.Controllers
 
         [Route("api/users/token")]
         [HttpPost]
-        public async Task<ActionResult> GetToken(User user)
+        public async Task<ActionResult<User>> GetToken(User user)
         {
             User dbUser = context.Users
                 .Where(u => u.Email.Equals(user.Email))
@@ -262,7 +262,7 @@ namespace GGBack.Controllers
                 return BadRequest(result);
             }
 
-            return Ok();
+            return Ok(new User { Token = dbUser.Token });
         }
 
         [Route("api/users/change/forgotten")]
