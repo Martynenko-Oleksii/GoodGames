@@ -37,7 +37,7 @@ namespace GGBack.Controllers
 
             int count = cells.Where(c => c.GridStage == 1).ToList().Count;
 
-            int cellsCount = 2;
+            int cellsCount = 1;
             while (count > cellsCount)
             {
                 cellsCount *= 2;

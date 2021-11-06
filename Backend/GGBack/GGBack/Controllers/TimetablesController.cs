@@ -87,21 +87,23 @@ namespace GGBack.Controllers
                     return BadRequest("Wrong time for games");
                 }
 
-                foreach (string team in teams)
-                {
-                    int competitorsCountPerTeam = competitors
-                        .Where(c => c.Name.Equals(team))
-                        .ToList().Count;
-
-                    if (competitorsCountPerTeam != teamSize)
-                    {
-                        return BadRequest($"Wrong competitors count in team {team}");
-                    }
-                }
+                
 
                 List<TimetableCell> cells = new List<TimetableCell>();
                 if (hasTeam)
                 {
+                    foreach (string team in teams)
+                    {
+                        int competitorsCountPerTeam = competitors
+                            .Where(c => c.Name.Equals(team))
+                            .ToList().Count;
+
+                        if (competitorsCountPerTeam != teamSize)
+                        {
+                            return BadRequest($"Wrong competitors count in team {team}");
+                        }
+                    }
+
                     if (competitorsCount % teamSize != 0)
                     {
                         return BadRequest("Wrong competitors count");
