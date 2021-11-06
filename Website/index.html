@@ -237,7 +237,7 @@
                         <div class="col-lg-4 col-md-6 col-12 d-lg-block d-none">
                             <div class="sidebar sticky-bar p-4" style="box-shadow: 0 0 3px rgba(0,0,0,0.2); border-radius: 5px;">
                                 <div class="mt-3 text-md-left text-center d-sm-flex">
-                                    <img src="/assets/images/user-48.png" style="width: 70px;" id="image_blocks" class="avatar float-md-left rounded-circle shadow mr-md-4" alt="">
+                                    <img src="/assets/images/user-48.png" id="avatar" style="width: 70px;" id="image_blocks" class="avatar float-md-left rounded-circle shadow mr-md-4" alt="">
 
                                     <div class="mt-md-4 ml-4 mt-sm-0" style="margin-left: 15px;">
                                         <a id="login_name" style="font-size: 20px;"> Гість </a>
@@ -407,6 +407,12 @@
             function open_my(){
                 document.getElementById("app_main").style.display = "none";
                 document.getElementById("app_my").style.display = "block";
+            }
+
+            if(Cookies.get("avatarPath") == null || Cookies.get("avatarPath") == "null"){
+                document.getElementById("avatar").src = "/assets/images/user-48.png"; 
+            }else{
+                document.getElementById("avatar").src = Cookies.get("avatarPath"); 
             }
         </script>
     </body>
