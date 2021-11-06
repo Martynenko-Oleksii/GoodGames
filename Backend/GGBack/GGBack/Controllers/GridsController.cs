@@ -37,21 +37,34 @@ namespace GGBack.Controllers
 
             int count = cells.Where(c => c.GridStage == 1).ToList().Count;
 
-            for (int i = 0; i < count; i++)
+            int cellsCount = 2;
+            while (count > cellsCount)
             {
-                string[] teamsArray = cells.Where(c => c.GridStage == 1)
-                    .ElementAt(i).Competitors
-                    .Select(c => c.Team).Distinct()
-                    .ToArray();
+                cellsCount *= 2;
+            }
 
-                string gridCell = "[\"" + teamsArray[0] + "\", \"" + teamsArray[1] + "\"]";
-
-                if (i != count - 1)
+            for (int i = 0; i < cellsCount; i++)
+            {
+                if (i < count)
                 {
-                    gridCell += ",";
-                }
+                    string[] teamsArray = cells.Where(c => c.GridStage == 1)
+                        .ElementAt(i).Competitors
+                        .Select(c => c.Team).Distinct()
+                        .ToArray();
 
-                teams.Insert(teams.Length-2, gridCell);
+                    string gridCell = "[\"" + teamsArray[0] + "\", \"" + teamsArray[1] + "\"]";
+
+                    if (i != count - 1)
+                    {
+                        gridCell += ",";
+                    }
+
+                    teams.Insert(teams.Length - 2, gridCell);
+                }
+                else
+                {
+                    teams.Insert(teams.Length - 2, ",[null,null]");
+                }
             }
             int stagesCount = cells
                 .Select(c => c.GridStage)
@@ -69,27 +82,28 @@ namespace GGBack.Controllers
                     stageResults.Append(",");
                 }
 
-                for (int j = 0; j < cellsByStage.Count; j++)
+                int cellsByStageCount = cellsByStage.Count;
+                for (int j = 0; j < cellsCount; j++)
                 {
                     StringBuilder result = new StringBuilder();
-                    if (cellsByStage.ElementAt(j).WinResult != null)
+                    if (j < cellsByStageCount)
                     {
-                        result.Append($"[{cellsByStage.ElementAt(j).WinResult.Score}],");
-                    }
-                    else
-                    {
-                        result.Append("[0,0]");
-                    }
+                        if (cellsByStage.ElementAt(j).WinResult != null)
+                        {
+                            result.Append($"[{cellsByStage.ElementAt(j).WinResult.Score}],");
 
-                    if (j != cellsByStage.Count - 1)
-                    {
-                        result.Append(",");
-                    }
+                            if (j != cellsByStage.Count - 1)
+                            {
+                                result.Append(",");
+                            }
 
-                    stageResults.Insert(stageResults.Length - 1, result);
+                            stageResults.Insert(stageResults.Length - 1, result);
+                        }
+                    }
                 }
 
-                results.Insert(results.Length - 1, stageResults);
+                if (stageResults.Length > 0)
+                    results.Insert(results.Length - 1, stageResults);
             }
 
             StringBuilder tournamentGrid = new StringBuilder();
