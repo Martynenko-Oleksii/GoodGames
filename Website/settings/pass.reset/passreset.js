@@ -129,6 +129,5 @@ function set_cookie(data){
         document.getElementById("avatar").src = data.avatarPath;
     }else{
         Cookies.set('avatarPath', "/assets/images/user-48.png", { expires: 7, path: '/' });
-        document.getElementById("avatar").src = "/assets/images/user-48.png";
     }
 }
