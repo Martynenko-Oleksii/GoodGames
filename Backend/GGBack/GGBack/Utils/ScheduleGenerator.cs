@@ -36,8 +36,11 @@ namespace GGBack.Utils
                 }
 
                 List<Competitor> competitorsPerTeam = competitors
-                    .Where(c => c.Team.Equals(teamsArray[teamIndex++]))
+                    .Where(c => c.Team.Equals(teamsArray[teamIndex]))
                     .ToList();
+
+                teamIndex++;
+
                 if (timetableCells[i] == null)
                 {
                     timetableCells[i] = new TimetableCell
@@ -60,7 +63,7 @@ namespace GGBack.Utils
                     }
                     else
                     {
-                        i = step - 1;
+                        i = step - 2;
                     }
                 }
 
@@ -68,6 +71,12 @@ namespace GGBack.Utils
                 if (step > timetableCells.Length / 2)
                 {
                     step = timetableCells.Length / 2;
+
+                    if (step < 1)
+                    {
+                        step = 1;
+                    }
+
                     isStepForcedChanged = true;
                 }
             }
@@ -89,7 +98,9 @@ namespace GGBack.Utils
             List<TimetableCell> cells = new List<TimetableCell>();
             for (int i = 0; i < timetableCells.Length; i++)
             {
-                if (timetableCells[i].Competitors.Count == fullCompetitorsCount)
+                int teamCountPerCell = timetableCells[i].Competitors
+                    .Select(c => c.Team).Distinct().ToList().Count;
+                if (teamCountPerCell == 2)
                 {
                     DateTime dt = new DateTime();
                     DateTime newDateTime = times.Last().AddHours(2);
@@ -175,7 +186,7 @@ namespace GGBack.Utils
                     }
                     else
                     {
-                        i = step - 1;
+                        i = step - 2;
                     }
                 }
 
@@ -183,6 +194,12 @@ namespace GGBack.Utils
                 if (step > timetableCells.Length / 2)
                 {
                     step = timetableCells.Length / 2;
+
+                    if (step < 1)
+                    {
+                        step = 1;
+                    }
+
                     isStepForcedChanged = true;
                 }
             }

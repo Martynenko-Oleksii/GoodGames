@@ -85,32 +85,34 @@ namespace GGBack.Controllers
                 List<TimetableCell> cells = new List<TimetableCell>();
                 if (sport.HasTeam)
                 {
-                    foreach (string team in teams)
+                    if (sport.TeamSize != 0)
                     {
-                        int competitorsCountPerTeam = competitors
-                            .Where(c => c.Name.Equals(team))
-                            .ToList().Count;
-
-                        if (competitorsCountPerTeam != sport.TeamSize && 
-                            sport.TeamSize != 0)
+                        foreach (string team in teams)
                         {
-                            return BadRequest($"Wrong competitors count in team {team}");
+                            int competitorsCountPerTeam = competitors
+                                .Where(c => c.Name.Equals(team))
+                                .ToList().Count;
+
+                            if (competitorsCountPerTeam != sport.TeamSize)
+                            {
+                                return BadRequest($"Wrong competitors count in team {team}");
+                            }
                         }
-                    }
 
-                    if (competitorsCount % sport.TeamSize != 0)
-                    {
-                        return BadRequest("Wrong competitors count");
-                    }
+                        if (competitorsCount % sport.TeamSize != 0)
+                        {
+                            return BadRequest("Wrong competitors count");
+                        }
 
-                    if (teamsCount < sport.MinTeamsCount)
-                    {
-                        return BadRequest("Wrong teams count");
-                    }
+                        if (teamsCount < sport.MinTeamsCount)
+                        {
+                            return BadRequest("Wrong teams count");
+                        }
 
-                    if (competitorsCount - teamsCount * sport.TeamSize != 0)
-                    {
-                        return BadRequest("Wrong competitors count per team");
+                        if (competitorsCount - teamsCount * sport.TeamSize != 0)
+                        {
+                            return BadRequest("Wrong competitors count per team");
+                        }
                     }
 
                     cells = ScheduleGenerator.GenerateForTeamSports(teams,

@@ -45,11 +45,11 @@ namespace GGBack.Controllers
                         .ToArray();
 
                 StringBuilder gridCell = new StringBuilder();
-                if (teams.Length == 2)
+                if (teamsArray.Length == 2)
                 {
                     gridCell.Append("[\"" + teamsArray[0] + "\", \"" + teamsArray[1] + "\"]");
                 }
-                else if (teams.Length == 1)
+                else if (teamsArray.Length == 1)
                 {
                     gridCell.Append("[\"" + teamsArray[0] + "\",null]");
                 }
