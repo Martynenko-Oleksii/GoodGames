@@ -1,13 +1,12 @@
-﻿using System;
+﻿using GGBack.Models;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace GGBack.Models
+namespace GGBack.Utils
 {
-    public class Competitor
+    public class CompetitorForRequest
     {
         public int Id { get; set; }
 
@@ -25,7 +24,6 @@ namespace GGBack.Models
 
         public string Team { get; set; }
 
-        [JsonIgnore]
         public List<Competition> Competitions { get; set; }
     }
 }
