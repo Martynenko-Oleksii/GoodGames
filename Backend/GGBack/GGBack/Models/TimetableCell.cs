@@ -14,10 +14,10 @@ namespace GGBack.Models
 
         public List<Competitor> Competitors { get; set; }
 
-        public Competition Competition { get; set; }
-
         public int GridStage { get; set; }
 
-        public WinResult WinResult { get; set; }
+        public int ScoreTeamOne { get; set; }
+
+        public int ScoreTeamTwo { get; set; }
     }
 }

@@ -11,7 +11,6 @@ namespace GGBack.Models
     {
         public int Id { get; set; }
 
-        [MaxLength(30)]
         public string Name { get; set; }
 
         public string Email { get; set; }
@@ -24,12 +23,8 @@ namespace GGBack.Models
 
         public string HealthState { get; set; }
 
-        [MaxLength(30)]
         public string Team { get; set; }
 
         public List<Competition> Competitions { get; set; }
-
-        [JsonIgnore]
-        public List<TimetableCell> TimetableCells { get; set; }
     }
 }

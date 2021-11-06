@@ -32,12 +32,11 @@ namespace GGBack.Models
         public List<Competitor> Competitors { get; set; }
 
         // Owner
-        public User User { get; set; }
+        public List<User> Users { get; set; }
 
-        [MaxLength(120)]
         public string StreamUrl { get; set; }
 
-        public int State { get; set; } // (“заплановане”, “проходить”, “завершене”)
+        public int State { get; set; }
 
         public List<TimetableCell> TimetableCells { get; set; }
     }

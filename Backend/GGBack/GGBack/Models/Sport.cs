@@ -26,8 +26,5 @@ namespace GGBack.Models
         // Followers
         [JsonIgnore]
         public List<User> Users { get; set; }
-
-        [JsonIgnore]
-        public List<Competition> Competitions { get; set; }
     }
 }
