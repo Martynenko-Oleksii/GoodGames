@@ -120,7 +120,7 @@ namespace GGBack.Controllers
                 }
                 else
                 {
-                    cells = ScheduleGenerator.GenerateForNoTeamSports(teams,
+                    cells = ScheduleGenerator.GenerateForNoTeamSports(
                                                 competitors, competition,
                                                 startDate, endDate,
                                                 startTime, endTime);

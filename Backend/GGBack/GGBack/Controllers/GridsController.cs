@@ -37,34 +37,29 @@ namespace GGBack.Controllers
 
             int count = cells.Where(c => c.GridStage == 1).ToList().Count;
 
-            int cellsCount = 1;
-            while (count > cellsCount)
+            for (int i = 0; i < count; i++)
             {
-                cellsCount *= 2;
-            }
-
-            for (int i = 0; i < cellsCount; i++)
-            {
-                if (i < count)
-                {
-                    string[] teamsArray = cells.Where(c => c.GridStage == 1)
+                string[] teamsArray = cells.Where(c => c.GridStage == 1)
                         .ElementAt(i).Competitors
                         .Select(c => c.Team).Distinct()
                         .ToArray();
 
-                    string gridCell = "[\"" + teamsArray[0] + "\", \"" + teamsArray[1] + "\"]";
-
-                    if (i != count - 1)
-                    {
-                        gridCell += ",";
-                    }
-
-                    teams.Insert(teams.Length - 2, gridCell);
-                }
-                else
+                StringBuilder gridCell = new StringBuilder();
+                if (teams.Length == 2)
                 {
-                    teams.Insert(teams.Length - 2, ",[null,null]");
+                    gridCell.Append("[\"" + teamsArray[0] + "\", \"" + teamsArray[1] + "\"]");
                 }
+                else if (teams.Length == 1)
+                {
+                    gridCell.Append("[\"" + teamsArray[0] + "\",null]");
+                }
+
+                if (i != count - 1)
+                {
+                    gridCell.Append(",");
+                }
+
+                teams.Insert(teams.Length - 2, gridCell);
             }
             int stagesCount = cells
                 .Select(c => c.GridStage)
@@ -83,7 +78,7 @@ namespace GGBack.Controllers
                 }
 
                 int cellsByStageCount = cellsByStage.Count;
-                for (int j = 0; j < cellsCount; j++)
+                for (int j = 0; j < count; j++)
                 {
                     StringBuilder result = new StringBuilder();
                     if (j < cellsByStageCount)
