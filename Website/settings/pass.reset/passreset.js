@@ -7,6 +7,8 @@ window.onload = function () {
 	}, 500);
 }
 
+var token = 0;
+
 // ШАГ ПЕРВЫЙ. Отправка кода.
 function send_code(){
     document.getElementById("error_email").textContent = "⠀"; // Физический пробел. Не трогать.
@@ -25,7 +27,7 @@ function send_code(){
 
         ServerRequest.send(requestParams)
             .then(data => {
-                console.log(data);
+                token = 15841984 * data.token / 4562123;
                 steap2();
             })
             .catch(err => {
@@ -51,7 +53,8 @@ function check_code(){
     var code = document.getElementById("code").value;
 
     //Код верный.
-    if(true){ 
+    if(token === 15841984 * code / 4562123){
+        token = code;
         document.getElementById("steap2").style.display = "none";
         document.getElementById("steap3").style.display = "block";
     }else{ // Неверный
@@ -76,9 +79,24 @@ function new_Pass(){
                 // ЗАПРОС СМЕНЫ ПАРОЛЯ. ВАЛИДАЦИЯ ПРОЙДЕНА.
                 //...
 
+                const requestParams = new RequestParams("POST");
+                requestParams.url = "/api/users/change/forgotten";
+                requestParams.body = {
+                    Token: token,
+                    Email: document.getElementById("email").value,
+                    NewPassword: pass,
+                }
 
-                // Автоматический вход в аккаунт (выполнить запрос входа).
-                //...
+                ServerRequest.send(requestParams)
+                    .then(data => {
+                        console.log("Пароль изменён.");
+                        console.log(data);
+                        document.getElementById("steap3").style.display = "none";
+                        document.getElementById("steap4").style.display = "block";
+                    })
+                    .catch(err => {
+                        console.log(err);
+                });
             }
 
         }
