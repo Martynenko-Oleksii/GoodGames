@@ -32,7 +32,7 @@ function send_code(){
             })
             .catch(err => {
                 console.log(err);
-                document.getElementById("error_email").textContent = "Помилка запиту.";
+                document.getElementById("error_email").textContent = "Такої пошти не знайдено в системі.";
         });
 
         
