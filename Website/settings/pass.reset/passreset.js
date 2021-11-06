@@ -18,7 +18,7 @@ function send_code(){
         //Ок. ОТПРАВКА КОДА НА ПОЧТУ
 
         const requestParams = new RequestParams("POST");
-        requestParams.url = "api/users/token";
+        requestParams.url = "/api/users/token";
         requestParams.body = {
             email: email,
         }
