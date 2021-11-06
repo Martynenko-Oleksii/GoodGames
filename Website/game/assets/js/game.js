@@ -94,7 +94,7 @@ function pageLoaded() {
             info.description;
         document.querySelector(".competitors-number").innerHTML =
             info.competitors.length.toString();
-        if (info.user.id !== Cookies.get('id')) {
+        if ( info.user.id.toString() !== Cookies.get('id') ) {
             document.getElementById('edit_autor_show').remove();
             document.getElementById('start_competitions').remove();
             if (!info.isOpen) {
