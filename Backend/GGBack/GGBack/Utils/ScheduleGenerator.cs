@@ -30,7 +30,7 @@ namespace GGBack.Utils
             int teamIndex = 0;
             for (int i = 0; i < timetableCells.Length; i += step)
             {
-                if (teamIndex > teamsArray.Length)
+                if (teamIndex >= teamsArray.Length)
                 {
                     break;
                 }
@@ -65,9 +65,10 @@ namespace GGBack.Utils
                     {
                         i = step - 2;
                     }
+
+                    step *= 2;
                 }
 
-                step *= 2;
                 if (step > timetableCells.Length / 2)
                 {
                     step = timetableCells.Length / 2;
@@ -155,7 +156,7 @@ namespace GGBack.Utils
             int competitorIndex = 0;
             for (int i = 0; i < timetableCells.Length; i += step)
             {
-                if (competitorIndex > competitorsArray.Length)
+                if (competitorIndex >= competitorsArray.Length)
                 {
                     break;
                 }
@@ -188,9 +189,10 @@ namespace GGBack.Utils
                     {
                         i = step - 2;
                     }
+
+                    step *= 2;
                 }
 
-                step *= 2;
                 if (step > timetableCells.Length / 2)
                 {
                     step = timetableCells.Length / 2;
