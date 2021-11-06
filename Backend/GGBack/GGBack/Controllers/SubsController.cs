@@ -87,12 +87,5 @@ namespace GGBack.Controllers
                 return BadRequest(ex.Message + "\n" + ex.InnerException);
             }
         }
-
-        [Route("api/subs")]
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Subscription>>> Get()
-        {
-            return await context.Subscriptions.ToListAsync();
-        }
     }
 }

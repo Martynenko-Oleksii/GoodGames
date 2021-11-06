@@ -1,13 +1,12 @@
-﻿using System;
+﻿using GGBack.Models;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace GGBack.Models
+namespace GGBack.Utils
 {
-    public class Competition
+    public class CompetitionForCreateRequest
     {
         public int Id { get; set; }
 
@@ -31,7 +30,7 @@ namespace GGBack.Models
 
         public List<Competitor> Competitors { get; set; }
 
-        public List<User> Users { get; set; }
+        public User User { get; set; }
 
         public string StreamUrl { get; set; }
 

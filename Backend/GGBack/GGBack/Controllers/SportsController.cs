@@ -16,8 +16,6 @@ namespace GGBack.Controllers
     [ApiController]
     public class SportsController : ControllerBase
     {
-        private static JsonSerializerOptions options = new JsonSerializerOptions { IgnoreNullValues = true };
-
         private ServerDbContext context;
 
         public SportsController(ServerDbContext context)
