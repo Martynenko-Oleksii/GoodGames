@@ -160,8 +160,6 @@ function sendInvitation(email) {
         return;
     }
 
-    const requestUrl = "/api/post";
-
     // get competition id
     const competitionId = parseInt(getUrlVars().id);
     if (!competitionId) {
@@ -178,7 +176,7 @@ function sendInvitation(email) {
     }
 
     const requestParams = new RequestParams("POST");
-    requestParams.url = "/api/competitions/" + competitionId;
+    requestParams.url = "/api/post";
     requestParams.body = {
         competitionId: competitionId,
         userId: userId,
