@@ -26,7 +26,6 @@ namespace GGBack.Models
         [JsonIgnore]
         public List<Competition> Competitions { get; set; }
 
-        [JsonIgnore]
         public string Token { get; set; }
     }
 }
