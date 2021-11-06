@@ -94,13 +94,13 @@ function pageLoaded() {
             info.description;
         document.querySelector(".competitors-number").innerHTML =
             info.competitors.length.toString();
-        if(info.user.login != Cookies.get('login')){
+        if (info.user.id !== Cookies.get('id')) {
             document.getElementById('edit_autor_show').remove();
             document.getElementById('start_competitions').remove();
-            if(info.isOpen == false){
+            if (!info.isOpen) {
                 document.getElementById('send_add_player').remove();
             }
-        }else{
+        } else {
 
         }
 
