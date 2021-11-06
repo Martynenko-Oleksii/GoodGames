@@ -17,7 +17,23 @@ function send_code(){
     if (re.test(String(email).toLowerCase())) {
         //Ок. ОТПРАВКА КОДА НА ПОЧТУ
 
-        steap2();
+        const requestParams = new RequestParams("POST");
+        requestParams.url = "api/users/token";
+        requestParams.body = {
+            email: email,
+        }
+
+        ServerRequest.send(requestParams)
+            .then(data => {
+                console.log(data);
+                steap2();
+            })
+            .catch(err => {
+                console.log(err);
+                document.getElementById("error_email").textContent = "Помилка запиту.";
+        });
+
+        
     } else {
         if (email.length === 0) {
             document.getElementById("error_email").textContent = "Введіть пошту.";
