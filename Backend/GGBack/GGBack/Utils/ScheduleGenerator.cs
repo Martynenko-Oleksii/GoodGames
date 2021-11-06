@@ -18,7 +18,7 @@ namespace GGBack.Utils
             int fullTeamsCount = 2;
             while (teams.Count > fullTeamsCount)
             {
-                fullTeamsCount *= 2; ;
+                fullTeamsCount *= 2;
             }
 
             TimetableCell[] timetableCells = new TimetableCell[fullTeamsCount / 2];
