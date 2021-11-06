@@ -89,18 +89,10 @@ function new_Pass(){
 
                 ServerRequest.send(requestParams)
                     .then(data => {
-                        Cookies.set('id', data.id, { expires: 7, path: '/' });
-                        Cookies.set('login', data.login, { expires: 7, path: '/' });
-                        Cookies.set('email', data.email, { expires: 7, path: '/' });
-                        if(data.avatarPath != null){
-                            Cookies.set('avatarPath', data.avatarPath, { expires: 7, path: '/' });
-                            document.getElementById("avatar").src = data.avatarPath;
-                        }else{
-                            Cookies.set('avatarPath', "/assets/images/user-48.png", { expires: 7, path: '/' });
-                            document.getElementById("avatar").src = "/assets/images/user-48.png";
-                        }
+                        console.log(data);
                         document.getElementById("steap3").style.display = "none";
                         document.getElementById("steap4").style.display = "inline-grid";
+                        set_cookie(data);
                     })
                     .catch(err => {
                         console.log(err);
@@ -126,4 +118,17 @@ function back_p1(){
 function steap2(){
     document.getElementById("steap1").style.display = "none";
     document.getElementById("steap2").style.display = "block";
+}
+
+function set_cookie(data){
+    Cookies.set('id', data.id, { expires: 7, path: '/' });
+    Cookies.set('login', data.login, { expires: 7, path: '/' });
+    Cookies.set('email', data.email, { expires: 7, path: '/' });
+    if(data.avatarPath != null){
+        Cookies.set('avatarPath', data.avatarPath, { expires: 7, path: '/' });
+        document.getElementById("avatar").src = data.avatarPath;
+    }else{
+        Cookies.set('avatarPath', "/assets/images/user-48.png", { expires: 7, path: '/' });
+        document.getElementById("avatar").src = "/assets/images/user-48.png";
+    }
 }
