@@ -56,15 +56,10 @@ namespace GGBack.Controllers
                     .Select(c => c.Team)
                     .Distinct()
                     .ToList();
+                Sport sport = competition.Sport;
 
                 int competitorsCount = competitors.Count;
                 int teamsCount = teams.Count;
-
-                bool hasTeam = competition.Sport.HasTeam;
-                bool ghasGrid = competition.Sport.HasGrid;
-                int minCompetitorsCount = competition.Sport.MinCompetitorsCount;
-                int minTeamsCount = competition.Sport.MinTeamsCount;
-                int teamSize = competition.Sport.TeamSize;
 
                 DateTime startDate = competition.StartDate;
                 DateTime endDate = competition.EndDate;
@@ -72,25 +67,23 @@ namespace GGBack.Controllers
                 DateTime startTime = timeBoundary.Start;
                 DateTime endTime = timeBoundary.End;
 
-                if (competitorsCount < minCompetitorsCount)
+                if (competitorsCount < sport.MinCompetitorsCount)
                 {
                     return BadRequest("Wrong competitors count");
                 }
 
-                if (teamsCount % 2 != 0)
+                if (teams.Count < 2)
                 {
-                    return BadRequest("teams count % 2 != 0");
+                    return BadRequest("Wrong teams count");
                 }
 
                 if (timeBoundary.End.Hour - timeBoundary.Start.Hour < 2)
                 {
-                    return BadRequest("Wrong time for games");
+                    return BadRequest("Wrong time for games: min 2 hours");
                 }
 
-                
-
                 List<TimetableCell> cells = new List<TimetableCell>();
-                if (hasTeam)
+                if (sport.HasTeam)
                 {
                     foreach (string team in teams)
                     {
@@ -98,23 +91,24 @@ namespace GGBack.Controllers
                             .Where(c => c.Name.Equals(team))
                             .ToList().Count;
 
-                        if (competitorsCountPerTeam != teamSize)
+                        if (competitorsCountPerTeam != sport.TeamSize && 
+                            sport.TeamSize != 0)
                         {
                             return BadRequest($"Wrong competitors count in team {team}");
                         }
                     }
 
-                    if (competitorsCount % teamSize != 0)
+                    if (competitorsCount % sport.TeamSize != 0)
                     {
                         return BadRequest("Wrong competitors count");
                     }
 
-                    if (teamsCount < minTeamsCount)
+                    if (teamsCount < sport.MinTeamsCount)
                     {
                         return BadRequest("Wrong teams count");
                     }
 
-                    if (competitorsCount - teamsCount * teamSize != 0)
+                    if (competitorsCount - teamsCount * sport.TeamSize != 0)
                     {
                         return BadRequest("Wrong competitors count per team");
                     }
