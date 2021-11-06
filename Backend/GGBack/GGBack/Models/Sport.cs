@@ -23,11 +23,7 @@ namespace GGBack.Models
 
         public bool HasGrid { get; set; }
 
-        // Followers
         [JsonIgnore]
         public List<User> Users { get; set; }
-
-        [JsonIgnore]
-        public List<Competition> Competitions { get; set; }
     }
 }

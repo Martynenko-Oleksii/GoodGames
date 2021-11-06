@@ -1,5 +1,6 @@
 ﻿using GGBack.Data;
 using GGBack.Models;
+using GGBack.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +29,7 @@ namespace GGBack.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Competitor>> Post(Competitor competitor)
+        public async Task<ActionResult<Competitor>> Post(CompetitorForRequest competitor)
         {
             Competitor finalCompetitor = null;
 

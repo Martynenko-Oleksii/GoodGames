@@ -18,8 +18,6 @@ namespace GGBack.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private static JsonSerializerOptions options = new JsonSerializerOptions { IgnoreNullValues = true };
-
         private ServerDbContext context;
         private readonly IWebHostEnvironment env;
 

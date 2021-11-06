@@ -1,5 +1,6 @@
 ﻿using GGBack.Data;
 using GGBack.Models;
+using GGBack.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,8 +14,6 @@ namespace GGBack.Controllers
     [ApiController]
     public class CompetitionsController : ControllerBase
     {
-        private static JsonSerializerOptions options = new JsonSerializerOptions { IgnoreNullValues = true };
-
         private ServerDbContext context;
 
         public CompetitionsController(ServerDbContext context)
@@ -31,54 +30,69 @@ namespace GGBack.Controllers
 
         [Route("api/competitions/{competitionId}")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Competition>>> GetCompetition(int competitionId)
+        public ActionResult<IEnumerable<CompetitionForCreateRequest>> GetCompetition(int competitionId)
         {
-            return await context.Competitions
-                .Include(c => c.User)
-                .Include(c => c.Sport)
-                .Include(c => c.Competitors)
-                .Include(c => c.TimetableCells)
-                    .ThenInclude(t => t.Competitors)
-                .Where(c => c.Id == competitionId)
-                .Select(c => new Competition
-                {
-                    Id = c.Id,
-                    Title = c.Title,
-                    Description = c.Description,
-                    IsOpen = c.IsOpen,
-                    Sport = c.Sport,
-                    AgeLimit = c.AgeLimit,
-                    City = c.City,
-                    StartDate = c.StartDate,
-                    EndDate = c.EndDate,
-                    IsPublic = c.IsPublic,
-                    Competitors = c.Competitors,
-                    User = new User
-                    {
-                        Id = c.User.Id,
-                        Login = c.User.Login
-                    },
-                    StreamUrl = c.StreamUrl,
-                    State = c.State,
-                    TimetableCells = c.TimetableCells
-                })
-                .ToListAsync();
+            //TODO: add Users to response
+            Competition dbCompetition = context.Competitions
+                    .Include(c => c.Users)
+                    .Include(c => c.Sport)
+                    .Include(c => c.Competitors)
+                    .Where(c => c.Id == competitionId)
+                    .FirstOrDefault();
+
+            CompetitionForCreateRequest result = new CompetitionForCreateRequest
+            {
+                Id = dbCompetition.Id,
+                Title = dbCompetition.Title,
+                Description = dbCompetition.Description,
+                IsOpen = dbCompetition.IsOpen,
+                Sport = dbCompetition.Sport,
+                AgeLimit = dbCompetition.AgeLimit,
+                City = dbCompetition.City,
+                StartDate = dbCompetition.StartDate,
+                EndDate = dbCompetition.EndDate,
+                IsPublic = dbCompetition.IsPublic,
+                Competitors = dbCompetition.Competitors,
+                User = dbCompetition.Users.ElementAt(0),
+                StreamUrl = dbCompetition.StreamUrl,
+                State = dbCompetition.State,
+            };
+
+            List<CompetitionForCreateRequest> results = 
+                new List<CompetitionForCreateRequest>();
+            results.Add(result);
+
+            return results;
         }
 
         [Route("api/competitions/users/{userId}")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Competition>>> GetCompetitions(int userId)
         {
-            return await context.Competitions
-                .Include(c => c.User)
-                .Where(c => c.User.Id == userId)
-                .Select(c => new Competition
+            try
+            {
+                User dbUser = context.Users.Find(userId);
+
+                if (dbUser == null)
                 {
-                    Id = c.Id,
-                    Title = c.Title,
-                    StartDate = c.StartDate
-                })
-                .ToListAsync();
+                    return BadRequest("Wrong user id");
+                }
+
+                return await context.Competitions
+                    .Include(c => c.Users)
+                    .Where(c => c.Users.Contains(dbUser))
+                    .Select(c => new Competition
+                    {
+                        Id = c.Id,
+                        Title = c.Title,
+                        StartDate = c.StartDate
+                    })
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message + "\n" + ex.InnerException);
+            }
         }
 
         [Route("api/competitions/delete/{competitionId}")]
@@ -90,27 +104,28 @@ namespace GGBack.Controllers
                 return BadRequest("invalid competition id");
             }
 
-            Competition competiotion = context.Competitions
+            Competition competition = context.Competitions
                 .Include(c => c.Competitors)
                 .Include(c => c.TimetableCells)
                     .ThenInclude(t => t.Competitors)
                 .Where(c => c.Id == competitionId)
                 .FirstOrDefault();
 
-            if (competiotion == null)
+            if (competition == null)
             {
-                return NotFound("Competition does not exist");
+                return BadRequest("Competition does not exist");
             }
 
             try
             {
-                competiotion.Competitors = null;
-                foreach (TimetableCell cell in competiotion.TimetableCells)
+                competition.Competitors = null;
+                foreach (TimetableCell cell in competition.TimetableCells)
                 {
                     cell.Competitors = null;
                 }
                 context.SaveChanges();
-                context.Competitions.Remove(competiotion);
+                context.TimetableCells.RemoveRange(competition.TimetableCells);
+                context.Competitions.Remove(competition);
                 await context.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -118,50 +133,52 @@ namespace GGBack.Controllers
                 return BadRequest(ex.Message + "\n" + ex.InnerException);
             }
 
-            return Ok(competiotion);
+            return Ok(competition);
         }
 
         [Route("api/competitions/create")]
         [HttpPost]
-        public async Task<ActionResult<Competition>> PostNewCompetition(Competition competition)
+        public async Task<ActionResult<IEnumerable<User>>> PostNewCompetition(CompetitionForCreateRequest competitionForCreateRequest)
         {
+            if (competitionForCreateRequest == null)
+            {
+                return BadRequest("Competition is null");
+            }
+
+            Competition competition = new Competition
+            {
+                Title = competitionForCreateRequest.Title,
+                Description = competitionForCreateRequest.Description,
+                IsOpen = competitionForCreateRequest.IsOpen,
+                AgeLimit = competitionForCreateRequest.AgeLimit,
+                City = competitionForCreateRequest.City,
+                StartDate = competitionForCreateRequest.StartDate,
+                EndDate = competitionForCreateRequest.EndDate,
+                IsPublic = competitionForCreateRequest.IsPublic,
+                Users = new List<User>()
+            };
+
             try
             {
-                competition.User = context.Users.Find(competition.User.Id);
-                competition.Sport = context.Sports.Find(competition.Sport.Id);
+                competition.Users.Add(context.Users.Find(competitionForCreateRequest.User.Id));
+                competition.Sport = context.Sports.Find(competitionForCreateRequest.Sport.Id);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.InnerException);
-            }
-
-            if (competition == null)
-            {
-                return BadRequest("null");
-            }
-
-            if(competition.User == null)
-            {
-                return BadRequest("no owner");
-            }
-
-            if (competition.Title == null)
-            {
-                return BadRequest("no title");
-            }
-
-            if (context.Competitions.Any(comp => comp.Title == competition.Title))
-            {
-                return BadRequest("title collision");
+                return BadRequest(ex.Message + "\n" + ex.InnerException);
             }
 
             competition.State = 0;
 
-            Competition res = new Competition { Id = competition.Id, Title = competition.Title };
+            Competition res = new Competition 
+            { 
+                Id = competition.Id, 
+                Title = competition.Title,
+                StartDate = competition.StartDate
+            };
 
             try
             {
-
                 context.Competitions.Add(competition);
                 await context.SaveChangesAsync();
             }
