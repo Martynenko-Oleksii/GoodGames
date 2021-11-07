@@ -61,6 +61,7 @@ namespace GGBack.Controllers
 
                 teams.Insert(teams.Length - 2, gridCell);
             }
+
             int stagesCount = cells
                 .Select(c => c.GridStage)
                 .Distinct().ToList().Count;
@@ -72,11 +73,6 @@ namespace GGBack.Controllers
 
                 StringBuilder stageResults = new StringBuilder("[]");
 
-                if (i != stagesCount)
-                {
-                    stageResults.Append(",");
-                }
-
                 int cellsByStageCount = cellsByStage.Count;
                 for (int j = 0; j < count; j++)
                 {
@@ -85,16 +81,60 @@ namespace GGBack.Controllers
                     {
                         if (cellsByStage.ElementAt(j).WinResult != null)
                         {
-                            result.Append($"[{cellsByStage.ElementAt(j).WinResult.Score}],");
-
-                            if (j != cellsByStage.Count - 1)
+                            if (i != 1)
                             {
-                                result.Append(",");
-                            }
+                                string[] cellByStageTeams = cellsByStage.ElementAt(j).Competitors
+                                    .Select(c => c.Team).Distinct()
+                                    .ToArray();
+                                List<Competitor> competitorsOne = cellsByStage.ElementAt(j).Competitors
+                                    .Where(c => c.Team.Equals(cellByStageTeams[0]))
+                                    .ToList();
+                                List<Competitor> competitorsTwo = cellsByStage.ElementAt(j).Competitors
+                                    .Where(c => c.Team.Equals(cellByStageTeams[1]))
+                                    .ToList();
 
-                            stageResults.Insert(stageResults.Length - 1, result);
+                                int cellIdOne = cells
+                                    .Where(c => c.GridStage == i - 1 &&
+                                        c.Competitors.Contains(competitorsOne.ElementAt(0)))
+                                    .Select(c => c.Id).First();
+
+                                int cellIdTwo = cells
+                                    .Where(c => c.GridStage == i - 1 &&
+                                        c.Competitors.Contains(competitorsTwo.ElementAt(0)))
+                                    .Select(c => c.Id).First();
+
+                                if (cellIdOne < cellIdTwo)
+                                {
+                                    result.Append($"[{cellsByStage.ElementAt(j).WinResult.Score}]");
+                                }
+                                else if (cellIdOne > cellIdTwo)
+                                {
+                                    string[] scoreArr = cellsByStage.ElementAt(j).WinResult.Score.Split(',');
+                                    result.Append($"[{scoreArr[1]},{scoreArr[0]}]");
+                                }
+                            }
+                            else
+                            {
+                                result.Append($"[{cellsByStage.ElementAt(j).WinResult.Score}]");
+                            }
                         }
+                        else
+                        {
+                            result.Append("[]");
+                        }
+
+                        if (j != cellsByStage.Count - 1)
+                        {
+                            result.Append(",");
+                        }
+
+                        stageResults.Insert(stageResults.Length - 1, result);
                     }
+                }
+
+                if (i != stagesCount)
+                {
+                    stageResults.Append(",");
                 }
 
                 if (stageResults.Length > 0)

@@ -23,7 +23,7 @@ namespace GGBack.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post(WinResult winResult)
+        public ActionResult Post(WinResult winResult)
         {
             if (winResult == null)
             {
@@ -44,10 +44,13 @@ namespace GGBack.Controllers
 
             WinResult actualResult = new WinResult
             {
+                TeamOne = winResult.TeamOne,
+                TeamTwo = winResult.TeamTwo,
                 Score = winResult.Score
             };
             context.WinResults.Add(actualResult);
             cell.WinResult = actualResult;
+            context.SaveChanges();
 
             bool isGenerated = ScheduleGenerator.GenerateForNewResults(cell, context);
 
@@ -55,8 +58,6 @@ namespace GGBack.Controllers
             {
                 return BadRequest("Generating error");
             }
-
-            await context.SaveChangesAsync();
 
             return Ok();
         }

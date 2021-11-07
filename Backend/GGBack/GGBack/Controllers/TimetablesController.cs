@@ -83,6 +83,7 @@ namespace GGBack.Controllers
                 }
 
                 List<TimetableCell> cells = new List<TimetableCell>();
+                int startCount = 0;
                 if (sport.HasTeam)
                 {
                     if (sport.TeamSize != 0)
@@ -118,14 +119,16 @@ namespace GGBack.Controllers
                     cells = ScheduleGenerator.GenerateForTeamSports(teams,
                                                 competitors, competition,
                                                 startDate, endDate,
-                                                startTime, endTime);
+                                                startTime, endTime, 
+                                                out startCount, context);
                 }
                 else
                 {
                     cells = ScheduleGenerator.GenerateForNoTeamSports(
                                                 competitors, competition,
                                                 startDate, endDate,
-                                                startTime, endTime);
+                                                startTime, endTime,
+                                                out startCount, context);
                 }
 
                 if (cells == null)
@@ -133,8 +136,38 @@ namespace GGBack.Controllers
                     return BadRequest("Error :(");
                 }
 
-                context.TimetableCells.AddRange(cells);
                 competition.State = 1;
+
+                if (startCount > 2)
+                {
+                    int count = startCount / 4;
+                    int gridStage = 3;
+                    while (count != 1)
+                    {
+                        for (int i = 0; i < count; i++)
+                        {
+                            context.TimetableCells.Add(new TimetableCell
+                            {
+                                Competition = competition,
+                                GridStage = gridStage
+                            });
+                        }
+
+                        gridStage++;
+                        count /= 2;
+                    }
+
+                    context.TimetableCells.Add(new TimetableCell
+                    {
+                        Competition = competition,
+                        GridStage = gridStage
+                    });
+                    context.TimetableCells.Add(new TimetableCell
+                    {
+                        Competition = competition,
+                        GridStage = gridStage
+                    });
+                }
                 await context.SaveChangesAsync();
 
                 return Ok();
