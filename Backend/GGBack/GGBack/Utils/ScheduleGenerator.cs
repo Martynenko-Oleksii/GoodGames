@@ -25,20 +25,15 @@ namespace GGBack.Utils
 
             string[] teamsArray = teams.ToArray();
 
-            int step = 1;
-            bool isStepForcedChanged = false;
+            int changedStep = 1;
+            int step = changedStep;
             int teamIndex = 0;
             for (int i = 0; i < timetableCells.Length; i += step)
             {
-                if (teamIndex >= teamsArray.Length)
-                {
-                    break;
-                }
-
+                step = changedStep;
                 List<Competitor> competitorsPerTeam = competitors
                     .Where(c => c.Team.Equals(teamsArray[teamIndex]))
                     .ToList();
-
                 teamIndex++;
 
                 if (timetableCells[i] == null)
@@ -55,30 +50,26 @@ namespace GGBack.Utils
                     timetableCells[i].Competitors.AddRange(competitorsPerTeam);
                 }
 
-                if (i + step >= timetableCells.Length)
+                if (teamIndex >= teamsArray.Length)
                 {
-                    if (isStepForcedChanged)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        i = step - 2;
-                    }
-
-                    step *= 2;
+                    break;
                 }
 
-                if (step > timetableCells.Length / 2)
+                if (i + step >= timetableCells.Length)
                 {
-                    step = timetableCells.Length / 2;
+                    i = step - 2;
+                    step = 1;
+                    changedStep *= 2;
+                }
 
-                    if (step < 1)
+                if (changedStep > timetableCells.Length / 2)
+                {
+                    changedStep = timetableCells.Length / 2;
+
+                    if (changedStep < 1)
                     {
-                        step = 1;
+                        changedStep = 1;
                     }
-
-                    isStepForcedChanged = true;
                 }
             }
 
@@ -95,11 +86,12 @@ namespace GGBack.Utils
                     startTime.Hour - 2, startTime.Minute, 0));
             }
 
-            int fullCompetitorsCount = competition.Sport.MinCompetitorsCount;
-            List<TimetableCell> cells = new List<TimetableCell>();
-            for (int i = 0; i < timetableCells.Length; i++)
+            List<TimetableCell> cells = new List<TimetableCell>(timetableCells);
+            SetFullCells(cells, times);
+
+            for (int i = 0; i < cells.Count; i++)
             {
-                int teamCountPerCell = timetableCells[i].Competitors
+                int teamCountPerCell = cells.ElementAt(i).Competitors
                     .Select(c => c.Team).Distinct().ToList().Count;
                 if (teamCountPerCell == 2)
                 {
@@ -107,7 +99,8 @@ namespace GGBack.Utils
                     DateTime newDateTime = times.Last().AddHours(2);
                     if (newDateTime < endDate.AddDays(1))
                     {
-                        if (newDateTime.AddHours(2) < endTime)
+                        if (newDateTime.AddHours(2).Hour <= endTime.Hour &&
+                            newDateTime.Minute <= endTime.Minute)
                         {
                             dt = newDateTime;
                             times.Add(newDateTime);
@@ -127,15 +120,14 @@ namespace GGBack.Utils
                         return null;
                     }
 
-                    timetableCells[i].DateTime = dt;
+                    cells.ElementAt(i).DateTime = dt;
                 }
-
-                cells.Add(timetableCells[i]);
             }
 
             return cells;
         }
 
+        //TODO
         public static List<TimetableCell> GenerateForNoTeamSports(
             List<Competitor> competitors, Competition competition,
             DateTime startDate, DateTime endDate,
@@ -344,6 +336,32 @@ namespace GGBack.Utils
             }
 
             return true;
+        }
+
+        private static void SetFullCells(List<TimetableCell> cells, List<DateTime> times)
+        {
+            Competition competition = cells.ElementAt(0).Competition;
+
+            for (int i = 0; i < cells.Count; i += 2)
+            {
+                int cellOneTeamsCount = cells.ElementAt(i).Competitors
+                    .Select(c => c.Team).Distinct().ToList().Count;
+                int cellTwoTeamsCount = cells.ElementAt(i + 1).Competitors
+                    .Select(c => c.Team).Distinct().ToList().Count;
+
+                if (cellOneTeamsCount == 1 && cellTwoTeamsCount == 1)
+                {
+                    List<Competitor> fullCompetitors = new List<Competitor>();
+                    fullCompetitors.AddRange(cells.ElementAt(i).Competitors);
+                    fullCompetitors.AddRange(cells.ElementAt(i + 1).Competitors);
+                    cells.Add(new TimetableCell
+                    {
+                        Competitors = fullCompetitors,
+                        Competition = competition,
+                        GridStage = 2
+                    });
+                }
+            }
         }
     }
 }
