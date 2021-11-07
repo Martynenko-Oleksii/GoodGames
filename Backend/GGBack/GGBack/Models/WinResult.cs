@@ -9,6 +9,10 @@ namespace GGBack.Models
     {
         public int Id { get; set; }
 
+        public string TeamOne { get; set; }
+
+        public string TeamTwo { get; set; }
+
         public string Score { get; set; }
     }
 }
