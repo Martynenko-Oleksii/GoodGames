@@ -30,7 +30,8 @@ namespace GGBack.Controllers
                 return await context.TimetableCells
                     .Include(t => t.Competitors)
                     .Include(t => t.WinResult)
-                    .Where(t => t.Competition.Id == competitionId)
+                    .Where(t => t.Competition.Id == competitionId && 
+                        t.Competitors.Select(c => c.Team).Distinct().ToList().Count == 2)
                     .ToListAsync();
             }
             catch (Exception ex)
