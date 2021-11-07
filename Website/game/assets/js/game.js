@@ -10,7 +10,7 @@ function pageLoaded() {
     }
 
     getCompetitionInfoFromServer(competitionId);
-    //parseServerResponse([true]);
+    /* --> parseServerResponse([true]); */
 
     function getCompetitionInfoFromServer(competitionId) {
         const requestParams = new RequestParams();
@@ -23,39 +23,85 @@ function pageLoaded() {
 
     function parseServerResponse(data) {
         // test data
-        /*data = [
+        /* --> data = [
             {
-                "id": 2,
-                "title": "tespetition",
+                "id": 1,
+                "title": "Турнир CS:Go",
+                "description": "Тестирование соренвования.",
                 "isOpen": false,
-                "sport": {
-                    "id": 1,
-                    "title": "Футбол",
-                    "minCompetitorsCount": 22,
-                    "hasTeam": true,
-                    "minTeamsCount": 2,
-                    "teamSize": 11,
-                    "hasGrid": true
-                },
-                "ageLimit": "58",
-                "city": "Sidney",
-                "startDate": "2021-10-08T00:00:00",
-                "endDate": "2021-10-30T00:00:00",
-                "isPublic": false,
-                "competitors": [],
+                "sport": null,
+                "ageLimit": "8",
+                "city": "Харків",
+                "startDate": "2022-02-01T00:00:00",
+                "endDate": "2022-02-04T00:00:00",
+                "isPublic": true,
+                "competitors": [
+                    {
+                        "id": 1,
+                        "name": "1",
+                        "email": "gg1@gg.com",
+                        "age": 18,
+                        "gender": "m",
+                        "weigth": 12,
+                        "healthState": "Відмінне",
+                        "team": "1"
+                    },
+                    {
+                        "id": 2,
+                        "name": "2",
+                        "email": "gg2@gg.com",
+                        "age": 2,
+                        "gender": "m",
+                        "weigth": 2,
+                        "healthState": "Відмінне",
+                        "team": "2"
+                    },
+                    {
+                        "id": 3,
+                        "name": "3",
+                        "email": "gg3@gg.com",
+                        "age": 3,
+                        "gender": "m",
+                        "weigth": 3,
+                        "healthState": "Відмінне",
+                        "team": "3"
+                    },
+                    {
+                        "id": 4,
+                        "name": "4",
+                        "email": "gg4@gg.com",
+                        "age": 4,
+                        "gender": "m",
+                        "weigth": 4,
+                        "healthState": "Відмінне",
+                        "team": "4"
+                    },
+                    {
+                        "id": 5,
+                        "name": "5",
+                        "email": "gg5@gg.com",
+                        "age": 5,
+                        "gender": "m",
+                        "weigth": 5,
+                        "healthState": "Відмінне",
+                        "team": "5"
+                    }
+                ],
                 "user": {
                     "id": 1,
-                    "login": "testakk",
-                    "email": null,
-                    "password": null,
+                    "avatarPath": "/avatars/Avatar.png",
+                    "login": "Stamir",
+                    "email": "stasik1214x5@gmail.com",
+                    "password": "stas1214",
                     "subscription": null,
-                    "sports": null
+                    "sports": null,
+                    "token": null
                 },
                 "streamUrl": null,
-                "state": "planned",
+                "state": 0,
                 "timetableCells": null
             }
-        ]*/
+        ] */
 
         // data приходит в виде массива с одним элементом - объектом с информацией
         if (data.length === 0) {
@@ -102,6 +148,56 @@ function pageLoaded() {
             }
         } else {
 
+        }
+
+        //Рассписание
+        if(info.timetableCells != null){
+            document.getElementById('timetable_none').remove();
+
+            const TimeTableBodyEl = document.querySelector(".generate_shedule");
+
+            for (let timetableCells of info.timetableCells) { //
+                TimeTableBodyEl.innerHTML +=
+                `<div class="widget widget-four" style="margin-bottom: 20px;">
+                    <div class="widget-heading">
+                        <h5 class="">${timetableCells} Дата</h5>
+                        <a class="btn btn-outline-info btn-sm" id="edit_autor_show" onclick="fixation('0');">Фіксація результатів</a>
+                    </div>
+
+                    <div class="widget-content">
+                        <div class="order-summary">
+                            <div class="summary-list summary-income">
+                                <div class="summery-info">
+                                    <div class="w-icon">
+                                        <ion-icon name="people-circle-outline"></ion-icon>
+                                    </div>
+                                    <div class="w-summary-details">
+                                        <div class="w-summary-info">
+                                            <h6>Команда <span class="summary-count" id="name_t1_0"> Крепкие яйца </span></h6>
+                                            <p class="summary-average"><a class="card" style="padding: 0.75rem; margin-top: 0px;" id="result_t1_0">0</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="summary-list summary-expenses">
+                                <div class="summery-info">
+                                    <div class="w-icon">
+                                        <ion-icon name="people-circle-outline"></ion-icon>
+                                    </div>
+                                    <div class="w-summary-details">
+                                        <div class="w-summary-info">
+                                            <h6>Команда <span class="summary-count" id="name_t2_0"> Сладкие огурчики </span></h6>
+                                            <p class="summary-average"><a class="card" style="padding: 0.75rem; margin-top: 0px;" id="result_t2_0">0</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>`;
+            }
         }
 
         // if teams number less than 2 - hide start competition button
@@ -309,3 +405,95 @@ function show_main(){
     document.getElementById('edit_shedule').style.display = "none";
     document.getElementById('show_main').style.display = "none";
 }
+
+
+
+
+/*
+TEST DATA 1
+
+{
+    "id": 1,
+    "title": "Турнир CS:Go",
+    "description": "Тестирование соренвования.",
+    "isOpen": false,
+    "sport": null,
+    "ageLimit": "8",
+    "city": "Харків",
+    "startDate": "2022-02-01T00:00:00",
+    "endDate": "2022-02-04T00:00:00",
+    "isPublic": true,
+    "competitors": [
+        {
+            "id": 1,
+            "name": "1",
+            "email": "gg1@gg.com",
+            "age": 18,
+            "gender": "m",
+            "weigth": 12,
+            "healthState": "Відмінне",
+            "team": "1"
+        },
+        {
+            "id": 2,
+            "name": "2",
+            "email": "gg2@gg.com",
+            "age": 2,
+            "gender": "m",
+            "weigth": 2,
+            "healthState": "Відмінне",
+            "team": "2"
+        },
+        {
+            "id": 3,
+            "name": "3",
+            "email": "gg3@gg.com",
+            "age": 3,
+            "gender": "m",
+            "weigth": 3,
+            "healthState": "Відмінне",
+            "team": "3"
+        },
+        {
+            "id": 4,
+            "name": "4",
+            "email": "gg4@gg.com",
+            "age": 4,
+            "gender": "m",
+            "weigth": 4,
+            "healthState": "Відмінне",
+            "team": "4"
+        },
+        {
+            "id": 5,
+            "name": "5",
+            "email": "gg5@gg.com",
+            "age": 5,
+            "gender": "m",
+            "weigth": 5,
+            "healthState": "Відмінне",
+            "team": "5"
+        }
+    ],
+    "user": {
+        "id": 1,
+        "avatarPath": "/avatars/Avatar.png",
+        "login": "Stamir",
+        "email": "stasik1214x5@gmail.com",
+        "password": "stas1214",
+        "subscription": null,
+        "sports": null,
+        "token": null
+    },
+    "streamUrl": null,
+    "state": 0,
+    "timetableCells": null
+}
+
+*/
+
+/*
+TEST DATA 2
+
+
+*/
