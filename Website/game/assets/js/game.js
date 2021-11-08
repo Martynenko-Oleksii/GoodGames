@@ -311,10 +311,11 @@ function openFixationModalWindow(timetableCellId) {
   resultT1EditEl.value = team1ResultEl.textContent;
   resultT2EditEl.value = team2ResultEl.textContent;
 
-  document.querySelector("#save_edit").onclick = `fixResults( ${timetableCellId} )`;
+  document.querySelector("#save_edit").onclick = `fixResults(${timetableCellId});`;
 }
 
 function fixResults(timetableCellId) {
+  console.log("fixResult function works")
   const team1Result = document.querySelector("#result_t1_edit").value;
   const team2Result = document.querySelector("#result_t2_edit").value;
 
