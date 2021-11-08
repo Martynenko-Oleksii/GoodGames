@@ -318,16 +318,8 @@ function fixResults(timetableCellId) {
   const team1Result = document.querySelector("#result_t1_edit").value;
   const team2Result = document.querySelector("#result_t2_edit").value;
 
-  updateDom();
-
-
-  function updateDom() {
-    document.querySelector("#modal_edit").style.display = "none";
-    const team1ResultElSelector = `#timetableCell-${timetableCellId} .team1-result`;
-    const team2ResultElSelector = `#timetableCell-${timetableCellId} .team2-result`;
-    document.querySelector(team1ResultElSelector).textContent = resultT1EditEl.value;
-    document.querySelector(team2ResultElSelector).textContent = resultT2EditEl.value;
-  }
+  document.querySelector("#modal_edit").style.display = "none";
+  sendServerRequest();
 
   function sendServerRequest() {
     const requestParams = new RequestParams("POST");
@@ -340,8 +332,15 @@ function fixResults(timetableCellId) {
     }
 
     ServerRequest.send(requestParams)
-      .then(data => console.log(data))
+      .then(data => updateDom())
       .catch(err => console.log(err));
+  }
+
+  function updateDom() {
+    const team1ResultElSelector = `#timetableCell-${timetableCellId} .team1-result`;
+    const team2ResultElSelector = `#timetableCell-${timetableCellId} .team2-result`;
+    document.querySelector(team1ResultElSelector).textContent = resultT1EditEl.value;
+    document.querySelector(team2ResultElSelector).textContent = resultT2EditEl.value;
   }
 }
 
