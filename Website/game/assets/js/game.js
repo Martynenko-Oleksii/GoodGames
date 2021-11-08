@@ -149,7 +149,6 @@ function updateCompetitionTimetable() {
       const timeString = date.toLocaleTimeString();
       const teamsArray =
         getTeamArrayByCompetitorArray(timetableBlockInfo.competitors);
-      console.log(teamsArray);
 
       TimeTableBodyEl.innerHTML +=
         `<div class="widget widget-four" style="margin-bottom: 20px;">
@@ -287,23 +286,6 @@ function startCompetition() {
     });
 }
 
-
-function getTimetable() {
-  // get competition id
-  const competitionId = parseInt(getUrlVars().id);
-  if (!competitionId) {
-    console.log("Can`t define current competition id from url variables");
-    console.log("So I can`t send request for generating timetable(");
-    return;
-  }
-
-  const requestParams = new RequestParams();
-  requestParams.url = "/api/timetables/" + competitionId;
-
-  ServerRequest.send(requestParams)
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
-}
 
 function send_togo() {
   const sendButtonEl = document.querySelector("#send");
