@@ -42,14 +42,23 @@ namespace GGBack.Controllers
                 return BadRequest("Wrong id");
             }
 
-            WinResult actualResult = new WinResult
+            if (cell.WinResult == null)
             {
-                TeamOne = winResult.TeamOne,
-                TeamTwo = winResult.TeamTwo,
-                Score = winResult.Score
-            };
-            context.WinResults.Add(actualResult);
-            cell.WinResult = actualResult;
+                WinResult actualResult = new WinResult
+                {
+                    TeamOne = winResult.TeamOne,
+                    TeamTwo = winResult.TeamTwo,
+                    Score = winResult.Score
+                };
+                context.WinResults.Add(actualResult);
+                cell.WinResult = actualResult;
+            }
+            else
+            {
+                cell.WinResult.TeamOne = winResult.TeamOne;
+                cell.WinResult.TeamTwo = winResult.TeamTwo;
+                cell.WinResult.Score = winResult.Score;
+            }
             context.SaveChanges();
 
             try
