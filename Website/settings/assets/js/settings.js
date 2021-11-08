@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", pageLoaded);
 
 function pageLoaded() {
   updateAvatarInterface();
+  updateFavouriteSportKinds();
 
   const oldLogin = Cookies.get("login");
   const oldEmail = Cookies.get("email");
@@ -36,7 +37,7 @@ function updateAvatarInterface() {
   ServerRequest.send(requestParams)
     .then(data => {
       const avatarPath = data.avatarPath;
-      
+
       if (avatarPath) {
         changeAvatarButtonEl.innerHTML = "Змінити аватар";
         avatarEl.src = avatarPath;
@@ -50,6 +51,19 @@ function updateAvatarInterface() {
       resetFileButtonEl.style.display = "none";
     })
     .catch(err => console.log(err));
+}
+
+function updateFavouriteSportKinds() {
+  sendServerRequest();
+  
+
+  function sendServerRequest() {
+
+  }
+
+  function parseServerResponse() {
+
+  }
 }
 
 
@@ -104,7 +118,7 @@ function changeProfileInfo() {
         id: userId,
         login: loginInputEl.value,
       }
-  
+
       ServerRequest.send(requestParams)
         .then(data => changeLocalLogin(data.login))
         .catch(err => console.log(err));
@@ -113,7 +127,7 @@ function changeProfileInfo() {
       document.getElementById("error_main").style.display = "block";
       return;
     }
-    
+
   }
 
   function sendEmailChangeRequest() {
@@ -207,7 +221,7 @@ function changePassword() {
       }
       return;
   }
-  
+
   function sendPasswordChangeRequest() {
     if (!passwordInputEl.value) {
       return;
