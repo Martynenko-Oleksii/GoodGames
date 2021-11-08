@@ -293,7 +293,7 @@ namespace GGBack.Utils
                         t.GridStage == cellWithResults.GridStage + 1)
                 .ToList();
 
-            if (nextStageCells != null)
+            if (nextStageCells.Count > 1)
             {
                 string[] score = cellWithResults.WinResult.Score.Split(',');
                 int scoreOne = Int32.Parse(score[0]);
