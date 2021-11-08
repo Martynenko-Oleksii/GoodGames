@@ -306,15 +306,20 @@ function openFixationModalWindow(timetableCellId) {
   const team2ResultEl =
     document.querySelector(timetableCellSelector + " .team2-result");
 
-  nameT1EditEl.textContent = team1NameEl.textContent;
-  nameT2EditEl.textContent = team2NameEl.textContent;
+  const team1Name = team1NameEl.textContent;
+  const team2Name = team2NameEl.textContent;
+
+  nameT1EditEl.textContent = team1Name;
+  nameT2EditEl.textContent = team2Name;
   resultT1EditEl.value = team1ResultEl.textContent;
   resultT2EditEl.value = team2ResultEl.textContent;
 
-  document.querySelector("#save_edit").onclick = () => {fixResults(timetableCellId)};
+  document.querySelector("#save_edit").onclick = () => {
+    fixResults(timetableCellId, team1Name, team2Name)
+  };
 }
 
-function fixResults(timetableCellId) {
+function fixResults(timetableCellId, team1Name, team2Name) {
   const team1Result = document.querySelector("#result_t1_edit").value;
   const team2Result = document.querySelector("#result_t2_edit").value;
 
@@ -326,8 +331,8 @@ function fixResults(timetableCellId) {
     requestParams.url = "/api/results";
     requestParams.body = {
       id: timetableCellId,
-      teamOne: "title",
-      teamTwo: "title",
+      teamOne: team1Name,
+      teamTwo: team2Name,
       score: team1Result + "," + team2Result,
     }
 
