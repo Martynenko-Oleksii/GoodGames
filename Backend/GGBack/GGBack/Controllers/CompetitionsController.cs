@@ -30,7 +30,7 @@ namespace GGBack.Controllers
         }
 
         [Route("api/competitions/favourites")]
-        [HttpGet]
+        [HttpPost]
         public async Task<ActionResult<IEnumerable<Competition>>> GetFavouriteCompetitions(User user)
         {
             if (user == null)
