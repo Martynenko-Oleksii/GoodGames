@@ -214,6 +214,12 @@ namespace GGBack.Controllers
                 return BadRequest("Competition not found");
             }
 
+            User addedAdmin = competition.Users.Find(u => u.Id == admin.Id);
+            if (addedAdmin != null)
+            {
+                return BadRequest("Admin already added");
+            }
+
             try
             {
                 competition.Users.Add(user);
