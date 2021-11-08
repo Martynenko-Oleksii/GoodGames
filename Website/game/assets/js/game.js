@@ -1,108 +1,33 @@
 const startCompetitionButtonEl = document.querySelector("#start_competitions");
 
+let competitionId;
+
 
 document.addEventListener("DOMContentLoaded", pageLoaded);
 
 function pageLoaded() {
-    const competitionId = parseInt(getUrlVars().id);
+    competitionId = parseInt(getUrlVars().id);
     if (!competitionId) {
         return;
     }
 
-    getCompetitionInfoFromServer(competitionId);
-    /* --> parseServerResponse([true]); */
+    updateGeneralCompetitionInfo();
+}
 
-    function getCompetitionInfoFromServer(competitionId) {
+function updateGeneralCompetitionInfo() {
+    sendServerRequest();
+
+
+    function sendServerRequest() {
         const requestParams = new RequestParams();
         requestParams.url = "/api/competitions/" + competitionId;
 
         ServerRequest.send(requestParams)
-            .then(data => parseServerResponse(data))
-            .catch(err => console.log(err));
+          .then(data => parseServerResponse(data))
+          .catch(err => console.log(err));
     }
 
     function parseServerResponse(data) {
-        // test data
-        /* --> data = [
-            {
-                "id": 1,
-                "title": "Турнир CS:Go",
-                "description": "Тестирование соренвования.",
-                "isOpen": false,
-                "sport": null,
-                "ageLimit": "8",
-                "city": "Харків",
-                "startDate": "2022-02-01T00:00:00",
-                "endDate": "2022-02-04T00:00:00",
-                "isPublic": true,
-                "competitors": [
-                    {
-                        "id": 1,
-                        "name": "1",
-                        "email": "gg1@gg.com",
-                        "age": 18,
-                        "gender": "m",
-                        "weigth": 12,
-                        "healthState": "Відмінне",
-                        "team": "1"
-                    },
-                    {
-                        "id": 2,
-                        "name": "2",
-                        "email": "gg2@gg.com",
-                        "age": 2,
-                        "gender": "m",
-                        "weigth": 2,
-                        "healthState": "Відмінне",
-                        "team": "2"
-                    },
-                    {
-                        "id": 3,
-                        "name": "3",
-                        "email": "gg3@gg.com",
-                        "age": 3,
-                        "gender": "m",
-                        "weigth": 3,
-                        "healthState": "Відмінне",
-                        "team": "3"
-                    },
-                    {
-                        "id": 4,
-                        "name": "4",
-                        "email": "gg4@gg.com",
-                        "age": 4,
-                        "gender": "m",
-                        "weigth": 4,
-                        "healthState": "Відмінне",
-                        "team": "4"
-                    },
-                    {
-                        "id": 5,
-                        "name": "5",
-                        "email": "gg5@gg.com",
-                        "age": 5,
-                        "gender": "m",
-                        "weigth": 5,
-                        "healthState": "Відмінне",
-                        "team": "5"
-                    }
-                ],
-                "user": {
-                    "id": 1,
-                    "avatarPath": "/avatars/Avatar.png",
-                    "login": "Stamir",
-                    "email": "stasik1214x5@gmail.com",
-                    "password": "stas1214",
-                    "subscription": null,
-                    "sports": null,
-                    "token": null
-                },
-                "streamUrl": null,
-                "state": 0,
-                "timetableCells": null
-            }
-        ] */
-
         // data приходит в виде массива с одним элементом - объектом с информацией
         if (data.length === 0) {
             return;
@@ -122,32 +47,28 @@ function pageLoaded() {
         document.querySelector(".competition-title").innerHTML = info.title;
         document.querySelector(".organizer").innerHTML = info.user.login;
         document.querySelector(".city").innerHTML = info.city;
-        if(info.state == 0 || info.state == "0"){
+        info.state = parseInt(info.state);
+        if (info.state === 0) {
             document.querySelector(".state_sport").innerHTML = "Планування та набір";
-        }
-        if(info.state == 1 || info.state == "1"){
+        }else if (info.state === 1) {
             document.querySelector(".state_sport").innerHTML = "Проводиться";
             document.getElementById('start_competitions').remove();
-        }
-        if(info.state == 2 || info.state == "2"){
+        } else if (info.state === 2) {
             document.querySelector(".state_sport").innerHTML = "Завершено";
             document.getElementById('start_competitions').remove();
-        }
-        if(info.state != 0 && info.state != 1 && info.state != 2){
+        } else if (info.state !== 0 && info.state !== 1 && info.state !== 2) {
             document.querySelector(".state_sport").innerHTML = "Статус не визначено.";
         }
         document.querySelector(".competition-description").innerHTML =
-            info.description;
+          info.description;
         document.querySelector(".competitors-number").innerHTML =
-            info.competitors.length.toString();
+          info.competitors.length.toString();
         if ( info.user.id.toString() !== Cookies.get('id') ) {
             document.getElementById('edit_autor_show').remove();
             document.getElementById('start_competitions').remove();
             if (!info.isOpen) {
                 document.getElementById('send_add_player').remove();
             }
-        } else {
-
         }
 
         //Рассписание
@@ -158,7 +79,7 @@ function pageLoaded() {
 
             for (let timetableCells of info.timetableCells) { //
                 TimeTableBodyEl.innerHTML +=
-                `<div class="widget widget-four" style="margin-bottom: 20px;">
+                  `<div class="widget widget-four" style="margin-bottom: 20px;">
                     <div class="widget-heading">
                         <h5 class="">${timetableCells} Дата</h5>
                         <a class="btn btn-outline-info btn-sm" id="edit_autor_show" onclick="fixation('0');">Фіксація результатів</a>
@@ -230,13 +151,13 @@ function pageLoaded() {
 
     function parseCompetitorsList(info) {
         const competitorsTableBodyEl =
-            document.querySelector(".competitors-table tbody");
+          document.querySelector(".competitors-table tbody");
         competitorsTableBodyEl.innerHTML = "";
 
         for (let competitor of info.competitors) {
             let tr = document.createElement("tr");
             tr.innerHTML =
-                `<td>
+              `<td>
                     <div class="td-content customer-name">
                         <img src="/assets/images/user-48.png" alt="avatar">
                         <span>${competitor.name}</span>
