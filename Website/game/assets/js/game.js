@@ -315,7 +315,6 @@ function openFixationModalWindow(timetableCellId) {
 }
 
 function fixResults(timetableCellId) {
-  console.log("fixResult function works")
   const team1Result = document.querySelector("#result_t1_edit").value;
   const team2Result = document.querySelector("#result_t2_edit").value;
 
@@ -326,8 +325,8 @@ function fixResults(timetableCellId) {
     document.querySelector("#modal_edit").style.display = "none";
     const team1ResultElSelector = `#timetableCell-${timetableCellId} .team1-result`;
     const team2ResultElSelector = `#timetableCell-${timetableCellId} .team2-result`;
-    document.getElementById(team1ResultElSelector).textContent = document.getElementById("result_t1_edit").value;
-    document.getElementById(team2ResultElSelector).textContent = document.getElementById("result_t2_edit").value;
+    document.querySelector(team1ResultElSelector).textContent = resultT1EditEl.value;
+    document.querySelector(team2ResultElSelector).textContent = resultT2EditEl.value;
   }
 
   function sendServerRequest() {
