@@ -8,7 +8,9 @@ const changeProfileInfoButtonEl =
   document.querySelector(".change-profile-info-button");
 const passwordInputEl = document.querySelector(".password-input");
 const changePasswordButtonEl =
-  document.querySelector(".change-password-button")
+  document.querySelector(".change-password-button");
+
+const sportKindContainerEl = document.querySelector(".sport-kind-container");
 
 
 document.addEventListener("DOMContentLoaded", pageLoaded);
@@ -73,7 +75,33 @@ function updateFavouriteSportKinds() {
   }
 
   function parseServerResponse(data) {
-    console.log(data);
+    if (!data || data.length === 0) {
+      sportKindContainerEl.innerHTML = "Тут будуть ваші улюблені види спорту";
+      return;
+    }
+
+    for (let sportKind of data) {
+      let sportKindEl = document.createElement("div");
+      sportKindEl.classList.add("col-lg-6", "mt-4", "pt-2");
+
+      sportKindEl.innerHTML =
+        `
+        <a class="text-dark">
+          <div class="key-feature d-flex align-items-center p-3 bg-white rounded shadow">
+            <div style="margin-right: 15px;" class="icon text-center rounded-circle mr-5">
+              <ion-icon name="game-controller-outline"></ion-icon>
+            </div>
+
+            <div class="content">
+              <h4 class="title mb-0">${sportKind.title}</h4>
+              <p class="text-muted mb-0">{?} змаганнь</p>
+            </div>
+          </div>
+        </a>
+        `;
+
+      sportKindContainerEl.appendChild(sportKind);
+    }
   }
 }
 
