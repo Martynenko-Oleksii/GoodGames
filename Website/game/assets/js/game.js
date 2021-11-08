@@ -171,7 +171,7 @@ function updateCompetitionTimetable() {
                   </div>
                   <div class="w-summary-details">
                     <div class="w-summary-info">
-                      <h6>Команда <span class="summary-count team2-name">${teamsArray[0]}</span></h6>
+                      <h6>Команда <span class="summary-count team1-name">${teamsArray[0]}</span></h6>
                       <p class="summary-average"><a class="card team1-result" style="padding: 0.75rem; margin-top: 0px;">0</a></p>
                     </div>
                   </div>
