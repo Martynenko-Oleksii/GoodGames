@@ -149,9 +149,10 @@ function updateCompetitionTimetable() {
       const timeString = date.toLocaleTimeString();
       const teamsArray =
         getTeamArrayByCompetitorArray(timetableBlockInfo.competitors);
+      const timetableCellId = timetableBlockInfo.id;
 
       TimeTableBodyEl.innerHTML +=
-        `<div class="widget widget-four" style="margin-bottom: 20px;">
+        `<div class="widget widget-four" style="margin-bottom: 20px;" id="timetableCell-${timetableCellId}">
           <div class="widget-heading">
             <h5 class="">${dateString} ${timeString}</h5>
             <a class="btn btn-outline-info btn-sm" id="edit_autor_show" onclick="fixation('0');">Фіксація результатів</a>
@@ -166,8 +167,8 @@ function updateCompetitionTimetable() {
                   </div>
                   <div class="w-summary-details">
                     <div class="w-summary-info">
-                      <h6>Команда <span class="summary-count" id="name_t1_0">${teamsArray[0]}</span></h6>
-                      <p class="summary-average"><a class="card" style="padding: 0.75rem; margin-top: 0px;" id="result_t1_0">0</a></p>
+                      <h6>Команда <span class="summary-count">${teamsArray[0]}</span></h6>
+                      <p class="summary-average"><a class="card team1-result" style="padding: 0.75rem; margin-top: 0px;">0</a></p>
                     </div>
                   </div>
                 </div>
@@ -180,8 +181,8 @@ function updateCompetitionTimetable() {
                   </div>
                   <div class="w-summary-details">
                     <div class="w-summary-info">
-                      <h6>Команда <span class="summary-count" id="name_t2_0">${teamsArray[1]}</span></h6>
-                      <p class="summary-average"><a class="card" style="padding: 0.75rem; margin-top: 0px;" id="result_t2_0">0</a></p>
+                      <h6>Команда <span class="summary-count">${teamsArray[1]}</span></h6>
+                      <p class="summary-average"><a class="card team2-result" style="padding: 0.75rem; margin-top: 0px;">0</a></p>
                     </div>
                   </div>
                 </div>
@@ -287,6 +288,23 @@ function startCompetition() {
 }
 
 
+function fixResults(timetableCellId) {
+  const team1Result = document.querySelector("#result_t1_edit").value;
+  const team2Result = document.querySelector("#result_t2_edit").value;
+
+  updateDom();
+
+
+  function updateDom() {
+    document.querySelector("#modal_edit").style.display = "none";
+    const team1ResultElSelector = `#timetableCell-${timetableCellId} .team1-result`;
+    const team2ResultElSelector = `#timetableCell-${timetableCellId} .team2-result`;
+    document.getElementById(team1ResultElSelector).textContent = document.getElementById("result_t1_edit").value;
+    document.getElementById(team2ResultElSelector).textContent = document.getElementById("result_t2_edit").value;
+  }
+}
+
+
 function send_togo() {
   const sendButtonEl = document.querySelector("#send");
   const openInputEl = document.querySelector("#open_input");
@@ -320,12 +338,6 @@ function fixation(id){
   document.getElementById("save_edit").setAttribute("onclick", "save_edit_f(" + id + ")");
 }
 
-// ЗАПРОС НА СОХРАНЕНИЕ РЕЗУЛЬТАТА
-function save_edit_f(id){
-  document.getElementById("modal_edit").style.display = "none";
-  document.getElementById("result_t1_" + id).textContent = document.getElementById("result_t1_edit").value;
-  document.getElementById("result_t2_" + id).textContent = document.getElementById("result_t2_edit").value;
-}
 
 var id = getUrlVars()["id"];
 if(getUrlVars()["id"] == undefined){
