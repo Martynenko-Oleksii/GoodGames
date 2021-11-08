@@ -18,7 +18,6 @@ function pageLoaded() {
 function updateCompetitionGeneralInfo() {
   sendServerRequest();
 
-
   function sendServerRequest() {
     const requestParams = new RequestParams();
     requestParams.url = "/api/competitions/" + competitionId;
@@ -124,7 +123,6 @@ function updateCompetitionGeneralInfo() {
 function updateCompetitionTimetable() {
   sendServerRequest();
 
-
   function sendServerRequest() {
     const requestParams = new RequestParams();
     requestParams.url = "/api/timetables/" + competitionId;
@@ -146,10 +144,17 @@ function updateCompetitionTimetable() {
     const TimeTableBodyEl = document.querySelector(".generate_shedule");
 
     for (let timetableBlockInfo of data) {
+      const date = new Date(timetableBlockInfo.date);
+      const dateString = date.toLocaleDateString();
+      const timeString = date.toLocaleTimeString();
+      const teamsArray =
+        getTeamArrayByCompetitorArray(timetableBlockInfo.competitors);
+      console.log(teamsArray);
+
       TimeTableBodyEl.innerHTML +=
         `<div class="widget widget-four" style="margin-bottom: 20px;">
           <div class="widget-heading">
-            <h5 class="">${timetableBlockInfo} Дата</h5>
+            <h5 class="">${dateString} ${timeString}</h5>
             <a class="btn btn-outline-info btn-sm" id="edit_autor_show" onclick="fixation('0');">Фіксація результатів</a>
           </div>
 
@@ -162,7 +167,7 @@ function updateCompetitionTimetable() {
                   </div>
                   <div class="w-summary-details">
                     <div class="w-summary-info">
-                      <h6>Команда <span class="summary-count" id="name_t1_0"> Крепкие яйца </span></h6>
+                      <h6>Команда <span class="summary-count" id="name_t1_0">${teamsArray[0]}</span></h6>
                       <p class="summary-average"><a class="card" style="padding: 0.75rem; margin-top: 0px;" id="result_t1_0">0</a></p>
                     </div>
                   </div>
@@ -176,7 +181,7 @@ function updateCompetitionTimetable() {
                   </div>
                   <div class="w-summary-details">
                     <div class="w-summary-info">
-                      <h6>Команда <span class="summary-count" id="name_t2_0"> Сладкие огурчики </span></h6>
+                      <h6>Команда <span class="summary-count" id="name_t2_0">${teamsArray[1]}</span></h6>
                       <p class="summary-average"><a class="card" style="padding: 0.75rem; margin-top: 0px;" id="result_t2_0">0</a></p>
                     </div>
                   </div>
@@ -188,6 +193,28 @@ function updateCompetitionTimetable() {
         </div>`;
     }
   }
+}
+
+function getTeamArrayByCompetitorArray(competitorArray) {
+  let teamsArray = [];
+
+  for (let competitor of competitorArray) {
+    const currentCompetitorTeam = competitor.team;
+
+    let currentCompetitorTeamExists = false;
+    for (let team of teamsArray) {
+      if (team === currentCompetitorTeam) {
+        currentCompetitorTeamExists = true;
+        break;
+      }
+    }
+
+    if (!currentCompetitorTeamExists) {
+      teamsArray.push(currentCompetitorTeam);
+    }
+  }
+
+  return teamsArray;
 }
 
 
