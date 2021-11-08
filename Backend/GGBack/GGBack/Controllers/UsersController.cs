@@ -202,6 +202,11 @@ namespace GGBack.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> UpdateEmail(User user)
         {
+            if (context.Users.Any(u => u.Email == user.Email))
+            {
+                return BadRequest("email");
+            }
+
             User dbUser = context.Users.Find(user.Id);
 
             if (!dbUser.Email.Equals(user.Email))
@@ -210,7 +215,7 @@ namespace GGBack.Controllers
             }
             else
             {
-                return BadRequest("Passwords are the same");
+                return BadRequest("Emails are the same");
             }
 
             await context.SaveChangesAsync();
