@@ -1,4 +1,8 @@
 const startCompetitionButtonEl = document.querySelector("#start_competitions");
+const nameT1EditEl = document.querySelector("#name_t1_edit");
+const nameT2EditEl = document.querySelector("#name_t2_edit");
+const resultT1EditEl = document.querySelector("#result_t1_edit");
+const resultT2EditEl = document.querySelector("#result_t2_edit");
 
 let competitionId;
 
@@ -155,7 +159,7 @@ function updateCompetitionTimetable() {
         `<div class="widget widget-four" style="margin-bottom: 20px;" id="timetableCell-${timetableCellId}">
           <div class="widget-heading">
             <h5 class="">${dateString} ${timeString}</h5>
-            <a class="btn btn-outline-info btn-sm" id="edit_autor_show" onclick="fixation('0');">Фіксація результатів</a>
+            <a class="btn btn-outline-info btn-sm" id="edit_autor_show" onclick="openFixationModalWindow(${timetableCellId});">Фіксація результатів</a>
           </div>
 
           <div class="widget-content">
@@ -167,7 +171,7 @@ function updateCompetitionTimetable() {
                   </div>
                   <div class="w-summary-details">
                     <div class="w-summary-info">
-                      <h6>Команда <span class="summary-count">${teamsArray[0]}</span></h6>
+                      <h6>Команда <span class="summary-count team2-name">${teamsArray[0]}</span></h6>
                       <p class="summary-average"><a class="card team1-result" style="padding: 0.75rem; margin-top: 0px;">0</a></p>
                     </div>
                   </div>
@@ -181,7 +185,7 @@ function updateCompetitionTimetable() {
                   </div>
                   <div class="w-summary-details">
                     <div class="w-summary-info">
-                      <h6>Команда <span class="summary-count">${teamsArray[1]}</span></h6>
+                      <h6>Команда <span class="summary-count team2-name">${teamsArray[1]}</span></h6>
                       <p class="summary-average"><a class="card team2-result" style="padding: 0.75rem; margin-top: 0px;">0</a></p>
                     </div>
                   </div>
@@ -288,6 +292,28 @@ function startCompetition() {
 }
 
 
+function openFixationModalWindow(timetableCellId) {
+  document.querySelector("#modal_edit").style.display = "block";
+
+  const timetableCellSelector = "#timetableCell-" + timetableCellId;
+
+  const team1NameEl =
+    document.querySelector(timetableCellSelector + " .team1-name");
+  const team2NameEl =
+    document.querySelector(timetableCellSelector + " .team2-name");
+  const team1ResultEl =
+    document.querySelector(timetableCellSelector + " .team1-result");
+  const team2ResultEl =
+    document.querySelector(timetableCellSelector + " .team2-result");
+
+  nameT1EditEl.textContent = team1NameEl.textContent;
+  nameT2EditEl.textContent = team2NameEl.textContent;
+  resultT1EditEl.value = team1ResultEl.textContent;
+  resultT2EditEl.value = team2ResultEl.textContent;
+
+  document.querySelector("#save_edit").onclick = `fixResults( ${timetableCellId} )`;
+}
+
 function fixResults(timetableCellId) {
   const team1Result = document.querySelector("#result_t1_edit").value;
   const team2Result = document.querySelector("#result_t2_edit").value;
@@ -301,6 +327,21 @@ function fixResults(timetableCellId) {
     const team2ResultElSelector = `#timetableCell-${timetableCellId} .team2-result`;
     document.getElementById(team1ResultElSelector).textContent = document.getElementById("result_t1_edit").value;
     document.getElementById(team2ResultElSelector).textContent = document.getElementById("result_t2_edit").value;
+  }
+
+  function sendServerRequest() {
+    const requestParams = new RequestParams("POST");
+    requestParams.url = "/api/results";
+    requestParams.body = {
+      id: timetableCellId,
+      teamOne: "title",
+      teamTwo: "title",
+      score: team1Result + "," + team2Result,
+    }
+
+    ServerRequest.send(requestParams)
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
   }
 }
 
@@ -327,15 +368,6 @@ function send_togo() {
     inputMailEl.style.display = "none";
     document.getElementById('done_info').style.display = 'block';
   });
-}
-
-function fixation(id){
-  document.getElementById("modal_edit").style.display = "block";
-  document.getElementById("name_t1_edit").textContent = document.getElementById("name_t1_" + id).textContent;
-  document.getElementById("name_t2_edit").textContent = document.getElementById("name_t2_" + id).textContent;
-  document.getElementById("result_t1_edit").value = document.getElementById("result_t1_" + id).textContent;
-  document.getElementById("result_t2_edit").value = document.getElementById("result_t2_" + id).textContent;
-  document.getElementById("save_edit").setAttribute("onclick", "save_edit_f(" + id + ")");
 }
 
 
