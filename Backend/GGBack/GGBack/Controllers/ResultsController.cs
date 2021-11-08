@@ -52,11 +52,18 @@ namespace GGBack.Controllers
             cell.WinResult = actualResult;
             context.SaveChanges();
 
-            bool isGenerated = ScheduleGenerator.GenerateForNewResults(cell, context);
-
-            if (!isGenerated)
+            try
             {
-                return BadRequest("Generating error");
+                bool isGenerated = ScheduleGenerator.GenerateForNewResults(cell, context);
+
+                if (!isGenerated)
+                {
+                    return BadRequest("Generating error");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message + "\n" + ex.InnerException);
             }
 
             return Ok();
