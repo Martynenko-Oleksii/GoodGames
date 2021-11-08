@@ -1,23 +1,30 @@
 const startCompetitionButtonEl = document.querySelector("#start_competitions");
 
+let competitionId;
+
 
 document.addEventListener("DOMContentLoaded", pageLoaded);
 
 function pageLoaded() {
-    const competitionId = parseInt(getUrlVars().id);
+    competitionId = parseInt(getUrlVars().id);
     if (!competitionId) {
         return;
     }
 
-    getCompetitionInfoFromServer(competitionId);
+    updateGeneralCompetitionInfo();
+}
 
-    function getCompetitionInfoFromServer(competitionId) {
+function updateGeneralCompetitionInfo() {
+    sendServerRequest();
+
+
+    function sendServerRequest() {
         const requestParams = new RequestParams();
         requestParams.url = "/api/competitions/" + competitionId;
 
         ServerRequest.send(requestParams)
-            .then(data => parseServerResponse(data))
-            .catch(err => console.log(err));
+          .then(data => parseServerResponse(data))
+          .catch(err => console.log(err));
     }
 
     function parseServerResponse(data) {
@@ -55,9 +62,9 @@ function pageLoaded() {
             document.querySelector(".state_sport").innerHTML = "Статус не визначено.";
         }
         document.querySelector(".competition-description").innerHTML =
-            info.description;
+          info.description;
         document.querySelector(".competitors-number").innerHTML =
-            info.competitors.length.toString();
+          info.competitors.length.toString();
         if ( info.user.id.toString() !== Cookies.get('id') ) {
             document.getElementById('edit_autor_show').remove();
             document.getElementById('start_competitions').remove();
@@ -76,7 +83,7 @@ function pageLoaded() {
 
             for (let timetableCells of info.timetableCells) { //
                 TimeTableBodyEl.innerHTML +=
-                `<div class="widget widget-four" style="margin-bottom: 20px;">
+                  `<div class="widget widget-four" style="margin-bottom: 20px;">
                     <div class="widget-heading">
                         <h5 class="">${timetableCells} Дата</h5>
                         <a class="btn btn-outline-info btn-sm" id="edit_autor_show" onclick="fixation('0');">Фіксація результатів</a>
@@ -148,13 +155,13 @@ function pageLoaded() {
 
     function parseCompetitorsList(info) {
         const competitorsTableBodyEl =
-            document.querySelector(".competitors-table tbody");
+          document.querySelector(".competitors-table tbody");
         competitorsTableBodyEl.innerHTML = "";
 
         for (let competitor of info.competitors) {
             let tr = document.createElement("tr");
             tr.innerHTML =
-                `<td>
+              `<td>
                     <div class="td-content customer-name">
                         <img src="/assets/images/user-48.png" alt="avatar">
                         <span>${competitor.name}</span>
