@@ -25,7 +25,31 @@ namespace GGBack.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Competition>>> Get()
         {
-            return await context.Competitions.ToListAsync();
+            return await context.Competitions
+                .Include(c => c.Sport).ToListAsync();
+        }
+
+        [Route("api/competitions/favourites")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Competition>>> GetFavouriteCompetitions(User user)
+        {
+            if (user == null)
+            {
+                return BadRequest("User is null");
+            }
+
+            try
+            {
+                return await context.Competitions
+                    .Include(c => c.Sport)
+                    .Where(c =>
+                        user.Sports.Find(s => s.Id == c.Sport.Id) != null)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message + "\n" + ex.InnerException);
+            }
         }
 
         [Route("api/competitions/{competitionId}")]
@@ -80,12 +104,16 @@ namespace GGBack.Controllers
 
                 return await context.Competitions
                     .Include(c => c.Users)
+                    .Include(c => c.Sport)
                     .Where(c => c.Users.Contains(dbUser))
                     .Select(c => new Competition
                     {
                         Id = c.Id,
                         Title = c.Title,
-                        StartDate = c.StartDate
+                        StartDate = c.StartDate,
+                        EndDate = c.EndDate,
+                        State = c.State,
+                        Sport  = c.Sport
                     })
                     .ToListAsync();
             }
