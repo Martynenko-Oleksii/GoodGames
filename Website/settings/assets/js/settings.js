@@ -55,14 +55,25 @@ function updateAvatarInterface() {
 
 function updateFavouriteSportKinds() {
   sendServerRequest();
-  
+
 
   function sendServerRequest() {
+    const userId = Cookies.get("id");
+    if (!userId) {
+      console.log("Can`t get id from Cookies");
+      return;
+    }
 
+    const requestParams = new RequestParams();
+    requestParams.url = "/api/sports/" + userId;
+
+    ServerRequest.send(requestParams)
+      .then(data => parseServerResponse(data))
+      .catch(err => console.log(err));
   }
 
-  function parseServerResponse() {
-
+  function parseServerResponse(data) {
+    console.log(data);
   }
 }
 
