@@ -29,13 +29,17 @@ namespace GGBack.Controllers
                 .Include(c => c.Sport).ToListAsync();
         }
 
-        [Route("api/competitions/favourites")]
-        [HttpPost]
-        public async Task<ActionResult<IEnumerable<Competition>>> GetFavouriteCompetitions(User user)
+        [Route("api/competitions/favourites/{userId}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Competition>>> GetFavouriteCompetitions(int userId)
         {
+            User user = context.Users
+                .Include(u => u.Sports)
+                .Where(u => u.Id == userId)
+                .FirstOrDefault();
             if (user == null)
             {
-                return BadRequest("User is null");
+                return BadRequest("User not found");
             }
 
             try
