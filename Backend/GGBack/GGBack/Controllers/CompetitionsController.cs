@@ -297,5 +297,33 @@ namespace GGBack.Controllers
 
             return Ok(competition.Users);
         }
+
+        [Route("api/competitions/addstream")]
+        [HttpPost]
+        public async Task<ActionResult<Competition>> AddStreamUrl(Competition competition)
+        {
+            if (competition == null)
+            {
+                return BadRequest("User is null");
+            }
+
+            Competition dbCompetition = context.Competitions.Find(competition.Id);
+            if (dbCompetition == null)
+            {
+                return BadRequest("Competition not found");
+            }
+
+            try
+            {
+                dbCompetition.StreamUrl = competition.StreamUrl;
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message + "\n" + ex.InnerException);
+            }
+
+            return Ok(competition.Users);
+        }
     }
 }
