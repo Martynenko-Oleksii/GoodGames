@@ -189,5 +189,79 @@ namespace GGBack.Controllers
 
             return Ok(res);
         }
+
+        [Route("api/competitions/addadmin/{competitionId}")]
+        [HttpPost]
+        public async Task<ActionResult<IEnumerable<User>>> AddAdmin([FromRoute] int competitionId, [FromBody] User user)
+        {
+            if (user == null)
+            {
+                return BadRequest("User is null");
+            }
+
+            User admin = context.Users.Find(user.Id);
+            if (admin == null)
+            {
+                return BadRequest("User not found");
+            }
+
+            Competition competition = context.Competitions
+                .Include(c => c.Users)
+                .Where(c => c.Id == competitionId)
+                .FirstOrDefault();
+            if (competition == null)
+            {
+                return BadRequest("Competition not found");
+            }
+
+            try
+            {
+                competition.Users.Add(user);
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message + "\n" + ex.InnerException);
+            }
+
+            return Ok(competition.Users);
+        }
+
+        [Route("api/competitions/deleteadmin/{competitionId}")]
+        [HttpPost]
+        public async Task<ActionResult<IEnumerable<User>>> DeleteAdmin([FromRoute] int competitionId, [FromBody] User user)
+        {
+            if (user == null)
+            {
+                return BadRequest("User is null");
+            }
+
+            Competition competition = context.Competitions
+                .Include(c => c.Users)
+                .Where(c => c.Id == competitionId)
+                .FirstOrDefault();
+            if (competition == null)
+            {
+                return BadRequest("Competition not found");
+            }
+
+            try
+            {
+                User removeAdmin = competition.Users.Find(u => u.Id == user.Id);
+                if (removeAdmin == null)
+                {
+                    return BadRequest("Admin not found");
+                }
+
+                competition.Users.Remove(removeAdmin);
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message + "\n" + ex.InnerException);
+            }
+
+            return Ok(competition.Users);
+        }
     }
 }
