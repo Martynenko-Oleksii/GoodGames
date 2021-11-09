@@ -1,5 +1,7 @@
 const competitionCategoriesEl =
   document.querySelector(".competition-categories");
+const competitionsWrapperEl =
+  document.querySelector(".competition-list .row");
 
 document.addEventListener("DOMContentLoaded", updateCompetitionList);
 competitionCategoriesEl.addEventListener("change", updateCompetitionList);
@@ -18,14 +20,19 @@ function updateCompetitionList() {
 
   function sendServerRequest() {
     const requestParams = new RequestParams();
-    if (competitionCategory === "all") {
-      requestParams.url = "/api/competitions";
-    } else if (competitionCategory === "favourite sport kinds") {
-      requestParams.url = "/api/competitions/favourites/" + userId;
-    } else if (competitionCategory === "my") {
-      requestParams.url = "/api/competitions/users/" + userId;
-    } else {
-      return;
+    switch (competitionCategory) {
+      case "all":
+        requestParams.url = "/api/competitions";
+        break;
+      case "favourite sport kinds":
+        requestParams.url = "/api/competitions/favourites/" + userId;
+        break;
+      case "my":
+        requestParams.url = "/api/competitions/users/" + userId;
+        break;
+      default:
+        console.log("Wrong competition category: ", competitionCategory);
+        return;
     }
 
     ServerRequest.send(requestParams)
@@ -34,12 +41,6 @@ function updateCompetitionList() {
   }
 
   function parseServerResponse(data) {
-    if (data.length === 0) {
-      return;
-    }
-
-    const competitionsWrapperEl =
-      document.querySelector(".competition-list .row");
     competitionsWrapperEl.innerHTML = "";
 
     for (let competitionInfo of data) {
@@ -62,9 +63,6 @@ function updateCompetitionList() {
       console.log("Something wrong with competition info");
       return;
     }
-
-    const competitionsWrapperEl =
-      document.querySelector(".competition-list .row");
 
     let deleteCompetitionButtonEl = "";
     if (competitionCategory === "my") {
@@ -112,8 +110,6 @@ function deleteCompetition(competitionId) {
 }
 
 function removeCompetitionEl(competitionId) {
-  const competitionsWrapperEl =
-    document.querySelector(".competition-list .row");
   const competitionEl =
     document.querySelector("#competition-" + competitionId);
 
