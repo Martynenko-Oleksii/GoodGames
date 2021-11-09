@@ -1,11 +1,13 @@
-document.addEventListener("DOMContentLoaded", pageLoaded);
+const competitionCategoriesEl =
+  document.querySelector(".competition-categories");
 
-function pageLoaded() {
-  updateCompetitionList("my");
-}
+document.addEventListener("DOMContentLoaded", updateCompetitionList);
+competitionCategoriesEl.addEventListener("change", updateCompetitionList);
 
-function updateCompetitionList(competitionCategory) {
-  // competitionCategory = {"all", "favourite sport kinds", "my"}
+function updateCompetitionList() {
+  // "all", "favourite sport kinds", "my"
+  const competitionCategory = competitionCategoriesEl.value;
+
   const userId = Cookies.get("id");
   if (!userId) {
     console.log("Can`t get id from Cookies");
@@ -35,39 +37,6 @@ function updateCompetitionList(competitionCategory) {
     if (data.length === 0) {
       return;
     }
-    // test data
-    /*data = [
-        {
-            ageLimit: null,
-            city: null,
-            competitors: null,
-            endDate: "0001-01-01T00:00:00",
-            id: 1,
-            isOpen: false,
-            isPublic: false,
-            sport: null,
-            startDate: "0001-01-01T00:00:00",
-            state: null,
-            streamUrl: null,
-            title: "title",
-            user: null
-        },
-        {
-            ageLimit: null,
-            city: null,
-            competitors: null,
-            endDate: "0001-01-01T00:00:00",
-            id: 2,
-            isOpen: false,
-            isPublic: false,
-            sport: null,
-            startDate: "0001-01-01T00:00:00",
-            state: null,
-            streamUrl: null,
-            title: "title2",
-            user: null
-        }
-    ]*/
 
     const competitionsWrapperEl =
       document.querySelector(".competition-list .row");
