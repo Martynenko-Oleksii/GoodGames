@@ -1,22 +1,32 @@
 document.addEventListener("DOMContentLoaded", pageLoaded);
 
 function pageLoaded() {
+    updateCompetitionList("my");
+}
+
+function updateCompetitionList(competitionCategory) {
+    // competitionCategory = {"all", "favourite sport kinds", "my"}
     const userId = Cookies.get("id");
     if (!userId) {
         console.log("Can`t get id from Cookies");
         return;
     }
 
-    sendServerRequest(userId);
-
-
-    function sendServerRequest(userId) {
+    function sendServerRequest() {
         const requestParams = new RequestParams();
-        requestParams.url = "/api/competitions/users/" + userId;
+        if (competitionCategory === "all") {
+            requestParams.url = "/api/competitions";
+        } else if (competitionCategory === "favourite sport kinds") {
+            requestParams.url = "/api/competitions/favourites/" + userId;
+        } else if (competitionCategory === "my") {
+            requestParams.url = "/api/competitions/users/" + userId;
+        } else {
+            return;
+        }
 
         ServerRequest.send(requestParams)
-            .then(data => parseServerResponse(data))
-            .catch(err => console.log(err));
+          .then(data => parseServerResponse(data))
+          .catch(err => console.log(err));
     }
 
     function parseServerResponse(data) {
@@ -58,7 +68,7 @@ function pageLoaded() {
         ]*/
 
         const competitionsWrapperEl =
-            document.querySelector(".competition-list .row");
+          document.querySelector(".competition-list .row");
         competitionsWrapperEl.innerHTML = "";
 
         for (let competitionInfo of data) {
@@ -75,7 +85,7 @@ function pageLoaded() {
         const competitionId = competitionInfo.id;
         const competitionTitle = competitionInfo.title;
         const competitionDate =
-            new Date(competitionInfo.startDate).toLocaleDateString();
+          new Date(competitionInfo.startDate).toLocaleDateString();
 
         if (!competitionId || !competitionTitle || !competitionDate) {
             console.log("Something wrong with competition info");
@@ -83,10 +93,10 @@ function pageLoaded() {
         }
 
         const competitionsWrapperEl =
-            document.querySelector(".competition-list .row");
+          document.querySelector(".competition-list .row");
 
         competitionsWrapperEl.innerHTML +=
-            `<div class="col-lg-4 col-md-6 mt-4 pt-2" style="cursor: pointer;" id="competition-${competitionId}">
+          `<div class="col-lg-4 col-md-6 mt-4 pt-2" style="cursor: pointer;" id="competition-${competitionId}">
             <div class="card blog rounded border-0 shadow overflow-hidden">
               <div class="card-hover card-body content">
                 <h5>
