@@ -31,7 +31,7 @@ namespace GGBack.Controllers
 
         [Route("api/competitions/favourites/{userId}")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Competition>>> GetFavouriteCompetitions(int userId)
+        public ActionResult<IEnumerable<Competition>> GetFavouriteCompetitions(int userId)
         {
             User user = context.Users
                 .Include(u => u.Sports)
@@ -44,11 +44,18 @@ namespace GGBack.Controllers
 
             try
             {
-                return await context.Competitions
-                    .Include(c => c.Sport)
-                    .Where(c =>
-                        user.Sports.Find(s => s.Id == c.Sport.Id) != null)
-                    .ToListAsync();
+                List<Competition> favouriteCompetitions = new List<Competition>();
+
+                foreach (Sport sport in user.Sports)
+                {
+                    List<Competition> competitionsBySport = context.Competitions
+                        .Include(c => c.Sport)
+                        .Where(c => c.Sport.Id == sport.Id)
+                        .ToList();
+                    favouriteCompetitions.AddRange(competitionsBySport);
+                }
+
+                return favouriteCompetitions;
             }
             catch (Exception ex)
             {
