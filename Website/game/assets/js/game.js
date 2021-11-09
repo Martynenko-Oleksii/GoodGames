@@ -148,12 +148,21 @@ function updateCompetitionTimetable() {
     const TimeTableBodyEl = document.querySelector(".generate_shedule");
 
     for (let timetableBlockInfo of data) {
-      const date = new Date(timetableBlockInfo.date);
+      const timetableCellId = timetableBlockInfo.id;
+      const date = new Date(timetableBlockInfo.dateTime);
       const dateString = date.toLocaleDateString();
       const timeString = date.toLocaleTimeString();
       const teamsArray =
         getTeamArrayByCompetitorArray(timetableBlockInfo.competitors);
-      const timetableCellId = timetableBlockInfo.id;
+
+      let team1Result = 0;
+      let team2Result = 0;
+      if (timetableBlockInfo.winResult) {
+        const score = timetableBlockInfo.winResult.score;
+        let regex = /\d+/g;
+        team1Result = regex.exec(score)[0];
+        team2Result = regex.exec(score)[0];
+      }
 
       TimeTableBodyEl.innerHTML +=
         `<div class="widget widget-four" style="margin-bottom: 20px;" id="timetableCell-${timetableCellId}">
@@ -172,7 +181,11 @@ function updateCompetitionTimetable() {
                   <div class="w-summary-details">
                     <div class="w-summary-info">
                       <h6>Команда <span class="summary-count team1-name">${teamsArray[0]}</span></h6>
-                      <p class="summary-average"><a class="card team1-result" style="padding: 0.75rem; margin-top: 0px;">0</a></p>
+                      <p class="summary-average">
+                        <a class="card team1-result" style="padding: 0.75rem; margin-top: 0;">
+                          ${team1Result}
+                        </a>
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -186,7 +199,11 @@ function updateCompetitionTimetable() {
                   <div class="w-summary-details">
                     <div class="w-summary-info">
                       <h6>Команда <span class="summary-count team2-name">${teamsArray[1]}</span></h6>
-                      <p class="summary-average"><a class="card team2-result" style="padding: 0.75rem; margin-top: 0px;">0</a></p>
+                      <p class="summary-average">
+                        <a class="card team2-result" style="padding: 0.75rem; margin-top: 0;">
+                          ${team2Result}
+                        </a>
+                      </p>
                     </div>
                   </div>
                 </div>
