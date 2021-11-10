@@ -87,15 +87,24 @@
     <div class="head_page" >
       <div class="theme_back" id="theme">
         <div class="row" style="flex-wrap: inherit;">
-          <h3 style="padding-top: 5px; padding-left: 10px;">Змагання онлайн</h3>
-          <div class="icon-button" style="z-index: 0; margin-right: 10px; display: flex; right: 50px; position: absolute;">
+          <h3 style="padding-top: 5px; padding-left: 10px;" class="main_name">Змагання онлайн</h3>
+          <input type="text" class="search_box" name="search" placeholder="Пошук змагання...">
+
+          <div class="icon-button" style="z-index: 0; margin-top: 6px; margin-right: 10px; display: flex; right: 50px; position: absolute;">
             <ion-icon name="settings-outline" class="nav__icon" style="position: absolute;"></ion-icon>
+            
             <select class="competition-categories form-control" name="sort" id="sort" style="opacity: 0;">
               <option value="all">Усі змагання</option>
               <option value="favourite sport kinds">За підписками на види спорта</option>
               <option value="my" selected="">Мої змагання</option>
             </select>
+
           </div>
+
+          <div class="icon-button" style="z-index: 0; margin-top: 6px; margin-right: 10px; display: flex; right: 100px; position: absolute;">
+            <ion-icon name="search-outline" class="nav__icon" style="position: absolute;"></ion-icon>
+          </div>
+
         </div>
       </div>
     </div>
