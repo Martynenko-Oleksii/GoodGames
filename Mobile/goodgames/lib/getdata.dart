@@ -532,14 +532,10 @@ class getDatahttp {
           {
             cell.winResult = WinResult(
                 id: s[0]["winResult"]["id"],
+                teamOne: s[0]["winResult"]["teamOne"],
+                teamTwo: s[0]["winResult"]["teamTwo"],
                 score: s[0]["winResult"]["score"]
             );
-
-            List<Competitor> winCompetitors = [];
-            for (var c in s[0]["winResult"]["competitors"])
-            {
-            }
-            cell.winResult?.competitors = winCompetitors;
           }
 
           cells.add(cell);
@@ -737,10 +733,15 @@ class getDatahttp {
     return user!;
   }
 
-  static Future<bool> postResults(String teamOneResult, String teamTwoResult) async {
+  static Future<bool> postResults(int timetableCellId,
+      String teamOne, String teamTwo,
+      String teamOneResult, String teamTwoResult) async {
     bool result = false;
 
     var body = jsonEncode({
+      'id': timetableCellId,
+      'teamOne': teamOne,
+      'teamTwo': teamTwo,
       'score': "$teamOneResult,$teamTwoResult"
     });
 

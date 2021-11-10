@@ -136,12 +136,14 @@ class Subscription {
 
 class WinResult {
   int? id;
-  List<Competitor>? competitors;
+  String? teamOne;
+  String? teamTwo;
   String? score;
 
   WinResult({
     this.id,
-    this.competitors,
+    this.teamOne,
+    this.teamTwo,
     this.score,
   });
 
