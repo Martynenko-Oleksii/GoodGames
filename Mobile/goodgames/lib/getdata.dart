@@ -1012,6 +1012,35 @@ class getDatahttp {
     return users;
   }
 
+  static Future<List<User>> getAllAdmins(int competitionId) async{
+    List<User> users = [];
+
+    try {
+      var response = await http.get(
+          Uri.https("goodgames.kh.ua", "api/admins/$competitionId"),
+          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
+      );
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+        for (var s in jsonData) {
+          User user = User(
+              id: s["id"],
+              login: s["login"]
+          );
+
+          users.add(user);
+        }
+      } else {
+        print(response.body);
+      }
+    } catch (ex) {
+      print(ex);
+    }
+
+    return users;
+  }
+
   static Future<Competition> addStreamUrl(int competitionId, String streamUrl) async{
     Competition? competition;
 
