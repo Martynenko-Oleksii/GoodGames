@@ -86,7 +86,7 @@ namespace GGBack.Controllers
             user.Sports.Add(dbSport);
             await context.SaveChangesAsync();
 
-            return Ok(sport);
+            return Ok(user.Sports);
         }
 
         [Route("api/deletesport/{userId}")]
@@ -123,7 +123,7 @@ namespace GGBack.Controllers
                 return BadRequest(ex.Message + "\n" + ex.InnerException);
             }
 
-            return Ok(sport);
+            return Ok(user.Sports);
         }
 
         [Route("api/sports")]
