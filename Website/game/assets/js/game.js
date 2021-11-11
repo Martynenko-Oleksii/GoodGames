@@ -1,4 +1,15 @@
 const startCompetitionButtonEl = document.querySelector("#start_competitions");
+const stateSportEl = document.querySelector(".state_sport");
+const competitionTitleEl = document.querySelector(".competition-title");
+const competitionDescriptionEl =
+  document.querySelector(".competition-description");
+const organizerEl = document.querySelector(".organizer");
+const cityEl = document.querySelector(".city");
+const competitorsNumberEl =
+  document.querySelector(".competitors-number");
+const startCompetitionsEl = document.querySelector("#start_competitions");
+const sendAddPlayerEl = document.querySelector("#send_add_player");
+
 const nameT1EditEl = document.querySelector("#name_t1_edit");
 const nameT2EditEl = document.querySelector("#name_t2_edit");
 const resultT1EditEl = document.querySelector("#result_t1_edit");
@@ -48,56 +59,42 @@ function updateCompetitionGeneralInfo() {
   }
 
   function parseCompetitionInfo(info) {
-    document.querySelector(".competition-title").innerHTML = info.title;
-    document.querySelector(".organizer").innerHTML = info.user.login;
-    document.querySelector(".city").innerHTML = info.city;
+    competitionTitleEl.innerHTML = info.title;
+    organizerEl.innerHTML = info.user.login;
+    cityEl.innerHTML = info.city;
+    competitionDescriptionEl.innerHTML = info.description;
+    competitorsNumberEl.innerHTML = info.competitors.length.toString();
+
     info.state = parseInt(info.state);
-    if (info.state === 0) {
-      document.querySelector(".state_sport").innerHTML = "Планування та набір";
-    } else if (info.state === 1) {
-      document.querySelector(".state_sport").innerHTML = "Проводиться";
-      document.getElementById('start_competitions').remove();
-    } else if (info.state === 2) {
-      document.querySelector(".state_sport").innerHTML = "Завершено";
-      document.getElementById('start_competitions').remove();
-    } else if (info.state !== 0 && info.state !== 1 && info.state !== 2) {
-      document.querySelector(".state_sport").innerHTML = "Статус не визначено.";
+    switch (info.state) {
+      case 0:
+        stateSportEl.innerHTML = "Планування та набір";
+        break;
+      case 1:
+        stateSportEl.innerHTML = "Проводиться";
+        startCompetitionButtonEl.style.display = "none";
+        break;
+      case 2:
+        stateSportEl.innerHTML = "Завершено";
+        startCompetitionButtonEl.style.display = "none";
+        break;
+      default:
+        stateSportEl.innerHTML = "Статус не визначено.";
     }
-    document.querySelector(".competition-description").innerHTML =
-      info.description;
-    document.querySelector(".competitors-number").innerHTML =
-      info.competitors.length.toString();
-    if ( info.user.id.toString() !== Cookies.get('id') ) {
-      document.getElementById('edit_autor_show').remove();
-      document.getElementById('start_competitions').remove();
+
+    const userId = Cookies.get("id");
+    if (!userId || info.user.id.toString() !== userId) {
+      startCompetitionsEl.style.display = "none";
       if (!info.isOpen) {
-        document.getElementById('send_add_player').remove();
+        sendAddPlayerEl.style.display = "none";
       }
     }
 
     // if teams number less than 2 - hide start competition button
     if (!info.competitors.length) {
-      startCompetitionButtonEl.style.display = "none";
-    } else {
-      let teamsArr = [];
-      for (let competitor of info.competitors) {
-        const competitorTeam = competitor.team;
-        let teamExist = false;
-        for (let team of teamsArr) {
-          if (competitorTeam === team) {
-            teamExist = true;
-            break;
-          }
-        }
+      const teamArray = getTeamArrayByCompetitorArray(info.competitors);
 
-        if (teamExist) {
-          continue;
-        }
-
-        teamsArr.push(competitorTeam);
-      }
-
-      if (teamsArr.length < 2) {
+      if (teamArray.length < 2) {
         startCompetitionButtonEl.style.display = "none";
       }
     }
@@ -354,7 +351,7 @@ function fixResults(timetableCellId, team1Name, team2Name) {
     }
 
     ServerRequest.send(requestParams)
-      .then(data => updateDom())
+      .then(() => updateDom())
       .catch(err => console.log(err));
   }
 
@@ -392,29 +389,31 @@ function send_togo() {
 }
 
 
-var id = getUrlVars()["id"];
-if(getUrlVars()["id"] == undefined){
+let id = getUrlVars()["id"];
+if (!getUrlVars()["id"]) {
   //history.back();
 }
-var options = "none";
+let options = "none";
 document.getElementById("join").href = "join/?game=" + id;
 document.getElementById("grid_frame").src = "grid/?id=" + id + "&options=" + options;
 
 if (devices.test(navigator.userAgent))
 { /* События для телефонов */  }
-else{ document.getElementById("grid_frame").setAttribute("scrolling", "no"); }
+else {
+  document.getElementById("grid_frame").setAttribute("scrolling", "no");
+}
 
-function edit_shedule(){
+function edit_shedule() {
   document.getElementById('main_apps').style.display = "none";
   document.getElementById('edit_autor').style.display = "none";
   document.getElementById('edit_shedule').style.display = "block";
   document.getElementById('show_main').style.display = "block";
-  if(devices.test(navigator.userAgent)){
+  if(devices.test(navigator.userAgent)) {
     document.getElementById("edit_shedule").scrollIntoView({block: "center", behavior: "smooth"});
   }
 }
 
-function show_main(){
+function show_main() {
   document.getElementById('main_apps').style.display = "block";
   document.getElementById('edit_autor').style.display = "block";
   document.getElementById('edit_shedule').style.display = "none";
