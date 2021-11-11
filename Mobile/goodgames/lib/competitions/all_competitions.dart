@@ -1,4 +1,3 @@
-import 'package:goodgames/competitions/all_competitions.dart';
 import 'package:goodgames/getdata.dart';
 import 'package:goodgames/global.dart';
 import 'package:flutter/material.dart';
@@ -14,24 +13,25 @@ import '../apptheme.dart';
 import '../getdata.dart';
 import '../maket.dart';
 import 'competition_info.dart';
+import 'competitions_list_page.dart';
 import 'copetition_add.dart';
 
-class CompetitionsScreen extends StatefulWidget {
+class AllCompetitionsScreen extends StatefulWidget {
   final User user;
 
-  CompetitionsScreen({Key? key, required this.user}) : super(key: key);
+  AllCompetitionsScreen({Key? key, required this.user}) : super(key: key);
 
   @override
-  _CompetitionsState createState() => _CompetitionsState();
+  _AllCompetitionsState createState() => _AllCompetitionsState();
 }
 
-class _CompetitionsState extends State<CompetitionsScreen>
+class _AllCompetitionsState extends State<AllCompetitionsScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   bool multiple = false;
   final ScrollController _scrollController = ScrollController();
 
-  int currentIndex = 3;
+  int currentIndex = 2;
 
   @override
   void initState() {
@@ -146,40 +146,6 @@ class _CompetitionsState extends State<CompetitionsScreen>
                     ),
                       */
 
-
-
-
-                    new Container(
-                      padding: EdgeInsets.only( bottom: 15),
-                      child: RaisedButton(
-
-                        child: new Text("Add Competition",
-                          style: TextStyle( // h4 -> display1
-
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            letterSpacing: 0.4,
-                            height: 0.9,
-                            color: Colors.white,
-                          ),),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                            side: BorderSide(color: Colors.white, width: 3)
-                        ),
-                        onPressed: () {
-                          Navigator.push<dynamic>(
-                            context,
-                            MaterialPageRoute<dynamic>(
-                              builder: (BuildContext context) =>
-                                  CompetitionAddPage(user: widget.user),
-                            ),
-                          );
-                        },
-                        color: Colors.black26.withOpacity(0.5),
-                      ),
-                    ),
-
-
                     /* new Container(
                     // margin: const EdgeInsets.symmetric(vertical: 0.0),
                     //padding: EdgeInsets.only(left: 15.0),
@@ -190,7 +156,7 @@ class _CompetitionsState extends State<CompetitionsScreen>
                     new Container(
                       height: MediaQuery.of(context).size.height - 200,
                       child: FutureBuilder(
-                        future: getDatahttp.getCompetitions(widget.user.id!),
+                        future: getDatahttp.getAllCompetitions(),
                         builder:
                             (BuildContext context, AsyncSnapshot snapshot) {
                           if (!snapshot.hasData) {
@@ -277,10 +243,11 @@ class _CompetitionsState extends State<CompetitionsScreen>
         onTap: (index) {
           if (index == 0) {}
           if (index == 1) {}
-          if (index == 2) { Navigator.pushReplacement(context,
-              MaterialPageRoute(
-                  builder: (BuildContext context) =>
-                      AllCompetitionsScreen(user: widget.user)));
+          if (index == 3) {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        CompetitionsScreen(user: widget.user)));
           }
           if (index == 4) {
             Navigator.pushReplacement(context,
@@ -350,7 +317,7 @@ class CompetitionListView extends StatelessWidget {
                 0.0, 50 * (1.0 - animation.value), 0.0),
             child: Padding(
               padding:
-                  const EdgeInsets.only(left: 10, right: 24, top: 8, bottom: 1),
+              const EdgeInsets.only(left: 10, right: 24, top: 8, bottom: 1),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(16.0)),
@@ -417,36 +384,6 @@ class CompetitionListView extends StatelessWidget {
                                     ),
                                   ),
                                 ),*/
-                                new RaisedButton(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                  ),
-                                  child: Icon(Icons.dangerous),
-                                  onPressed: () {
-
-                                    getDatahttp.deleteCompetition(listData.id!)
-                                        .then(
-                                            (value) => {
-                                              if (value.id == listData.id) {
-                                                Navigator.push<dynamic>(
-                                                  context,
-                                                  MaterialPageRoute<dynamic>(
-                                                    builder: (BuildContext context) => CompetitionsScreen(user: user),
-                                                  ),
-                                                )
-                                              }
-                                            });
-
-                                    /*Navigator.push<dynamic>(
-                                      context,
-                                      MaterialPageRoute<dynamic>(
-                                        builder: (BuildContext context) =>
-                                            RegistPage(),
-                                      ),
-                                    );*/
-                                  },
-                                  color: Colors.redAccent.shade200,
-                                ),
                               ],
                             ),
                           ),
@@ -477,8 +414,8 @@ class CompetitionListView extends StatelessWidget {
 
 class ContestTabHeader extends SliverPersistentHeaderDelegate {
   ContestTabHeader(
-    this.searchUI,
-  );
+      this.searchUI,
+      );
 
   final Widget searchUI;
 

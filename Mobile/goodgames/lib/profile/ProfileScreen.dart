@@ -1,3 +1,4 @@
+import 'package:goodgames/competitions/all_competitions.dart';
 import 'package:goodgames/competitions/competitions_list_page.dart';
 import 'package:goodgames/getdata.dart';
 import 'package:goodgames/global.dart';
@@ -434,7 +435,11 @@ class _ProfileState extends State<ProfileScreen>
         onTap: (index) {
           if (index == 0) {}
           if (index == 1) {}
-          if (index == 2) {}
+          if (index == 2) { Navigator.pushReplacement(context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      AllCompetitionsScreen(user: widget.user)));
+          }
           if (index == 3) {
             Navigator.pushReplacement(context,
                 MaterialPageRoute(
