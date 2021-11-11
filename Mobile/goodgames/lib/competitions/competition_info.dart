@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:goodgames/login/regist.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../home_screen.dart';
 import '../../../main.dart';
@@ -15,10 +16,12 @@ import 'competition_shedule.dart';
 class CompetitionInfoScreen extends StatefulWidget {
   final Competition comp;
   final User user;
+
   @override
   _CompetitionState createState() => _CompetitionState();
 
-  CompetitionInfoScreen({Key? key, required this.comp ,required this.user }) : super(key: key);
+  CompetitionInfoScreen({Key? key, required this.comp, required this.user })
+      : super(key: key);
 }
 
 class _CompetitionState extends State<CompetitionInfoScreen>
@@ -27,7 +30,10 @@ class _CompetitionState extends State<CompetitionInfoScreen>
   bool multiple = false;
   final ScrollController _scrollController = ScrollController();
   final TextEditingController emailsendControl = TextEditingController();
+  final TextEditingController urlsendControl = TextEditingController();
   final formKeyinvite = GlobalKey<FormState>();
+  final formKeyurl = GlobalKey<FormState>();
+
 
   @override
   void initState() {
@@ -218,7 +224,8 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                     children: [
                                       new Container(
                                         // margin: const EdgeInsets.symmetric(vertical: 0.0),
-                                        padding: EdgeInsets.only(left: 15.0 , top: 10),
+                                        padding: EdgeInsets.only(
+                                            left: 15.0, top: 10),
 
                                         child: new Text(
                                           "By: ",
@@ -252,7 +259,8 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                     children: [
                                       new Container(
                                         // margin: const EdgeInsets.symmetric(vertical: 0.0),
-                                        padding: EdgeInsets.only(left: 15.0 , bottom: 15 , top: 10),
+                                        padding: EdgeInsets.only(
+                                            left: 15.0, bottom: 15, top: 10),
 
                                         child: new Text(
                                           "Місто: ",
@@ -284,7 +292,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                     CrossAxisAlignment.center,
                                     children: [
                                       new Container(
-                                        padding: EdgeInsets.only( bottom: 15 ),
+                                        padding: EdgeInsets.only(bottom: 15),
                                         child: new RaisedButton(
                                           padding: EdgeInsets.all(10.0),
                                           shape: RoundedRectangleBorder(
@@ -314,7 +322,10 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                             ),
                           ),
                           new Padding(
-                              padding: EdgeInsets.only(left: 15.0 , right: 15 , top: 5 , bottom: 5),
+                              padding: EdgeInsets.only(left: 15.0,
+                                  right: 15,
+                                  top: 5,
+                                  bottom: 5),
                               child: new Divider(
                                 height: 3,
                                 color: Colors.black,
@@ -325,7 +336,8 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                             padding: EdgeInsets.all(10.0),
                             child: new Container(
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(30)),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(30)),
                                   gradient: LinearGradient(
                                     begin: Alignment.topLeft,
                                     end: Alignment.bottomRight,
@@ -348,7 +360,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
                                     CrossAxisAlignment.center,
-                                    children :[
+                                    children: [
                                       new Container(
                                         // margin: const EdgeInsets.symmetric(vertical: 0.0),
                                         padding: EdgeInsets.all(10.0),
@@ -427,7 +439,8 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                   ),
 
                                   new Container(
-                                    padding: EdgeInsets.only( bottom: 5 , top: 10 ),
+                                    padding: EdgeInsets.only(
+                                        bottom: 5, top: 10),
                                     child: new RaisedButton(
                                       padding: EdgeInsets.all(10.0),
                                       shape: RoundedRectangleBorder(
@@ -448,7 +461,8 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                           MaterialPageRoute<dynamic>(
                                             builder: (BuildContext context) =>
                                                 CompetitionEnterPage(
-                                                    comp: widget.comp , user: widget.user,),
+                                                  comp: widget.comp,
+                                                  user: widget.user,),
                                           ),
                                         );
                                       },
@@ -460,7 +474,10 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                             ),
                           ),
                           new Padding(
-                              padding: EdgeInsets.only(left: 15.0 , right: 15 , top: 5 , bottom: 5),
+                              padding: EdgeInsets.only(left: 15.0,
+                                  right: 15,
+                                  top: 5,
+                                  bottom: 5),
                               child: new Divider(
                                 height: 3,
                                 color: Colors.black,
@@ -472,9 +489,11 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                             child: new Container(
 
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(30)),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(30)),
                                   color: Colors.amber.shade50,
-                                  border:  Border.all(color: Colors.black , width: 2)
+                                  border: Border.all(
+                                      color: Colors.black, width: 2)
                               ),
                               child: new Column(
                                 // crossAxisAlignment: CrossAxisAlignment.start,
@@ -493,12 +512,14 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                     ),
                                   ),
                                   new Padding(
-                                      padding: EdgeInsets.only(left: 25.0 , right: 25 , bottom: 5),
+                                      padding: EdgeInsets.only(
+                                          left: 25.0, right: 25, bottom: 5),
                                       child: new Divider(
                                         height: 3,
                                         color: Colors.black,
                                       )
                                   ),
+                               //todo tyt   Stream(snapshot.data),
                                   /* new RaisedButton(
                                     padding: EdgeInsets.all(10.0),
                                     shape: RoundedRectangleBorder(
@@ -951,7 +972,10 @@ class _CompetitionState extends State<CompetitionInfoScreen>
 */
 
                           new Padding(
-                              padding: EdgeInsets.only(left: 15.0 , right: 15 , top: 5 , bottom: 5),
+                              padding: EdgeInsets.only(left: 15.0,
+                                  right: 15,
+                                  top: 5,
+                                  bottom: 5),
                               child: new Divider(
                                 height: 3,
                                 color: Colors.black,
@@ -962,7 +986,8 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                             padding: EdgeInsets.all(10.0),
                             child: new Container(
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(30)),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(30)),
                                   gradient: LinearGradient(
                                     begin: Alignment.topLeft,
                                     end: Alignment.bottomRight,
@@ -1036,7 +1061,8 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                           MaterialPageRoute<dynamic>(
                                             builder: (BuildContext context) =>
                                                 CompetitionsheduleScreen(
-                                                  comp: snapshot.data, user: widget.user,
+                                                  comp: snapshot.data,
+                                                  user: widget.user,
                                                 ),
                                           ),
                                         );
@@ -1048,7 +1074,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                               ),
                             ),
                           ),
-                            admin(snapshot.data),
+                          admin(snapshot.data),
                         ],
                       );
                     }
@@ -1060,10 +1086,10 @@ class _CompetitionState extends State<CompetitionInfoScreen>
     );
   }
 
-  Widget admin(Competition compet){
-    if(widget.user.id == compet.user!.id){
+  Widget admin(Competition compet) {
+    if (widget.user.id == compet.user!.id) {
       return Container(
-       child: Container(
+        child: Container(
           height: 200,
           padding: EdgeInsets.all(10.0),
           child: new Container(
@@ -1140,7 +1166,8 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                             validator: (value) {
                                               if (value!
                                                   .isEmpty ||
-                                                  !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                                                  !RegExp(
+                                                      r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
                                                       .hasMatch(
                                                       value)) {
                                                 return "Enter Correct Email Address";
@@ -1175,7 +1202,8 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                           //  Navigator.of(context).pop();
                                         },
                                         textColor:
-                                        Theme.of(context)
+                                        Theme
+                                            .of(context)
                                             .primaryColor,
                                         child: const Text('Send'),
                                       ),
@@ -1187,7 +1215,8 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                           '';
                                         },
                                         textColor:
-                                        Theme.of(context)
+                                        Theme
+                                            .of(context)
                                             .primaryColor,
                                         child:
                                         const Text('Close'),
@@ -1221,7 +1250,127 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                             side: BorderSide(
                                 color: Colors.white, width: 3)),
                         onPressed: () {
-                          getDatahttp.generateSchedule(widget.comp.id!, '2021-11-05T10:00:00', '2021-11-05T19:00:00');//TODO
+                          getDatahttp.generateSchedule(widget.comp.id!,
+                              '2021-11-05T10:00:00',
+                              '2021-11-05T19:00:00'); //TODO
+                        },
+                        color: Colors.black.withOpacity(0.05),
+                      ),
+                    ),
+                  ],
+                ),
+                new Row(
+                  children: [
+                    new Container(
+                      width: 200,
+                      height: 40,
+                      child: new RaisedButton(
+                        child: new Text(
+                          "add stream",
+                          style: TextStyle(
+                            // h4 -> display1
+
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            letterSpacing: 0.4,
+                            height: 0.9,
+                            color: Colors.white,
+                          ),
+                        ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            side: BorderSide(
+                                color: Colors.white, width: 3)),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                Form(
+                                  key: formKeyurl,
+                                  child: new AlertDialog(
+                                    title: const Text(
+                                        'Send invitation'),
+                                    content: new Column(
+                                      mainAxisSize:
+                                      MainAxisSize.min,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment
+                                          .start,
+                                      children: <Widget>[
+                                        new Container(
+                                          // width: 275.0,
+                                          child:
+                                          new TextFormField(
+                                            controller:
+                                            urlsendControl,
+                                            decoration:
+                                            new InputDecoration(
+                                              hintText: 'URl',
+                                              filled: true,
+                                              fillColor:
+                                              Colors.white70,
+                                            ),
+                                            validator: (value) {
+                                              if (value!
+                                                  .isEmpty ||
+                                                  !RegExp(
+                                                      r"https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?")
+                                                      .hasMatch(
+                                                      value)) {
+                                                return "Enter Correct url";
+                                              } else {
+                                                return null;
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                        // Text("Hello"),
+                                      ],
+                                    ),
+                                    actions: <Widget>[
+                                      new FlatButton(
+                                        onPressed: () {
+                                          if (formKeyurl
+                                              .currentState!
+                                              .validate()) {
+                                            getDatahttp
+                                                .addStreamUrl(
+                                                widget.comp.id!,
+                                                urlsendControl.text
+                                            )
+                                                .then((value) =>
+                                                Navigator.of(
+                                                    context)
+                                                    .pop());
+                                            urlsendControl
+                                                .text = '';
+                                          }
+                                          //  Navigator.of(context).pop();
+                                        },
+                                        textColor:
+                                        Theme
+                                            .of(context)
+                                            .primaryColor,
+                                        child: const Text('Add'),
+                                      ),
+                                      new FlatButton(
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .pop();
+                                          urlsendControl.text =
+                                          '';
+                                        },
+                                        textColor:
+                                        Theme
+                                            .of(context)
+                                            .primaryColor,
+                                        child:
+                                        const Text('Close'),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                          );
                         },
                         color: Colors.black.withOpacity(0.05),
                       ),
@@ -1233,8 +1382,30 @@ class _CompetitionState extends State<CompetitionInfoScreen>
           ),
         ),
       );
+    } else {
+      return Container();
+    }
+  }
+
+  Widget Stream(Competition comp){
+    if(comp.streamUrl != null && comp.streamUrl !=''){
+      return new Container(
+        child: YoutubePlayer(
+          controller: YoutubePlayerController(
+            initialVideoId: YoutubePlayer
+                .convertUrlToId(
+                YoutubePlayer.convertUrlToId(comp.streamUrl)),
+            flags: YoutubePlayerFlags(
+              autoPlay: false,
+              mute: true,
+            ),
+          ),
+          showVideoProgressIndicator: true,
+        ),
+
+      );
     }else{
-   return Container();
+      return Container();
     }
   }
 
@@ -1258,7 +1429,8 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                 ),
                 validator: (value) {
                   if (value!.isEmpty ||
-                      !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                      !RegExp(
+                          r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
                           .hasMatch(value)) {
                     return "Enter Correct Email Address";
                   } else {
@@ -1282,7 +1454,9 @@ class _CompetitionState extends State<CompetitionInfoScreen>
               }
               //  Navigator.of(context).pop();
             },
-            textColor: Theme.of(context).primaryColor,
+            textColor: Theme
+                .of(context)
+                .primaryColor,
             child: const Text('Send'),
           ),
           new FlatButton(
@@ -1290,7 +1464,9 @@ class _CompetitionState extends State<CompetitionInfoScreen>
               Navigator.of(context).pop();
               emailsendControl.text = '';
             },
-            textColor: Theme.of(context).primaryColor,
+            textColor: Theme
+                .of(context)
+                .primaryColor,
             child: const Text('Close'),
           ),
         ],
@@ -1391,15 +1567,13 @@ class CompetitionMemberListView extends StatelessWidget {
 }
 
 class ContestTabHeader extends SliverPersistentHeaderDelegate {
-  ContestTabHeader(
-      this.searchUI,
-      );
+  ContestTabHeader(this.searchUI,);
 
   final Widget searchUI;
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context, double shrinkOffset,
+      bool overlapsContent) {
     return searchUI;
   }
 

@@ -35,6 +35,7 @@ dependencies:
   video_player: ^2.2.5
   http: ^0.13.4
   webview_flutter: ^2.1.2
+  youtube_player_flutter: ^7.0.0+7
 
 dev_dependencies:
   flutter_test:
