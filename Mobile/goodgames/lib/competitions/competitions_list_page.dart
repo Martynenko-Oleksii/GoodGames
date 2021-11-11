@@ -280,7 +280,7 @@ class _CompetitionsState extends State<CompetitionsScreen>
           if (index == 2) { Navigator.pushReplacement(context,
               MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      AllCompetitionsScreen(user: widget.user)));
+                      AllCompetitionsStat(user: widget.user , isfavorit: false,)));
           }
           if (index == 4) {
             Navigator.pushReplacement(context,

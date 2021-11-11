@@ -1056,7 +1056,19 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                               ),
                             ),
                           ),
-                          admin(snapshot.data),
+                          FutureBuilder(
+                              future:
+                                  getDatahttp.getAllAdmins(widget.comp.id!),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot snapshot2) {
+                                if (!snapshot2.hasData) {
+                                  return const SizedBox();
+                                } else {
+                                  return admin(
+                                    snapshot.data,snapshot2.data
+                                  );
+                                }
+                              })
                         ],
                       );
                     }
@@ -1068,7 +1080,9 @@ class _CompetitionState extends State<CompetitionInfoScreen>
     );
   }
 
-  Widget admin(Competition compet) {
+  Widget admin(Competition compet, List<User> users) {
+
+
     if (widget.user.id == compet.user!.id) {
       return Container(
         child: Container(
@@ -1359,9 +1373,9 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                     if (formKeyadmin.currentState!.validate()) {
                                       getDatahttp
                                           .addAdmin(widget.comp.id!,
-                                          adminsendControl.text)
+                                              adminsendControl.text)
                                           .then((value) =>
-                                          Navigator.of(context).pop());
+                                              Navigator.of(context).pop());
                                       adminsendControl.text = '';
                                     }
                                     //  Navigator.of(context).pop();
@@ -1444,9 +1458,9 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                     if (formKeyadmin.currentState!.validate()) {
                                       getDatahttp
                                           .deleteAdmin(widget.comp.id!,
-                                          adminsendControl.text)
+                                              adminsendControl.text)
                                           .then((value) =>
-                                          Navigator.of(context).pop());
+                                              Navigator.of(context).pop());
                                       adminsendControl.text = '';
                                     }
                                     //  Navigator.of(context).pop();
@@ -1470,7 +1484,6 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                       color: Colors.black.withOpacity(0.05),
                     ),
                   ),
-
                 ]),
               ],
             ),

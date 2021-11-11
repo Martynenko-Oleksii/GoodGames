@@ -438,7 +438,7 @@ class _ProfileState extends State<ProfileScreen>
           if (index == 2) { Navigator.pushReplacement(context,
               MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      AllCompetitionsScreen(user: widget.user)));
+                      AllCompetitionsStat(user: widget.user , isfavorit: false,)));
           }
           if (index == 3) {
             Navigator.pushReplacement(context,
@@ -618,17 +618,14 @@ class ProfileInteresListView extends StatelessWidget {
                                   ),
                                   child: Icon(Icons.dangerous),
                                   onPressed: () {
+                                    getDatahttp.deleteFavouriteSport( user.id!, listData.id);
                                     user.sports!.remove(listData.id);
-                                    getDatahttp.deleteFavouriteSport( user.id!, listData.id)
-                                        .then(
-                                            (value) => {
-                                            Navigator.push<dynamic>(
+                                    Navigator.push<dynamic>(
                                               context,
                                               MaterialPageRoute<dynamic>(
                                                 builder: (BuildContext context) => ProfileScreen(user: user),
                                               ),
-                                            )
-                                        });
+                                            );
                                   },
                                   color: Colors.redAccent.shade200,
                                 ),
