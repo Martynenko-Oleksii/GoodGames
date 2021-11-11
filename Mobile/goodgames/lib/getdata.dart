@@ -775,36 +775,38 @@ class getDatahttp {
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+        for (var c in jsonData) {
           Competition competition = Competition(
-              id: jsonData[0]["id"],
-              title: jsonData[0]["title"],
+              id: c[0]["id"],
+              title: c[0]["title"],
               sport: Sport(
-                  id: jsonData[0]["sport"]["id"],
-                  title: jsonData[0]["sport"]["title"],
-                  minCompetitorsCount: jsonData[0]["sport"]["minCompetitorsCount"],
-                  hasTeam: jsonData[0]["sport"]["hasTeam"],
-                  minTeamsCount: jsonData[0]["sport"]["minTeamsCount"],
-                  teamSize: jsonData[0]["sport"]["teamSize"],
-                  hasGrid: jsonData[0]["sport"]["hasGrid"]
+                  id: c[0]["sport"]["id"],
+                  title: c[0]["sport"]["title"],
+                  minCompetitorsCount: c[0]["sport"]["minCompetitorsCount"],
+                  hasTeam: c[0]["sport"]["hasTeam"],
+                  minTeamsCount: c[0]["sport"]["minTeamsCount"],
+                  teamSize: c[0]["sport"]["teamSize"],
+                  hasGrid: c[0]["sport"]["hasGrid"]
               ),
               startDate: DateTime.parse(
-                  jsonData[0]["startDate"]
+                  c[0]["startDate"]
                       .toString()
                       .substring(0, 10) + " " +
-                      jsonData[0]["startDate"]
+                      c[0]["startDate"]
                           .toString()
                           .substring(11)),
               endDate: DateTime.parse(
-                  jsonData[0]["endDate"]
+                  c[0]["endDate"]
                       .toString()
                       .substring(0, 10) + " " +
-                      jsonData[0]["endDate"]
+                      c[0]["endDate"]
                           .toString()
                           .substring(11)),
-              state: jsonData[0]["state"]
+              state: c[0]["state"]
           );
 
           competitions.add(competition);
+        }
       } else {
         print(response.body);
       }
@@ -826,36 +828,38 @@ class getDatahttp {
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
-        Competition competition = Competition(
-            id: jsonData[0]["id"],
-            title: jsonData[0]["title"],
-            sport: Sport(
-                id: jsonData[0]["sport"]["id"],
-                title: jsonData[0]["sport"]["title"],
-                minCompetitorsCount: jsonData[0]["sport"]["minCompetitorsCount"],
-                hasTeam: jsonData[0]["sport"]["hasTeam"],
-                minTeamsCount: jsonData[0]["sport"]["minTeamsCount"],
-                teamSize: jsonData[0]["sport"]["teamSize"],
-                hasGrid: jsonData[0]["sport"]["hasGrid"]
-            ),
-            startDate: DateTime.parse(
-                jsonData[0]["startDate"]
-                    .toString()
-                    .substring(0, 10) + " " +
-                    jsonData[0]["startDate"]
-                        .toString()
-                        .substring(11)),
-            endDate: DateTime.parse(
-                jsonData[0]["endDate"]
-                    .toString()
-                    .substring(0, 10) + " " +
-                    jsonData[0]["endDate"]
-                        .toString()
-                        .substring(11)),
-            state: jsonData[0]["state"]
-        );
+        for (var c in jsonData) {
+          Competition competition = Competition(
+              id: c[0]["id"],
+              title: c[0]["title"],
+              sport: Sport(
+                  id: c[0]["sport"]["id"],
+                  title: c[0]["sport"]["title"],
+                  minCompetitorsCount: c[0]["sport"]["minCompetitorsCount"],
+                  hasTeam: c[0]["sport"]["hasTeam"],
+                  minTeamsCount: c[0]["sport"]["minTeamsCount"],
+                  teamSize: c[0]["sport"]["teamSize"],
+                  hasGrid: c[0]["sport"]["hasGrid"]
+              ),
+              startDate: DateTime.parse(
+                  c[0]["startDate"]
+                      .toString()
+                      .substring(0, 10) + " " +
+                      c[0]["startDate"]
+                          .toString()
+                          .substring(11)),
+              endDate: DateTime.parse(
+                  c[0]["endDate"]
+                      .toString()
+                      .substring(0, 10) + " " +
+                      c[0]["endDate"]
+                          .toString()
+                          .substring(11)),
+              state: c[0]["state"]
+          );
 
-        competitions.add(competition);
+          competitions.add(competition);
+        }
       } else {
         print(response.body);
       }
