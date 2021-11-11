@@ -20,7 +20,7 @@ class CompetitionInfoScreen extends StatefulWidget {
   @override
   _CompetitionState createState() => _CompetitionState();
 
-  CompetitionInfoScreen({Key? key, required this.comp, required this.user })
+  CompetitionInfoScreen({Key? key, required this.comp, required this.user})
       : super(key: key);
 }
 
@@ -31,9 +31,10 @@ class _CompetitionState extends State<CompetitionInfoScreen>
   final ScrollController _scrollController = ScrollController();
   final TextEditingController emailsendControl = TextEditingController();
   final TextEditingController urlsendControl = TextEditingController();
+  final TextEditingController adminsendControl = TextEditingController();
   final formKeyinvite = GlobalKey<FormState>();
   final formKeyurl = GlobalKey<FormState>();
-
+  final formKeyadmin = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -106,7 +107,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                             child: new Container(
                               decoration: BoxDecoration(
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(30)),
+                                      BorderRadius.all(Radius.circular(30)),
                                   gradient: LinearGradient(
                                     begin: Alignment.topLeft,
                                     end: Alignment.bottomRight,
@@ -129,7 +130,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                   new Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       new Container(
                                         margin: const EdgeInsets.only(),
@@ -220,7 +221,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                   new Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       new Container(
                                         // margin: const EdgeInsets.symmetric(vertical: 0.0),
@@ -251,11 +252,10 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                       ),
                                     ],
                                   ),
-
                                   new Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       new Container(
                                         // margin: const EdgeInsets.symmetric(vertical: 0.0),
@@ -289,7 +289,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                   new Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       new Container(
                                         padding: EdgeInsets.only(bottom: 15),
@@ -297,7 +297,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                           padding: EdgeInsets.all(10.0),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
-                                            BorderRadius.circular(5.0),
+                                                BorderRadius.circular(5.0),
                                           ),
                                           child: new Text(
                                             "Підписатися",
@@ -307,37 +307,30 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                               fontWeight: FontWeight.w700,
                                             ),
                                           ),
-                                          onPressed: () {
-
-                                          },
+                                          onPressed: () {},
                                           color: Colors.redAccent.shade200,
                                         ),
                                       ),
                                     ],
                                   )
-
-
                                 ],
                               ),
                             ),
                           ),
                           new Padding(
-                              padding: EdgeInsets.only(left: 15.0,
-                                  right: 15,
-                                  top: 5,
-                                  bottom: 5),
+                              padding: EdgeInsets.only(
+                                  left: 15.0, right: 15, top: 5, bottom: 5),
                               child: new Divider(
                                 height: 3,
                                 color: Colors.black,
-                              )
-                          ),
+                              )),
                           new Container(
                             height: 500,
                             padding: EdgeInsets.all(10.0),
                             child: new Container(
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(30)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30)),
                                   gradient: LinearGradient(
                                     begin: Alignment.topLeft,
                                     end: Alignment.bottomRight,
@@ -355,11 +348,10 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                               child: new Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
-
                                   new Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       new Container(
                                         // margin: const EdgeInsets.symmetric(vertical: 0.0),
@@ -405,23 +397,23 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                             itemBuilder: (BuildContext context,
                                                 int index) {
                                               final int count = snapshot.data
-                                                  .competitors.length >
-                                                  10
+                                                          .competitors.length >
+                                                      10
                                                   ? 10
                                                   : snapshot
-                                                  .data.competitors.length;
+                                                      .data.competitors.length;
                                               final Animation<
                                                   double> animation = Tween<
-                                                  double>(
-                                                  begin: 0.0, end: 1.0)
+                                                          double>(
+                                                      begin: 0.0, end: 1.0)
                                                   .animate(CurvedAnimation(
-                                                  parent:
-                                                  animationController,
-                                                  curve: Interval(
-                                                      (1 / count) * index,
-                                                      1.0,
-                                                      curve: Curves
-                                                          .fastOutSlowIn)));
+                                                      parent:
+                                                          animationController,
+                                                      curve: Interval(
+                                                          (1 / count) * index,
+                                                          1.0,
+                                                          curve: Curves
+                                                              .fastOutSlowIn)));
                                               animationController.forward();
 
                                               return CompetitionMemberListView(
@@ -429,7 +421,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                                     .data.competitors[index],
                                                 animation: animation,
                                                 animationController:
-                                                animationController,
+                                                    animationController,
                                               );
                                             },
                                           );
@@ -437,15 +429,14 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                       },
                                     ),
                                   ),
-
                                   new Container(
-                                    padding: EdgeInsets.only(
-                                        bottom: 5, top: 10),
+                                    padding:
+                                        EdgeInsets.only(bottom: 5, top: 10),
                                     child: new RaisedButton(
                                       padding: EdgeInsets.all(10.0),
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
-                                        BorderRadius.circular(5.0),
+                                            BorderRadius.circular(5.0),
                                       ),
                                       child: new Text(
                                         "Запросити участь!",
@@ -461,8 +452,9 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                           MaterialPageRoute<dynamic>(
                                             builder: (BuildContext context) =>
                                                 CompetitionEnterPage(
-                                                  comp: widget.comp,
-                                                  user: widget.user,),
+                                              comp: widget.comp,
+                                              user: widget.user,
+                                            ),
                                           ),
                                         );
                                       },
@@ -474,27 +466,22 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                             ),
                           ),
                           new Padding(
-                              padding: EdgeInsets.only(left: 15.0,
-                                  right: 15,
-                                  top: 5,
-                                  bottom: 5),
+                              padding: EdgeInsets.only(
+                                  left: 15.0, right: 15, top: 5, bottom: 5),
                               child: new Divider(
                                 height: 3,
                                 color: Colors.black,
-                              )
-                          ),
+                              )),
                           new Container(
                             height: 300,
                             padding: EdgeInsets.all(10.0),
                             child: new Container(
-
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(30)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30)),
                                   color: Colors.amber.shade50,
                                   border: Border.all(
-                                      color: Colors.black, width: 2)
-                              ),
+                                      color: Colors.black, width: 2)),
                               child: new Column(
                                 // crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
@@ -517,9 +504,8 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                       child: new Divider(
                                         height: 3,
                                         color: Colors.black,
-                                      )
-                                  ),
-                               //todo tyt   Stream(snapshot.data),
+                                      )),
+                                  //todo tyt   Stream(snapshot.data),
                                   /* new RaisedButton(
                                     padding: EdgeInsets.all(10.0),
                                     shape: RoundedRectangleBorder(
@@ -972,22 +958,19 @@ class _CompetitionState extends State<CompetitionInfoScreen>
 */
 
                           new Padding(
-                              padding: EdgeInsets.only(left: 15.0,
-                                  right: 15,
-                                  top: 5,
-                                  bottom: 5),
+                              padding: EdgeInsets.only(
+                                  left: 15.0, right: 15, top: 5, bottom: 5),
                               child: new Divider(
                                 height: 3,
                                 color: Colors.black,
-                              )
-                          ),
+                              )),
                           new Container(
                             height: 400,
                             padding: EdgeInsets.all(10.0),
                             child: new Container(
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(30)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30)),
                                   gradient: LinearGradient(
                                     begin: Alignment.topLeft,
                                     end: Alignment.bottomRight,
@@ -1026,13 +1009,12 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                     padding: EdgeInsets.only(),
                                     child: WebView(
                                       initialUrl:
-                                      "https://www.goodgames.kh.ua/game/grid/?id=" +
-                                          widget.comp.id.toString(),
+                                          "https://www.goodgames.kh.ua/game/grid/?id=" +
+                                              widget.comp.id.toString(),
                                       javascriptMode:
-                                      JavascriptMode.unrestricted,
+                                          JavascriptMode.unrestricted,
                                     ),
                                   ),
-
                                   new Container(
                                     width: 200,
                                     height: 40,
@@ -1052,7 +1034,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                       ),
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
-                                          BorderRadius.circular(5.0),
+                                              BorderRadius.circular(5.0),
                                           side: BorderSide(
                                               color: Colors.white, width: 3)),
                                       onPressed: () {
@@ -1061,9 +1043,9 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                           MaterialPageRoute<dynamic>(
                                             builder: (BuildContext context) =>
                                                 CompetitionsheduleScreen(
-                                                  comp: snapshot.data,
-                                                  user: widget.user,
-                                                ),
+                                              comp: snapshot.data,
+                                              user: widget.user,
+                                            ),
                                           ),
                                         );
                                       },
@@ -1090,12 +1072,11 @@ class _CompetitionState extends State<CompetitionInfoScreen>
     if (widget.user.id == compet.user!.id) {
       return Container(
         child: Container(
-          height: 200,
+          height: 300,
           padding: EdgeInsets.all(10.0),
           child: new Container(
             decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(
-                    Radius.circular(16.0)),
+                borderRadius: const BorderRadius.all(Radius.circular(16.0)),
                 gradient: LinearGradient(
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
@@ -1115,7 +1096,6 @@ class _CompetitionState extends State<CompetitionInfoScreen>
             child: new Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-
                 new Row(
                   children: [
                     new Container(
@@ -1123,8 +1103,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                       child: new RaisedButton(
                         padding: EdgeInsets.all(10.0),
                         shape: RoundedRectangleBorder(
-                          borderRadius:
-                          BorderRadius.circular(18.0),
+                          borderRadius: BorderRadius.circular(18.0),
                         ),
                         child: new Text(
                           "send invitation",
@@ -1137,93 +1116,65 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                         onPressed: () {
                           showDialog(
                             context: context,
-                            builder: (BuildContext context) =>
-                                Form(
-                                  key: formKeyinvite,
-                                  child: new AlertDialog(
-                                    title: const Text(
-                                        'Send invitation'),
-                                    content: new Column(
-                                      mainAxisSize:
-                                      MainAxisSize.min,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment
-                                          .start,
-                                      children: <Widget>[
-                                        new Container(
-                                          // width: 275.0,
-                                          child:
-                                          new TextFormField(
-                                            controller:
-                                            emailsendControl,
-                                            decoration:
-                                            new InputDecoration(
-                                              hintText: 'Email',
-                                              filled: true,
-                                              fillColor:
-                                              Colors.white70,
-                                            ),
-                                            validator: (value) {
-                                              if (value!
-                                                  .isEmpty ||
-                                                  !RegExp(
-                                                      r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-                                                      .hasMatch(
-                                                      value)) {
-                                                return "Enter Correct Email Address";
-                                              } else {
-                                                return null;
-                                              }
-                                            },
-                                          ),
+                            builder: (BuildContext context) => Form(
+                              key: formKeyinvite,
+                              child: new AlertDialog(
+                                title: const Text('Send invitation'),
+                                content: new Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    new Container(
+                                      // width: 275.0,
+                                      child: new TextFormField(
+                                        controller: emailsendControl,
+                                        decoration: new InputDecoration(
+                                          hintText: 'Email',
+                                          filled: true,
+                                          fillColor: Colors.white70,
                                         ),
-                                        // Text("Hello"),
-                                      ],
-                                    ),
-                                    actions: <Widget>[
-                                      new FlatButton(
-                                        onPressed: () {
-                                          if (formKeyinvite
-                                              .currentState!
-                                              .validate()) {
-                                            getDatahttp
-                                                .postEmail(
-                                                emailsendControl
-                                                    .text,
-                                                compet.id!,
-                                                compet.user!.id!)
-                                                .then((value) =>
-                                                Navigator.of(
-                                                    context)
-                                                    .pop());
-                                            emailsendControl
-                                                .text = '';
+                                        validator: (value) {
+                                          if (value!.isEmpty ||
+                                              !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                                                  .hasMatch(value)) {
+                                            return "Enter Correct Email Address";
+                                          } else {
+                                            return null;
                                           }
-                                          //  Navigator.of(context).pop();
                                         },
-                                        textColor:
-                                        Theme
-                                            .of(context)
-                                            .primaryColor,
-                                        child: const Text('Send'),
                                       ),
-                                      new FlatButton(
-                                        onPressed: () {
-                                          Navigator.of(context)
-                                              .pop();
-                                          emailsendControl.text =
-                                          '';
-                                        },
-                                        textColor:
-                                        Theme
-                                            .of(context)
-                                            .primaryColor,
-                                        child:
-                                        const Text('Close'),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                    // Text("Hello"),
+                                  ],
                                 ),
+                                actions: <Widget>[
+                                  new FlatButton(
+                                    onPressed: () {
+                                      if (formKeyinvite.currentState!
+                                          .validate()) {
+                                        getDatahttp
+                                            .postEmail(emailsendControl.text,
+                                                compet.id!, compet.user!.id!)
+                                            .then((value) =>
+                                                Navigator.of(context).pop());
+                                        emailsendControl.text = '';
+                                      }
+                                      //  Navigator.of(context).pop();
+                                    },
+                                    textColor: Theme.of(context).primaryColor,
+                                    child: const Text('Send'),
+                                  ),
+                                  new FlatButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      emailsendControl.text = '';
+                                    },
+                                    textColor: Theme.of(context).primaryColor,
+                                    child: const Text('Close'),
+                                  ),
+                                ],
+                              ),
+                            ),
                           );
                         },
                         color: Colors.redAccent.shade200,
@@ -1247,10 +1198,10 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                         ),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5.0),
-                            side: BorderSide(
-                                color: Colors.white, width: 3)),
+                            side: BorderSide(color: Colors.white, width: 3)),
                         onPressed: () {
-                          getDatahttp.generateSchedule(widget.comp.id!,
+                          getDatahttp.generateSchedule(
+                              widget.comp.id!,
                               '2021-11-05T10:00:00',
                               '2021-11-05T19:00:00'); //TODO
                         },
@@ -1279,97 +1230,68 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                         ),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5.0),
-                            side: BorderSide(
-                                color: Colors.white, width: 3)),
+                            side: BorderSide(color: Colors.white, width: 3)),
                         onPressed: () {
                           showDialog(
                             context: context,
-                            builder: (BuildContext context) =>
-                                Form(
-                                  key: formKeyurl,
-                                  child: new AlertDialog(
-                                    title: const Text(
-                                        'Send invitation'),
-                                    content: new Column(
-                                      mainAxisSize:
-                                      MainAxisSize.min,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment
-                                          .start,
-                                      children: <Widget>[
-                                        new Container(
-                                          // width: 275.0,
-                                          child:
-                                          new TextFormField(
-                                            controller:
-                                            urlsendControl,
-                                            decoration:
-                                            new InputDecoration(
-                                              hintText: 'URl',
-                                              filled: true,
-                                              fillColor:
-                                              Colors.white70,
-                                            ),
-                                            validator: (value) {
-                                              if (value!
-                                                  .isEmpty ||
-                                                  !RegExp(
-                                                      r"https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?")
-                                                      .hasMatch(
-                                                      value)) {
-                                                return "Enter Correct url";
-                                              } else {
-                                                return null;
-                                              }
-                                            },
-                                          ),
+                            builder: (BuildContext context) => Form(
+                              key: formKeyurl,
+                              child: new AlertDialog(
+                                title: const Text('Send invitation'),
+                                content: new Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    new Container(
+                                      // width: 275.0,
+                                      child: new TextFormField(
+                                        controller: urlsendControl,
+                                        decoration: new InputDecoration(
+                                          hintText: 'URl',
+                                          filled: true,
+                                          fillColor: Colors.white70,
                                         ),
-                                        // Text("Hello"),
-                                      ],
-                                    ),
-                                    actions: <Widget>[
-                                      new FlatButton(
-                                        onPressed: () {
-                                          if (formKeyurl
-                                              .currentState!
-                                              .validate()) {
-                                            getDatahttp
-                                                .addStreamUrl(
-                                                widget.comp.id!,
-                                                urlsendControl.text
-                                            )
-                                                .then((value) =>
-                                                Navigator.of(
-                                                    context)
-                                                    .pop());
-                                            urlsendControl
-                                                .text = '';
+                                        validator: (value) {
+                                          if (value!.isEmpty ||
+                                              !RegExp(r"https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?")
+                                                  .hasMatch(value)) {
+                                            return "Enter Correct url";
+                                          } else {
+                                            return null;
                                           }
-                                          //  Navigator.of(context).pop();
                                         },
-                                        textColor:
-                                        Theme
-                                            .of(context)
-                                            .primaryColor,
-                                        child: const Text('Add'),
                                       ),
-                                      new FlatButton(
-                                        onPressed: () {
-                                          Navigator.of(context)
-                                              .pop();
-                                          urlsendControl.text =
-                                          '';
-                                        },
-                                        textColor:
-                                        Theme
-                                            .of(context)
-                                            .primaryColor,
-                                        child:
-                                        const Text('Close'),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                    // Text("Hello"),
+                                  ],
                                 ),
+                                actions: <Widget>[
+                                  new FlatButton(
+                                    onPressed: () {
+                                      if (formKeyurl.currentState!.validate()) {
+                                        getDatahttp
+                                            .addStreamUrl(widget.comp.id!,
+                                                urlsendControl.text)
+                                            .then((value) =>
+                                                Navigator.of(context).pop());
+                                        urlsendControl.text = '';
+                                      }
+                                      //  Navigator.of(context).pop();
+                                    },
+                                    textColor: Theme.of(context).primaryColor,
+                                    child: const Text('Add'),
+                                  ),
+                                  new FlatButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      urlsendControl.text = '';
+                                    },
+                                    textColor: Theme.of(context).primaryColor,
+                                    child: const Text('Close'),
+                                  ),
+                                ],
+                              ),
+                            ),
                           );
                         },
                         color: Colors.black.withOpacity(0.05),
@@ -1377,6 +1299,179 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                     ),
                   ],
                 ),
+                new Row(children: [
+                  new Container(
+                    width: 120,
+                    height: 40,
+                    child: new RaisedButton(
+                      child: new Text(
+                        "add admin",
+                        style: TextStyle(
+                          // h4 -> display1
+
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          letterSpacing: 0.4,
+                          height: 0.9,
+                          color: Colors.white,
+                        ),
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                          side: BorderSide(color: Colors.white, width: 3)),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => Form(
+                            key: formKeyadmin,
+                            child: new AlertDialog(
+                              title: const Text('Send invitation'),
+                              content: new Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  new Container(
+                                    // width: 275.0,
+                                    child: new TextFormField(
+                                      controller: adminsendControl,
+                                      decoration: new InputDecoration(
+                                        hintText: 'user ID ',
+                                        filled: true,
+                                        fillColor: Colors.white70,
+                                      ),
+                                      validator: (value) {
+                                        if (value!.isEmpty ||
+                                            !RegExp(r'^[0-9]+$')
+                                                .hasMatch(value)) {
+                                          return "Enter Correct ID";
+                                        } else {
+                                          return null;
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                  // Text("Hello"),
+                                ],
+                              ),
+                              actions: <Widget>[
+                                new FlatButton(
+                                  onPressed: () {
+                                    if (formKeyadmin.currentState!.validate()) {
+                                      getDatahttp
+                                          .addAdmin(widget.comp.id!,
+                                          adminsendControl.text)
+                                          .then((value) =>
+                                          Navigator.of(context).pop());
+                                      adminsendControl.text = '';
+                                    }
+                                    //  Navigator.of(context).pop();
+                                  },
+                                  textColor: Theme.of(context).primaryColor,
+                                  child: const Text('Add'),
+                                ),
+                                new FlatButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    adminsendControl.text = '';
+                                  },
+                                  textColor: Theme.of(context).primaryColor,
+                                  child: const Text('Close'),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                      color: Colors.black.withOpacity(0.05),
+                    ),
+                  ),
+                  new Container(
+                    width: 120,
+                    height: 40,
+                    child: new RaisedButton(
+                      child: new Text(
+                        "delete admin",
+                        style: TextStyle(
+                          // h4 -> display1
+
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          letterSpacing: 0.4,
+                          height: 0.9,
+                          color: Colors.white,
+                        ),
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                          side: BorderSide(color: Colors.white, width: 3)),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => Form(
+                            key: formKeyadmin,
+                            child: new AlertDialog(
+                              title: const Text('delete admin'),
+                              content: new Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  new Container(
+                                    // width: 275.0,
+                                    child: new TextFormField(
+                                      controller: adminsendControl,
+                                      decoration: new InputDecoration(
+                                        hintText: 'user ID ',
+                                        filled: true,
+                                        fillColor: Colors.white70,
+                                      ),
+                                      validator: (value) {
+                                        if (value!.isEmpty ||
+                                            !RegExp(r'^[0-9]+$')
+                                                .hasMatch(value)) {
+                                          return "Enter Correct ID";
+                                        } else {
+                                          return null;
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                  // Text("Hello"),
+                                ],
+                              ),
+                              actions: <Widget>[
+                                new FlatButton(
+                                  onPressed: () {
+                                    if (formKeyadmin.currentState!.validate()) {
+                                      getDatahttp
+                                          .deleteAdmin(widget.comp.id!,
+                                          adminsendControl.text)
+                                          .then((value) =>
+                                          Navigator.of(context).pop());
+                                      adminsendControl.text = '';
+                                    }
+                                    //  Navigator.of(context).pop();
+                                  },
+                                  textColor: Theme.of(context).primaryColor,
+                                  child: const Text('Add'),
+                                ),
+                                new FlatButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    adminsendControl.text = '';
+                                  },
+                                  textColor: Theme.of(context).primaryColor,
+                                  child: const Text('Close'),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                      color: Colors.black.withOpacity(0.05),
+                    ),
+                  ),
+
+                ]),
               ],
             ),
           ),
@@ -1386,6 +1481,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
       return Container();
     }
   }
+
 /*
   Widget Stream(Competition comp){
     if(comp.streamUrl != null && comp.streamUrl !=''){
@@ -1429,8 +1525,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                 ),
                 validator: (value) {
                   if (value!.isEmpty ||
-                      !RegExp(
-                          r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                      !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
                           .hasMatch(value)) {
                     return "Enter Correct Email Address";
                   } else {
@@ -1448,15 +1543,13 @@ class _CompetitionState extends State<CompetitionInfoScreen>
               if (formKeyinvite.currentState!.validate()) {
                 getDatahttp
                     .postEmail(emailsendControl.text, widget.comp.id!,
-                    widget.comp.user!.id!)
+                        widget.comp.user!.id!)
                     .then((value) => Navigator.of(context).pop());
                 emailsendControl.text = '';
               }
               //  Navigator.of(context).pop();
             },
-            textColor: Theme
-                .of(context)
-                .primaryColor,
+            textColor: Theme.of(context).primaryColor,
             child: const Text('Send'),
           ),
           new FlatButton(
@@ -1464,9 +1557,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
               Navigator.of(context).pop();
               emailsendControl.text = '';
             },
-            textColor: Theme
-                .of(context)
-                .primaryColor,
+            textColor: Theme.of(context).primaryColor,
             child: const Text('Close'),
           ),
         ],
@@ -1502,7 +1593,7 @@ class CompetitionMemberListView extends StatelessWidget {
                 0.0, 50 * (1.0 - animation.value), 0.0),
             child: Padding(
               padding:
-              const EdgeInsets.only(left: 10, right: 24, top: 8, bottom: 1),
+                  const EdgeInsets.only(left: 10, right: 24, top: 8, bottom: 1),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(16.0)),
@@ -1532,9 +1623,9 @@ class CompetitionMemberListView extends StatelessWidget {
                                           left: 16, top: 8, bottom: 8),
                                       child: Column(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
                                             listData.name.toString(),
@@ -1567,13 +1658,15 @@ class CompetitionMemberListView extends StatelessWidget {
 }
 
 class ContestTabHeader extends SliverPersistentHeaderDelegate {
-  ContestTabHeader(this.searchUI,);
+  ContestTabHeader(
+    this.searchUI,
+  );
 
   final Widget searchUI;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset,
-      bool overlapsContent) {
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     return searchUI;
   }
 
