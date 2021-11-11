@@ -336,7 +336,7 @@ namespace GGBack.Controllers
                 return BadRequest(ex.Message + "\n" + ex.InnerException);
             }
 
-            return Ok(competition.Users);
+            return Ok(dbCompetition);
         }
     }
 }
