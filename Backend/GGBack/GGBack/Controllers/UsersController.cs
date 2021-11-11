@@ -67,11 +67,21 @@ namespace GGBack.Controllers
         {
             try
             {
-                return await context.Competitions
+                Competition competition = context.Competitions
                     .Include(c => c.Users)
                     .Where(c => c.Id == competitionId)
-                    .Select(c => c.Users)
-                    .FirstOrDefaultAsync();
+                    .FirstOrDefault();
+                if (competition == null)
+                {
+                    return BadRequest("Conpetition not found");
+                }
+
+                return Ok(competition.Users
+                    .Select(u => new User
+                    {
+                        Id = u.Id,
+                        Login = u.Login
+                    }));
             }
             catch (Exception ex)
             {
