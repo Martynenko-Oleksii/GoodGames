@@ -358,13 +358,14 @@ namespace GGBack.Utils
 
                         if (stagedCells.Count == 2)
                         {
+                            DateTime secondDt = GetNextDate(nextStageCells.ElementAt(nextStageCellIndex), startTime, endTime);
                             if (nextStageCells.ElementAt(nextStageCellIndex + 1).Competitors != null &&
                             nextStageCells.ElementAt(nextStageCellIndex + 1).Competitors.Count != 0)
                             {
                                 nextStageCells.ElementAt(nextStageCellIndex + 1)
                                     .Competitors.AddRange(lostCompetitors);
 
-                                nextStageCells.ElementAt(nextStageCellIndex + 1).DateTime = dt;
+                                nextStageCells.ElementAt(nextStageCellIndex + 1).DateTime = secondDt;
                             }
                             else
                             {

@@ -88,6 +88,27 @@ namespace GGBack.Controllers
                 int startCount = 0;
                 if (sport.HasTeam)
                 {
+                    int dayCount = (int)(endDate - startDate).TotalDays + 1;
+                    double timePerDay = (endTime - startTime).TotalHours;
+                    int playCount = ((int)timePerDay / 2) * dayCount;
+
+                    int startCellsCount = 1;
+                    while (teamsCount / 2 > startCellsCount)
+                    {
+                        startCellsCount *= 2;
+                    }
+
+                    int allCellsCount = 1;
+                    if (startCellsCount > 1)
+                    {
+                        allCellsCount = startCellsCount * 2;
+                    }
+
+                    if (allCellsCount > playCount)
+                    {
+                        return BadRequest("Забагато учасників для цього змагання");
+                    }
+
                     if (sport.TeamSize != 0)
                     {
                         foreach (string team in teams)
