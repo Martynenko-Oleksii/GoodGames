@@ -32,6 +32,7 @@ namespace GGBack.Controllers
                     .Include(t => t.WinResult)
                     .Where(t => t.Competition.Id == competitionId && 
                         t.Competitors.Select(c => c.Team).Distinct().ToList().Count == 2)
+                    .OrderBy(t => t.DateTime)
                     .ToListAsync();
             }
             catch (Exception ex)
