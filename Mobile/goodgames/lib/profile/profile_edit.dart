@@ -472,13 +472,15 @@ class _ProfileeditState extends State<ProfileeditPage> {
                                           ProfileScreen(user: value),
                                     ),
                                   ));
+                                }else{
+                                  oldpassControl.text = "";
                                 }
-
                               },
                               color: Colors.black.withOpacity(0.05),
                             ),
                           ),
                         ),
+
                       ],
                     ),
                   ),
