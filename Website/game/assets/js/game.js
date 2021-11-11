@@ -9,6 +9,8 @@ const competitorsNumberEl =
   document.querySelector(".competitors-number");
 const startCompetitionsEl = document.querySelector("#start_competitions");
 const sendAddPlayerEl = document.querySelector("#send_add_player");
+const openInputEl = document.querySelector("#open_input");
+const joinEl = document.querySelector("#join");
 
 const nameT1EditEl = document.querySelector("#name_t1_edit");
 const nameT2EditEl = document.querySelector("#name_t2_edit");
@@ -76,10 +78,14 @@ function updateCompetitionGeneralInfo() {
       case 1:
         stateSportEl.innerHTML = "Проводиться";
         startCompetitionButtonEl.style.display = "none";
+        openInputEl.style.display = "none";
+        joinEl.style.display = "none";
         break;
       case 2:
         stateSportEl.innerHTML = "Завершено";
         startCompetitionButtonEl.style.display = "none";
+        openInputEl.style.display = "none";
+        joinEl.style.display = "none";
         break;
       default:
         stateSportEl.innerHTML = "Статус не визначено.";
