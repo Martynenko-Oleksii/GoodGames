@@ -63,7 +63,7 @@ namespace GGBack.Controllers
 
         [Route("api/admins/{competitionId}")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetAdmins(int competitionId)
+        public ActionResult<IEnumerable<User>> GetAdmins(int competitionId)
         {
             try
             {
