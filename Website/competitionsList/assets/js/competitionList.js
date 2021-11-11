@@ -43,6 +43,16 @@ function updateCompetitionList() {
   function parseServerResponse(data) {
     competitionsWrapperEl.innerHTML = "";
 
+    if (!data.length) {
+      competitionsWrapperEl.innerHTML =
+        `<div class="no-competitions">
+          <img src="assets/img/empty.png" alt="" class="no-competitions__image" style="height: 200px; width: 200px;">
+          <p class="no-competitions__message">
+            Наразі у вас немає жодного змагання
+          </p>
+        </div>`;
+    }
+
     for (let competitionInfo of data) {
       createCompetitionElement(competitionInfo);
     }
