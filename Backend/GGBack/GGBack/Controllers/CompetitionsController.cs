@@ -69,9 +69,22 @@ namespace GGBack.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<CompetitionForCreateRequest>> GetCompetition(int competitionId)
         {
-            //TODO: add Users to response
+            int creatorId = context.CompetitionCreators
+                .Where(cc => cc.CompetitionId == competitionId)
+                .Select(cc => cc.CreatorId)
+                .FirstOrDefault();
+            if (creatorId == 0)
+            {
+                return BadRequest("Creator's id does not exist");
+            }
+
+            User creator = context.Users.Find(creatorId);
+            if (creator == null)
+            {
+                return BadRequest("Creator not found");
+            }
+
             Competition dbCompetition = context.Competitions
-                    .Include(c => c.Users)
                     .Include(c => c.Sport)
                     .Include(c => c.Competitors)
                     .Where(c => c.Id == competitionId)
@@ -90,7 +103,7 @@ namespace GGBack.Controllers
                 EndDate = dbCompetition.EndDate,
                 IsPublic = dbCompetition.IsPublic,
                 Competitors = dbCompetition.Competitors,
-                User = dbCompetition.Users.ElementAt(0),
+                User = creator,
                 StreamUrl = dbCompetition.StreamUrl,
                 State = dbCompetition.State,
             };
@@ -151,10 +164,17 @@ namespace GGBack.Controllers
                     .ThenInclude(t => t.Competitors)
                 .Where(c => c.Id == competitionId)
                 .FirstOrDefault();
-
             if (competition == null)
             {
                 return BadRequest("Competition does not exist");
+            }
+
+            CompetitionCreator competitionCreator = context.CompetitionCreators
+                .Where(cc => cc.CompetitionId == competitionId)
+                .FirstOrDefault();
+            if (competitionCreator == null)
+            {
+                return BadRequest("Creator not defined");
             }
 
             try
@@ -167,6 +187,7 @@ namespace GGBack.Controllers
                 context.SaveChanges();
                 context.TimetableCells.RemoveRange(competition.TimetableCells);
                 context.Competitions.Remove(competition);
+                context.CompetitionCreators.Remove(competitionCreator);
                 await context.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -184,6 +205,11 @@ namespace GGBack.Controllers
             if (competitionForCreateRequest == null)
             {
                 return BadRequest("Competition is null");
+            }
+
+            if (context.Competitions.Any(c => c.Title.Equals(competitionForCreateRequest.Title)))
+            {
+                return BadRequest("Title already exist");
             }
 
             Competition competition = new Competition
@@ -211,24 +237,29 @@ namespace GGBack.Controllers
 
             competition.State = 0;
 
-            Competition res = new Competition 
-            { 
-                Id = competition.Id, 
-                Title = competition.Title,
-                StartDate = competition.StartDate
-            };
-
             try
             {
                 context.Competitions.Add(competition);
+                context.SaveChanges();
+                Competition res = context.Competitions
+                    .Where(c => c.Title.Equals(competition.Title))
+                    .First();
+
+                int creatorId = competitionForCreateRequest.User.Id;
+                int competitioId = res.Id;
+                context.CompetitionCreators.Add(new CompetitionCreator
+                {
+                    CompetitionId = competitioId,
+                    CreatorId = creatorId
+                });
                 await context.SaveChangesAsync();
+
+                return Ok(res);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.InnerException);
+                return BadRequest(ex.Message + "\n" + ex.InnerException);
             }
-
-            return Ok(res);
         }
 
         [Route("api/competitions/addadmin/{competitionId}")]
