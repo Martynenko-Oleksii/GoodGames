@@ -772,32 +772,32 @@ class getDatahttp {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
         for (var c in jsonData) {
           Competition competition = Competition(
-              id: c[0]["id"],
-              title: c[0]["title"],
+              id: c["id"],
+              title: c["title"],
               sport: Sport(
-                  id: c[0]["sport"]["id"],
-                  title: c[0]["sport"]["title"],
-                  minCompetitorsCount: c[0]["sport"]["minCompetitorsCount"],
-                  hasTeam: c[0]["sport"]["hasTeam"],
-                  minTeamsCount: c[0]["sport"]["minTeamsCount"],
-                  teamSize: c[0]["sport"]["teamSize"],
-                  hasGrid: c[0]["sport"]["hasGrid"]
+                  id: c["sport"]["id"],
+                  title: c["sport"]["title"],
+                  minCompetitorsCount: c["sport"]["minCompetitorsCount"],
+                  hasTeam: c["sport"]["hasTeam"],
+                  minTeamsCount: c["sport"]["minTeamsCount"],
+                  teamSize: c["sport"]["teamSize"],
+                  hasGrid: c["sport"]["hasGrid"]
               ),
               startDate: DateTime.parse(
-                  c[0]["startDate"]
+                  c["startDate"]
                       .toString()
                       .substring(0, 10) + " " +
-                      c[0]["startDate"]
+                      c["startDate"]
                           .toString()
                           .substring(11)),
               endDate: DateTime.parse(
-                  c[0]["endDate"]
+                  c["endDate"]
                       .toString()
                       .substring(0, 10) + " " +
-                      c[0]["endDate"]
+                      c["endDate"]
                           .toString()
                           .substring(11)),
-              state: c[0]["state"]
+              state: c["state"]
           );
 
           competitions.add(competition);
@@ -825,32 +825,32 @@ class getDatahttp {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
         for (var c in jsonData) {
           Competition competition = Competition(
-              id: c[0]["id"],
-              title: c[0]["title"],
+              id: c["id"],
+              title: c["title"],
               sport: Sport(
-                  id: c[0]["sport"]["id"],
-                  title: c[0]["sport"]["title"],
-                  minCompetitorsCount: c[0]["sport"]["minCompetitorsCount"],
-                  hasTeam: c[0]["sport"]["hasTeam"],
-                  minTeamsCount: c[0]["sport"]["minTeamsCount"],
-                  teamSize: c[0]["sport"]["teamSize"],
-                  hasGrid: c[0]["sport"]["hasGrid"]
+                  id: c["sport"]["id"],
+                  title: c["sport"]["title"],
+                  minCompetitorsCount: c["sport"]["minCompetitorsCount"],
+                  hasTeam: c["sport"]["hasTeam"],
+                  minTeamsCount: c["sport"]["minTeamsCount"],
+                  teamSize: c["sport"]["teamSize"],
+                  hasGrid: c["sport"]["hasGrid"]
               ),
               startDate: DateTime.parse(
-                  c[0]["startDate"]
+                  c["startDate"]
                       .toString()
                       .substring(0, 10) + " " +
-                      c[0]["startDate"]
+                      c["startDate"]
                           .toString()
                           .substring(11)),
               endDate: DateTime.parse(
-                  c[0]["endDate"]
+                  c["endDate"]
                       .toString()
                       .substring(0, 10) + " " +
-                      c[0]["endDate"]
+                      c["endDate"]
                           .toString()
                           .substring(11)),
-              state: c[0]["state"]
+              state: c["state"]
           );
 
           competitions.add(competition);
