@@ -26,7 +26,9 @@ namespace GGBack.Controllers
         public async Task<ActionResult<IEnumerable<Competition>>> Get()
         {
             return await context.Competitions
-                .Include(c => c.Sport).ToListAsync();
+                .Include(c => c.Sport)
+                .Where(c => c.IsPublic)
+                .ToListAsync();
         }
 
         [Route("api/competitions/favourites/{userId}")]
@@ -50,7 +52,7 @@ namespace GGBack.Controllers
                 {
                     List<Competition> competitionsBySport = context.Competitions
                         .Include(c => c.Sport)
-                        .Where(c => c.Sport.Id == sport.Id)
+                        .Where(c => c.Sport.Id == sport.Id && c.IsPublic)
                         .ToList();
                     favouriteCompetitions.AddRange(competitionsBySport);
                 }
