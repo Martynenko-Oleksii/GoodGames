@@ -76,7 +76,21 @@ function updateFavouriteSportKinds() {
 
   function parseServerResponse(data) {
     if (!data || data.length === 0) {
-      sportKindContainerEl.innerHTML = "Тут будуть ваші улюблені види спорту";
+      sportKindContainerEl.innerHTML = 
+      `<div class="ol-12 mt-4 pt-2">
+          <div class="bg-white none_card">
+              <div class="d-flex align-items-center" style="justify-content: center;">
+                  <div style="margin-right: 15px;" class="icon text-center rounded-circle mr-5">
+                      <img src="https://img.icons8.com/fluency/48/000000/plus-math.png"/>
+                  </div>
+
+                  <div class="content">
+                      <h4 class="title mb-0">Ваш список підписок пустий.</h4>
+                      <p class="text-muted mb-0">Підпишіться на види спорту якнайшвидше!</p>
+                  </div>
+              </div>
+          </div>
+      </div>`;
       return;
     }
 
@@ -86,18 +100,20 @@ function updateFavouriteSportKinds() {
 
       sportKindEl.innerHTML =
         `
-        <a class="text-dark">
-          <div class="key-feature d-flex align-items-center p-3 bg-white rounded shadow">
-            <div style="margin-right: 15px;" class="icon text-center rounded-circle mr-5">
-              <ion-icon name="game-controller-outline"></ion-icon>
-            </div>
+        <div class="col-lg-6 mt-4 pt-2" style="cursor: pointer;">
+          <a class="text-dark">
+            <div class="key-feature d-flex align-items-center p-3 bg-white rounded shadow">
+              <div style="margin-right: 15px;" class="icon text-center rounded-circle mr-5">
+                <ion-icon name="game-controller-outline"></ion-icon>
+              </div>
 
-            <div class="content">
-              <h4 class="title mb-0">${sportKind.title}</h4>
-              <p class="text-muted mb-0">{?} змаганнь</p>
+              <div class="content">
+                <h4 class="title mb-0">${sportKind.title}</h4>
+                <p class="text-muted mb-0">{?} змаганнь</p>
+              </div>
             </div>
-          </div>
-        </a>
+          </a>
+        </div>
         `;
 
       sportKindContainerEl.appendChild(sportKind);
@@ -279,6 +295,7 @@ function changePassword() {
   }
 
   function getPasswordChangeResponse() {
-    alert("Пароль успішно змінено");
+    //alert("Пароль успішно змінено");
+    document.getElementById("done_info").style.display = "block";
   }
 }

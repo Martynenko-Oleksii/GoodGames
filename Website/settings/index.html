@@ -228,43 +228,14 @@
 
                         <div id="sub_settings" style="display: none;">
                             <h5 class="text-md-left mt-4">Улюблені види спорту:</h5>
-                            <div class="sport-kind-container row">
+                            <div class="sport-kind-container row">                                
 
-                                <div class="col-lg-6 mt-4 pt-2" style="cursor: pointer;">
-                                    <a class="text-dark">
-                                        <div class="key-feature d-flex align-items-center p-3 bg-white rounded shadow">
-                                            <div style="margin-right: 15px;" class="icon text-center rounded-circle mr-5">
-                                                <ion-icon name="game-controller-outline"></ion-icon>
-                                            </div>
+                                <!-- Карточки соревнований. Прописаны уже в settings.js. Строка 80 и 103. -->
 
-                                            <div class="content">
-                                                <h4 class="title mb-0">Кіберспорт</h4>
-                                                <p class="text-muted mb-0">51 змагання</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div><!--end col-->
-
-                                <div class="col-lg-6 mt-4 pt-2" style="cursor: pointer;">
-                                    <a class="text-dark">
-                                        <div class="key-feature d-flex align-items-center p-3 bg-white rounded shadow">
-                                            <div style="margin-right: 15px;" class="icon text-center rounded-circle mr-5">
-                                                <ion-icon name="american-football-outline"></ion-icon>
-                                            </div>
-
-                                            <div class="content">
-                                                <h4 class="title mb-0">Футбол</h4>
-                                                <p class="text-muted mb-0">26 змаганнь</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div><!--end col-->
-
-                                <div class="col-12 mt-4 pt-2">
-                                    <a href="#add" class="btn btn-primary">Дадати підписку</a>
-                                </div>
                             </div>
-
+                            <div class="col-12 mt-4 pt-2">
+                                <a class="btn btn-primary" onclick="document.getElementById('modal_edit').style.display = 'block';">Дадати підписку</a>
+                            </div>
                         </div>
 
                         <div id="theme_settings" style="display: none;">
@@ -316,6 +287,49 @@
                 </div>
             </div>
         </section>
+
+        <div id="modal_edit" class="modal-window">
+            <div>
+                <div class="widget widget-four" style="margin-bottom: 20px; border: 0.5px solid rgba(0, 0, 0, 0.4); border-radius: 5px;">
+                    <div class="widget-heading" style="margin-bottom: 20px; display: flex;">
+                        <h5 class="">Підписка на спорт</h5>
+                        <a style="right: 20px; position: absolute;" class="btn btn-outline-danger btn-sm" onclick="document.getElementById('modal_edit').style.display = 'none';">Х</a>
+                    </div>
+    
+                    <div class="widget-content" style="max-height: 400px; overflow-y: auto; overflow-x: hidden; padding: 5px;">
+
+                        <!-- Один чекбокс -->
+                        <div class="checkbox">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" class="checkbox-input" name="sport_{}" checked /> <!-- Сам чекбокс, добавь имя и всё что потребуется (checked для уже активированого) -->
+                                <span class="checkbox-tile">
+
+                                    <a class="text-dark">
+                                        <div class="key-feature2 d-flex align-items-center p-3">
+                                          <div style="margin-right: 15px;" class="icon text-center rounded-circle mr-5">
+                                            <ion-icon name="game-controller-outline"></ion-icon> <!-- Иконка. Выбирать с сайта: https://ionic.io/ionicons -->
+                                          </div>
+                            
+                                          <div class="content">
+                                            <h4 class="title mb-0">{Вид спорта}</h4>
+                                            <p class="text-muted mb-0">Инфо</p>
+                                          </div>
+                                        </div>
+                                    </a>
+
+                                </span>
+                            </label>
+                        </div>
+
+                    </div>
+    
+                    <div style="text-align: right; margin-top: 10px;">
+                        <a class="btn btn-outline-warning" id="save_edit" onclick="fixResults(0);">Підписатись</a>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
 
         <div class="back_fon" id="done_info" style="display: none;">
             <div class="done_modal">

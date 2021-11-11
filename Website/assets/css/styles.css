@@ -1525,3 +1525,197 @@ input[id=radio-2]:checked ~ .glider {
             width: 90%;
         }
     }
+.none_card{
+  border: 2px dashed rgba(0, 0, 0, 0.5); padding: 20px; border-radius: 5px;
+}
+
+.checkbox{
+  padding-bottom: 10px;
+}
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 600px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.checkbox-group > * {
+  margin: 0.5rem 0.5rem;
+}
+
+.checkbox-group-legend {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #9c9c9c;
+  text-align: center;
+  line-height: 1.125;
+  margin-bottom: 1.25rem;
+}
+.checkbox-wrapper{
+  width: 100%;
+}
+.checkbox-input {
+  clip: rect(0 0 0 0);
+  -webkit-clip-path: inset(100%);
+          clip-path: inset(100%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+.checkbox-input:checked + .checkbox-tile {
+  border-color: #2260ff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  color: #2260ff;
+}
+.checkbox-input:checked + .checkbox-tile:before {
+  transform: scale(1);
+  opacity: 1;
+  background-color: #2260ff;
+  border-color: #2260ff;
+}
+.checkbox-input:checked + .checkbox-tile .checkbox-icon, .checkbox-input:checked + .checkbox-tile .checkbox-label {
+  color: #2260ff;
+}
+.checkbox-input:focus + .checkbox-tile {
+  border-color: #2260ff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 0 0 4px #b5c9fc;
+}
+.checkbox-input:focus + .checkbox-tile:before {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.checkbox-tile {
+  display: flex;
+  min-height: 5rem;
+  border-radius: 0.5rem;
+  border: 2px solid #b5bfd9;
+  background-color: #fff;
+ transition: 0.15s ease;
+  cursor: pointer;
+  position: relative;
+}
+.checkbox-tile:before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid #b5bfd9;
+  background-color: #fff;
+  border-radius: 50%;
+  top: 0.25rem;
+  left: 0.25rem;
+  opacity: 0;
+  transform: scale(0);
+  transition: 0.25s ease;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' fill='%23FFFFFF' viewBox='0 0 256 256'%3E%3Crect width='256' height='256' fill='none'%3E%3C/rect%3E%3Cpolyline points='216 72.005 104 184 48 128.005' fill='none' stroke='%23FFFFFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='32'%3E%3C/polyline%3E%3C/svg%3E");
+  background-size: 12px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+.checkbox-tile:hover {
+  border-color: #2260ff;
+}
+.checkbox-tile:hover:before {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.checkbox-icon {
+  transition: 0.375s ease;
+  color: #494949;
+}
+.checkbox-icon svg {
+  width: 3rem;
+  height: 3rem;
+}
+
+.checkbox-label {
+  color: #707070;
+  transition: 0.375s ease;
+  text-align: center;
+}
+
+/* МОЖЕТ БЫТЬ КОНФЛИКТ */
+.widget-four {
+  position: relative;
+  background: #fff;
+  padding: 20px;
+  border-radius: 6px;
+  height: 100%;
+  box-shadow: none;
+  border: 1px solid #e0e6ed;
+  box-shadow: 0 0 40px 0 rgba(94, 92, 154, 0.06); }
+  .widget-four .widget-heading {
+    margin-bottom: 25px; }
+    .widget-four .widget-heading h5 {
+      font-size: 17px;
+      display: block;
+      color: #0e1726;
+      font-weight: 600;
+      margin-bottom: 0; }
+  .widget-four .widget-content {
+    font-size: 17px; }
+    .widget-four .widget-content .browser-list {
+      display: flex; }
+      .widget-four .widget-content .browser-list:not(:last-child) {
+        margin-bottom: 30px; }
+    .widget-four .widget-content .w-icon {
+      display: inline-block;
+      padding: 10px 9px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-self: center;
+      height: 34px;
+      width: 34px;
+      margin-right: 12px; }
+      .widget-four .widget-content .w-icon svg {
+        display: block;
+        width: 15px;
+        height: 15px; }
+    .widget-four .widget-content .browser-list:nth-child(1) .w-icon {
+      background: #eaf1ff; }
+    .widget-four .widget-content .browser-list:nth-child(2) .w-icon {
+      background: #fff5f5; }
+    .widget-four .widget-content .browser-list:nth-child(3) .w-icon {
+      background: #fff9ed; }
+    .widget-four .widget-content .browser-list:nth-child(1) .w-icon svg {
+      color: #4361ee; }
+    .widget-four .widget-content .browser-list:nth-child(2) .w-icon svg {
+      color: #e7515a; }
+    .widget-four .widget-content .browser-list:nth-child(3) .w-icon svg {
+      color: #e2a03f; }
+    .widget-four .widget-content .w-browser-details {
+      width: 100%;
+      align-self: center; }
+    .widget-four .widget-content .w-browser-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1px; }
+      .widget-four .widget-content .w-browser-info h6 {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 0;
+        color: #888ea8; }
+      .widget-four .widget-content .w-browser-info p {
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 0;
+        color: #888ea8; }
+    .widget-four .widget-content .w-browser-stats .progress {
+      margin-bottom: 0;
+      height: 22px;
+      padding: 4px;
+      border-radius: 20px;
+      box-shadow: 0 2px 2px rgba(224, 230, 237, 0.458824), 1px 6px 7px rgba(224, 230, 237, 0.458824); }
+      .widget-four .widget-content .w-browser-stats .progress .progress-bar {
+        position: relative; }

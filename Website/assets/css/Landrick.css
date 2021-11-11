@@ -3290,6 +3290,27 @@ p {
   background: linear-gradient(45deg, transparent, rgba(47, 85, 212, 0.15));
 }
 
+.features .title,
+.key-feature2 .title {
+  font-size: 18px;
+}
+
+.features .icon,
+.key-feature2 .icon {
+  height: 45px;
+  width: 45px;
+  line-height: 45px;
+}
+
+.key-feature2 {
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.key-feature2 .icon {
+  background: linear-gradient(45deg, transparent, rgba(47, 85, 212, 0.15));
+}
+
 .key-feature:hover {
   -webkit-transform: scale(1.05);
           transform: scale(1.05);
