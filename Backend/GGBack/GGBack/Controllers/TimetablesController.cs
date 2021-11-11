@@ -71,17 +71,17 @@ namespace GGBack.Controllers
 
                 if (competitorsCount < sport.MinCompetitorsCount)
                 {
-                    return BadRequest("Wrong competitors count");
+                    return BadRequest($"Замало учасників.\nНеобхідно мінімум: {sport.MinCompetitorsCount}");
                 }
 
                 if (teams.Count < 2)
                 {
-                    return BadRequest("Wrong teams count");
+                    return BadRequest("Необхідно мінімум 2 команди");
                 }
 
                 if (timeBoundary.End.Hour - timeBoundary.Start.Hour < 2)
                 {
-                    return BadRequest("Wrong time for games: min 2 hours");
+                    return BadRequest("Необхідно мінімум 2 години на проведення одного матчу");
                 }
 
                 List<TimetableCell> cells = new List<TimetableCell>();
@@ -119,23 +119,13 @@ namespace GGBack.Controllers
 
                             if (competitorsCountPerTeam != sport.TeamSize)
                             {
-                                return BadRequest($"Wrong competitors count in team {team}");
+                                return BadRequest($"Кількість учасників у команді {team} не відповідає правилам");
                             }
-                        }
-
-                        if (competitorsCount % sport.TeamSize != 0)
-                        {
-                            return BadRequest("Wrong competitors count");
                         }
 
                         if (teamsCount < sport.MinTeamsCount)
                         {
-                            return BadRequest("Wrong teams count");
-                        }
-
-                        if (competitorsCount - teamsCount * sport.TeamSize != 0)
-                        {
-                            return BadRequest("Wrong competitors count per team");
+                            return BadRequest($"Замало команд.\nНеобхідно мінімум {sport.MinTeamsCount}");
                         }
                     }
 
@@ -156,7 +146,7 @@ namespace GGBack.Controllers
 
                 if (cells == null)
                 {
-                    return BadRequest("Error :(");
+                    return BadRequest("Розклад не вдалось згенерувати :(");
                 }
 
                 competition.State = 1;
