@@ -61,6 +61,24 @@ namespace GGBack.Controllers
             }
         }
 
+        [Route("api/admins/{competitionId}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<User>>> GetAdmins(int competitionId)
+        {
+            try
+            {
+                return await context.Competitions
+                    .Include(c => c.Users)
+                    .Where(c => c.Id == competitionId)
+                    .Select(c => c.Users)
+                    .FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message + "\n" + ex.InnerException);
+            }
+        }
+
         [Route("api/users/reg")]
         [HttpPost]
         public async Task<ActionResult<User>> PostForRegistration(User user)
