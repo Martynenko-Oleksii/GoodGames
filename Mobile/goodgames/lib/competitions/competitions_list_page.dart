@@ -379,7 +379,7 @@ class CompetitionListView extends StatelessWidget {
                                       Navigator.push<dynamic>(
                                         context,
                                         MaterialPageRoute<dynamic>(
-                                          builder: (BuildContext context) => CompetitionInfoScreen(comp: listData,),
+                                          builder: (BuildContext context) => CompetitionInfoScreen(comp: listData, user: user,),
                                         ),
                                       );
                                     },

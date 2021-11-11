@@ -14,11 +14,11 @@ import 'competition_shedule.dart';
 
 class CompetitionInfoScreen extends StatefulWidget {
   final Competition comp;
-
+  final User user;
   @override
   _CompetitionState createState() => _CompetitionState();
 
-  CompetitionInfoScreen({Key? key, required this.comp}) : super(key: key);
+  CompetitionInfoScreen({Key? key, required this.comp ,required this.user }) : super(key: key);
 }
 
 class _CompetitionState extends State<CompetitionInfoScreen>
@@ -448,7 +448,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                           MaterialPageRoute<dynamic>(
                                             builder: (BuildContext context) =>
                                                 CompetitionEnterPage(
-                                                    comp: widget.comp),
+                                                    comp: widget.comp , user: widget.user,),
                                           ),
                                         );
                                       },
@@ -1036,7 +1036,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                           MaterialPageRoute<dynamic>(
                                             builder: (BuildContext context) =>
                                                 CompetitionsheduleScreen(
-                                                  comp: widget.comp,
+                                                  comp: snapshot.data, user: widget.user,
                                                 ),
                                           ),
                                         );
@@ -1048,6 +1048,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                               ),
                             ),
                           ),
+                            admin(snapshot.data),
                         ],
                       );
                     }
@@ -1057,6 +1058,184 @@ class _CompetitionState extends State<CompetitionInfoScreen>
         ),
       ),
     );
+  }
+
+  Widget admin(Competition compet){
+    if(widget.user.id == compet.user!.id){
+      return Container(
+       child: Container(
+          height: 200,
+          padding: EdgeInsets.all(10.0),
+          child: new Container(
+            decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(
+                    Radius.circular(16.0)),
+                gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  stops: [
+                    0.1,
+                    0.3,
+                    0.8,
+                    0.9,
+                  ],
+                  colors: [
+                    Colors.orange.shade200,
+                    Colors.purple.shade100,
+                    Colors.indigo.shade200,
+                    Colors.lightBlue.shade200,
+                  ],
+                )),
+            child: new Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+
+                new Row(
+                  children: [
+                    new Container(
+                      padding: EdgeInsets.all(10.0),
+                      child: new RaisedButton(
+                        padding: EdgeInsets.all(10.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                          BorderRadius.circular(18.0),
+                        ),
+                        child: new Text(
+                          "send invitation",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: AppTheme.darkText,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                Form(
+                                  key: formKeyinvite,
+                                  child: new AlertDialog(
+                                    title: const Text(
+                                        'Send invitation'),
+                                    content: new Column(
+                                      mainAxisSize:
+                                      MainAxisSize.min,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment
+                                          .start,
+                                      children: <Widget>[
+                                        new Container(
+                                          // width: 275.0,
+                                          child:
+                                          new TextFormField(
+                                            controller:
+                                            emailsendControl,
+                                            decoration:
+                                            new InputDecoration(
+                                              hintText: 'Email',
+                                              filled: true,
+                                              fillColor:
+                                              Colors.white70,
+                                            ),
+                                            validator: (value) {
+                                              if (value!
+                                                  .isEmpty ||
+                                                  !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                                                      .hasMatch(
+                                                      value)) {
+                                                return "Enter Correct Email Address";
+                                              } else {
+                                                return null;
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                        // Text("Hello"),
+                                      ],
+                                    ),
+                                    actions: <Widget>[
+                                      new FlatButton(
+                                        onPressed: () {
+                                          if (formKeyinvite
+                                              .currentState!
+                                              .validate()) {
+                                            getDatahttp
+                                                .postEmail(
+                                                emailsendControl
+                                                    .text,
+                                                compet.id!,
+                                                compet.user!.id!)
+                                                .then((value) =>
+                                                Navigator.of(
+                                                    context)
+                                                    .pop());
+                                            emailsendControl
+                                                .text = '';
+                                          }
+                                          //  Navigator.of(context).pop();
+                                        },
+                                        textColor:
+                                        Theme.of(context)
+                                            .primaryColor,
+                                        child: const Text('Send'),
+                                      ),
+                                      new FlatButton(
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .pop();
+                                          emailsendControl.text =
+                                          '';
+                                        },
+                                        textColor:
+                                        Theme.of(context)
+                                            .primaryColor,
+                                        child:
+                                        const Text('Close'),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                          );
+                        },
+                        color: Colors.redAccent.shade200,
+                      ),
+                    ),
+                    new Container(
+                      width: 200,
+                      height: 40,
+                      child: new RaisedButton(
+                        child: new Text(
+                          "generateSchedule",
+                          style: TextStyle(
+                            // h4 -> display1
+
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            letterSpacing: 0.4,
+                            height: 0.9,
+                            color: Colors.white,
+                          ),
+                        ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            side: BorderSide(
+                                color: Colors.white, width: 3)),
+                        onPressed: () {
+                          getDatahttp.generateSchedule(widget.comp.id!, '2021-11-05T10:00:00', '2021-11-05T19:00:00');//TODO
+                        },
+                        color: Colors.black.withOpacity(0.05),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }else{
+   return Container();
+    }
   }
 
   Widget _buildPopupDialog(BuildContext context) {

@@ -11,10 +11,11 @@ import '../../../getdata.dart';
 class CompetitionEnterPage extends StatefulWidget {
 
   final Competition comp;
+  final User user;
   @override
   _CompetitionEnterState createState() => _CompetitionEnterState();
 
-  CompetitionEnterPage({Key? key, required this.comp}) : super(key: key);
+  CompetitionEnterPage({Key? key, required this.comp , required this.user}) : super(key: key);
 }
 
 class _CompetitionEnterState extends State<CompetitionEnterPage> {
@@ -294,7 +295,7 @@ class _CompetitionEnterState extends State<CompetitionEnterPage> {
                                                       builder: (BuildContext
                                                       context) =>
                                                           CompetitionInfoScreen(
-                                                              comp: widget.comp),
+                                                              comp: widget.comp , user: widget.user,),
                                                     ),
                                                   ));
                                             }
