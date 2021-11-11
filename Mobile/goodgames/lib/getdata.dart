@@ -943,6 +943,105 @@ class getDatahttp {
 
     return sports;
   }
+
+  static Future<List<User>> addAdmin(int competitionId, int userId) async{
+    List<User> users = [];
+
+    var body = jsonEncode({
+      'id': userId
+    });
+
+    try {
+      var response = await http.post(
+          Uri.https("goodgames.kh.ua", "api/competitions/addadmin/$competitionId"),
+          body: body,
+          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
+      );
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+        for (var s in jsonData) {
+          User user = User(
+              id: s["id"],
+              login: s["login"]
+          );
+
+          users.add(user);
+        }
+      } else {
+        print(response.body);
+      }
+    } catch (ex) {
+      print(ex);
+    }
+
+    return users;
+  }
+
+  static Future<List<User>> deleteAdmin(int competitionId, int userId) async{
+    List<User> users = [];
+
+    var body = jsonEncode({
+      'id': userId
+    });
+
+    try {
+      var response = await http.post(
+          Uri.https("goodgames.kh.ua", "api/competitions/deleteadmin/$competitionId"),
+          body: body,
+          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
+      );
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+        for (var s in jsonData) {
+          User user = User(
+              id: s["id"],
+              login: s["login"]
+          );
+
+          users.add(user);
+        }
+      } else {
+        print(response.body);
+      }
+    } catch (ex) {
+      print(ex);
+    }
+
+    return users;
+  }
+
+  static Future<Competition> addStreamUrl(int competitionId, String streamUrl) async{
+    Competition? competition;
+
+    var body = jsonEncode({
+      'id': competitionId,
+      'streamUrl': streamUrl
+    });
+
+    try {
+      var response = await http.post(
+          Uri.https("goodgames.kh.ua", "api/competitions/addstream"),
+          body: body,
+          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
+      );
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+        competition = Competition(
+          id: jsonData["id"],
+          streamUrl: jsonData["streamUrl"]
+        );
+      } else {
+        print(response.body);
+      }
+    } catch (ex) {
+      print(ex);
+    }
+
+    return competition!;
+  }
 }
 
 
