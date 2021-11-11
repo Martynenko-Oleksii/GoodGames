@@ -16,6 +16,7 @@ const resultT1EditEl = document.querySelector("#result_t1_edit");
 const resultT2EditEl = document.querySelector("#result_t2_edit");
 
 let competitionId;
+let competitionUserId;
 
 
 document.addEventListener("DOMContentLoaded", pageLoaded);
@@ -54,6 +55,7 @@ function updateCompetitionGeneralInfo() {
     }
 
     console.log(info);
+    competitionUserId = info.user.id;
     parseCompetitionInfo(info);
     parseCompetitorsList(info);
   }
@@ -140,7 +142,8 @@ function updateCompetitionTimetable() {
 
     console.log(data);
 
-    document.querySelector("#empty_match").remove();
+    document.querySelector("#empty_match").style.display = "none";
+    const userId = parseInt( Cookies.get("id") );
 
     const TimeTableBodyEl = document.querySelector(".generate_shedule");
 
@@ -161,11 +164,21 @@ function updateCompetitionTimetable() {
         team2Result = regex.exec(score)[0];
       }
 
+      let fixResultsEl = "";
+      if (userId && competitionUserId && userId === competitionUserId) {
+        fixResultsEl =
+          `<a class="btn btn-outline-info btn-sm"
+            id="edit_autor_show"
+            onclick="openFixationModalWindow(${timetableCellId});">
+            Фіксація результатів
+          </a>`;
+      }
+
       TimeTableBodyEl.innerHTML +=
         `<div class="widget widget-four" style="margin-bottom: 20px;" id="timetableCell-${timetableCellId}">
           <div class="widget-heading">
             <h5 class="">${dateString} ${timeString}</h5>
-            <a class="btn btn-outline-info btn-sm" id="edit_autor_show" onclick="openFixationModalWindow(${timetableCellId});">Фіксація результатів</a>
+            ${fixResultsEl}
           </div>
 
           <div class="widget-content">
