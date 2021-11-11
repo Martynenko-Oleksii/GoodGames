@@ -29,7 +29,7 @@ class _ProfileState extends State<ProfileScreen>
   late AnimationController animationController;
   bool multiple = false;
   final ScrollController _scrollController = ScrollController();
-
+  final formKeysport = GlobalKey<FormState>();
   Text subState = new Text(
     "",
     style: TextStyle(
@@ -38,6 +38,8 @@ class _ProfileState extends State<ProfileScreen>
       fontWeight: FontWeight.w700,
     ),
   );
+
+
 
   int currentIndex = 4;
 
@@ -245,16 +247,14 @@ class _ProfileState extends State<ProfileScreen>
                         )
                     ),
                     new Container(
+
                       child: new DecoratedBox(
                         decoration: BoxDecoration(
-                          color: Colors.black54,
-                          border: Border.all(width: 5.0, color: Colors.white),
-                          borderRadius: BorderRadius.circular(22),
+                        //  color: Colors.black54,
+                         // border: Border.all(width: 5.0, color: Colors.white),
+                         // borderRadius: BorderRadius.circular(22),
                         ),
-                        child: new Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 18,
-                              horizontal: 45),
+                        child:new RaisedButton(
                           child: new Text(
                             "Підписки на спорт",
                             style: TextStyle( // h4 -> display1
@@ -266,6 +266,122 @@ class _ProfileState extends State<ProfileScreen>
                               color: Colors.white,
                             ),
                           ),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                              side: BorderSide(color: Colors.white, width: 3)),
+                          onPressed: () {
+                            Sport dropdownValueSport = new Sport(
+                              id: 1,
+
+                              title: "Оберіть спорт",
+                              minCompetitorsCount: 0,
+                              hasTeam: false,
+
+                              minTeamsCount: 0,
+                              teamSize: 0,
+                              hasGrid: false,);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) => Form(
+                                key: formKeysport,
+                                child: new AlertDialog(
+                                  title: const Text('add inters sport'),
+                                  content: new Row(children: [
+                                    new Container(
+                                      padding: EdgeInsets.all(5.0),
+                                      child: FutureBuilder(
+                                        future: getDatahttp.getSports(),
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot snapshot) {
+
+                                          if (!snapshot.hasData) {
+                                            return const SizedBox();
+                                          } else {
+
+                                            return new Container(
+                                              margin: EdgeInsets.only( left: 10.0),
+                                              child: DropdownButton<Sport>(
+                                                hint: Text(
+                                                  dropdownValueSport.title,
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: AppTheme.darkText,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                                elevation: 16,
+                                                style: const TextStyle(
+                                                    color: Colors.green),
+                                                underline: Container(
+                                                  height: 2,
+                                                  color: Colors.green,
+                                                ),
+                                                onChanged: (Sport? newValue) {
+                                                  setState(()
+                                                  {
+                                                    dropdownValueSport = newValue!;
+                                                  });
+                                                },
+                                                //value: dropdownValueSport,
+                                                items: snapshot.data
+                                                    .map<DropdownMenuItem<Sport>>(
+                                                        (Sport value) {
+                                                      return DropdownMenuItem<Sport>(
+                                                        value: value,
+                                                        child: Text(
+                                                          value.title,
+                                                          style: TextStyle(
+                                                            fontSize: 16,
+                                                            color: AppTheme.darkText,
+                                                            fontWeight: FontWeight.w700,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }).toList(),
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                    new Container(
+                                      child: new Text(
+                                        "sport",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: AppTheme.darkText,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    )
+                                  ]),
+                                  actions: <Widget>[
+                                    new FlatButton(
+                                      onPressed: () {
+                                        getDatahttp
+                                              .addFavouriteSport(widget.user.id! , dropdownValueSport.id)
+                                              .then((value) =>
+                                              Navigator.of(context).pop());
+
+
+                                        //  Navigator.of(context).pop();
+                                      },
+                                      textColor: Theme.of(context).primaryColor,
+                                      child: const Text('Add'),
+                                    ),
+                                    new FlatButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      textColor: Theme.of(context).primaryColor,
+                                      child: const Text('Close'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                          color: Colors.black54,
                         ),
                       ),
                     ),
@@ -298,6 +414,7 @@ class _ProfileState extends State<ProfileScreen>
                                   listData: profileList[index],
                                   animation: animation,
                                   animationController: animationController,
+                                  user: widget.user,
                                 );
                               },
                             );
@@ -423,12 +540,13 @@ class ProfileInteresListView extends StatelessWidget {
     required this.listData,
     required this.animationController,
     required this.animation,
+    required this.user,
   }) : super(key: key);
 
   final Sport listData;
   final AnimationController animationController;
   final Animation<double> animation;
-
+  final User user;
   // InteresList listData
   @override
   Widget build(BuildContext context) {
@@ -489,6 +607,27 @@ class ProfileInteresListView extends StatelessWidget {
                                     ),
                                   ),
                                 ),
+                                new RaisedButton(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                  ),
+                                  child: Icon(Icons.dangerous),
+                                  onPressed: () {
+                                    user.sports!.remove(listData.id);
+                                    getDatahttp.deleteFavouriteSport( user.id!, listData.id)
+                                        .then(
+                                            (value) => {
+                                            Navigator.push<dynamic>(
+                                              context,
+                                              MaterialPageRoute<dynamic>(
+                                                builder: (BuildContext context) => ProfileScreen(user: user),
+                                              ),
+                                            )
+                                        });
+                                  },
+                                  color: Colors.redAccent.shade200,
+                                ),
+
                               ],
                             ),
                           ),
