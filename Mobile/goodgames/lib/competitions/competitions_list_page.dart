@@ -170,7 +170,7 @@ class _CompetitionsState extends State<CompetitionsScreen>
                             context,
                             MaterialPageRoute<dynamic>(
                               builder: (BuildContext context) =>
-                                  macetAddPage(user: widget.user),
+                                  CompetitionAddPage(user: widget.user),
                             ),
                           );
                         },

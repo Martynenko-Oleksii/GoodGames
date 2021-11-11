@@ -28,16 +28,16 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
   bool isPublic = false;
   final formKey = GlobalKey<FormState>();
 
-   Sport dropdownValueSport = new Sport(
-  id: 1,
+  Sport dropdownValueSport = new Sport(
+    id: 1,
 
-  title: "Оберіть спорт",
-  minCompetitorsCount: 0,
-  hasTeam: false,
+    title: "Оберіть спорт",
+    minCompetitorsCount: 0,
+    hasTeam: false,
 
-     minTeamsCount: 0,
-  teamSize: 0,
-     hasGrid: false,);
+    minTeamsCount: 0,
+    teamSize: 0,
+    hasGrid: false,);
 
 
   DateTime selectedDatestart = DateTime.now();
@@ -80,33 +80,34 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: new AppBar(
-          backgroundColor: Colors.orange.shade200,
+          backgroundColor: Colors.white.withOpacity(0),
           centerTitle: true,
           elevation: 0.0,
+
           title: new Text(
-            "Competition Add",
+            "Створення змагання",
             textScaleFactor: 1.3,
+          ),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30) , bottomRight : Radius.circular(30)),
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  stops: [
+                    0,
+                    0.5,
+                    1,
+                  ],
+                  colors: [
+                    Colors.amber.shade200,
+                    Colors.green.shade300,
+                    Colors.teal.shade400,
+                  ],
+                )),
           ),
         ),
         body: Center(
-            child: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            stops: [
-              0.1,
-              0.3,
-              0.8,
-              0.9,
-            ],
-            colors: [
-              Colors.orange.shade200,
-              Colors.purple.shade100,
-              Colors.indigo.shade200,
-              Colors.lightBlue.shade200,
-            ],
-          )),
           child: new Stack(
             children: <Widget>[
               new Container(
@@ -115,21 +116,24 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                   //crossAxisAlignment: CrossAxisAlignment.start,
                   // mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
+                    new Container(height: 10,),
                     new Container(
-                      // height: 300.0,
-                      // width: 400.0,
-                      //alignment: Alignment(0.00, -0.50),
-                      /*
-
-
-
                       decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.red,
-                          width: 5,
-                        )
-                    ),
-                      */
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            stops: [
+                              0,
+                              0.5,
+                              1,
+                            ],
+                            colors: [
+                              Colors.red.shade100,
+                              Colors.red.shade400,
+                              Colors.pinkAccent.shade700,
+                            ],
+                          )),
                       child: Form(
                         key: formKey,
                         child: new Column(
@@ -137,15 +141,18 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             new Padding(
-                              padding: EdgeInsets.all(5.0),
+                              padding: EdgeInsets.only( top: 15.0 , bottom: 5 , left: 10, right: 10),
                               child: new Container(
                                 // width: 275.0,
                                 child: new TextFormField(
                                   controller: titleControl,
                                   decoration: new InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
                                     hintText: 'title',
                                     filled: true,
-                                    fillColor: Colors.white70,
+                                    fillColor: Colors.white,
                                   ),
                                   /* validator: (value) {
                                     if (value!.isEmpty ||
@@ -201,6 +208,7 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                     } else {
 
                                       return new Container(
+                                        margin: EdgeInsets.only( left: 10.0),
                                         child: DropdownButton<Sport>(
                                           hint: Text(
                                             dropdownValueSport.title,
@@ -219,7 +227,7 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                           ),
                                           onChanged: (Sport? newValue) {
                                             setState(()
-                                                {
+                                            {
                                               dropdownValueSport = newValue!;
                                             });
                                           },
@@ -227,18 +235,18 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                           items: snapshot.data
                                               .map<DropdownMenuItem<Sport>>(
                                                   (Sport value) {
-                                            return DropdownMenuItem<Sport>(
-                                              value: value,
-                                              child: Text(
-                                                value.title,
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: AppTheme.darkText,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
-                                              ),
-                                            );
-                                          }).toList(),
+                                                return DropdownMenuItem<Sport>(
+                                                  value: value,
+                                                  child: Text(
+                                                    value.title,
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: AppTheme.darkText,
+                                                      fontWeight: FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                );
+                                              }).toList(),
                                         ),
                                       );
                                     }
@@ -264,9 +272,12 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                 child: new TextFormField(
                                   controller: agelimitControl,
                                   decoration: new InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
                                     hintText: 'ageLimit',
                                     filled: true,
-                                    fillColor: Colors.white70,
+                                    fillColor: Colors.white,
                                   ),
                                   /* validator: (value) {
                                     if (value!.isEmpty ||
@@ -287,9 +298,12 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                 child: new TextFormField(
                                   controller: cityControl,
                                   decoration: new InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
                                     hintText: 'city',
                                     filled: true,
-                                    fillColor: Colors.white70,
+                                    fillColor: Colors.white,
                                   ),
                                   /* validator: (value) {
                                     if (value!.isEmpty ||
@@ -304,36 +318,53 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                               ),
                             ),
                             Container(
-                              padding: EdgeInsets.all(5.0),
-                              child: new Row(children: [
-                                RaisedButton(
-                                  onPressed: () => _selectDatestart(context),
-                                  child: Text('Select startDate'),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: Text(
-                                    "${selectedDatestart.toLocal()}"
-                                        .split(' ')[0],
-                                  ),
-                                ),
-                              ]),
+                              //margin: EdgeInsets.only(top: 5.0,bottom: 5 , left: 15 , right: 15),
+                              padding:EdgeInsets.only(top: 5.0,bottom: 5 , left: 15 , right: 15),
+                              child: new Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 200,
+                                      child: RaisedButton(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(18.0),
+                                            side: BorderSide(color: Colors.white, width: 3)
+                                        ),
+                                        onPressed: () => _selectDatestart(context),
+                                        child: Text('Select startDate'),
+                                      ),),
+                                    Container(
+                                      padding: EdgeInsets.all(5.0),
+                                      child: Text(
+                                        "${selectedDatestart.toLocal()}"
+                                            .split(' ')[0],
+                                      ),
+                                    ),
+                                  ]),
                             ),
                             Container(
-                              padding: EdgeInsets.all(5.0),
-                              child: new Row(children: [
-                                RaisedButton(
-                                  onPressed: () => _selectDateend(context),
-                                  child: Text('Select endDate'),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: Text(
-                                    "${selectedDateend.toLocal()}"
-                                        .split(' ')[0],
-                                  ),
-                                ),
-                              ]),
+                              padding:EdgeInsets.only(top: 5.0,bottom: 5 , left: 15 , right: 15),
+                              child: new Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 200,
+                                      child: RaisedButton(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(18.0),
+                                            side: BorderSide(color: Colors.white, width: 3)
+                                        ),
+                                        onPressed: () => _selectDatestart(context),
+                                        child: Text('Select endDate'),
+                                      ),),
+                                    Container(
+                                      padding: EdgeInsets.all(5.0),
+                                      child: Text(
+                                        "${selectedDateend.toLocal()}"
+                                            .split(' ')[0],
+                                      ),
+                                    ),
+                                  ]),
                             ),
                             new Row(
                               children: [
@@ -363,87 +394,7 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                 ),
                               ],
                             ),
-                            /*new Padding(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: new Container(
-                                    // width: 275.0,
-                                    child: new TextFormField(
-                                      controller: streamControl,
-                                      decoration: new InputDecoration(
-                                        hintText: 'streamUrl',
-                                        filled: true,
-                                        fillColor: Colors.white70,
-                                      ),
-                                      /* validator: (value) {
-                                    if (value!.isEmpty ||
-                                        !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-                                            .hasMatch(value)) {
-                                      return "Enter Correct Email Address";
-                                    } else {
-                                      return null;
-                                    }
-                                  },*/
-                                    ),
-                                  ),
-                                ),*/
-                            /* new Container(
-                                  //margin: const EdgeInsets.only( bottom: 150.0),
-                                  child: new Row(
-                                    //crossAxisAlignment: CrossAxisAlignment.center,
-                                    //mainAxisAlignment: MainAxisAlignment.center,
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
 
-                                    children: <Widget>[
-                                      new Container(
-                                        margin: const EdgeInsets.symmetric(
-                                            vertical: 0.0),
-                                        padding: EdgeInsets.only(left: 20.0),
-                                        child: new RaisedButton(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(18.0),
-                                          ),
-                                          child: new Text("Forgot Password"),
-                                          onPressed: onPressed,
-                                        ),
-                                      ),
-                                      new Container(
-                                        margin: const EdgeInsets.only(bottom: 7.0),
-                                        padding:
-                                        EdgeInsets.only(right: 20.0),
-                                        width: 140.0,
-                                        height: 35.0,
-                                        child: new RaisedButton(
-                                          child: new Text("Login"),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(18.0),
-                                          ),
-                                          onPressed: () {
-                                            if (formKey.currentState!.validate()) {
-                                              getDatahttp.postDateLogin(
-                                                  loginControl.text,
-                                                  passControl.text)
-                                                  .then((value) =>
-                                                  Navigator.push<dynamic>(
-                                                    context,
-                                                    MaterialPageRoute<dynamic>(
-                                                      builder: (BuildContext context) =>
-                                                          ProfileScreen(user: value),
-                                                    ),
-                                                  ));
-                                            }
-
-                                            //getDatahttp.getCompetition(1);
-                                          },
-                                          color: Colors.orange,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),*/
                           ],
                         ),
                       ),
@@ -458,33 +409,33 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                         onPressed: () {
                           getDatahttp
                               .postNewCompetition(
-                                  titleControl.text,
-                                  isOpen,
-                                  // sportId TODO,
-                                  //1,
-                                   dropdownValueSport.id,
-                                  agelimitControl.text,
-                                  cityControl.text,
-                                  selectedDatestart,
-                                  selectedDateend,
-                                  isPublic,
-                                  widget.user.id!)
+                              titleControl.text,
+                              isOpen,
+                              // sportId TODO,
+                              //1,
+                              dropdownValueSport.id,
+                              agelimitControl.text,
+                              cityControl.text,
+                              selectedDatestart,
+                              selectedDateend,
+                              isPublic,
+                              widget.user.id!)
                               .then((value) => {
-                                    if (value.title == titleControl.text)
-                                      {
-                                        print(value),
-                                        Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (BuildContext context) =>
-                                                CompetitionsScreen(
-                                                    user: widget.user),
-                                          ),
-                                        )
-                                      }
-                                  });
+                            if (value.title == titleControl.text)
+                              {
+                                print(value),
+                                Navigator.push<dynamic>(
+                                  context,
+                                  MaterialPageRoute<dynamic>(
+                                    builder: (BuildContext context) =>
+                                        CompetitionsScreen(
+                                            user: widget.user),
+                                  ),
+                                )
+                              }
+                          });
                         },
-                        color: Colors.redAccent.shade200,
+                        color: Colors.pinkAccent.shade400,
                       ),
                     ),
                   ],
@@ -492,7 +443,7 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
               ),
             ],
           ),
-        )));
+        ));
   }
 
   Color getColor(Set<MaterialState> states) {
@@ -514,3 +465,5 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
     super.dispose();
   }
 }
+
+

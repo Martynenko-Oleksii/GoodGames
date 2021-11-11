@@ -319,10 +319,11 @@ class CompetitionsheduleListView extends StatelessWidget {
               child: Row(
                 children: [
                   Container(
+                    //TODO winResult ne to
                     child: Text(
-                      listData.winResult!.competitors![0].name! +
+                      listData.competitors![0].name! +
                           " - " +
-                          listData.winResult!.competitors![1].name! +
+                          listData.competitors![1].name! +
                           " : " +
                           listData.winResult!.score! +
                           " -> " +
