@@ -1081,9 +1081,13 @@ class _CompetitionState extends State<CompetitionInfoScreen>
   }
 
   Widget admin(Competition compet, List<User> users) {
-
-
-    if (widget.user.id == compet.user!.id) {
+    bool isdmin = false;
+for(User u in users){
+  if(widget.user.id == u.id){
+    isdmin = true;
+  }
+}
+    if (isdmin) {
       return Container(
         child: Container(
           height: 300,
