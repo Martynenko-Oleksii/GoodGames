@@ -17,10 +17,17 @@ namespace GGBack.Data
         public DbSet<TimetableCell> TimetableCells { get; set; }
         public DbSet<WinResult> WinResults { get; set; }
 
+        public DbSet<CompetitionCreator> CompetitionCreators { get; set; }
+
         public ServerDbContext(DbContextOptions<ServerDbContext> options) 
             : base(options)
         {
             //Database.EnsureCreated();
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CompetitionCreator>().HasKey(u => new { u.CompetitionId, u.CreatorId });
         }
     }
 }
