@@ -763,6 +763,57 @@ class getDatahttp {
 
     return result;
   }
+
+  static Future<List<Competition>> getAllCompetitions() async{
+    List<Competition> competitions = [];
+
+    try {
+      var response = await http.get(
+          Uri.https("goodgames.kh.ua", "api/competitions"),
+          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
+      );
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+          Competition competition = Competition(
+              id: jsonData[0]["id"],
+              title: jsonData[0]["title"],
+              sport: Sport(
+                  id: jsonData[0]["sport"]["id"],
+                  title: jsonData[0]["sport"]["title"],
+                  minCompetitorsCount: jsonData[0]["sport"]["minCompetitorsCount"],
+                  hasTeam: jsonData[0]["sport"]["hasTeam"],
+                  minTeamsCount: jsonData[0]["sport"]["minTeamsCount"],
+                  teamSize: jsonData[0]["sport"]["teamSize"],
+                  hasGrid: jsonData[0]["sport"]["hasGrid"]
+              ),
+              startDate: DateTime.parse(
+                  jsonData[0]["startDate"]
+                      .toString()
+                      .substring(0, 10) + " " +
+                      jsonData[0]["startDate"]
+                          .toString()
+                          .substring(11)),
+              endDate: DateTime.parse(
+                  jsonData[0]["endDate"]
+                      .toString()
+                      .substring(0, 10) + " " +
+                      jsonData[0]["endDate"]
+                          .toString()
+                          .substring(11)),
+              state: jsonData[0]["state"]
+          );
+
+          competitions.add(competition);
+      } else {
+        print(response.body);
+      }
+    } catch (ex) {
+      print(ex);
+    }
+
+    return competitions;
+  }
 }
 
 
