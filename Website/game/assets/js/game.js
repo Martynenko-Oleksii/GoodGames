@@ -28,7 +28,6 @@ function pageLoaded() {
   }
 
   updateCompetitionGeneralInfo();
-  updateCompetitionTimetable();
 }
 
 function updateCompetitionGeneralInfo() {
@@ -58,6 +57,8 @@ function updateCompetitionGeneralInfo() {
     competitionUserId = info.user.id;
     parseCompetitionInfo(info);
     parseCompetitorsList(info);
+
+    updateCompetitionTimetable();
   }
 
   function parseCompetitionInfo(info) {
