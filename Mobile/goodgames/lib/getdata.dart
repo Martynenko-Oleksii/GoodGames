@@ -944,7 +944,7 @@ class getDatahttp {
     return sports;
   }
 
-  static Future<List<User>> addAdmin(int competitionId, int userId) async{
+  static Future<List<User>> addAdmin(int competitionId, String userId) async{
     List<User> users = [];
 
     var body = jsonEncode({
@@ -978,7 +978,7 @@ class getDatahttp {
     return users;
   }
 
-  static Future<List<User>> deleteAdmin(int competitionId, int userId) async{
+  static Future<List<User>> deleteAdmin(int competitionId, String userId) async{
     List<User> users = [];
 
     var body = jsonEncode({
