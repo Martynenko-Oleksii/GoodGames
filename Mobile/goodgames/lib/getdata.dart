@@ -865,6 +865,84 @@ class getDatahttp {
 
     return competitions;
   }
+
+  static Future<List<Sport>> addFavouriteSport(int userId, int sportId) async{
+    List<Sport> sports = [];
+
+    var body = jsonEncode({
+      'id': sportId
+    });
+
+    try {
+      var response = await http.post(
+          Uri.https("goodgames.kh.ua", "api/addsport/$userId"),
+          body: body,
+          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
+      );
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+        for (var s in jsonData) {
+          Sport sport = Sport(
+              id: s["id"],
+              title: s["title"],
+              minCompetitorsCount: s["minCompetitorsCount"],
+              hasTeam: s["hasTeam"],
+              minTeamsCount: s["minTeamsCount"],
+              teamSize: s["teamSize"],
+              hasGrid: s["hasGrid"]
+          );
+
+          sports.add(sport);
+        }
+      } else {
+        print(response.body);
+      }
+    } catch (ex) {
+      print(ex);
+    }
+
+    return sports;
+  }
+
+  static Future<List<Sport>> deleteFavouriteSport(int userId, int sportId) async{
+    List<Sport> sports = [];
+
+    var body = jsonEncode({
+      'id': sportId
+    });
+
+    try {
+      var response = await http.post(
+          Uri.https("goodgames.kh.ua", "api/deletesport/$userId"),
+          body: body,
+          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
+      );
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+        for (var s in jsonData) {
+          Sport sport = Sport(
+              id: s["id"],
+              title: s["title"],
+              minCompetitorsCount: s["minCompetitorsCount"],
+              hasTeam: s["hasTeam"],
+              minTeamsCount: s["minTeamsCount"],
+              teamSize: s["teamSize"],
+              hasGrid: s["hasGrid"]
+          );
+
+          sports.add(sport);
+        }
+      } else {
+        print(response.body);
+      }
+    } catch (ex) {
+      print(ex);
+    }
+
+    return sports;
+  }
 }
 
 
