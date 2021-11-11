@@ -441,7 +441,6 @@ class getDatahttp {
     return sports;
   }
 
-  //TODO
   static Future<User?> subscribe(int id) async{
 
     User? subUser;
@@ -489,32 +488,28 @@ class getDatahttp {
 
     try {
       var response = await http.get(
-          Uri.https("goodgames.kh.ua", " api/timetables/$competitionId"),
+          Uri.https("goodgames.kh.ua", "api/timetables/$competitionId"),
           headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
       );
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
         for (var s in jsonData) {
+          print(s);
           TimetableCell cell = TimetableCell(
-            id: s[0]["id"],
+            id: s["id"],
             dateTime: DateTime.parse(
-                s[0]["dateTime"]
+                s["dateTime"]
                     .toString()
                     .substring(0, 10) + " " +
-                    s[0]["dateTime"]
+                    s["dateTime"]
                         .toString()
                         .substring(11)),
-            competition: Competition(
-              id: s[0]["competition"]["id"],
-              title: s[0]["competition"]["title"],
-            ),
-            gridStage: s[0]["gridStage"],
+            gridStage: s["gridStage"],
           );
 
           List<Competitor> cellCompetitors = [];
-          for (var c in s[0]["competitors"])
-          {
+          for (var c in s["competitors"]) {
             cellCompetitors.add(Competitor(
                 id: c["id"],
                 name: c["name"],
@@ -528,13 +523,13 @@ class getDatahttp {
           }
           cell.competitors = cellCompetitors;
 
-          if (s[0]["winResult"] != null)
+          if (s["winResult"] != null)
           {
             cell.winResult = WinResult(
-                id: s[0]["winResult"]["id"],
-                teamOne: s[0]["winResult"]["teamOne"],
-                teamTwo: s[0]["winResult"]["teamTwo"],
-                score: s[0]["winResult"]["score"]
+                id: s["winResult"]["id"],
+                teamOne: s["winResult"]["teamOne"],
+                teamTwo: s["winResult"]["teamTwo"],
+                score: s["winResult"]["score"]
             );
           }
 
