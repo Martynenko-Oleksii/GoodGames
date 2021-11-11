@@ -263,7 +263,7 @@ namespace GGBack.Controllers
 
             try
             {
-                competition.Users.Add(user);
+                competition.Users.Add(admin);
                 await context.SaveChangesAsync();
             }
             catch (Exception ex)
