@@ -20,6 +20,8 @@ const resultT2EditEl = document.querySelector("#result_t2_edit");
 let competitionId;
 let competitionUserId;
 
+let organizator;
+let setadmin = false;
 
 document.addEventListener("DOMContentLoaded", pageLoaded);
 
@@ -46,6 +48,7 @@ function updateCompetitionGeneralInfo() {
 
   function parseServerResponse(data) {
     // data приходит в виде массива с одним элементом - объектом с информацией
+
     if (data.length === 0) {
       return;
     }
@@ -59,13 +62,16 @@ function updateCompetitionGeneralInfo() {
     competitionUserId = info.user.id;
     parseCompetitionInfo(info);
     parseCompetitorsList(info);
+    parseAdminList(info);
 
     updateCompetitionTimetable();
+    createListAdmins();
   }
 
   function parseCompetitionInfo(info) {
     competitionTitleEl.innerHTML = info.title;
     organizerEl.innerHTML = info.user.login;
+    organizator = info.user.login;
     cityEl.innerHTML = info.city;
     competitionDescriptionEl.innerHTML = info.description;
     competitorsNumberEl.innerHTML = info.competitors.length.toString();
@@ -93,10 +99,14 @@ function updateCompetitionGeneralInfo() {
 
     const userId = Cookies.get("id");
     if (!userId || info.user.id.toString() !== userId) {
-      startCompetitionsEl.style.display = "none";
+      setadmin = false;
+      startCompetitionsEl.remove();
+      document.getElementById('adminpanel').remove();
       if (!info.isOpen) {
-        sendAddPlayerEl.style.display = "none";
+        sendAddPlayerEl.remove();
       }
+    }else{
+      setadmin = true;
     }
 
     // if teams number less than 2 - hide start competition button
@@ -104,7 +114,7 @@ function updateCompetitionGeneralInfo() {
       const teamArray = getTeamArrayByCompetitorArray(info.competitors);
 
       if (teamArray.length < 2) {
-        startCompetitionButtonEl.style.display = "none";
+        startCompetitionButtonEl.remove();
       }
     }
   }
@@ -118,14 +128,76 @@ function updateCompetitionGeneralInfo() {
       let tr = document.createElement("tr");
       tr.innerHTML =
         `<td>
-                    <div class="td-content customer-name">
-                        <img src="/assets/images/user-48.png" alt="avatar">
-                        <span>${competitor.name}</span>
-                    </div>
-                </td>
-                <td><div class="td-content product-brand text-primary">${competitor.age}</div></td>
-                <td><div class="td-content"><span class="badge badge-primary">${competitor.team}</span></div></td>`;
+            <div class="td-content customer-name">
+                <img src="/assets/images/user-48.png" alt="avatar">
+                <span>${competitor.name}</span>
+            </div>
+        </td>
+        <td><div class="td-content product-brand text-primary">${competitor.age}</div></td>
+        <td><div class="td-content"><span class="badge badge-primary">${competitor.team}</span></div></td>`;
       competitorsTableBodyEl.appendChild(tr);
+    }
+  }
+}
+
+function createListAdmins() {
+  sendServerRequest();
+
+  function sendServerRequest() {
+    const requestParams = new RequestParams();
+    requestParams.url = "/api/admins/" + competitionId;
+
+    ServerRequest.send(requestParams)
+      .then(data => parseServerResponse(data))
+      .catch(err => console.log(err));
+  }
+
+  function parseServerResponse(data) {
+    if (!data || !data.length) {
+      return;
+    }
+
+    parseAdminList(data);
+    
+    function parseAdminList(info) {
+      const AdminTableBodyEl =
+        document.querySelector(".admin-table tbody");
+        AdminTableBodyEl.innerHTML = "";
+
+      for (let user of info){
+        let role = "Модератор";
+        if(organizator == user.login){ role = "Організатор"}
+
+        let avatars = "/assets/images/user-48.png";
+        if(user.avatarPath != null){
+          avatars = user.avatarPath;
+        }
+
+        let tr = document.createElement("tr");
+        tr.setAttribute("id", "admin_list_" + user.id);
+        if (setadmin) {
+          tr.innerHTML =
+          `<td><div class="td-content product-name">
+              <img src="${avatars}" alt="product"><div class="align-self-center">
+                  <p class="prd-name">${user.login}</p>
+                  <p class="prd-category text-primary">${role}</p>
+              </div></div>
+            </td>
+            <td><div class="td-content">${user.id}</div></td>
+            <td><a onclick="del_admin(${user.id});" class="btn btn-outline-danger btn-sm">Виключити</a></td>`;
+        }else{
+          tr.innerHTML =
+          `<td><div class="td-content product-name">
+              <img src="${avatars}" alt="product"><div class="align-self-center">
+                  <p class="prd-name">${user.login}</p>
+                  <p class="prd-category text-primary">${role}</p>
+              </div></div>
+            </td>
+            <td><div class="td-content">${user.id}</div></td>
+            <td><a>- - -</a></td>`;
+        }
+        AdminTableBodyEl.appendChild(tr);
+      }
     }
   }
 }
@@ -416,6 +488,8 @@ if (!getUrlVars()["id"]) {
 let options = "none";
 document.getElementById("join").href = "join/?game=" + id;
 document.getElementById("grid_frame").src = "grid/?id=" + id + "&options=" + options;
+document.getElementById("grid_frame_full").src = "grid/?id=" + id + "&options=" + options;
+
 
 if (devices.test(navigator.userAgent))
 { /* События для телефонов */  }
@@ -440,8 +514,47 @@ function show_main() {
   document.getElementById('show_main').style.display = "none";
 }
 
+function del_admin(id){ //Удаление администратора
+    if(setadmin){
+      const requestParams = new RequestParams("POST");
+      requestParams.url = "/api/competitions/deleteadmin/" + id;
 
+      ServerRequest.send(requestParams)
+        .then(data => document.getElementById('admin_list_' + id).remove())
+        .catch(err => console.log(err));
+    }else{
+      return;
+    }
+}
 
+function add_admin(){
+  if(setadmin){
+    const requestParams = new RequestParams("POST");
+    requestParams.url = "/api/competitions/addadmin/" + document.getElementById('admin_email').value;
+
+    ServerRequest.send(requestParams)
+      .then(data => document.getElementById('modal-window_admin').style.display = 'none')
+      .catch(err => console.log(err));
+  }else{
+    return;
+  }
+}
+
+function add_live(){
+  // Изменение ссылки на фрейм прямой трансляции
+}
+
+function ADD_ADMIN_SU(){
+  document.getElementById('modal-window_admin').style.display = 'block';
+  document.getElementById('setadmin').style.display = 'block';
+  document.getElementById('setlive').style.display = 'none';
+}
+
+function ADD_LIVE_SU(){
+  document.getElementById('modal-window_admin').style.display = 'block';
+  document.getElementById('setadmin').style.display = 'none';
+  document.getElementById('setlive').style.display = 'block';
+}
 
 /*
 TEST DATA 1

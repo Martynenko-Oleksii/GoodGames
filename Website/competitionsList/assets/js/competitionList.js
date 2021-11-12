@@ -125,38 +125,3 @@ function removeCompetitionEl(competitionId) {
 
   competitionsWrapperEl.removeChild(competitionEl);
 }
-
-
-
-/* Страный блок соревнования
-
-            <div class="col-lg-4 col-md-6 mt-4 pt-2" id="competition-${competitionId}">
-                <div class="card blog rounded border-0 shadow overflow-hidden">
-                    <div class="position-relative">
-                        <img src="assets/img/competition-placeholder.png" class="card-img-top" alt="...">
-                        <div class="overlay rounded-top bg-dark"></div>
-                    </div>
-                    <div class="card-body content">
-                        <h5>
-                            <p class="card-title title text-dark">
-                                ${competitionTitle}
-                            </p>
-                        </h5>
-                        <div class="post-meta d-flex justify-content-between align-items-center mt-3">
-                            <a href="/game?id=${competitionId}" class="text-muted readmore">
-                                Детальніше
-                            </a>
-                            <button class="competition-list__delete-button"
-                                onclick="deleteCompetition(${competitionId})">
-                                <ion-icon name="trash-bin-outline" class="competition-list-list__delete-icon"></ion-icon>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="author">
-                        <small class="text-light user d-block">Міжнародна федерація спорту</small>
-                        <small class="text-light date">${competitionDate}</small>
-                    </div>
-                </div>
-            </div><!--end col-->`
-
-*/

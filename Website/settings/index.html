@@ -110,15 +110,10 @@
                     <div class="col-lg-4 col-md-6 col-12 d-lg-block d-none">
                         <div class="sidebar sticky-bar p-4 rounded shadow">
 
-                            <div class="widget mt-4 pt-2">
-                                <h5 class="widget-title">Профіль заповнено:</h5>
+                            <div class="widget pt-2">
+                                <h4 id="tab_name">Редагування профілю</h4>
                                 <div class="progress-box mt-4">
-                                    <h6 class="title text-muted">Прогрес</h6>
-                                    <div class="progress">
-                                        <div class="progress-bar position-relative bg-primary" style="width:30%;">
-                                            <div class="progress-value d-block text-muted h6">30%</div>
-                                        </div>
-                                    </div>
+                                    <h6 class="title text-muted" id="tab_sub">Змініть такі параметри, як аватар, логін пошту або пароль у системі.</h6>
                                 </div><!--end process box-->
                             </div>
 
@@ -157,38 +152,65 @@
 
                             <div class="widget mt-4 pt-2">
                                 <h5 class="widget-title">Інше:</h5>
-                                <a href="#" class="buttom">Підтримка користувачів</a>
+                                <a href="#" class="btn btn-outline-danger" style="width: 100%;">Видалити акаунт</a>
                             </div>
                         </div>
                     </div><!--end col-->
 
                     <div class="col-lg-8 col-12">
                         <div class="border-bottom pb-4">
-                            <h5>Налаштування сервісу</h5>
-                            <p class="text-muted mb-0">Змінити всі основні параметри GoodGames.</p><hr>
-                            <div style="padding-top: 5px;">
-                                <a id="profile" class="btn btn-warning" onclick="profile(); this.classList.add('btn-warning'); this.classList.remove('btn-outline-warning');">Профіль</a>
-                                <a id="subs" class="btn btn-outline-warning" onclick="subs(); this.classList.add('btn-warning'); this.classList.remove('btn-outline-warning');">Підписки</a>
-                                <a id="themes" class="btn btn-outline-warning" onclick="theme(); this.classList.add('btn-warning'); this.classList.remove('btn-outline-warning');">Теми</a>
+                            <h4>Меню параметрів</h4>
+                            <div class="horizontal-tabs" style="box-shadow: 0 0 2px rgba(0, 0, 0, 0.4); padding: 10px; border-radius: 5px; margin-top: 10px; background-image: url('assets/bg.png'); background-size: cover; background-position-x: right;">
+                                <a id="profile" class="active_tab" onclick="profile(); this.classList.add('active_tab');">Профіль</a>
+                                <a id="subs" onclick="subs(); this.classList.add('active_tab');">Підписки</a>
+                                <a id="themes" onclick="theme(); this.classList.add('active_tab');">Теми</a>
                             </div>
                         </div>
 
                         <div id="profile_settings">
                             <h5 class="text-md-left mt-4">Персональна інформація:</h5>
-                            <div class="mt-3 text-md-left text-center d-sm-flex">
-                                <img src="/assets/images/user-48.png" id="image_blocks" class="avatar float-md-left avatar-medium rounded-circle shadow mr-md-4" alt="">
 
-                                <div class="mt-md-4 ml-4 mt-sm-0" style="margin-left: 15px;">
-                                    <input style="display: none;" onchange="getFiles(this.files)" type="file" id="photo_butt" name="uploadfile" name="photo" multiple accept="image/*,image/jpeg, image/gif" class="avatar-input">
-                                    <a style="cursor: pointer;" onclick="upload_files();" class="change-avatar-button btn btn-primary mt-2"> Змінити аватар </a>
-                                    <a onclick="resetFile();" id="form_photo_close" class="reset-file-button btn btn-outline-danger mt-2 ml-2" style="cursor: pointer;"> Видалити </a>
+                            <style>
+                                @media (min-width: 647px){
+                                    .block_avatar{
+                                        height: 80px;
+                                        top: 60px;
+                                        position: relative;
+                                    }
+                                    .buttava{
+                                        margin-top: 0px!important;
+                                    }
+                                    .h_top{
+                                        height: 150px;
+                                    }
+                                    .avatarsettings{
+                                        position: absolute;
+                                        bottom: 20px;
+                                    }
+                                }
+                            </style>
+
+                            <div class="h_top">
+                                <div class="block_avatar mt-3 text-md-left text-center d-sm-flex" style="box-shadow: 0 0 2px rgba(0, 0, 0, 0.4); padding: 10px; border-radius: 5px; margin-top: 10px; background-position-y: center; background-image: url('assets/ava_bg.png'); background-size: cover; background-position-x: right;">
+                                    <img src="/assets/images/user-48.png" id="image_blocks" class="avatar avatarsettings float-md-left avatar-medium rounded-circle shadow mr-md-4" alt="">
+    
+                                    <div class="buttava mt-md-4 ml-4 mt-sm-0" style="margin-left: 15px; width: 100%;">
+                                        <input style="display: none;" onchange="getFiles(this.files)" type="file" id="photo_butt" name="uploadfile" name="photo" multiple accept="image/*,image/jpeg, image/gif" class="avatar-input">
+                                        <div style="text-align: right;">
+                                            <a style="cursor: pointer;" onclick="upload_files();" class="change-avatar-button btn btn-primary mt-2"> Змінити аватар </a>
+                                            <a onclick="resetFile();" id="form_photo_close" class="reset-file-button btn btn-outline-danger mt-2 ml-2" style="cursor: pointer;"> Видалити </a>
+                                            <a style="margin-right: 20px;"></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
+
                             <label id="error_photo" style="display: none;" for="form_street" class="form-label"><a id="files_error" style="color: rgb(111, 0, 255); cursor: default;">Відправка зображення...</a></label>
 
 
                                 <div class="row mt-4">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6"">
                                         <div class="form-group position-relative">
                                             <label>Мій логін</label>
                                             <input name="name" id="first" type="text" class="login-input form-control pl-5" placeholder="Логін">
@@ -296,18 +318,18 @@
                         <a style="right: 20px; position: absolute;" class="btn btn-outline-danger btn-sm" onclick="document.getElementById('modal_edit').style.display = 'none';">Х</a>
                     </div>
     
-                    <div class="widget-content" style="max-height: 400px; overflow-y: auto; overflow-x: hidden; padding: 5px;">
+                    <div class="widget-content addStort" style="max-height: 400px; overflow-y: auto; overflow-x: hidden; padding: 5px;">
 
-                        <!-- Один чекбокс -->
+                        <!-- Один чекбокс 
                         <div class="checkbox">
                             <label class="checkbox-wrapper">
-                                <input type="checkbox" class="checkbox-input" name="sport_{}" checked /> <!-- Сам чекбокс, добавь имя и всё что потребуется (checked для уже активированого) -->
+                                <input type="checkbox" class="checkbox-input" name="sport_{}" checked />
                                 <span class="checkbox-tile">
 
                                     <a class="text-dark">
                                         <div class="key-feature2 d-flex align-items-center p-3">
                                           <div style="margin-right: 15px;" class="icon text-center rounded-circle mr-5">
-                                            <ion-icon name="game-controller-outline"></ion-icon> <!-- Иконка. Выбирать с сайта: https://ionic.io/ionicons -->
+                                            <ion-icon name="game-controller-outline"></ion-icon>
                                           </div>
                             
                                           <div class="content">
@@ -319,7 +341,7 @@
 
                                 </span>
                             </label>
-                        </div>
+                        </div>-->
 
                     </div>
     
@@ -469,30 +491,30 @@
             }
 
             function profile(){
-                document.getElementById("subs").classList.remove('btn-warning');
-                document.getElementById("subs").classList.add('btn-outline-warning');
-                document.getElementById("themes").classList.remove('btn-warning');
-                document.getElementById("themes").classList.add('btn-outline-warning');
+                document.getElementById("tab_name").textContent = "Редагування профілю";
+                document.getElementById("tab_sub").textContent = "Змініть такі параметри, як аватар, логін пошту або пароль у системі.";
+                document.getElementById("subs").classList.remove('active_tab');
+                document.getElementById("themes").classList.remove('active_tab');
                 document.getElementById("profile_settings").style.display = "block";
                 document.getElementById("sub_settings").style.display = "none";
                 document.getElementById("theme_settings").style.display = "none";
             }
 
             function subs(){
-                document.getElementById("profile").classList.remove('btn-warning');
-                document.getElementById("profile").classList.add('btn-outline-warning');
-                document.getElementById("themes").classList.remove('btn-warning');
-                document.getElementById("themes").classList.add('btn-outline-warning');
+                document.getElementById("tab_name").textContent = "Мої улюблені види спорту";
+                document.getElementById("tab_sub").textContent = "Виберіть, на які види спорту підписатися, щоб отримувати змагання, що відповідають вашим інтересам.";
+                document.getElementById("profile").classList.remove('active_tab');
+                document.getElementById("themes").classList.remove('active_tab');
                 document.getElementById("profile_settings").style.display = "none";
                 document.getElementById("sub_settings").style.display = "block";
                 document.getElementById("theme_settings").style.display = "none";
             }
 
             function theme(){
-                document.getElementById("profile").classList.remove('btn-warning');
-                document.getElementById("profile").classList.add('btn-outline-warning');
-                document.getElementById("subs").classList.remove('btn-warning');
-                document.getElementById("subs").classList.add('btn-outline-warning');
+                document.getElementById("tab_name").textContent = "Оформлення системи";
+                document.getElementById("tab_sub").textContent = "Виберіть деякі параметри інтерфейсу на власний смак.";
+                document.getElementById("profile").classList.remove('active_tab');
+                document.getElementById("subs").classList.remove('active_tab');
                 document.getElementById("profile_settings").style.display = "none";
                 document.getElementById("sub_settings").style.display = "none";
                 document.getElementById("theme_settings").style.display = "block";

@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Турнирная сетка</title>
 
+
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <script src="jquery.bracket.min.js"></script>
         <link href="jquery.bracket.min.css" rel="stylesheet">
@@ -16,7 +17,7 @@
 
         <style>
             .nav_fix{
-                bottom: 20px; right: 20px; position: fixed; z-index: 1000;
+                bottom: 30px; right: 30px; position: fixed; z-index: 1000; display: inline-flex;
             }
             .nav{
                 background-color: rgba(97, 95, 99, 0.50); padding: 5px 9px 5px 9px; border-radius: 5px; color: #fff; font-weight: 900;
@@ -27,7 +28,7 @@
             }
         </style>
     </head>
-    <body class="dragscroll" id="body-pd" style="zoom: 1.1;">
+    <body class="dragscroll" id="body-pd" style="zoom: 1.1; padding: 10px;">
 
     <!--  ПОЛЕ ДЛЯ ТУРНИРНОЙ СЕТКИ  -->
 
@@ -38,9 +39,13 @@
     <!-- БЛЯ НЕ ТРОГАТЬ  -->
 
     <div class="nav_fix">
-        <a class="nav" onclick="if(scale < 2){scale += 0.05;} document.getElementById('grid').style.zoom = scale;">+</a>
-        <a class="nav" onclick="if(scale > 0.9){scale -= 0.05;} document.getElementById('grid').style.zoom = scale;" style="padding: 5px 10px 5px 10px;">-</a>
+        <a class="icon-button" onclick="if(scale < 2){scale += 0.05;} document.getElementById('grid').style.zoom = '1'; scale=1;" style="width: 80px; margin-right: 12px;">Сброс</a>
+        <a class="icon-button" onclick="if(scale < 2){scale += 0.05;} document.getElementById('grid').style.zoom = scale;" style="margin-right: 12px;"><ion-icon name="add-outline" class="nav__icon"></ion-icon></a>
+        <a class="icon-button" onclick="if(scale > 0.9){scale -= 0.05;} document.getElementById('grid').style.zoom = scale;"><ion-icon name="remove-outline" class="nav__icon"></ion-icon></a>
     </div>
+
+    <p style="right: 80px; bottom: 80px; position: fixed; z-index: 100000;">Мышь</p>
+    <div class='scroll' style="z-index: 100000;"></div>
 
     <script>
         var TEAMS;
@@ -196,5 +201,6 @@
         });
 
     </script>
+    <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
     </body>
 </html>

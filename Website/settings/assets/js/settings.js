@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", pageLoaded);
 function pageLoaded() {
   updateAvatarInterface();
   updateFavouriteSportKinds();
+  updateSportAllList();
 
   const oldLogin = Cookies.get("login");
   const oldEmail = Cookies.get("email");
@@ -121,6 +122,75 @@ function updateFavouriteSportKinds() {
   }
 }
 
+function updateSportAllList(){
+  
+    sendServerRequest();
+
+    function sendServerRequest() {
+				const requestParams = new RequestParams();
+        requestParams.url = "/api/sports/";
+
+        ServerRequest.send(requestParams)
+            .then(data => parseServerResponse(data))
+            .catch(err => console.log(err));
+    }
+
+    function parseServerResponse(data) {
+        if (data.length === 0) {
+            return;
+        }
+
+        const SportWrapperEl =
+            document.querySelector(".addStort");
+			SportWrapperEl.innerHTML = "";
+
+        for (let SportInfo of data) {
+            createSportElement(SportInfo);
+        }
+    }
+    function createSportElement(SportInfo) {
+      if (!SportInfo) {
+          console.log("Нет видов спорта.");
+          return;
+      }
+
+      const SportId = SportInfo.id;
+      const SportTitle = SportInfo.title;
+      const SportminCompetitorsCount = SportInfo.minCompetitorsCount;
+
+      if (!SportId || !SportTitle) {
+          console.log("Что-то пошло не так. Неравенство данных.");
+          return;
+      }
+
+      const competitionsWrapperEl =
+          document.querySelector(".addStort");
+          
+      competitionsWrapperEl.innerHTML +=
+          `<div class="checkbox">
+              <label class="checkbox-wrapper">
+                  <input type="checkbox" class="checkbox-input" name="sport_${SportId}" id="sport_${SportId}" />
+                  <span class="checkbox-tile">
+
+                      <a class="text-dark">
+                          <div class="key-feature2 d-flex align-items-center p-3">
+                            <div style="margin-right: 15px;" class="icon text-center rounded-circle mr-5">
+                              <ion-icon name="game-controller-outline"></ion-icon>
+                            </div>
+              
+                            <div class="content">
+                              <h4 class="title mb-0">${SportTitle}</h4>
+                              <p class="text-muted mb-0">Кількість гравців: ${SportminCompetitorsCount}</p>
+                            </div>
+                          </div>
+                      </a>
+
+                  </span>
+              </label>
+          </div>`;
+
+  }
+}
 
 changeProfileInfoButtonEl.addEventListener("click", () => changeProfileInfo());
 

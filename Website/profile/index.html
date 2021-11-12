@@ -108,59 +108,49 @@
     </div>
 
     <section>
-        <div class="card public-profile border-0 rounded shadow" style="z-index: 1;">
-            <div class="card-body">
-                <div class="row align-items-center">
-                    <div class="col-lg-2 col-md-3 text-md-left text-center">
-                        <img src="/assets/images/user-48.png" id="avatar" class="avatar avatar-large rounded-circle shadow d-block mx-auto" alt="">
-                    </div>
-
-                    <div class="col-lg-10 col-md-9">
-                        <div class="row align-items-end">
-                            <div class="col-md-7 text-md-left mt-4 mt-sm-0">
-                                <h3 class="title mb-0">Привіт, <a id="name_profile">користувач</a>!</h3>
-                                <small class="text-muted h6 mr-2">Звання: Рейнджер</small>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    
+                    <div class="card public-profile border-0 rounded shadow" style="z-index: 1;">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-lg-2 col-md-3 text-md-left text-center">
+                                    <img src="/assets/images/user-48.png" id="avatar" class="avatar avatar-large rounded-circle shadow d-block mx-auto" alt="">
+                                </div>
+            
+                                <div class="col-lg-10 col-md-9">
+                                    <div class="row align-items-end">
+                                        <div class="col-md-7 text-md-left mt-4 mt-sm-0">
+                                            <h3 class="title mb-0">Привіт, <a id="name_profile">користувач</a>!</h3>
+                                            <small class="text-muted h6 mr-2">Звання: Рейнджер</small>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
+                </div><!--end col-->
+            </div><!--end row-->
+        </div><!--ed container-->
+    </section>
 
         <section class="section" style="padding-top: 20px;">
             <div class="container mt-lg-3">
                 <div class="row">
                     <div class="col-lg-4 col-md-6 col-12 d-lg-block d-none">
                         <div class="sidebar sticky-bar p-4 rounded shadow">
+
                             <div class="widget">
-                                <h5 class="widget-title">Статистика :</h5>
-                                <div class="row mt-4">
-                                    <div class="col-6 text-center">
-                                        <h5 class="mb-0">0</h5>
-                                        <p class="text-muted mb-0">Змагань зі мною</p>
-                                    </div>
-                                    <div class="col-6 text-center">
-                                        <h5 class="mb-0">Мої види спорту</h5>
-                                        <div class="text-muted mb-0 sport-kind-block"></div>
-                                    </div>
+                                <h4>Мій профіль</h4>
+                                <div class="progress-box mt-4">
+                                    <h6 class="title text-muted">Ваш особистий кабінет, де ви можете переглянути інформацію про себе та те, що бачать інші користувачі.</h6>
                                 </div>
                             </div>
 
-                            <div class="widget mt-4 pt-2">
-                                <h5 class="widget-title">Профіль заповнено:</h5>
-                                <div class="progress-box mt-4">
-                                    <h6 class="title text-muted">Прогрес</h6>
-                                    <div class="progress">
-                                        <div class="progress-bar position-relative bg-primary" style="width:30%;">
-                                            <div class="progress-value d-block text-muted h6">30%</div>
-                                        </div>
-                                    </div>
-                                </div><!--end process box-->
-                            </div>
-
                             <div class="widget">
+                                <h5 class="widget-title">Меню:</h5>
                                 <div class="row">
                                     <div class="col-6 mt-4 pt-2">
                                         <a href="/profile/" class="accounts active rounded d-block shadow text-center py-3">
@@ -226,10 +216,10 @@
                                             </div>
                                         </div>
                                         <div class="media align-items-center mt-3" style="display: flex;">
-                                            <ion-icon name="calendar-outline" style="margin-right: 10px; font-size: 24px;"></ion-icon>
+                                            <ion-icon name="shapes-outline" style="margin-right: 10px; font-size: 24px;"></ion-icon>
                                             <div class="media-body">
-                                                <h6 class="text-primary mb-0">Дата реєстрації :</h6>
-                                                <a href="javascript:void(0)" class="text-muted">00.00.0000</a>
+                                                <h6 class="text-primary mb-0">Мій ідентифікатор:</h6>
+                                                <a id="id_cook" class="text-muted"></a>
                                             </div>
                                         </div>
 
@@ -240,7 +230,7 @@
                                     <h5>Підписка:</h5>
 
                                     <div class="subscription-exist-message media key-feature align-items-center p-3 rounded shadow mt-4">
-                                        <img src="https://img.icons8.com/fluency/48/000000/business-management.png" class="avatar avatar-ex-sm" alt="">
+                                        <img src="https://img.icons8.com/fluency/48/000000/business-management.png" class="avatar-ex-sm" style="width: 30px; height: 30px;" alt="">
                                         <div class="media-body content ml-3">
                                             <h4 class="subscription-status title mb-0">FREE</h4>
 
@@ -399,6 +389,7 @@
                 document.getElementById('name_profile').textContent = Cookies.get('login');
                 document.getElementById('name_cook').textContent = Cookies.get('login');
                 document.getElementById('email_cook').textContent = Cookies.get('email');
+                document.getElementById('id_cook').textContent = "id: " + Cookies.get('id');
             }
 
             if(Cookies.get("avatarPath") == null || Cookies.get("avatarPath") == "null"){

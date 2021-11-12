@@ -201,12 +201,9 @@
                     <hr/>
 
 
-                    <div class="card-list">
+                    <div class="card-list compListAll">
 
-                        <div class="border-card rounded-lg w-full px-8 py-6 bg-white shadow cursor-pointer border-transparent border-2 hover:border-indigo-500 clearfix" onclick="window.location = '#';">
-                            <h2 class="text-indigo-500 font-bold">Назва змагання</h2>
-                            <p class="mt-2 text-gray-600 text-sm">Опис змагання</p>
-                        </div>
+                        <!-- Список всех последних соревнований -->
 
                     </div>
 
@@ -277,6 +274,7 @@
 
         </div>
 
+          
         <footer class="site-footer">
             <div class="container">
               <div class="row">
@@ -389,7 +387,9 @@
 
         <!-- ===== MAIN JS ===== -->
         <script src="/assets/js/main.js"></script>
+        <script src="/assets/js/mainpage.js"></script>
         <script>
+
             if(Cookies.get('login') == undefined){
                 document.getElementById('btn-main').href = 'javascript:document.getElementById(`login`).click(); document.getElementById(`signUp`).click();';
                 document.getElementById('login').textContent = "Вхід до профілю";
