@@ -85,7 +85,9 @@ function renderCompetitions(competitionInfoArr, competitionCategory) {
     }
 
     competitionsWrapperEl.innerHTML +=
-      `<div class="col-lg-4 col-md-6 mt-4 pt-2" style="cursor: pointer;" id="competition-${competitionId}">
+      `<div class="col-lg-4 col-md-6 mt-4 pt-2 competition-card"
+          style="cursor: pointer;"
+          id="competition-${competitionId}">
         <div class="card blog rounded border-0 shadow overflow-hidden">
           <div class="card-hover card-body content">
             <h5>
@@ -132,6 +134,18 @@ function removeCompetitionEl(competitionId) {
 searchInputEl.addEventListener("input", () => searchInputElOninput());
 
 function searchInputElOninput() {
-  const value = searchInputEl.value;
-  console.log(value)
+  const value = searchInputEl.value.toLowerCase();
+
+  let competitionCardEls = document.querySelectorAll(".competition-card");
+  for (let competitionCardEl of competitionCardEls) {
+    const competitionTitleEl =
+      competitionCardEl.getElementsByClassName("card-title")[0];
+    const competitionTitle = competitionTitleEl.innerHTML.toLowerCase();
+
+    if (competitionTitle.match(value)) {
+      competitionCardEl.style.display = "block";
+    } else {
+      competitionCardEl.style.display = "none";
+    }
+  }
 }
