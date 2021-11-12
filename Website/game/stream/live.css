@@ -1,5 +1,8 @@
 #chat_frame body{
   overflow: hidden;
+  background-color:#00000000;
+}
+.frame_chat_live body{
   background-color: transparent !important;
 }
 /* Transparent background. */
