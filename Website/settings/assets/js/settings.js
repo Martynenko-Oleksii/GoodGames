@@ -12,6 +12,9 @@ const changePasswordButtonEl =
 
 const sportKindContainerEl = document.querySelector(".sport-kind-container");
 
+const saveSportKindsButtonEl =
+  document.querySelector(".save-sport-kinds-button");
+
 
 document.addEventListener("DOMContentLoaded", pageLoaded);
 
@@ -77,7 +80,7 @@ function updateFavouriteSportKinds() {
 
   function parseServerResponse(data) {
     if (!data || data.length === 0) {
-      sportKindContainerEl.innerHTML = 
+      sportKindContainerEl.innerHTML =
       `<div class="ol-12 mt-4 pt-2">
           <div class="bg-white none_card">
               <div class="d-flex align-items-center" style="justify-content: center;">
@@ -123,7 +126,6 @@ function updateFavouriteSportKinds() {
 }
 
 function updateSportAllList(){
-  
     sendServerRequest();
 
     function sendServerRequest() {
@@ -148,6 +150,7 @@ function updateSportAllList(){
             createSportElement(SportInfo);
         }
     }
+
     function createSportElement(SportInfo) {
       if (!SportInfo) {
           console.log("Нет видов спорта.");
@@ -165,7 +168,7 @@ function updateSportAllList(){
 
       const competitionsWrapperEl =
           document.querySelector(".addStort");
-          
+
       competitionsWrapperEl.innerHTML +=
           `<div class="checkbox">
               <label class="checkbox-wrapper">
@@ -367,5 +370,33 @@ function changePassword() {
   function getPasswordChangeResponse() {
     //alert("Пароль успішно змінено");
     document.getElementById("done_info").style.display = "block";
+  }
+}
+
+
+saveSportKindsButtonEl.addEventListener("click", () => saveSportKinds());
+
+function saveSportKinds() {
+  const userId = Cookies.get("id");
+  if (!userId) {
+    return;
+  }
+
+  let checkboxEls = document.querySelectorAll(".checkbox-input");
+  for (let checkboxEl of checkboxEls) {
+    const removeSymbolNumber = "sport_".length;
+    const sportId = checkboxEl.name.substr(removeSymbolNumber);
+
+    const requestParams = new RequestParams("POST");
+    if (checkboxEl.checked) {
+      requestParams.url = "/api/addsport/" + userId;
+    } else {
+      requestParams.url = "/api/deletesport/" + userId;
+    }
+    requestParams.body = { id: sportId };
+
+    ServerRequest.send(requestParams)
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
   }
 }
