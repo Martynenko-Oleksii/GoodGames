@@ -19,6 +19,7 @@ const resultT2EditEl = document.querySelector("#result_t2_edit");
 
 const translationInputEl = document.querySelector(".translation-input");
 
+let isopen;
 let competitionId;
 let competitionUserId;
 
@@ -79,6 +80,8 @@ function updateCompetitionGeneralInfo() {
     competitionDescriptionEl.innerHTML = info.description;
     competitorsNumberEl.innerHTML = info.competitors.length.toString();
 
+    isopen = info.isOpen;
+    
     info.state = parseInt(info.state);
     switch (info.state) {
       case 0:
@@ -153,7 +156,7 @@ function createListAdmins() {
     if (!data || !data.length) {
       return;
     }
-    
+
     admin_rule(data);
     parseAdminList(data);
 
@@ -590,20 +593,19 @@ function ADD_LIVE_SU(){
 
 function admin_rule(adminslist){
   const userId = Cookies.get("id");
-  setadmin = false;
 
   for(let admin of adminslist){
     if(userId == admin.id){
       setadmin = true;
       console.log("Администатор включен");
-      break;
+      return;
     }
   }
 
   if (setadmin == false) {
     startCompetitionsEl.remove();
     document.getElementById('adminpanel').remove();
-    if (!info.isOpen) {
+    if (!isopen) {
       sendAddPlayerEl.remove();
     }
   }
