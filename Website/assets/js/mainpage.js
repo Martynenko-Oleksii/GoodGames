@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", updateCompetitionList);
-const competitionsWrapperEl =
-  document.querySelector(".card-list .compListAll");
 
 function updateCompetitionList() {
     sendServerRequest();
@@ -15,6 +13,7 @@ function updateCompetitionList() {
     }
   
     function parseServerResponse(data) {
+      var competitionsWrapperEl = document.querySelector(".card-list .compListAll");
       competitionsWrapperEl.innerHTML = "";
   
       if (!data.length) {
@@ -25,37 +24,17 @@ function updateCompetitionList() {
           `;
       }
       
-      let maxcomplist = 0;
       for (let competitionInfo of data) {
-          if(maxcomplist < 21){
-            createCompetitionElement(competitionInfo);
-          }else{
-              return;
-          }
-          maxcomplist++;
-        }
-    }
-  
-    function createCompetitionElement(competitionInfo) {
-      if (!competitionInfo) {
-        console.log("No competition info");
-        return;
-      }
-  
-      const competitionId = competitionInfo.id;
-      const competitionTitle = competitionInfo.title;
-      const competitionDate =
-        new Date(competitionInfo.startDate).toLocaleDateString();
-  
-      if (!competitionId || !competitionTitle || !competitionDate) {
-        console.log("Something wrong with competition info");
-        return;
-      }
-  
-      competitionsWrapperEl.innerHTML +=
-        `<div class="border-card rounded-lg w-full px-8 py-6 bg-white shadow cursor-pointer border-transparent border-2 hover:border-indigo-500 clearfix" onclick="window.location = 'game/?id=${competitionId}';">
-            <h2 class="text-indigo-500 font-bold">${competitionTitle}</h2>
-            <p class="mt-2 text-gray-600 text-sm">Дата: ${competitionDate}</p>
-        </div>`;
+        const competitionId = competitionInfo.id;
+        const competitionTitle = competitionInfo.title;
+        const competitionDate =
+          new Date(competitionInfo.startDate).toLocaleDateString();
+        
+          competitionsWrapperEl.innerHTML +=
+          `<div class="border-card rounded-lg w-full px-8 py-6 bg-white shadow cursor-pointer border-transparent border-2 hover:border-indigo-500 clearfix" onclick="window.location = 'game/?id=${competitionId}';">
+              <h2 class="text-indigo-500 font-bold">${competitionTitle}</h2>
+              <p class="mt-2 text-gray-600 text-sm">Дата: ${competitionDate}</p>
+          </div>`;
     }
   }
+}

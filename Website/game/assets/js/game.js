@@ -62,7 +62,6 @@ function updateCompetitionGeneralInfo() {
     competitionUserId = info.user.id;
     parseCompetitionInfo(info);
     parseCompetitorsList(info);
-    parseAdminList(info);
 
     updateCompetitionTimetable();
     createListAdmins();
