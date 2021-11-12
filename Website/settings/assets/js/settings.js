@@ -10,7 +10,7 @@ const passwordInputEl = document.querySelector(".password-input");
 const changePasswordButtonEl =
   document.querySelector(".change-password-button");
 
-const sportKindContainerEl = document.querySelector(".sport-kind-container");
+const sportKindContainerEl = document.querySelector(".sport-kind-container .row");
 
 const saveSportKindsButtonEl =
   document.querySelector(".save-sport-kinds-button");
@@ -109,10 +109,10 @@ function updateFavouriteSportKinds() {
 
       let sportKindEl = document.createElement("div");
       sportKindEl.classList.add("col-lg-6", "mt-4", "pt-2");
+      sportKindEl.style.cursor = "pointer";
 
       sportKindEl.innerHTML =
         `
-        <div class="col-lg-6 mt-4 pt-2" style="cursor: pointer;">
           <a class="text-dark">
             <div class="key-feature d-flex align-items-center p-3 bg-white rounded shadow">
               <div style="margin-right: 15px;" class="icon text-center rounded-circle mr-5">
@@ -125,7 +125,6 @@ function updateFavouriteSportKinds() {
               </div>
             </div>
           </a>
-        </div>
         `;
 
       sportKindContainerEl.appendChild(sportKindEl);

@@ -534,7 +534,10 @@ function del_admin(id){ //Удаление администратора
 function add_admin(){
   if(setadmin){
     const requestParams = new RequestParams("POST");
-    requestParams.url = "/api/competitions/addadmin/" + document.getElementById('admin_email').value;
+    requestParams.url = "/api/competitions/addadmin/" + competitionId;
+    requestParams.body = {
+      email: document.getElementById('admin_email').value,
+    }
 
     ServerRequest.send(requestParams)
       .then(data => document.getElementById('modal-window_admin').style.display = 'none')
