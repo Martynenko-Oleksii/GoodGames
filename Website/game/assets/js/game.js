@@ -153,9 +153,9 @@ function createListAdmins() {
     if (!data || !data.length) {
       return;
     }
-
-    parseAdminList(data);
+    
     admin_rule(data);
+    parseAdminList(data);
 
     function parseAdminList(info) {
       const AdminTableBodyEl =
@@ -179,7 +179,7 @@ function createListAdmins() {
             `<td><div class="td-content product-name">
                 <img src="${avatars}" alt="product"><div class="align-self-center">
                     <p class="prd-name">${user.login}</p>
-                    <p class="prd-category text-primary">${role}</p>
+                    <p class="prd-category text-primary">Модератор</p>
                 </div></div>
               </td>
               <td><div class="td-content">${user.id}</div></td>
@@ -189,7 +189,7 @@ function createListAdmins() {
             `<td><div class="td-content product-name">
                 <img src="${avatars}" alt="product"><div class="align-self-center">
                     <p class="prd-name">${user.login}</p>
-                    <p class="prd-category text-primary">${role}</p>
+                    <p class="prd-category text-primary">Організатор</p>
                 </div></div>
               </td>
               <td><div class="td-content">${user.id}</div></td>
