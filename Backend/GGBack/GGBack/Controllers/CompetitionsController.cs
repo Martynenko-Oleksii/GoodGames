@@ -271,7 +271,9 @@ namespace GGBack.Controllers
                 return BadRequest("User is null");
             }
 
-            User admin = context.Users.Find(user.Id);
+            User admin = context.Users
+                .Where(u => u.Email.Equals(user.Email))
+                .FirstOrDefault();
             if (admin == null)
             {
                 return BadRequest("User not found");

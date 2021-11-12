@@ -23,17 +23,17 @@ namespace GGBack.Controllers
 
         [Route("api/timetables/{competitionId}")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TimetableCell>>> Get(int competitionId)
+        public ActionResult<IEnumerable<TimetableCell>> Get(int competitionId)
         {
             try
             {
-                return await context.TimetableCells
+                return context.TimetableCells
                     .Include(t => t.Competitors)
                     .Include(t => t.WinResult)
                     .Where(t => t.Competition.Id == competitionId && 
                         t.Competitors.Select(c => c.Team).Distinct().ToList().Count == 2)
                     .OrderBy(t => t.DateTime)
-                    .ToListAsync();
+                    .ToList();
             }
             catch (Exception ex)
             {
