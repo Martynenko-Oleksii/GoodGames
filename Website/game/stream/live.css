@@ -1,6 +1,6 @@
-#chat_frame {
+#chat_frame body{
   overflow: hidden;
-  background-color: rgba(0,0,0,0);
+  background-color: transparent !important;
 }
 /* Transparent background. */
 yt-live-chat-renderer {
