@@ -104,6 +104,7 @@ function updateFavouriteSportKinds() {
       return;
     }
 
+    sportKindContainerEl.innerHTML = "";
     for (let sportKind of data) {
       favouriteSportKindsArr.push(sportKind);
 
@@ -447,7 +448,7 @@ function saveSportKinds() {
     }
 
     const requestParams = new RequestParams("POST");
-    if (checkboxEl.checked) {
+    if (sportCheckedStatus) {
       requestParams.url = "/api/addsport/" + userId;
     } else {
       requestParams.url = "/api/deletesport/" + userId;
