@@ -17,6 +17,7 @@ const saveSportKindsButtonEl =
 
 
 let favouriteSportKindsArr = [];
+let allSportArr = [];
 
 
 document.addEventListener("DOMContentLoaded", pageLoaded);
@@ -146,14 +147,16 @@ function updateSportAllList(){
 
     function parseServerResponse(data) {
         if (data.length === 0) {
+            allSportArr = [];
             return;
         }
 
-        const SportWrapperEl =
-            document.querySelector(".addStort");
-			SportWrapperEl.innerHTML = "";
+        const SportWrapperEl = document.querySelector(".addStort");
+			  SportWrapperEl.innerHTML = "";
 
         for (let SportInfo of data) {
+            allSportArr.push({info: SportInfo, isFavouriteForUser: undefined});
+
             createSportElement(SportInfo);
         }
     }
@@ -383,8 +386,29 @@ function changePassword() {
 
 function openSportKindsModalWindow() {
   document.getElementById('modal_edit').style.display = 'block';
-  console.log(favouriteSportKindsArr);
+
+  updateAllSportArrCheckedStatus();
+
+  console.log(allSportArr);
 }
+
+function updateAllSportArrCheckedStatus() {
+  for (let allSportArrEl of allSportArr) {
+    const allSportArrElId = parseInt(allSportArrEl.info.id);
+    allSportArrEl.isFavouriteForUser = false;
+
+    for (let favouriteSportKindsArrEl of favouriteSportKindsArr) {
+      const favouriteSportKindsArrElId = parseInt(favouriteSportKindsArrEl.id);
+      if (allSportArrElId !== favouriteSportKindsArrElId) {
+        continue;
+      }
+
+      allSportArrEl.isFavouriteForUser = true;
+      break;
+    }
+  }
+}
+
 
 saveSportKindsButtonEl.addEventListener("click", () => saveSportKinds());
 
@@ -397,7 +421,9 @@ function saveSportKinds() {
   let checkboxEls = document.querySelectorAll(".checkbox-input");
   for (let checkboxEl of checkboxEls) {
     const removeSymbolNumber = "sport_".length;
-    const sportId = checkboxEl.name.substr(removeSymbolNumber);
+    const sportId = parseInt( checkboxEl.name.substr(removeSymbolNumber) );
+
+
 
     const requestParams = new RequestParams("POST");
     if (checkboxEl.checked) {
