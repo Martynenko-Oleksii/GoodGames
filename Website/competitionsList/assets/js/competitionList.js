@@ -3,6 +3,8 @@ const competitionCategoriesEl =
 const competitionsWrapperEl =
   document.querySelector(".competition-list .row");
 
+const searchInputEl = document.querySelector(".search-input");
+
 document.addEventListener("DOMContentLoaded", updateCompetitionList);
 competitionCategoriesEl.addEventListener("change", updateCompetitionList);
 
@@ -124,4 +126,11 @@ function removeCompetitionEl(competitionId) {
     document.querySelector("#competition-" + competitionId);
 
   competitionsWrapperEl.removeChild(competitionEl);
+}
+
+
+searchInputEl.addEventListener("input", () => searchInputElOninput());
+
+function searchInputElOninput() {
+  const value = searchInputEl.value;
 }
