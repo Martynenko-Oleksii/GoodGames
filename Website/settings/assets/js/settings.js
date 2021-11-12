@@ -458,4 +458,8 @@ function saveSportKinds() {
       .then(data => console.log(data))
       .catch(err => console.log(err));
   }
+
+  updateFavouriteSportKinds();
+  updateSportAllList();
+  document.querySelector("#modal_edit").style.display = "none";
 }
