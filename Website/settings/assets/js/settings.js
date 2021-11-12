@@ -83,9 +83,8 @@ function updateFavouriteSportKinds() {
   }
 
   function parseServerResponse(data) {
+    favouriteSportKindsArr = [];
     if (!data || data.length === 0) {
-      favouriteSportKindsArr = [];
-
       sportKindContainerEl.innerHTML =
       `<div class="ol-12 mt-4 pt-2">
           <div class="bg-white none_card">
@@ -430,6 +429,7 @@ function saveSportKinds() {
     const removeSymbolNumber = "sport_".length;
     const sportId = parseInt( checkboxEl.name.substr(removeSymbolNumber) );
     const sportCheckedStatus = checkboxEl.checked;
+    console.log("checked status before sending: ", sportCheckedStatus, sportId);
 
     let wasChanged = false;
     for (let allSportArrEl of allSportArr) {
@@ -458,6 +458,7 @@ function saveSportKinds() {
     ServerRequest.send(requestParams)
       .then(data => {
         console.log(data);
+        console.log("checked status after sending: ", sportCheckedStatus, sportId);
         for (let allSportArrEl of allSportArr) {
           if (parseInt(allSportArrEl.info.id) !== sportId) {
             continue;
