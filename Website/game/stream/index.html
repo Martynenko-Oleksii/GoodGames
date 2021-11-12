@@ -122,7 +122,7 @@
                         }
                         @media (max-width: 520px) { 
                             #live_frame{
-                                height: 215px; 
+                                height: 200px; 
                             }
                             #main_apps{
                                 padding: 5px !important;
@@ -157,7 +157,7 @@
 
                     </div>
 
-                    <div class="col-xl-4 col-lg-6 col-md-5 col-sm-12 layout-top-spacing">
+                    <div class="col-xl-4 col-lg-6 col-md-5 col-sm-12 layout-top-spacing" id="chat_box">
 
                         <div class="user-profile layout-spacing">
                             <div class="widget-content widget-content-area">
@@ -224,5 +224,11 @@
         <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
         <!-- ===== MAIN JS ===== -->
         <script src="/assets/js/main.js"></script>
+        <script>  
+            if (devices.test(navigator.userAgent))
+            {
+                document.getElementById("chat_box").remove();
+            }
+        </script>
     </body>
 </html>
