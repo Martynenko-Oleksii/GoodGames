@@ -18,8 +18,6 @@ const resultT1EditEl = document.querySelector("#result_t1_edit");
 const resultT2EditEl = document.querySelector("#result_t2_edit");
 
 const translationInputEl = document.querySelector(".translation-input");
-const saveTranslationButtonEl =
-  document.querySelector(".save-translation-button");
 
 let competitionId;
 let competitionUserId;
