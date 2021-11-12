@@ -16,6 +16,9 @@ const saveSportKindsButtonEl =
   document.querySelector(".save-sport-kinds-button");
 
 
+let favouriteSportKindsArr = [];
+
+
 document.addEventListener("DOMContentLoaded", pageLoaded);
 
 function pageLoaded() {
@@ -80,6 +83,8 @@ function updateFavouriteSportKinds() {
 
   function parseServerResponse(data) {
     if (!data || data.length === 0) {
+      favouriteSportKindsArr = [];
+
       sportKindContainerEl.innerHTML =
       `<div class="ol-12 mt-4 pt-2">
           <div class="bg-white none_card">
@@ -99,6 +104,8 @@ function updateFavouriteSportKinds() {
     }
 
     for (let sportKind of data) {
+      favouriteSportKindsArr.push(sportKind);
+
       let sportKindEl = document.createElement("div");
       sportKindEl.classList.add("col-lg-6", "mt-4", "pt-2");
 
@@ -373,6 +380,11 @@ function changePassword() {
   }
 }
 
+
+function openSportKindsModalWindow() {
+  document.getElementById('modal_edit').style.display = 'block';
+  console.log(favouriteSportKindsArr);
+}
 
 saveSportKindsButtonEl.addEventListener("click", () => saveSportKinds());
 
