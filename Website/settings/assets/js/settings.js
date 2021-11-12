@@ -458,8 +458,15 @@ function saveSportKinds() {
     ServerRequest.send(requestParams)
       .then(data => {
         console.log(data);
+        for (let allSportArrEl of allSportArr) {
+          if (parseInt(allSportArrEl.info.id) !== sportId) {
+            continue;
+          }
+
+          allSportArrEl.isFavouriteForUser = sportCheckedStatus;
+          break;
+        }
         updateFavouriteSportKinds();
-        updateSportAllList();
       })
       .catch(err => console.log(err));
   }
