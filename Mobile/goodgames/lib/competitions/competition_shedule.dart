@@ -5,6 +5,7 @@ import 'package:goodgames/login/regist.dart';
 import 'package:goodgames/profile/ProfileScreen.dart';
 
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 
 import '../../../home_screen.dart';
 import '../../../main.dart';
@@ -28,8 +29,8 @@ class _CompetitionsheduleState extends State<CompetitionsheduleScreen>
   late AnimationController animationController;
   bool multiple = false;
   final ScrollController _scrollController = ScrollController();
-  final formKeyscore = GlobalKey<FormState>();
-  final TextEditingController scoresendControl = TextEditingController();
+
+
   @override
   void initState() {
     animationController = AnimationController(
@@ -147,6 +148,9 @@ class _CompetitionsheduleState extends State<CompetitionsheduleScreen>
                                       listData: snapshot.data[index],
                                       animation: animation,
                                       animationController: animationController,
+                                      user: widget.user,
+                                      context: this.context,
+                                      comp: widget.comp,
                                       callBack: () {
                                       },
                                     );
@@ -154,69 +158,12 @@ class _CompetitionsheduleState extends State<CompetitionsheduleScreen>
                                   return CompetitionsheduleListView(
                                     listData: snapshot.data[index],
                                     animation: animation,
+                                    user: widget.user,
+                                    context: this.context,
                                     animationController: animationController,
+                                    comp: widget.comp,
                                     callBack: () {
-                                      showDialog(
-                                        context: context,
-                                        builder:
-                                            (BuildContext context) =>
-                                            Form(
-                                              key: formKeyscore,
-                                              child: new AlertDialog(
-                                                title: const Text(
-                                                    'Send score'),
-                                                content: new Column(
-                                                  mainAxisSize:
-                                                  MainAxisSize.min,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment
-                                                      .start,
-                                                  children: <Widget>[
-                                                    new Container(
-                                                      // width: 275.0,
-                                                      child:
-                                                      new TextFormField(
-                                                        controller:
-                                                        scoresendControl,
-                                                        decoration:
-                                                        new InputDecoration(
-                                                          hintText: 'Score',
-                                                          filled: true,
-                                                          fillColor: Colors
-                                                              .white70,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    // Text("Hello"),
-                                                  ],
-                                                ),
-                                                actions: <Widget>[
-                                                  new FlatButton(
-                                                    onPressed: () {
-                                                     {
-                                                      }
-                                                    },
-                                                    textColor:
-                                                    Theme.of(context)
-                                                        .primaryColor,
-                                                    child:
-                                                    const Text('Send'),
-                                                  ),
-                                                  new FlatButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                    textColor:
-                                                    Theme.of(context)
-                                                        .primaryColor,
-                                                    child:
-                                                    const Text('Close'),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                      );
+
                                     },
                                   );}
                                 },
@@ -275,14 +222,24 @@ class CompetitionsheduleListView extends StatelessWidget {
     required this.listData,
     required this.animationController,
     required this.animation,
+    required this.user,
     required this.callBack,
+    required this.context,
+    required this.comp,
+
   }) : super(key: key);
 
   final TimetableCell listData;
-
+  final Competition comp;
+  final User user;
+  final context;
   final VoidCallback callBack;
   final AnimationController animationController;
   final Animation<double> animation;
+  static TextEditingController scoresendControlone = TextEditingController();
+  static TextEditingController scoresendControltwo = TextEditingController();
+  static GlobalKey<FormState> formKeyscore = GlobalKey<FormState>();
+
 
   // static TextEditingController scoreone = TextEditingController();
 //  static TextEditingController loginControl = TextEditingController();
@@ -301,23 +258,20 @@ class CompetitionsheduleListView extends StatelessWidget {
               padding:
                   const EdgeInsets.only(left: 10, right: 24, top: 8, bottom: 1),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    //TODO winResult ne to
-                    child: Text(
-                      listData.competitors![0].name! +
-                          " - " +
-                          listData.competitors![1].name! +
-                          " : " +
-                          listData.winResult!.score! +
-                          " -> " +
-                          listData.dateTime.toString(),
 
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16,
-                      ),
-                    ),
+                  FutureBuilder(
+                    future: getDatahttp.getAllAdmins(comp.id!),
+                    builder:
+                        (BuildContext context, AsyncSnapshot snapshot) {
+                      if (!snapshot.hasData) {
+                        return const SizedBox();
+                      } else {
+                        return isresolt(snapshot.data , listData);
+                      }
+                    },
                   ),
                 ],
               ),
@@ -326,6 +280,168 @@ class CompetitionsheduleListView extends StatelessWidget {
         );
       },
     );
+  }
+  Widget isresolt(List<User> users , TimetableCell listData) {
+    if(listData.winResult != null){
+      return Container(
+        //TODO winResult ne to
+        child: Text(
+          listData.competitors![0].name! +
+              " - " +
+              listData.competitors![1].name! +
+              " :  " +
+              listData.winResult!.score! +
+              " ->  " +
+              DateFormat('yyyy-MM-dd kk:mm').format(listData.dateTime!),
+
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 16,
+          ),
+        ),
+      );
+    }else{
+      return Container(
+        //TODO winResult ne to
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+         Text(
+          listData.competitors![0].name! +
+              " - " +
+              listData.competitors![1].name! +
+              " :  " +
+            //  listData.winResult!.score! +
+              " ->  " +
+              DateFormat('yyyy-MM-dd kk:mm').format(listData.dateTime!),
+
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 16,
+          ),
+        ),
+              Container(
+                margin: EdgeInsets.only(left: 5,),
+                child: admin(users),
+              )
+      ]
+        ),
+      );
+    }
+
+  }
+
+  Widget admin(List<User> users) {
+    bool isdmin = false;
+    for(User u in users){
+      if(user.id == u.id){
+        isdmin = true;
+      }
+    }
+    if (isdmin) {
+      return new Container(
+        margin: EdgeInsets.only(left: 5.0),
+        width: 50,
+        height: 25,
+        child:
+        new RaisedButton(
+          child: Container( child:Icon(Icons.edit)),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder:
+                  (BuildContext context) =>
+                  Form(
+                    key: formKeyscore,
+                    child: new AlertDialog(
+                      title: const Text(
+                          'Send score'),
+                      content: new Column(
+                        mainAxisSize:
+                        MainAxisSize.min,
+                        crossAxisAlignment:
+                        CrossAxisAlignment
+                            .start,
+                        children: <Widget>[
+                          new Container(
+                            // width: 275.0,
+                            child:
+                            new TextFormField(
+                              controller:
+                              scoresendControlone,
+                              decoration:
+                              new InputDecoration(
+                                hintText: '1 team Score',
+                                filled: true,
+                                fillColor: Colors
+                                    .white70,
+                              ),
+                            ),
+
+                          ),
+                          new Container(
+                            // width: 275.0,
+                            child:
+                            new TextFormField(
+                              controller:
+                              scoresendControltwo,
+                              decoration:
+                              new InputDecoration(
+                                hintText: '2 team Score',
+                                filled: true,
+                                fillColor: Colors
+                                    .white70,
+                              ),
+                            ),
+
+                          ),
+                          // Text("Hello"),
+                        ],
+                      ),
+                      actions: <Widget>[
+                        new FlatButton(
+                          onPressed: () {
+                            {
+                              getDatahttp.postResults( listData.id!  , listData.competitors![0].team! , listData.competitors![0].team! , scoresendControlone.text , scoresendControltwo.text);
+
+                              scoresendControlone.text = "";
+                              scoresendControltwo.text = "" ;
+                              Navigator.of(context)
+                                  .pop();
+                            }
+                          },
+
+                          textColor:
+                          Theme.of(context)
+                              .primaryColor,
+                          child:
+                          const Text('Send'),
+                        ),
+                        new FlatButton(
+                          onPressed: () {
+
+
+                            Navigator.of(context)
+                                .pop();
+                          },
+                          textColor:
+                          Theme.of(context)
+                              .primaryColor,
+                          child:
+                          const Text('Close'),
+                        ),
+                      ],
+                    ),
+                  ),
+            );
+          },
+          color: Colors.redAccent.shade200,
+        ),);
+    }else{
+      return new Container();
+    }
+
   }
 }
 

@@ -943,11 +943,11 @@ class getDatahttp {
     return sports;
   }
 
-  static Future<List<User>> addAdmin(int competitionId, String userId) async{
+  static Future<List<User>> addAdmin(int competitionId, String email) async{
     List<User> users = [];
 
     var body = jsonEncode({
-      'id': userId
+      'email': email
     });
 
     try {

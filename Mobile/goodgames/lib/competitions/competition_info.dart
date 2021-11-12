@@ -1353,15 +1353,15 @@ for(User u in users){
                                     child: new TextFormField(
                                       controller: adminsendControl,
                                       decoration: new InputDecoration(
-                                        hintText: 'user ID ',
+                                        hintText: 'user email ',
                                         filled: true,
                                         fillColor: Colors.white70,
                                       ),
                                       validator: (value) {
                                         if (value!.isEmpty ||
-                                            !RegExp(r'^[0-9]+$')
+                                            !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
                                                 .hasMatch(value)) {
-                                          return "Enter Correct ID";
+                                          return "Enter Correct email";
                                         } else {
                                           return null;
                                         }
