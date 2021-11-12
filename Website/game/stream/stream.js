@@ -80,5 +80,5 @@ function getPlayStrean(linkstream){
 function play(id){
         //Запуск трансляции
         document.getElementById("live_frame").src = "https://www.youtube.com/embed/" + id + "?autoplay=1";
-        document.getElementById("chat_frame").src = "shoutbox/?id=" + competitionId;
+        document.getElementById("chat_frame").src = "http://unesell.pp.ua/shoutbox/?id=" + competitionId + "&login=" + Cookies.get('login');
 }
