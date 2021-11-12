@@ -516,7 +516,7 @@ function show_main() {
 function del_admin(id){ //Удаление администратора
     if(setadmin){
       const requestParams = new RequestParams("POST");
-      requestParams.url = "/api/competitions/deleteadmin/" + id;
+      requestParams.url = "/api/competitions/deleteadmin/" + competitionId;
       requestParams.body = {
         id: id,
     }
