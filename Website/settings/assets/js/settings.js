@@ -373,7 +373,7 @@ function changePassword() {
     }
 
     ServerRequest.send(requestParams)
-      .then(data => getPasswordChangeResponse())
+      .then(() => getPasswordChangeResponse())
       .catch(err => console.log(err));
   }
 
@@ -429,7 +429,6 @@ function saveSportKinds() {
     const removeSymbolNumber = "sport_".length;
     const sportId = parseInt( checkboxEl.name.substr(removeSymbolNumber) );
     const sportCheckedStatus = checkboxEl.checked;
-    console.log("checked status before sending: ", sportCheckedStatus, sportId);
 
     let wasChanged = false;
     for (let allSportArrEl of allSportArr) {
@@ -458,7 +457,6 @@ function saveSportKinds() {
     ServerRequest.send(requestParams)
       .then(data => {
         console.log(data);
-        console.log("checked status after sending: ", sportCheckedStatus, sportId);
         for (let allSportArrEl of allSportArr) {
           if (parseInt(allSportArrEl.info.id) !== sportId) {
             continue;
