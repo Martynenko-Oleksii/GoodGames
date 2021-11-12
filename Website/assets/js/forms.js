@@ -190,7 +190,7 @@ function reg_validation() {
             })
             .catch(err => {
                 console.log(err);
-                document.getElementById("modal_error_login_pass").textContent = "Помилка, змініть данні.";
+                document.getElementById("modal_error_ref_pass").textContent = "Помилка, змініть данні.";
                 console.log('Ошибка.');
             });
     }
