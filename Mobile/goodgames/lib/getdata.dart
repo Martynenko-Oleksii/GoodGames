@@ -495,7 +495,7 @@ class getDatahttp {
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
         for (var s in jsonData) {
-          print(s);
+         // print(s);
           TimetableCell cell = TimetableCell(
             id: s["id"],
             dateTime: DateTime.parse(
@@ -536,12 +536,12 @@ class getDatahttp {
           cells.add(cell);
         }
       } else {
-        print(response.body);
+      //  print(response.body);
       }
     } catch (ex) {
       print(ex);
     }
-    print(cells);
+    //print(cells);
 
     return cells;
   }

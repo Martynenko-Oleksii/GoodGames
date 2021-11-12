@@ -1198,34 +1198,7 @@ for(User u in users){
                         color: Colors.redAccent.shade200,
                       ),
                     ),
-                    new Container(
-                      width: 200,
-                      height: 40,
-                      child: new RaisedButton(
-                        child: new Text(
-                          "generateSchedule",
-                          style: TextStyle(
-                            // h4 -> display1
 
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            letterSpacing: 0.4,
-                            height: 0.9,
-                            color: Colors.white,
-                          ),
-                        ),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                            side: BorderSide(color: Colors.white, width: 3)),
-                        onPressed: () {
-                          getDatahttp.generateSchedule(
-                              widget.comp.id!,
-                              '2021-11-05T10:00:00',
-                              '2021-11-05T19:00:00'); //TODO
-                        },
-                        color: Colors.black.withOpacity(0.05),
-                      ),
-                    ),
                   ],
                 ),
                 new Row(
