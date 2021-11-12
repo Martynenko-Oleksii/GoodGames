@@ -5,7 +5,7 @@ function pageLoaded() {
   if (!competitionId) {
     history.back();
   }
-  
+  document.getElementById("chat_frame").src = "shoutbox/?id=" + competitionId;
   updateStreamInfo();
 }
 
@@ -80,5 +80,5 @@ function getPlayStrean(linkstream){
 function play(id){
         //Запуск трансляции
         document.getElementById("live_frame").src = "https://www.youtube.com/embed/" + id + "?autoplay=1";
-        document.getElementById("chat_frame").src = "https://www.youtube.com/live_chat?v=" + id +"&embed_domain=goodgames.kh.ua";
+        document.getElementById("chat_frame").src = "shoutbox/?id=" + competitionId;
 }
