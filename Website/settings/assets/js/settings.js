@@ -389,7 +389,13 @@ function openSportKindsModalWindow() {
 
   updateAllSportArrCheckedStatus();
 
-  console.log(allSportArr);
+  for (let allSportArrEl of allSportArr) {
+    const sportId = allSportArrEl.info.id;
+    const isSportFavouriteForUserStatus = allSportArrEl.isFavouriteForUser;
+
+    const checkboxEl = document.querySelector("#sport_" + sportId);
+    checkboxEl.checked = isSportFavouriteForUserStatus;
+  }
 }
 
 function updateAllSportArrCheckedStatus() {
@@ -422,8 +428,23 @@ function saveSportKinds() {
   for (let checkboxEl of checkboxEls) {
     const removeSymbolNumber = "sport_".length;
     const sportId = parseInt( checkboxEl.name.substr(removeSymbolNumber) );
+    const sportCheckedStatus = checkboxEl.checked;
 
+    let wasChanged = false;
+    for (let allSportArrEl of allSportArr) {
+      if (parseInt(allSportArrEl.info.id) !== sportId) {
+        continue;
+      }
 
+      if (allSportArrEl.isFavouriteForUser !== sportCheckedStatus) {
+        wasChanged = true;
+      }
+      break;
+    }
+
+    if (!wasChanged) {
+      continue;
+    }
 
     const requestParams = new RequestParams("POST");
     if (checkboxEl.checked) {
