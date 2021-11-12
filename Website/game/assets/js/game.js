@@ -185,15 +185,27 @@ function createListAdmins() {
         let tr = document.createElement("tr");
         tr.setAttribute("id", "admin_list_" + user.id);
         if (setadmin) {
-          tr.innerHTML =
-          `<td><div class="td-content product-name">
-              <img src="${avatars}" alt="product"><div class="align-self-center">
-                  <p class="prd-name">${user.login}</p>
-                  <p class="prd-category text-primary">${role}</p>
-              </div></div>
-            </td>
-            <td><div class="td-content">${user.id}</div></td>
-            <td><a onclick="del_admin(${user.id});" class="btn btn-outline-danger btn-sm">Виключити</a></td>`;
+          if(role == "Модератор"){
+            tr.innerHTML =
+            `<td><div class="td-content product-name">
+                <img src="${avatars}" alt="product"><div class="align-self-center">
+                    <p class="prd-name">${user.login}</p>
+                    <p class="prd-category text-primary">${role}</p>
+                </div></div>
+              </td>
+              <td><div class="td-content">${user.id}</div></td>
+              <td><a onclick="del_admin(${user.id});" class="btn btn-outline-danger btn-sm">Виключити</a></td>`;
+          }else{
+            tr.innerHTML =
+            `<td><div class="td-content product-name">
+                <img src="${avatars}" alt="product"><div class="align-self-center">
+                    <p class="prd-name">${user.login}</p>
+                    <p class="prd-category text-primary">${role}</p>
+                </div></div>
+              </td>
+              <td><div class="td-content">${user.id}</div></td>
+              <td><a>- - -</a></td>`;
+          }
         }else{
           tr.innerHTML =
           `<td><div class="td-content product-name">
