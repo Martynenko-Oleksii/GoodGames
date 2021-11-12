@@ -15,34 +15,7 @@ function pageLoaded() {
     return;
   }
 
-  sendServerRequest(userId);
   updateSubscriptionInterface();
-
-
-  function sendServerRequest(userId) {
-    const requestParams = new RequestParams();
-    requestParams.url = "/api/sports/" + userId;
-
-    ServerRequest.send(requestParams)
-      .then(data => parseServerResponse(data))
-      .catch(err => console.log(err));
-  }
-
-  function parseServerResponse(data) {
-    const sportKindBlock = document.querySelector(".sport-kind-block");
-    if (!data || data.length === 0) {
-      sportKindBlock.innerHTML = "Тут будуть ваші спортивні дисципліни";
-      return;
-    }
-
-    for (let sportKind of data) {
-      let sportKindEl = document.createElement("p");
-      sportKindEl.className = "sport-kind";
-      sportKindEl.innerHTML = sportKind;
-
-      sportKindBlock.appendChild(sportKind);
-    }
-  }
 }
 
 
