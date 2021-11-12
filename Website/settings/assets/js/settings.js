@@ -455,11 +455,13 @@ function saveSportKinds() {
     requestParams.body = { id: sportId };
 
     ServerRequest.send(requestParams)
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data);
+        updateFavouriteSportKinds();
+        updateSportAllList();
+      })
       .catch(err => console.log(err));
   }
 
-  updateFavouriteSportKinds();
-  updateSportAllList();
   document.querySelector("#modal_edit").style.display = "none";
 }
