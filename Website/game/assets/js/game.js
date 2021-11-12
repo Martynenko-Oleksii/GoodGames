@@ -106,18 +106,6 @@ function updateCompetitionGeneralInfo() {
       document.getElementById('live_stream_link').style.display = "none";
     }
 
-    const userId = Cookies.get("id");
-    if (!userId || info.user.id.toString() !== userId) {
-      setadmin = false;
-      startCompetitionsEl.remove();
-      document.getElementById('adminpanel').remove();
-      if (!info.isOpen) {
-        sendAddPlayerEl.remove();
-      }
-    }else{
-      setadmin = true;
-    }
-
     // if teams number less than 2 - hide start competition button
     if (!info.competitors.length) {
       const teamArray = getTeamArrayByCompetitorArray(info.competitors);
@@ -167,6 +155,7 @@ function createListAdmins() {
     }
 
     parseAdminList(data);
+    admin_rule(data);
 
     function parseAdminList(info) {
       const AdminTableBodyEl =
@@ -560,7 +549,7 @@ function add_admin(){
     }
 
     ServerRequest.send(requestParams)
-      .then(data => document.getElementById('modal-window_admin').style.display = 'none')
+      .then(data => location.reload())
       .catch(err => console.log(err));
   }else{
     return;
@@ -584,6 +573,7 @@ function add_live() {
 
 function closeTranslationModalWindow() {
   document.querySelector("#modal-window_admin").style.display = "none";
+  location.reload();
 }
 
 function ADD_ADMIN_SU(){
@@ -596,6 +586,27 @@ function ADD_LIVE_SU(){
   document.getElementById('modal-window_admin').style.display = 'block';
   document.getElementById('setadmin').style.display = 'none';
   document.getElementById('setlive').style.display = 'block';
+}
+
+function admin_rule(adminslist){
+  const userId = Cookies.get("id");
+  setadmin = false;
+
+  for(let admin of adminslist){
+    if(userId == admin.id){
+      setadmin = true;
+      console.log("Администатор включен");
+      break;
+    }
+  }
+
+  if (setadmin == false) {
+    startCompetitionsEl.remove();
+    document.getElementById('adminpanel').remove();
+    if (!info.isOpen) {
+      sendAddPlayerEl.remove();
+    }
+  }
 }
 
 /*
