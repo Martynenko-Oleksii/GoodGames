@@ -38,26 +38,26 @@ function updateCompetitionList() {
     }
 
     ServerRequest.send(requestParams)
-      .then(data => parseServerResponse(data))
+      .then(data => renderCompetitions(data, competitionCategory))
       .catch(err => console.log(err));
   }
+}
 
-  function parseServerResponse(data) {
-    competitionsWrapperEl.innerHTML = "";
+function renderCompetitions(competitionInfoArr, competitionCategory) {
+  competitionsWrapperEl.innerHTML = "";
 
-    if (!data.length) {
-      competitionsWrapperEl.innerHTML =
-        `<div class="no-competitions">
+  if (!competitionInfoArr.length) {
+    competitionsWrapperEl.innerHTML =
+      `<div class="no-competitions">
           <img src="assets/img/empty.png" alt="" class="no-competitions__image" style="height: 200px; width: 200px;">
           <p class="no-competitions__message">
             Наразі у вас немає жодного змагання
           </p>
         </div>`;
-    }
+  }
 
-    for (let competitionInfo of data) {
-      createCompetitionElement(competitionInfo);
-    }
+  for (let competitionInfo of competitionInfoArr) {
+    createCompetitionElement(competitionInfo);
   }
 
   function createCompetitionElement(competitionInfo) {
@@ -133,4 +133,5 @@ searchInputEl.addEventListener("input", () => searchInputElOninput());
 
 function searchInputElOninput() {
   const value = searchInputEl.value;
+  console.log(value)
 }
