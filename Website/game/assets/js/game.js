@@ -52,11 +52,13 @@ function updateCompetitionGeneralInfo() {
     // data приходит в виде массива с одним элементом - объектом с информацией
 
     if (data.length === 0) {
+      history.back();
       return;
     }
 
     const info = data[0];
     if (!info) {
+      history.back();
       return;
     }
 
@@ -96,6 +98,12 @@ function updateCompetitionGeneralInfo() {
         break;
       default:
         stateSportEl.innerHTML = "Статус не визначено.";
+    }
+
+    if(info.streamUrl != null){
+      document.getElementById('live_stream_link').href = "stream/?id=" + competitionId;
+    }else{
+      document.getElementById('live_stream_link').style.display = "none";
     }
 
     const userId = Cookies.get("id");

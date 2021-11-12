@@ -1767,6 +1767,10 @@ input[id=radio-2]:checked ~ .glider {
   font-size: 0.875rem;
   transition: 0.15s ease;
   background-color: var(--c-background-primary);
+  -ms-user-select: none; 
+		-moz-user-select: none; 
+		-webkit-user-select: none; 
+		user-select: none; 
 }
 .button i {
   margin-right: 0.5rem;
