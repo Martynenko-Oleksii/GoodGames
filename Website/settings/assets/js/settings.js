@@ -120,7 +120,7 @@ function updateFavouriteSportKinds() {
         </div>
         `;
 
-      sportKindContainerEl.appendChild(sportKind);
+      sportKindContainerEl.appendChild(sportKindEl);
     }
   }
 }
