@@ -46,8 +46,8 @@ function updateStreamInfo() {
       getPlayStrean(linkstream);
 
       document.getElementById("link_gama").href = "../?id=" + competitionId;
-      document.getElementById("name_game").textContent = "";
-      document.getElementById("sub_game").textContent = "";
+      document.getElementById("name_game").textContent = info.title;
+      document.getElementById("sub_game").textContent = info.description;
     }
 }
 
@@ -80,5 +80,5 @@ function getPlayStrean(linkstream){
 function play(id){
         //Запуск трансляции
         document.getElementById("live_frame").src = "https://www.youtube.com/embed/" + id + "?autoplay=1";
-        document.getElementById("chat_frame").src = "https://www.youtube.com/live_chat?v=" + id +" &embed_domain=goodgames.kh.ua";
+        document.getElementById("chat_frame").src = "https://www.youtube.com/live_chat?v=" + id +"&embed_domain=goodgames.kh.ua";
 }
