@@ -265,8 +265,8 @@
                                     </button>
                                 </div>
 
-                                
-                                
+
+
                                     <iframe src="grid/" seamless style="width: 100%; height: 400px; overflow: hidden;" id="grid_frame">
                                         Браузер не поддерживается
                                     </iframe>
@@ -363,7 +363,7 @@
                     <ion-icon name="close-outline" class="nav__icon" style="color: #fff;"></ion-icon>
                 </button>
             </div>
-            
+
             <iframe src="grid/" seamless style="width: 100%; height: 85%; overflow: hidden;" id="grid_frame_full">
                 Браузер не поддерживается
             </iframe>
@@ -378,9 +378,9 @@
                             <h5 class="">Надати права адміністратора</h5>
                             <a class="btn btn-outline-danger btn-sm" onclick="document.getElementById('modal-window_admin').style.display = 'none';">Закрити</a>
                         </div>
-    
+
                         <input type="email" id="admin_email" placeholder="Пошта користувача в системі">
-    
+
                         <div class="widget-content" style="padding-top: 5px;">
                             <div class="order-summary">
                                 <div class="summary-list summary-income" style="margin-bottom: 10px; border: 0.2px solid rgba(0, 0, 0, 0.2);">
@@ -388,23 +388,23 @@
                                 </div>
                             </div>
                         </div>
-    
+
                         <div style="text-align: right; margin-top: 10px;">
                             <a class="button" id="save_edit" onclick="add_admin();">Надати право на змагання</a>
                         </div>
                 </div>
-                
+
 
                 <div id="setlive" style="display: none;">
                     <div class="widget-heading" style="margin-bottom: 20px;">
                         <h5>Посилання прямої трансляції</h5>
-                        <a class="btn btn-outline-danger btn-sm" onclick="document.getElementById('modal-window_admin').style.display = 'none';">Закрити</a>
+                        <a class="btn btn-outline-danger btn-sm" onclick="closeTranslationModalWindow()">Закрити</a>
                     </div>
 
-                    <input type="url" placeholder="Посилання на ФРЕЙМ YouTube трансляції">
+                    <input class="translation-input" type="url" placeholder="Посилання на ФРЕЙМ YouTube трансляції">
 
                     <div style="text-align: right; margin-top: 10px;">
-                        <a class="button" id="save_edit" onclick="add_live();">Зберегти зміни</a>
+                        <a class="button save-translation-button" id="save_edit" onclick="add_live();">Зберегти зміни</a>
                     </div>
                 </div>
             </div>
@@ -447,7 +447,7 @@
                         <a class="btn btn-outline-warning" id="save_edit" onclick="fixResults(0);">Зберегти зміни</a>
                     </div>
 
-            </div>  
+            </div>
         </div>
     </div>
 
