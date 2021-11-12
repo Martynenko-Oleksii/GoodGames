@@ -10,7 +10,7 @@ const passwordInputEl = document.querySelector(".password-input");
 const changePasswordButtonEl =
   document.querySelector(".change-password-button");
 
-const sportKindContainerEl = document.querySelector(".sport-kind-container .row");
+const sportKindContainerEl = document.querySelector(".sport-kind-container");
 
 const saveSportKindsButtonEl =
   document.querySelector(".save-sport-kinds-button");
