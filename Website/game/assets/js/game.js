@@ -17,6 +17,8 @@ const nameT2EditEl = document.querySelector("#name_t2_edit");
 const resultT1EditEl = document.querySelector("#result_t1_edit");
 const resultT2EditEl = document.querySelector("#result_t2_edit");
 
+const translationInputEl = document.querySelector(".translation-input");
+
 let competitionId;
 let competitionUserId;
 
@@ -157,7 +159,7 @@ function createListAdmins() {
     }
 
     parseAdminList(data);
-    
+
     function parseAdminList(info) {
       const AdminTableBodyEl =
         document.querySelector(".admin-table tbody");
@@ -542,8 +544,23 @@ function add_admin(){
   }
 }
 
-function add_live(){
-  // Изменение ссылки на фрейм прямой трансляции
+function add_live() {
+  const requestParams = new RequestParams("POST");
+  requestParams.url = "/api/competitions/addstream";
+  requestParams.body = {
+    id: competitionId,
+    streamUrl: translationInputEl.value,
+  }
+
+  ServerRequest.send(requestParams)
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
+
+  closeTranslationModalWindow();
+}
+
+function closeTranslationModalWindow() {
+  document.querySelector("#modal-window_admin").style.display = "none";
 }
 
 function ADD_ADMIN_SU(){
