@@ -429,38 +429,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                       },
                                     ),
                                   ),
-                                  new Container(
-                                    padding:
-                                        EdgeInsets.only(bottom: 5, top: 10),
-                                    child: new RaisedButton(
-                                      padding: EdgeInsets.all(10.0),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      child: new Text(
-                                        "Запросити участь!",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: AppTheme.white,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.push<dynamic>(
-                                          context,
-                                          MaterialPageRoute<dynamic>(
-                                            builder: (BuildContext context) =>
-                                                CompetitionEnterPage(
-                                              comp: widget.comp,
-                                              user: widget.user,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      color: Colors.redAccent.shade200,
-                                    ),
-                                  ),
+                                  enterbuton(snapshot.data.isOpen),
                                 ],
                               ),
                             ),
@@ -1079,6 +1048,45 @@ class _CompetitionState extends State<CompetitionInfoScreen>
       ),
     );
   }
+  Widget enterbuton(bool isopen){
+    if(isopen){
+     return  new Container(
+       padding:
+       EdgeInsets.only(bottom: 5, top: 10),
+       child: new RaisedButton(
+         padding: EdgeInsets.all(10.0),
+         shape: RoundedRectangleBorder(
+           borderRadius:
+           BorderRadius.circular(5.0),
+         ),
+         child: new Text(
+           "Запросити участь!",
+           style: TextStyle(
+             fontSize: 16,
+             color: AppTheme.white,
+             fontWeight: FontWeight.w700,
+           ),
+         ),
+         onPressed: () {
+           Navigator.push<dynamic>(
+             context,
+             MaterialPageRoute<dynamic>(
+               builder: (BuildContext context) =>
+                   CompetitionEnterPage(
+                     comp: widget.comp,
+                     user: widget.user,
+                   ),
+             ),
+           );
+         },
+         color: Colors.redAccent.shade200,
+       ),
+     );
+    }else{
+      return Container();
+    }
+  }
+
 
   Widget admin(Competition compet, List<User> users) {
     bool isdmin = false;
