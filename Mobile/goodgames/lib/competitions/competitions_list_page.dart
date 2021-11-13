@@ -28,13 +28,24 @@ class CompetitionsScreen extends StatefulWidget {
 class _CompetitionsState extends State<CompetitionsScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
-  bool multiple = false;
   final ScrollController _scrollController = ScrollController();
 
+  List<Competition> competitions = [];
+
+  bool multiple = false;
   int currentIndex = 3;
 
   @override
   void initState() {
+    getDatahttp.getCompetitions(widget.user.id!)
+      .then((value) {
+      if (value != false) {
+        setState(() {
+          competitions = value;
+        });
+      }
+    });
+
     animationController = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
     super.initState();
@@ -86,7 +97,6 @@ class _CompetitionsState extends State<CompetitionsScreen>
         children: <Widget>[
           new Container(
             height: 10,
-            // padding: EdgeInsets.all( 100.0),
           ),
           Container(
             child: new Stack(children: <Widget>[
@@ -94,21 +104,6 @@ class _CompetitionsState extends State<CompetitionsScreen>
 
               new Container(
                 padding: EdgeInsets.only(top: 5.0),
-                //height: MediaQuery.of(context).size.height - MediaQuery.of(context).size.height/4,
-                //  width: 400.0,
-                // alignment: Alignment(0.00, -0.50),
-                /*
-
-
-
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.red,
-                          width: 5,
-                        )
-                    ),
-                      */
-
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(30)),
                     gradient: LinearGradient(
@@ -125,37 +120,14 @@ class _CompetitionsState extends State<CompetitionsScreen>
                         Colors.pinkAccent.shade700,
                       ],
                     )),
-                // alignment: Alignment(0.00, -0.50),
                 child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  //  mainAxisAlignment: MainAxisAlignment.start,
-
                   children: <Widget>[
-                    // height: 190.0,
-                    //  width: 300.0,
-                    //alignment: Alignment(0.00, -0.50),
-                    /*
-
-
-
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.red,
-                          width: 5,
-                        )
-                    ),
-                      */
-
-
-
-
                     new Container(
                       padding: EdgeInsets.only( bottom: 15),
                       child: RaisedButton(
-
-                        child: new Text("Add Competition",
-                          style: TextStyle( // h4 -> display1
-
+                        child: new Text("Додати змагання",
+                          style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                             letterSpacing: 0.4,
@@ -178,32 +150,23 @@ class _CompetitionsState extends State<CompetitionsScreen>
                         color: Colors.black26.withOpacity(0.5),
                       ),
                     ),
-
-
-                    /* new Container(
-                    // margin: const EdgeInsets.symmetric(vertical: 0.0),
-                    //padding: EdgeInsets.only(left: 15.0),
-
-                    child: new Text("Competitions List:"),
-                  ),*/
-
                     new Container(
                       height: MediaQuery.of(context).size.height - 200,
                       child: FutureBuilder(
-                        future: getDatahttp.getCompetitions(widget.user.id!),
+                        future: getData(),
                         builder:
                             (BuildContext context, AsyncSnapshot snapshot) {
                           if (!snapshot.hasData) {
                             return const SizedBox();
                           } else {
                             return ListView.builder(
-                              itemCount: snapshot.data.length,
+                              itemCount: competitions.length,
                               scrollDirection: Axis.vertical,
                               itemBuilder:
                                   (BuildContext context, int index) {
-                                final int count = snapshot.data.length > 10
+                                final int count = competitions.length > 10
                                     ? 10
-                                    : snapshot.data.length;
+                                    : competitions.length;
                                 final Animation<double> animation =
                                 Tween<double>(begin: 0.0, end: 1.0)
                                     .animate(CurvedAnimation(
@@ -215,20 +178,11 @@ class _CompetitionsState extends State<CompetitionsScreen>
                                 animationController.forward();
 
                                 return CompetitionListView(
-                                  listData: snapshot.data[index],
+                                  listData: competitions[index],
                                   user: widget.user,
                                   animation: animation,
                                   animationController: animationController,
-                                  /*callBack: () {
-                                        Navigator.push<dynamic>(
-                                          context,
-                                          MaterialPageRoute<dynamic>(
-                                            builder: (BuildContext context) =>
-                                            CompetitionInfoScreen(comp: snapshot.data[index]),
-                                            //snapshot.data[index].navigateScreen,
-                                          ),
-                                        );
-                                      },*/
+                                  callBack: this.callback,
                                 );
                               },
                             );
@@ -239,34 +193,6 @@ class _CompetitionsState extends State<CompetitionsScreen>
                   ],
                 ),
               ),
-
-              /*   new Expanded(
-                    child: new Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisAlignment: MainAxisAlignment.end,
-
-                      children: <Widget>[
-                        new Container(
-                          //margin: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: new RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                            ),
-                            child: new Text("Register"),
-                            onPressed:(){
-                              Navigator.push<dynamic>(
-                                context,
-                                MaterialPageRoute<dynamic>(
-                                  builder: (BuildContext context) => RegistPage(),
-                                ),
-                              );
-                            },
-                            color: Colors.redAccent.shade200,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),*/
             ],
             ),
           ),
@@ -318,6 +244,12 @@ class _CompetitionsState extends State<CompetitionsScreen>
     );
   }
 
+  void callback(int competitionId) {
+    setState(() {
+      competitions.removeWhere((element) => element.id == competitionId);
+    });
+  }
+
   void onPressed() {}
 }
 
@@ -328,16 +260,15 @@ class CompetitionListView extends StatelessWidget {
     required this.user,
     required this.animationController,
     required this.animation,
-    //required this.callBack,
+    required this.callBack,
   }) : super(key: key);
 
   final Competition listData;
   final User user;
-  //final VoidCallback callBack;
   final AnimationController animationController;
   final Animation<double> animation;
+  final Function callBack;
 
-  // InteresList listData
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -347,7 +278,8 @@ class CompetitionListView extends StatelessWidget {
           opacity: animation,
           child: Transform(
             transform: Matrix4.translationValues(
-                0.0, 50 * (1.0 - animation.value), 0.0),
+                0.0, 50 * (1.0 - animation.value), 0.0
+            ),
             child: Padding(
               padding:
                   const EdgeInsets.only(left: 10, right: 24, top: 8, bottom: 1),
@@ -391,32 +323,6 @@ class CompetitionListView extends StatelessWidget {
                                     color: Colors.blue.shade200,
                                   ),
                                 ),
-                                /*Expanded(
-                                  child: Container(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 16, top: 8, bottom: 8),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            listData.title.toString(),
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 22,
-                                            ),
-                                          ),
-
-
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),*/
                                 new RaisedButton(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0),
@@ -425,25 +331,11 @@ class CompetitionListView extends StatelessWidget {
                                   onPressed: () {
 
                                     getDatahttp.deleteCompetition(listData.id!)
-                                        .then(
-                                            (value) => {
+                                        .then((value) {
                                               if (value.id == listData.id) {
-                                                Navigator.push<dynamic>(
-                                                  context,
-                                                  MaterialPageRoute<dynamic>(
-                                                    builder: (BuildContext context) => CompetitionsScreen(user: user),
-                                                  ),
-                                                )
+                                                callBack(value.id);
                                               }
                                             });
-
-                                    /*Navigator.push<dynamic>(
-                                      context,
-                                      MaterialPageRoute<dynamic>(
-                                        builder: (BuildContext context) =>
-                                            RegistPage(),
-                                      ),
-                                    );*/
                                   },
                                   color: Colors.redAccent.shade200,
                                 ),
@@ -452,17 +344,6 @@ class CompetitionListView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      /*Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          splashColor: Colors.grey.withOpacity(0.2),
-                          borderRadius:
-                          const BorderRadius.all(Radius.circular(4.0)),
-                          onTap: () {
-                            callBack();
-                          },
-                        ),
-                      ),*/
                     ],
                   ),
                 ),

@@ -219,7 +219,7 @@ class getDatahttp {
     return sports;
   }
 
-  static Future<List<Competition>> getCompetitions(int userId) async{
+  static Future<dynamic> getCompetitions(int userId) async{
     List<Competition> competitions = [];
 
     print(userId);
@@ -242,6 +242,7 @@ class getDatahttp {
         }
       } else {
         print(response.body);
+        return false;
       }
     } catch (ex) {
       print(ex);

@@ -150,7 +150,7 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(15.0),
                                     ),
-                                    hintText: 'title',
+                                    hintText: 'Назва',
                                     filled: true,
                                     fillColor: Colors.white,
                                   ),
@@ -184,7 +184,7 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                   padding: EdgeInsets.all(10.0),
 
                                   child: new Text(
-                                    "isOpen",
+                                    "Відкрите",
                                     style: TextStyle(
                                       fontSize: 16,
                                       color: AppTheme.darkText,
@@ -253,16 +253,6 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                   },
                                 ),
                               ),
-                              new Container(
-                                child: new Text(
-                                  "sport",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppTheme.darkText,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              )
                             ]),
 
                             new Padding(
@@ -275,7 +265,7 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(15.0),
                                     ),
-                                    hintText: 'ageLimit',
+                                    hintText: 'Вікове обмеження',
                                     filled: true,
                                     fillColor: Colors.white,
                                   ),
@@ -301,7 +291,7 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(15.0),
                                     ),
-                                    hintText: 'city',
+                                    hintText: 'Місто',
                                     filled: true,
                                     fillColor: Colors.white,
                                   ),
@@ -331,7 +321,7 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                             side: BorderSide(color: Colors.white, width: 3)
                                         ),
                                         onPressed: () => _selectDatestart(context),
-                                        child: Text('Select startDate'),
+                                        child: Text('Початок'),
                                       ),),
                                     Container(
                                       padding: EdgeInsets.all(5.0),
@@ -355,7 +345,7 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                             side: BorderSide(color: Colors.white, width: 3)
                                         ),
                                         onPressed: () => _selectDatestart(context),
-                                        child: Text('Select endDate'),
+                                        child: Text('Кінець'),
                                       ),),
                                     Container(
                                       padding: EdgeInsets.all(5.0),
@@ -384,7 +374,7 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                   padding: EdgeInsets.all(10.0),
 
                                   child: new Text(
-                                    "isPublic",
+                                    "Публічне",
                                     style: TextStyle(
                                       fontSize: 16,
                                       color: AppTheme.darkText,
@@ -394,7 +384,6 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                 ),
                               ],
                             ),
-
                           ],
                         ),
                       ),
@@ -405,14 +394,12 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
                         ),
-                        child: new Text("Create"),
+                        child: new Text("Створити"),
                         onPressed: () {
                           getDatahttp
                               .postNewCompetition(
                               titleControl.text,
                               isOpen,
-                              // sportId TODO,
-                              //1,
                               dropdownValueSport.id,
                               agelimitControl.text,
                               cityControl.text,
@@ -421,17 +408,15 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                               isPublic,
                               widget.user.id!)
                               .then((value) => {
-                            if (value.title == titleControl.text)
-                              {
-                                print(value),
-                                Navigator.push<dynamic>(
-                                  context,
-                                  MaterialPageRoute<dynamic>(
-                                    builder: (BuildContext context) =>
-                                        CompetitionsScreen(
-                                            user: widget.user),
-                                  ),
-                                )
+                                if (value.title == titleControl.text) {
+                                    print(value),
+                                    Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            CompetitionsScreen(
+                                                user: widget.user),
+                                          ), (route) => false ),
                               }
                           });
                         },
