@@ -38,5 +38,8 @@ namespace GGBack.Models
         public int State { get; set; }
 
         public List<TimetableCell> TimetableCells { get; set; }
+
+        [JsonIgnore]
+        public List<RawNews> RawNewss { get; set; }
     }
 }
