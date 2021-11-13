@@ -28,7 +28,17 @@ namespace GGBack.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CompetitionCreator>().HasKey(u => new { u.CompetitionId, u.CreatorId });
+            modelBuilder.Entity<CompetitionCreator>()
+                .HasKey(u => new { u.CompetitionId, u.CreatorId });
+
+            modelBuilder.Entity<Competition>()
+                .HasMany(c => c.TimetableCells)
+                .WithOne(t => t.Competition)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<TimetableCell>()
+                .HasOne(t => t.WinResult)
+                .WithOne(w => w.TimetableCell)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
