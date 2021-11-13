@@ -7,6 +7,8 @@ namespace GGBack.Models
 {
     public class RawNews
     {
+        public int Id { get; set; }
+
         public string HeaderData { get; set; }
 
         public string BodyData { get; set; }
