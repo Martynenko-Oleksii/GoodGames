@@ -225,9 +225,10 @@ namespace GGBack.Controllers
                 Users = new List<User>()
             };
 
+            User creator = context.Users.Find(competitionForCreateRequest.User.Id);
             try
             {
-                competition.Users.Add(context.Users.Find(competitionForCreateRequest.User.Id));
+                competition.Users.Add(creator);
                 competition.Sport = context.Sports.Find(competitionForCreateRequest.Sport.Id);
             }
             catch (Exception ex)
@@ -239,6 +240,11 @@ namespace GGBack.Controllers
 
             try
             {
+                if (creator.Subscription == null)
+                {
+                    competition.IsPublic = false;
+                }
+
                 context.Competitions.Add(competition);
                 context.SaveChanges();
                 Competition res = context.Competitions
