@@ -179,13 +179,6 @@ namespace GGBack.Controllers
 
             try
             {
-                competition.Competitors = null;
-                foreach (TimetableCell cell in competition.TimetableCells)
-                {
-                    cell.Competitors = null;
-                }
-                context.SaveChanges();
-                context.TimetableCells.RemoveRange(competition.TimetableCells);
                 context.Competitions.Remove(competition);
                 context.CompetitionCreators.Remove(competitionCreator);
                 await context.SaveChangesAsync();
