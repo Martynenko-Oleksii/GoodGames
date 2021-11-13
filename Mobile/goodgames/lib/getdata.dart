@@ -935,7 +935,7 @@ class getDatahttp {
     return competitions;
   }
 
-  static Future<List<Sport>> addFavouriteSport(int userId, int sportId) async{
+  static Future<dynamic> addFavouriteSport(int userId, int sportId) async{
     List<Sport> sports = [];
 
     var body = jsonEncode({
@@ -966,6 +966,7 @@ class getDatahttp {
         }
       } else {
         print(response.body);
+        return false;
       }
     } catch (ex) {
       print(ex);

@@ -358,10 +358,13 @@ class _ProfileState extends State<ProfileScreen>
                                         getDatahttp
                                               .addFavouriteSport(widget.user.id! , dropdownValueSport.id)
                                               .then((value) {
-                                                setState(() {
-                                                  widget.user.sports = value;
-                                                  profileList = widget.user.sports!;
-                                                });
+                                                if (value != false) {
+                                                  setState(() {
+                                                    widget.user.sports = value;
+                                                    profileList =
+                                                    widget.user.sports!;
+                                                  });
+                                                }
                                                 Navigator.of(context).pop();
                                               });
                                       },
