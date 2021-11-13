@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 class User {
   int? id;
+  String? avatarPath;
   String? login;
   String? email;
   String? password;
@@ -9,13 +10,14 @@ class User {
   List<Sport>? sports;
 
  User({
-        this.id,
-        this.login,
-        this.email,
-        this.password,
-        this.subscription,
-        this.sports
-      });
+   this.id,
+   this.avatarPath,
+   this.login,
+   this.email,
+   this.password,
+   this.subscription,
+   this.sports
+ });
 
  @override
   String toString() {

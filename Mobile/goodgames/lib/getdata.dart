@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -91,6 +92,75 @@ class getDatahttp {
                             .substring(11)),
               ),
           );
+        }
+
+        if (jsonData["avatarPath"] != null) {
+          user.avatarPath = jsonData["avatarPath"];
+        }
+
+        List<Sport> sports = [];
+        for (var s in jsonData["sports"]) {
+          Sport sport = Sport(
+              id: s["id"],
+              title: s["title"],
+              minCompetitorsCount: s["minCompetitorsCount"],
+              hasTeam: s["hasTeam"],
+              minTeamsCount: s["minTeamsCount"],
+              teamSize: s["teamSize"],
+              hasGrid: s["hasGrid"]
+          );
+          sports.add(sport);
+          user.sports = sports;
+        }
+      }
+    } catch(ex) {
+      print(ex);
+    }
+
+    return user!;
+  }
+
+  static Future<User> getUserData(int userId) async {
+    User? user;
+
+    try {
+      var response = await http.get(
+          Uri.https("goodgames.kh.ua", "api/users/$userId"),
+          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
+      );
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+        user = User(
+          id: jsonData["id"],
+          login: jsonData["login"],
+          email: jsonData["email"],
+          password: jsonData["password"],
+        );
+
+        if (jsonData["avatarPath"] != null) {
+          user.subscription = Subscription(
+            id: jsonData["subscription"]["id"],
+            lvl: jsonData["subscription"]["level"],
+            start: DateTime.parse(
+                jsonData["subscription"]["start"]
+                    .toString()
+                    .substring(0, 10) + " " +
+                    jsonData["subscription"]["start"]
+                        .toString()
+                        .substring(11)),
+            end: DateTime.parse(
+                jsonData["subscription"]["end"]
+                    .toString()
+                    .substring(0, 10) + " " +
+                    jsonData["subscription"]["end"]
+                        .toString()
+                        .substring(11)),
+          );
+        }
+
+        if (jsonData["avatarPath"] != null) {
+          user.avatarPath = jsonData["avatarPath"];
         }
 
         List<Sport> sports = [];
