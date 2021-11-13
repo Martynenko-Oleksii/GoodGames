@@ -26,11 +26,12 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileState extends State<ProfileScreen>
     with SingleTickerProviderStateMixin {
-  List<Sport> profileList = [];
   late AnimationController animationController;
-  bool multiple = false;
   final ScrollController _scrollController = ScrollController();
   final formKeysport = GlobalKey<FormState>();
+
+  List<Sport> profileList = [];
+
   Text subState = new Text(
     "",
     style: TextStyle(
@@ -40,8 +41,19 @@ class _ProfileState extends State<ProfileScreen>
     ),
   );
 
+  Sport dropdownValueSport = new Sport(
+    id: 1,
 
+    title: "Оберіть спорт",
+    minCompetitorsCount: 0,
+    hasTeam: false,
 
+    minTeamsCount: 0,
+    teamSize: 0,
+    hasGrid: false,
+  );
+
+  bool multiple = false;
   int currentIndex = 4;
 
   @override
@@ -257,7 +269,7 @@ class _ProfileState extends State<ProfileScreen>
                         ),
                         child:new RaisedButton(
                           child: new Text(
-                            "Підписки на спорт",
+                            "Підписатись на спорт",
                             style: TextStyle( // h4 -> display1
 
                               fontWeight: FontWeight.bold,
@@ -271,22 +283,12 @@ class _ProfileState extends State<ProfileScreen>
                               borderRadius: BorderRadius.circular(5.0),
                               side: BorderSide(color: Colors.white, width: 3)),
                           onPressed: () {
-                            Sport dropdownValueSport = new Sport(
-                              id: 1,
-
-                              title: "Оберіть спорт",
-                              minCompetitorsCount: 0,
-                              hasTeam: false,
-
-                              minTeamsCount: 0,
-                              teamSize: 0,
-                              hasGrid: false,);
                             showDialog(
                               context: context,
                               builder: (BuildContext context) => Form(
                                 key: formKeysport,
                                 child: new AlertDialog(
-                                  title: const Text('add inters sport'),
+                                  title: const Text('Підпишись!'),
                                   content: new Row(children: [
                                     new Container(
                                       padding: EdgeInsets.all(5.0),
@@ -323,7 +325,6 @@ class _ProfileState extends State<ProfileScreen>
                                                     dropdownValueSport = newValue!;
                                                   });
                                                 },
-                                                //value: dropdownValueSport,
                                                 items: snapshot.data
                                                     .map<DropdownMenuItem<Sport>>(
                                                         (Sport value) {
@@ -345,37 +346,29 @@ class _ProfileState extends State<ProfileScreen>
                                         },
                                       ),
                                     ),
-                                    new Container(
-                                      child: new Text(
-                                        "sport",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: AppTheme.darkText,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                    )
                                   ]),
                                   actions: <Widget>[
                                     new FlatButton(
                                       onPressed: () {
                                         getDatahttp
                                               .addFavouriteSport(widget.user.id! , dropdownValueSport.id)
-                                              .then((value) =>
-                                              Navigator.of(context).pop());
-
-
-                                        //  Navigator.of(context).pop();
+                                              .then((value) {
+                                                setState(() {
+                                                  widget.user.sports = value;
+                                                  profileList = widget.user.sports!;
+                                                });
+                                                Navigator.of(context).pop();
+                                              });
                                       },
                                       textColor: Theme.of(context).primaryColor,
-                                      child: const Text('Add'),
+                                      child: const Text('Підписатись'),
                                     ),
                                     new FlatButton(
                                       onPressed: () {
                                         Navigator.of(context).pop();
                                       },
                                       textColor: Theme.of(context).primaryColor,
-                                      child: const Text('Close'),
+                                      child: const Text('Закрити'),
                                     ),
                                   ],
                                 ),
@@ -416,6 +409,7 @@ class _ProfileState extends State<ProfileScreen>
                                   animation: animation,
                                   animationController: animationController,
                                   user: widget.user,
+                                  callback: this.callback,
                                 );
                               },
                             );
@@ -536,6 +530,16 @@ class _ProfileState extends State<ProfileScreen>
     }
   }
 
+  void callback(listData) {
+    getDatahttp.deleteFavouriteSport( widget.user.id!, listData.id)
+      .then((value) {
+        setState(() {
+          widget.user.sports = value;
+          profileList = widget.user.sports!;
+        });
+    });
+  }
+
   void onPressed() {}
 }
 
@@ -546,13 +550,14 @@ class ProfileInteresListView extends StatelessWidget {
     required this.animationController,
     required this.animation,
     required this.user,
+    required this.callback
   }) : super(key: key);
 
   final Sport listData;
   final AnimationController animationController;
   final Animation<double> animation;
   final User user;
-  // InteresList listData
+  final Function callback;
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -618,14 +623,7 @@ class ProfileInteresListView extends StatelessWidget {
                                   ),
                                   child: Icon(Icons.dangerous),
                                   onPressed: () {
-                                    getDatahttp.deleteFavouriteSport( user.id!, listData.id);
-                                    user.sports!.remove(listData.id);
-                                    Navigator.push<dynamic>(
-                                              context,
-                                              MaterialPageRoute<dynamic>(
-                                                builder: (BuildContext context) => ProfileScreen(user: user),
-                                              ),
-                                            );
+                                    callback(listData);
                                   },
                                   color: Colors.redAccent.shade200,
                                 ),
