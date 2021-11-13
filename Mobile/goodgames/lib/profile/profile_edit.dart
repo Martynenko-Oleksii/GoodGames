@@ -29,8 +29,15 @@ class _ProfileeditState extends State<ProfileeditPage> {
   final formKeyemail = GlobalKey<FormState>();
   final formKeypass = GlobalKey<FormState>();
 
+  String? avatar;
+
   @override
   void initState() {
+    if (widget.user.avatarPath != null)
+      avatar = "https://goodgames.kh.ua${widget.user.avatarPath}";
+    else
+      avatar = "https://cdn.discordapp.com/attachments/839078982598131712/899743277576749126/avatar1.jpg";
+
     super.initState();
   }
 
@@ -142,8 +149,7 @@ class _ProfileeditState extends State<ProfileeditPage> {
                               child: CircleAvatar(
                                 radius: 45,
                                 //encikllListd[index].imagePath,
-                                backgroundImage: NetworkImage(
-                                  "https://cdn.discordapp.com/attachments/839078982598131712/899743277576749126/avatar1.jpg",
+                                backgroundImage: NetworkImage( avatar!,
                                 ),
                               ),
                             ),

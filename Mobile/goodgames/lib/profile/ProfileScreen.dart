@@ -31,6 +31,7 @@ class _ProfileState extends State<ProfileScreen>
   final formKeysport = GlobalKey<FormState>();
 
   List<Sport> profileList = [];
+  String? avatar;
 
   Text subState = new Text(
     "",
@@ -59,7 +60,12 @@ class _ProfileState extends State<ProfileScreen>
   @override
   void initState() {
     if (widget.user.sports != null)
-    profileList = widget.user.sports!;
+      profileList = widget.user.sports!;
+
+    if (widget.user.avatarPath != null)
+      avatar = "https://goodgames.kh.ua${widget.user.avatarPath}";
+    else
+      avatar = "https://cdn.discordapp.com/attachments/839078982598131712/899743277576749126/avatar1.jpg";
 
     if (widget.user.subscription != null) {
       subState = new Text(
@@ -161,8 +167,7 @@ class _ProfileState extends State<ProfileScreen>
 
                           child: CircleAvatar(
                             radius: 30,
-                            //encikllListd[index].imagePath,
-                            backgroundImage: NetworkImage( "https://cdn.discordapp.com/attachments/839078982598131712/899743277576749126/avatar1.jpg",),
+                            backgroundImage: NetworkImage( avatar!,),
                             child: Container(
                               margin: EdgeInsets.only(left: 33.0, top: 33),
                               child:  IconButton(
