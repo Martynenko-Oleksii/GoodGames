@@ -32,6 +32,10 @@ namespace GGBack.Data
                 .HasKey(u => new { u.CompetitionId, u.CreatorId });
 
             modelBuilder.Entity<Competition>()
+                .HasMany(c => c.RawNewss)
+                .WithOne(t => t.Competition)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Competition>()
                 .HasMany(c => c.TimetableCells)
                 .WithOne(t => t.Competition)
                 .OnDelete(DeleteBehavior.Cascade);
