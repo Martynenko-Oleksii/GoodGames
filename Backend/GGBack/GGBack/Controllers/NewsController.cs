@@ -1,6 +1,7 @@
 ﻿using GGBack.Data;
 using GGBack.Models;
 using GGBack.Utils;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +16,12 @@ namespace GGBack.Controllers
     public class NewsController : ControllerBase
     {
         ServerDbContext context;
+        private readonly IWebHostEnvironment env;
 
-        public NewsController(ServerDbContext context)
+        public NewsController(ServerDbContext context, IWebHostEnvironment env)
         {
             this.context = context;
+            this.env = env;
         }
 
         [Route("api/news")]
@@ -27,7 +30,7 @@ namespace GGBack.Controllers
         {
             try
             {
-                IEnumerable<News> allNews = NewsAssembler.AssembleNews(context);
+                IEnumerable<News> allNews = NewsAssembler.AssembleNews(context, env.WebRootPath);
                 if (allNews != null)
                 {
                     return Ok(allNews);
@@ -53,7 +56,7 @@ namespace GGBack.Controllers
                     .Include(u => u.Sports)
                     .Where(u => u.Id == userId)
                     .FirstOrDefault();
-                IEnumerable<News> favouriteNews = NewsAssembler.AssembleNews(context, user);
+                IEnumerable<News> favouriteNews = NewsAssembler.AssembleNews(context, env.WebRootPath, user);
                 if (favouriteNews != null)
                 {
                     return Ok(favouriteNews);
