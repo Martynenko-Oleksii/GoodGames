@@ -50,6 +50,7 @@ namespace GGBack.Controllers
                 Competition competition = context.Competitions
                     .Include(c => c.Sport)
                     .Include(c => c.Competitors)
+                    .Include(c => c.RawNewss)
                     .Where(c => c.Id == timeBoundary.Id)
                     .FirstOrDefault();
 
@@ -181,6 +182,22 @@ namespace GGBack.Controllers
                         GridStage = gridStage
                     });
                 }
+
+                if (competition.IsPublic)
+                {
+                    RawNews rawNews = await NewsGenerator.SetRawNewsAsync(
+                        new string[] { competition.Title },
+                        new string[]
+                        {
+                            competition.Title, 
+                            teamsCount.ToString(),
+                            competitorsCount.ToString()
+                        }, competition, NewsType.CompetitionStarting);
+
+                    context.RawNewss.Add(rawNews);
+                    competition.RawNewss.Add(rawNews);
+                }
+
                 await context.SaveChangesAsync();
 
                 return Ok();
