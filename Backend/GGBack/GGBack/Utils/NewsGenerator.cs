@@ -22,7 +22,7 @@ namespace GGBack.Utils
             return await Task.Run(() => SetRawNews(headerData, bodyData, competition, type));
         }
 
-        private static RawNews SetRawNews(string[] headerData, string[] bodyData, Competition competition, NewsType type)
+        public static RawNews SetRawNews(string[] headerData, string[] bodyData, Competition competition, NewsType type)
         {
             RawNews rawNews = new RawNews
             {

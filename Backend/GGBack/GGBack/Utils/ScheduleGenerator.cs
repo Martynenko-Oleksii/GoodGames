@@ -275,7 +275,8 @@ namespace GGBack.Utils
             return cells;
         }
 
-        public static bool GenerateForNewResults(TimetableCell cellWithResults, ServerDbContext context)
+        public static bool GenerateForNewResults(TimetableCell cellWithResults, 
+            ServerDbContext context, Competition competition)
         {
             List<TimetableCell> stagedCells = context.TimetableCells
                 .Include(t => t.WinResult)
@@ -381,6 +382,32 @@ namespace GGBack.Utils
                 }
 
                 context.SaveChanges();
+            }
+            else
+            {
+                bool final = true;
+                foreach (TimetableCell ttc in stagedCells)
+                {
+                    if (ttc.WinResult == null)
+                    {
+                        final = false;
+                    }
+                }
+
+                if (final)
+                {
+                    RawNews rawNews = NewsGenerator.SetRawNews(
+                        new string[] { competition.Title },
+                        new string[] 
+                        {
+                            competition.Title
+                        }, competition, NewsType.CompetitionEnding);
+
+                    context.RawNewss.Add(rawNews);
+                    competition.State = 2;
+                    competition.RawNewss.Add(rawNews);
+                    context.SaveChanges();
+                }
             }
 
             return true;
