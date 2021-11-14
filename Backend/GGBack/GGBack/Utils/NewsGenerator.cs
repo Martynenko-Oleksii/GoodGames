@@ -17,14 +17,18 @@ namespace GGBack.Utils
 
     public class NewsGenerator
     {
-        public static RawNews SetRawNews(string[] headerData, string[] bodyData, Competition competition, NewsType type)
+        public static async Task<RawNews> SetRawNewsAsync(string[] headerData, string[] bodyData, Competition competition, NewsType type)
+        {
+            return await Task.Run(() => SetRawNews(headerData, bodyData, competition, type));
+        }
+
+        private static RawNews SetRawNews(string[] headerData, string[] bodyData, Competition competition, NewsType type)
         {
             RawNews rawNews = new RawNews
             {
                 HeaderData = String.Join(';', headerData),
                 BodyData = String.Join(';', bodyData),
-                Date = DateTime.UtcNow,
-                Competition = competition
+                Date = DateTime.UtcNow
             };
             switch (type)
             {
