@@ -26,7 +26,7 @@ namespace GGBack.Models
         public string Team { get; set; }
 
         [JsonIgnore]
-        public Competition Competition { get; set; }
+        public List<Competition> Competitions { get; set; }
 
         [JsonIgnore]
         public List<TimetableCell> TimetableCells { get; set; }
