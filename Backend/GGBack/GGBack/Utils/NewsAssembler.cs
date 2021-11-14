@@ -4,17 +4,18 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace GGBack.Utils
 {
     public class NewsAssembler
     {
-        private static string path;
+        private static string rootFolderPath;
 
         public static IEnumerable<News> AssembleNews(ServerDbContext context, string rootPath, User user = null)
         {
-            path = rootPath;
+            rootFolderPath = rootPath;
 
             if (user == null)
             {
@@ -61,6 +62,14 @@ namespace GGBack.Utils
 
         private static string AssembleNewsHeader(RawNews rawNews)
         {
+            StringBuilder template = new StringBuilder(GetNewsTemplate(rawNews.TemplatePath));
+
+            string[] headerData = rawNews.HeaderData.Split(';', StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < headerData.Length; i++)
+            {
+                template.Replace("{0" + i + "}", headerData[i]);
+            }
+
             return null;
         }
 
