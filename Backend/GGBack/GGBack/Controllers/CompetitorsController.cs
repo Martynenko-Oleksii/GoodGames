@@ -28,6 +28,37 @@ namespace GGBack.Controllers
             return await context.Competitors.ToListAsync(); 
         }
 
+        [HttpGet("{competitorId}")]
+        public ActionResult<CompetitorInfo> GetCompetitor(int competitorId)
+        {
+            try
+            {
+                Competitor competitor = context.Competitors.Find(competitorId);
+                List<Competitor> competitorsByOneEmail = context.Competitors
+                    .Include(c => c.Competitions)
+                        .ThenInclude(c => c.TimetableCells)
+                            .ThenInclude(tc => tc.WinResult)
+                    .Where(c => c.Email.Equals(competitor.Email) && c.Name.Equals(competitor.Name))
+                    .ToList();
+                int competitionCount = competitorsByOneEmail.Count;
+                int winCount = CompetitorStatistic.GetWinCount(competitorsByOneEmail);
+
+                return Ok(new CompetitorInfo
+                {
+                    Name = competitor.Name,
+                    Team = competitor.Team,
+                    Age = competitor.Age,
+                    Gender = competitor.Gender,
+                    CompetitionCount = competitionCount,
+                    WinCount = winCount
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message + "\n" + ex.InnerException);
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult<Competitor>> Post(CompetitorForRequest competitor)
         {
