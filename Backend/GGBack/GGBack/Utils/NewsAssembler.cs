@@ -29,7 +29,6 @@ namespace GGBack.Utils
                         .ThenInclude(c => c.Sport)
                     .Where(rn => user.Sports.Contains(rn.Competition.Sport))
                     .ToList());
-
             }
         }
 
