@@ -16,6 +16,7 @@ namespace GGBack.Data
         public DbSet<Competitor> Competitors { get; set; }
         public DbSet<TimetableCell> TimetableCells { get; set; }
         public DbSet<WinResult> WinResults { get; set; }
+        public DbSet<RawNews> RawNewss { get; set; }
 
         public DbSet<CompetitionCreator> CompetitionCreators { get; set; }
 
@@ -27,7 +28,21 @@ namespace GGBack.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CompetitionCreator>().HasKey(u => new { u.CompetitionId, u.CreatorId });
+            modelBuilder.Entity<CompetitionCreator>()
+                .HasKey(u => new { u.CompetitionId, u.CreatorId });
+
+            modelBuilder.Entity<Competition>()
+                .HasMany(c => c.RawNewss)
+                .WithOne(t => t.Competition)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Competition>()
+                .HasMany(c => c.TimetableCells)
+                .WithOne(t => t.Competition)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<TimetableCell>()
+                .HasOne(t => t.WinResult)
+                .WithOne(w => w.TimetableCell)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

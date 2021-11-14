@@ -14,5 +14,8 @@ namespace GGBack.Models
         public string TeamTwo { get; set; }
 
         public string Score { get; set; }
+
+        public int TimetableCellId { get; set; }
+        public TimetableCell TimetableCell { get; set; }
     }
 }
