@@ -31,8 +31,6 @@ namespace GGBack.Controllers
         [HttpPost]
         public async Task<ActionResult<Competitor>> Post(CompetitorForRequest competitor)
         {
-            Competitor finalCompetitor = null;
-
             if (competitor == null)
             {
                 return BadRequest();
@@ -44,49 +42,18 @@ namespace GGBack.Controllers
                 competitions.Add(context.Competitions.Find(c.Id));
             }
 
-            if (!context.Competitors.Any(c => c.Email == competitor.Email))
+            Competitor finalCompetitor = new Competitor
             {
-                finalCompetitor = new Competitor
-                {
-                    Name = competitor.Name,
-                    Email = competitor.Email,
-                    Age = competitor.Age,
-                    Gender = competitor.Gender,
-                    Weigth = competitor.Weigth,
-                    HealthState = competitor.HealthState,
-                    Team = competitor.Team,
-                    Competitions = competitions
-                };
-                context.Competitors.Add(finalCompetitor);
-            }
-            else
-            {
-                Competitor oldCompetitor = context.Competitors
-                    .Include(c => c.Competitions)
-                    .Where(c => c.Email.Equals(competitor.Email))
-                    .ToList().FirstOrDefault();
-
-                if (oldCompetitor != null)
-                {
-                    try
-                    {
-                        oldCompetitor.Competitions.AddRange(competitions);
-                        oldCompetitor.Name = competitor.Name;
-                        oldCompetitor.Age = competitor.Age;
-                        oldCompetitor.Gender = competitor.Gender;
-                        oldCompetitor.Weigth = competitor.Weigth;
-                        oldCompetitor.HealthState = competitor.HealthState;
-                        oldCompetitor.Team = competitor.Team;
-
-                        finalCompetitor = oldCompetitor;
-                    }
-                    catch (Exception ex)
-                    {
-                        return BadRequest(ex.Message + "\n" + ex.InnerException);
-                    }
-                }
-            }
-
+                Name = competitor.Name,
+                Email = competitor.Email,
+                Age = competitor.Age,
+                Gender = competitor.Gender,
+                Weigth = competitor.Weigth,
+                HealthState = competitor.HealthState,
+                Team = competitor.Team,
+                Competitions = competitions
+            };
+            context.Competitors.Add(finalCompetitor);
             await context.SaveChangesAsync();
 
             return Ok(new Competitor { Id = finalCompetitor.Id, Name = finalCompetitor.Name });
