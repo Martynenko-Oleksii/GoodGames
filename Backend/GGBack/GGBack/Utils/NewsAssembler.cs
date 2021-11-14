@@ -3,6 +3,7 @@ using GGBack.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -92,7 +93,15 @@ namespace GGBack.Utils
 
         private static string GetNewsTemplate(string path)
         {
-            return null;
+            string template;
+            using (FileStream fs = File.OpenRead($"{rootFolderPath}\\news_templates{path}"))
+            {
+                byte[] array = new byte[fs.Length];
+                fs.Read(array, 0, array.Length);
+                template = Encoding.Default.GetString(array);
+            }
+
+            return template;
         }
     }
 }
