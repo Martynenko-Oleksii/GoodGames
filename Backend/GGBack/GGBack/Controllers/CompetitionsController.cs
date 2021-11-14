@@ -241,6 +241,7 @@ namespace GGBack.Controllers
                 context.Competitions.Add(competition);
                 context.SaveChanges();
                 Competition res = context.Competitions
+                    .Include(c => c.RawNewss)
                     .Where(c => c.Title.Equals(competition.Title))
                     .First();
 
@@ -251,6 +252,26 @@ namespace GGBack.Controllers
                     CompetitionId = competitioId,
                     CreatorId = creatorId
                 });
+
+                if (competition.IsPublic)
+                {
+                    RawNews rawNews = await NewsGenerator.SetRawNewsAsync(
+                        new string[] { competition.Title },
+                        new string[]
+                        {
+                            competition.Title,
+                            competition.Sport.Title,
+                            competition.StartDate.ToString("d"),
+                            competition.EndDate.ToString("d"),
+                            competition.AgeLimit.ToString(),
+                            competition.City,
+                            competition.IsOpen.ToString()
+                        }, res, NewsType.CompetitionCreating);
+
+                    context.RawNewss.Add(rawNews);
+                    res.RawNewss.Add(rawNews);
+                }
+
                 await context.SaveChangesAsync();
 
                 return Ok(res);
