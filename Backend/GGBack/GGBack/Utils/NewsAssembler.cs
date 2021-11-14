@@ -62,15 +62,17 @@ namespace GGBack.Utils
 
         private static string AssembleNewsHeader(RawNews rawNews)
         {
-            StringBuilder template = new StringBuilder(GetNewsTemplate(rawNews.TemplatePath));
+            string template = GetNewsTemplate(rawNews.TemplatePath);
+            int lastIndex = template.IndexOf("<header>");
 
+            StringBuilder header = new StringBuilder(template.Substring(0, lastIndex));
             string[] headerData = rawNews.HeaderData.Split(';', StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < headerData.Length; i++)
             {
-                template.Replace("{0" + i + "}", headerData[i]);
+                header.Replace("{0" + i + "}", headerData[i]);
             }
 
-            return null;
+            return header.ToString();
         }
 
         private static string AssembleNewsBody(RawNews rawNews)
