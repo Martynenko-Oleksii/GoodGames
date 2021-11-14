@@ -10,8 +10,12 @@ namespace GGBack.Utils
 {
     public class NewsAssembler
     {
-        public static IEnumerable<News> AssembleNews(ServerDbContext context, User user = null)
+        private static string path;
+
+        public static IEnumerable<News> AssembleNews(ServerDbContext context, string rootPath, User user = null)
         {
+            path = rootPath;
+
             if (user == null)
             {
                 return AssembleAllNewsHeader(context.RawNewss.ToList());
@@ -42,7 +46,17 @@ namespace GGBack.Utils
 
         private static IEnumerable<News> AssembleAllNewsHeader(List<RawNews> rawNews)
         {
-            return null;
+            List<News> news = new List<News>();
+            foreach (RawNews rn in rawNews)
+            {
+                news.Add(new News
+                {
+                    Id = rn.Id,
+                    Header = AssembleNewsHeader(rn)
+                });
+            }
+
+            return news;
         }
 
         private static string AssembleNewsHeader(RawNews rawNews)
