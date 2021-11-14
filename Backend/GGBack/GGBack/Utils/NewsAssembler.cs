@@ -69,7 +69,7 @@ namespace GGBack.Utils
             string[] headerData = rawNews.HeaderData.Split(';', StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < headerData.Length; i++)
             {
-                header.Replace("{0" + i + "}", headerData[i]);
+                header.Replace("{h" + i + "}", headerData[i]);
             }
 
             return header.ToString();
@@ -77,7 +77,17 @@ namespace GGBack.Utils
 
         private static string AssembleNewsBody(RawNews rawNews)
         {
-            return null;
+            string template = GetNewsTemplate(rawNews.TemplatePath);
+            int lastIndex = template.IndexOf("<header>");
+
+            StringBuilder body = new StringBuilder(template.Substring(lastIndex + 8));
+            string[] bodyData = rawNews.BodyData.Split(';', StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < bodyData.Length; i++)
+            {
+                body.Replace("{b" + i + "}", bodyData[i]);
+            }
+
+            return body.ToString();
         }
 
         private static string GetNewsTemplate(string path)
