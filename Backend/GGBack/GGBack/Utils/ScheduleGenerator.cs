@@ -294,26 +294,26 @@ namespace GGBack.Utils
                         t.GridStage == cellWithResults.GridStage + 1)
                 .ToList();
 
+            string[] score = cellWithResults.WinResult.Score.Split(',');
+            int scoreOne = Int32.Parse(score[0]);
+            int scoreTwo = Int32.Parse(score[1]);
+
+            List<Competitor> winCompetitors = cellWithResults.Competitors
+                    .Where(c => c.Team.Equals(cellWithResults.WinResult.TeamOne))
+                    .ToList();
+            List<Competitor> lostCompetitors = cellWithResults.Competitors
+                    .Where(c => c.Team.Equals(cellWithResults.WinResult.TeamTwo))
+                    .ToList();
+
+            if (scoreOne < scoreTwo)
+            {
+                List<Competitor> temp = winCompetitors;
+                winCompetitors = lostCompetitors;
+                lostCompetitors = temp;
+            }
+
             if (nextStageCells.Count > 1)
             {
-                string[] score = cellWithResults.WinResult.Score.Split(',');
-                int scoreOne = Int32.Parse(score[0]);
-                int scoreTwo = Int32.Parse(score[1]);
-
-                List<Competitor> winCompetitors = cellWithResults.Competitors
-                        .Where(c => c.Team.Equals(cellWithResults.WinResult.TeamOne))
-                        .ToList();
-                List<Competitor> lostCompetitors = cellWithResults.Competitors
-                        .Where(c => c.Team.Equals(cellWithResults.WinResult.TeamTwo))
-                        .ToList();
-
-                if (scoreOne < scoreTwo)
-                {
-                    List<Competitor> temp = winCompetitors;
-                    winCompetitors = lostCompetitors;
-                    lostCompetitors = temp;
-                }
-
                 TimetableCell lastCellWithTime = context.TimetableCells
                                 .Include(t => t.Competition)
                                 .Where(t => t.Competition.Id == cellWithResults.Competition.Id)
@@ -396,19 +396,31 @@ namespace GGBack.Utils
 
                 if (final)
                 {
-                    RawNews rawNews = NewsGenerator.SetRawNews(
+                    RawNews rawNewsCompetitionEnding = NewsGenerator.SetRawNews(
                         new string[] { competition.Title },
                         new string[] 
                         {
                             competition.Title
                         }, competition, NewsType.CompetitionEnding);
 
-                    context.RawNewss.Add(rawNews);
+                    context.RawNewss.Add(rawNewsCompetitionEnding);
                     competition.State = 2;
-                    competition.RawNewss.Add(rawNews);
+                    competition.RawNewss.Add(rawNewsCompetitionEnding);
                     context.SaveChanges();
                 }
             }
+
+            RawNews rawNewsMatchEnding = NewsGenerator.SetRawNews(
+                new string[] { competition.Title },
+                new string[]
+                {
+                    competition.Title,
+                    cellWithResults.WinResult.TeamOne,
+                    cellWithResults.WinResult.TeamTwo,
+                    scoreOne.ToString(),
+                    scoreTwo.ToString(),
+                    winCompetitors.ElementAt(0).Team
+                }, competition, NewsType.MatchEnding);
 
             return true;
         }
