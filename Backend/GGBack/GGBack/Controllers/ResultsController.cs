@@ -33,6 +33,7 @@ namespace GGBack.Controllers
             TimetableCell cell = context.TimetableCells
                 .Include(c => c.Competitors)
                 .Include(c => c.Competition)
+                    .ThenInclude(c => c.RawNewss)
                 .Include(c => c.WinResult)
                 .Where(c => c.Id == winResult.Id)
                 .ToList().FirstOrDefault();
@@ -63,7 +64,8 @@ namespace GGBack.Controllers
 
             try
             {
-                bool isGenerated = ScheduleGenerator.GenerateForNewResults(cell, context);
+                bool isGenerated = ScheduleGenerator.GenerateForNewResults(cell, 
+                    context, cell.Competition);
 
                 if (!isGenerated)
                 {
