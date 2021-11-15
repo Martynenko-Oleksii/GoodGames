@@ -34,6 +34,11 @@ namespace GGBack.Controllers
             try
             {
                 Competitor competitor = context.Competitors.Find(competitorId);
+                if (competitor == null)
+                {
+                    return BadRequest("Учасника не існує :(");
+                }
+
                 List<Competitor> competitorsByOneEmail = context.Competitors
                     .Include(c => c.Competitions)
                         .ThenInclude(c => c.TimetableCells)

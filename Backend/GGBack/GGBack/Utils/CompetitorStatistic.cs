@@ -13,6 +13,16 @@ namespace GGBack.Utils
             int winCount = 0;
             foreach (Competitor competitor in competitorsByOneEmail)
             {
+                if (competitor.Competitions == null)
+                {
+                    continue;
+                }
+
+                if (competitor.Competitions.ElementAt(0).TimetableCells.Count < 1)
+                {
+                    continue;
+                }
+
                 int finalStage = competitor.Competitions.ElementAt(0).TimetableCells
                     .Select(tc => tc.GridStage)
                     .Max();
