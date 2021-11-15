@@ -218,7 +218,10 @@ namespace GGBack.Controllers
                 Users = new List<User>()
             };
 
-            User creator = context.Users.Find(competitionForCreateRequest.User.Id);
+            User creator = context.Users
+                .Include(u => u.Subscription)
+                .Where(u => u.Id == competitionForCreateRequest.User.Id)
+                .FirstOrDefault();
             try
             {
                 competition.Users.Add(creator);
