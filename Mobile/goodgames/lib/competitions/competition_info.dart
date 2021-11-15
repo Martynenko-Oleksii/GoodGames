@@ -125,13 +125,8 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                     ],
                                   )),
                               child: new Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
-                                  new Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
                                       new Container(
                                         margin: const EdgeInsets.only(),
                                         padding: EdgeInsets.all(10.0),
@@ -144,8 +139,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
+
                                   /*new Container(
                                     // margin: const EdgeInsets.symmetric(vertical: 0.0),
                                     padding: EdgeInsets.all(10.0),

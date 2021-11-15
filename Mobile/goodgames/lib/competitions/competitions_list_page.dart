@@ -305,13 +305,14 @@ class CompetitionListView extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                ButtonTheme(
-                                  minWidth: 250.0,
-                                  child: RaisedButton(
+                                Container(
+                                  width: 250 ,
+                                    child: RaisedButton(
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(18.0),
                                     ),
-                                    child: new Text(listData.title!),
+                                    child: new Text(listData.title!,
+                                    ),
                                     onPressed: () {
                                       Navigator.push<dynamic>(
                                         context,
@@ -322,7 +323,9 @@ class CompetitionListView extends StatelessWidget {
                                     },
                                     color: Colors.blue.shade200,
                                   ),
+
                                 ),
+
                                 new RaisedButton(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0),
