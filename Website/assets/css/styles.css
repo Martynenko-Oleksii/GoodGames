@@ -2010,3 +2010,45 @@ input[id=radio-2]:checked ~ .glider {
 .avatar{
   border: 3px solid rgba(0, 174, 237, 0.5);
 }
+.checkbox_system{
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.switch_system {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 80px;
+  height: 40px;
+  background: grey;
+  display: block;
+  border-radius: 100px;
+  position: relative;
+  float: right;
+}
+
+.switch_system:after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  border-radius: 90px;
+  transition: 0.3s;
+}
+
+.checkbox_system:checked + label {
+  background: #bada55;
+}
+
+.checkbox_system:checked + label:after {
+  left: calc(100% - 5px);
+  transform: translateX(-100%);
+}
+
+.switch_system:active:after {
+  width: 20px;
+}

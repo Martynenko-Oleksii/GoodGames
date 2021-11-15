@@ -127,7 +127,7 @@ function updateCompetitionGeneralInfo() {
     for (let competitor of info.competitors) {
       let tr = document.createElement("tr");
       tr.innerHTML =
-        `<td onclick="modal_user_about_show(${competitor.age}, ${competitor.gender}, ${competitor.healthState}, ${competitor.name}, ${competitor.team}, ${competitor.weigth});">
+        `<td>
             <div class="td-content customer-name">
                 <img src="/assets/images/user-game.png" alt="avatar">
                 <span>${competitor.name}</span>
@@ -135,6 +135,10 @@ function updateCompetitionGeneralInfo() {
         </td>
         <td><div class="td-content product-brand text-primary">${competitor.age}</div></td>
         <td><div class="td-content"><span class="badge badge-primary">${competitor.team}</span></div></td>`;
+        tr.onclick = function () {
+          // Передача информации в окно информации
+          modal_user_about_show(`${competitor.age}`, `${competitor.gender}`, `${competitor.healthState}`, `${competitor.name}`, `${competitor.team}`, `${competitor.weigth}`);
+      };
       competitorsTableBodyEl.appendChild(tr);
     }
   }
