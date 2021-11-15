@@ -58,7 +58,7 @@ class _CompetitionsheduleState extends State<CompetitionsheduleScreen>
         centerTitle: true,
         elevation: 0.0,
         title: new Text(
-          "shedule",
+          "Розклад",
           textScaleFactor: 1.3,
         ),
         flexibleSpace: Container(
@@ -178,12 +178,12 @@ class _CompetitionsheduleState extends State<CompetitionsheduleScreen>
                                 ), );
                               } else {
                                 return new Container(
-                                  margin: EdgeInsets.only(top: 15.0),
+                                  margin: EdgeInsets.only(top: 15.0 , left: 10 , right: 10),
                                   width:MediaQuery.of(context).size.width,
                                   height: 40,
                                   child: new RaisedButton(
                                     child: new Text(
-                                      "generateSchedule",
+                                      "Створити розклад",
                                       style: TextStyle(
                                         // h4 -> display1
 
@@ -217,33 +217,6 @@ class _CompetitionsheduleState extends State<CompetitionsheduleScreen>
                   ),
                 ),
 
-                /*   new Expanded(
-                    child: new Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisAlignment: MainAxisAlignment.end,
-
-                      children: <Widget>[
-                        new Container(
-                          //margin: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: new RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                            ),
-                            child: new Text("Register"),
-                            onPressed:(){
-                              Navigator.push<dynamic>(
-                                context,
-                                MaterialPageRoute<dynamic>(
-                                  builder: (BuildContext context) => RegistPage(),
-                                ),
-                              );
-                            },
-                            color: Colors.redAccent.shade200,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),*/
               ],
             ),
           ),
@@ -320,8 +293,57 @@ class CompetitionsheduleListView extends StatelessWidget {
   Widget isresolt(List<User> users, TimetableCell listData) {
     if (listData.winResult != null) {
       return Container(
+        child:  new Container(
+          //height: 70,
+          width: MediaQuery.of(context).size.width - 40,
+          padding: EdgeInsets.only( left: 10.0 , right: 10 , top: 5),
+          child: new Container(
+            decoration: BoxDecoration(
+                borderRadius:
+                BorderRadius.all(Radius.circular(30)),
+                color: Colors.amber.shade50,
+                border: Border.all(
+                    color: Colors.black, width: 2)),
+            child: new Row(
+              // crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                new Container(
+                  // margin: const EdgeInsets.symmetric(vertical: 0.0),
+                  padding: EdgeInsets.all(10.0),
+
+                  child: new Text(
+                    listData.competitors![0].name! +
+                        " - " +
+                        listData.competitors![1].name!,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: AppTheme.darkText,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                new Container(
+                  // margin: const EdgeInsets.symmetric(vertical: 0.0),
+                  padding: EdgeInsets.all(10.0),
+
+                  child: new Text(
+                    "Результат: "+
+                    listData.winResult!.score!,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: AppTheme.darkText,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+
+
         //TODO winResult ne to
-        child: Text(
+        /*child: Text(
           listData.competitors![0].name! +
               " - " +
               listData.competitors![1].name! +
@@ -333,12 +355,68 @@ class CompetitionsheduleListView extends StatelessWidget {
             fontWeight: FontWeight.w600,
             fontSize: 16,
           ),
-        ),
+        ),*/
       );
     } else {
       return Container(
+        child:  new Container(
+          //height: 70,
+          width: MediaQuery.of(context).size.width - 40,
+          padding: EdgeInsets.only( left: 10.0 , right: 10 , top: 5),
+          child: new Container(
+            decoration: BoxDecoration(
+                borderRadius:
+                BorderRadius.all(Radius.circular(30)),
+                color: Colors.amber.shade50,
+                border: Border.all(
+                    color: Colors.black, width: 2)),
+            child: new Row(
+              // crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                new Container(
+                  // margin: const EdgeInsets.symmetric(vertical: 0.0),
+                  padding: EdgeInsets.all(10.0),
+
+                  child: new Text(
+                    listData.competitors![0].name! +
+                        " - " +
+                        listData.competitors![1].name!,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: AppTheme.darkText,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 10,
+                ),
+                new Container(
+                  // margin: const EdgeInsets.symmetric(vertical: 0.0),
+                  padding: EdgeInsets.all(10.0),
+
+                  child: new Text(
+                    "Час: " +
+                    DateFormat('yyyy-MM-dd kk:mm').format(listData.dateTime!),
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: AppTheme.darkText,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(
+                    left: 5,
+                  ),
+                  child: admin(users),
+                )
+              ],
+            ),
+          ),
+        ),
         //TODO winResult ne to
-        child: Row(
+       /* child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -362,7 +440,7 @@ class CompetitionsheduleListView extends StatelessWidget {
                 child: admin(users),
               )
             ]),
-      );
+      */);
     }
   }
 
