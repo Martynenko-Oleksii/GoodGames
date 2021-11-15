@@ -80,7 +80,8 @@ namespace GGBack.Controllers
                     .Select(u => new User
                     {
                         Id = u.Id,
-                        Login = u.Login
+                        Login = u.Login,
+                        AvatarPath = u.AvatarPath
                     }));
             }
             catch (Exception ex)
