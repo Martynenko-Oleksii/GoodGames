@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:goodgames/login/regist.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-//import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../home_screen.dart';
 import '../../../main.dart';
@@ -459,7 +459,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                     padding: EdgeInsets.all(10.0),
 
                                     child: new Text(
-                                      "Трансляції",
+                                      "Трансляція",
                                       style: TextStyle(
                                         fontSize: 16,
                                         color: AppTheme.darkText,
@@ -474,7 +474,8 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                         height: 3,
                                         color: Colors.black,
                                       )),
-                                  //todo tyt   Stream(snapshot.data),
+                                  //todo tyt
+                                  Stream(snapshot.data),
                                   /* new RaisedButton(
                                     padding: EdgeInsets.all(10.0),
                                     shape: RoundedRectangleBorder(
@@ -962,7 +963,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                     padding: EdgeInsets.all(10.0),
 
                                     child: new Text(
-                                      "tournament grid",
+                                      "Турнірна сітка",
                                       style: TextStyle(
                                         fontSize: 16,
                                         color: AppTheme.darkText,
@@ -990,7 +991,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                     margin: const EdgeInsets.only(top: 15.0),
                                     child: new RaisedButton(
                                       child: new Text(
-                                        "shedule",
+                                        "Розклад",
                                         style: TextStyle(
                                           // h4 -> display1
 
@@ -1098,7 +1099,7 @@ for(User u in users){
     if (isdmin) {
       return Container(
         child: Container(
-          height: 300,
+          height: 250,
           padding: EdgeInsets.all(10.0),
           child: new Container(
             decoration: BoxDecoration(
@@ -1120,23 +1121,29 @@ for(User u in users){
                   ],
                 )),
             child: new Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 new Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     new Container(
-                      padding: EdgeInsets.all(10.0),
+                      height: 40,
+                      margin: EdgeInsets.all(10.0),
                       child: new RaisedButton(
                         padding: EdgeInsets.all(10.0),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ),
+                            borderRadius: BorderRadius.circular(5.0),
+                            side: BorderSide(color: Colors.white, width: 3)),
                         child: new Text(
-                          "send invitation",
+                          "Надіслати приголошення",
                           style: TextStyle(
-                            fontSize: 16,
-                            color: AppTheme.darkText,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            letterSpacing: 0.4,
+                            height: 0.9,
+                            color: Colors.white,
                           ),
                         ),
                         onPressed: () {
@@ -1145,7 +1152,7 @@ for(User u in users){
                             builder: (BuildContext context) => Form(
                               key: formKeyinvite,
                               child: new AlertDialog(
-                                title: const Text('Send invitation'),
+                                title: const Text('Надіслати приголошення'),
                                 content: new Column(
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1188,7 +1195,7 @@ for(User u in users){
                                       //  Navigator.of(context).pop();
                                     },
                                     textColor: Theme.of(context).primaryColor,
-                                    child: const Text('Send'),
+                                    child: const Text('Надіслати'),
                                   ),
                                   new FlatButton(
                                     onPressed: () {
@@ -1196,27 +1203,30 @@ for(User u in users){
                                       emailsendControl.text = '';
                                     },
                                     textColor: Theme.of(context).primaryColor,
-                                    child: const Text('Close'),
+                                    child: const Text('Закрити'),
                                   ),
                                 ],
                               ),
                             ),
                           );
                         },
-                        color: Colors.redAccent.shade200,
+                        color:  Colors.black.withOpacity(0.05),
                       ),
                     ),
 
                   ],
                 ),
                 new Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     new Container(
                       width: 200,
                       height: 40,
+                      margin: EdgeInsets.all(10.0),
                       child: new RaisedButton(
                         child: new Text(
-                          "add stream",
+                          "Додати трансляцію",
                           style: TextStyle(
                             // h4 -> display1
 
@@ -1236,7 +1246,8 @@ for(User u in users){
                             builder: (BuildContext context) => Form(
                               key: formKeyurl,
                               child: new AlertDialog(
-                                title: const Text('Send invitation'),
+                                title: const Text('Посилання на трансляцію',
+                                 ),
                                 content: new Column(
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1278,7 +1289,7 @@ for(User u in users){
                                       //  Navigator.of(context).pop();
                                     },
                                     textColor: Theme.of(context).primaryColor,
-                                    child: const Text('Add'),
+                                    child: const Text('Додати'),
                                   ),
                                   new FlatButton(
                                     onPressed: () {
@@ -1286,7 +1297,7 @@ for(User u in users){
                                       urlsendControl.text = '';
                                     },
                                     textColor: Theme.of(context).primaryColor,
-                                    child: const Text('Close'),
+                                    child: const Text('Закрити'),
                                   ),
                                 ],
                               ),
@@ -1298,13 +1309,17 @@ for(User u in users){
                     ),
                   ],
                 ),
-                new Row(children: [
+                new Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
                   new Container(
-                    width: 120,
-                    height: 40,
+                    width: 140,
+                    height: 60,
+                    margin: EdgeInsets.all(10.0),
                     child: new RaisedButton(
                       child: new Text(
-                        "add admin",
+                        "Додати адміністратора",
                         style: TextStyle(
                           // h4 -> display1
 
@@ -1324,7 +1339,7 @@ for(User u in users){
                           builder: (BuildContext context) => Form(
                             key: formKeyadmin,
                             child: new AlertDialog(
-                              title: const Text('Send invitation'),
+                              title: const Text('Додати адміністратора'),
                               content: new Column(
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1334,7 +1349,7 @@ for(User u in users){
                                     child: new TextFormField(
                                       controller: adminsendControl,
                                       decoration: new InputDecoration(
-                                        hintText: 'user email ',
+                                        hintText: 'Email ',
                                         filled: true,
                                         fillColor: Colors.white70,
                                       ),
@@ -1366,7 +1381,7 @@ for(User u in users){
                                     //  Navigator.of(context).pop();
                                   },
                                   textColor: Theme.of(context).primaryColor,
-                                  child: const Text('Add'),
+                                  child: const Text('Додати'),
                                 ),
                                 new FlatButton(
                                   onPressed: () {
@@ -1374,7 +1389,7 @@ for(User u in users){
                                     adminsendControl.text = '';
                                   },
                                   textColor: Theme.of(context).primaryColor,
-                                  child: const Text('Close'),
+                                  child: const Text('Закрити'),
                                 ),
                               ],
                             ),
@@ -1385,11 +1400,12 @@ for(User u in users){
                     ),
                   ),
                   new Container(
-                    width: 120,
-                    height: 40,
+                    width: 140,
+                    height: 60,
+                    margin: EdgeInsets.all(10.0),
                     child: new RaisedButton(
                       child: new Text(
-                        "delete admin",
+                        "Видалити адміністратора",
                         style: TextStyle(
                           // h4 -> display1
 
@@ -1409,7 +1425,7 @@ for(User u in users){
                           builder: (BuildContext context) => Form(
                             key: formKeyadmin,
                             child: new AlertDialog(
-                              title: const Text('delete admin'),
+                              title: const Text('Видалити адміністратора'),
                               content: new Column(
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1419,7 +1435,7 @@ for(User u in users){
                                     child: new TextFormField(
                                       controller: adminsendControl,
                                       decoration: new InputDecoration(
-                                        hintText: 'user ID ',
+                                        hintText: 'Email',
                                         filled: true,
                                         fillColor: Colors.white70,
                                       ),
@@ -1427,7 +1443,7 @@ for(User u in users){
                                         if (value!.isEmpty ||
                                             !RegExp(r'^[0-9]+$')
                                                 .hasMatch(value)) {
-                                          return "Enter Correct ID";
+                                          return "Enter Correct email";
                                         } else {
                                           return null;
                                         }
@@ -1451,7 +1467,7 @@ for(User u in users){
                                     //  Navigator.of(context).pop();
                                   },
                                   textColor: Theme.of(context).primaryColor,
-                                  child: const Text('Add'),
+                                  child: const Text('Додати'),
                                 ),
                                 new FlatButton(
                                   onPressed: () {
@@ -1459,7 +1475,7 @@ for(User u in users){
                                     adminsendControl.text = '';
                                   },
                                   textColor: Theme.of(context).primaryColor,
-                                  child: const Text('Close'),
+                                  child: const Text('Закрити'),
                                 ),
                               ],
                             ),
@@ -1480,10 +1496,11 @@ for(User u in users){
     }
   }
 
-/*
+
   Widget Stream(Competition comp){
     if(comp.streamUrl != null && comp.streamUrl !=''){
       return new Container(
+        margin: EdgeInsets.only(top: 10.0 , right: 10 , left: 10 , bottom: 15),
         child: YoutubePlayer(
           controller: YoutubePlayerController(
             initialVideoId: YoutubePlayer
@@ -1501,66 +1518,6 @@ for(User u in users){
     }else{
       return Container();
     }
-  }
-*/
-  Widget _buildPopupDialog(BuildContext context) {
-    return Form(
-      key: formKeyinvite,
-      child: new AlertDialog(
-        title: const Text('Send invitation'),
-        content: new Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            new Container(
-              // width: 275.0,
-              child: new TextFormField(
-                controller: emailsendControl,
-                decoration: new InputDecoration(
-                  hintText: 'Email',
-                  filled: true,
-                  fillColor: Colors.white70,
-                ),
-                validator: (value) {
-                  if (value!.isEmpty ||
-                      !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-                          .hasMatch(value)) {
-                    return "Enter Correct Email Address";
-                  } else {
-                    return null;
-                  }
-                },
-              ),
-            ),
-            // Text("Hello"),
-          ],
-        ),
-        actions: <Widget>[
-          new FlatButton(
-            onPressed: () {
-              if (formKeyinvite.currentState!.validate()) {
-                getDatahttp
-                    .postEmail(emailsendControl.text, widget.comp.id!,
-                        widget.comp.user!.id!)
-                    .then((value) => Navigator.of(context).pop());
-                emailsendControl.text = '';
-              }
-              //  Navigator.of(context).pop();
-            },
-            textColor: Theme.of(context).primaryColor,
-            child: const Text('Send'),
-          ),
-          new FlatButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              emailsendControl.text = '';
-            },
-            textColor: Theme.of(context).primaryColor,
-            child: const Text('Close'),
-          ),
-        ],
-      ),
-    );
   }
 
   void onPressed() {}
