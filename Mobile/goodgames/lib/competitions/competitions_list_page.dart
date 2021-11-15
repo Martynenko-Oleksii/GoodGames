@@ -12,7 +12,6 @@ import '../../../home_screen.dart';
 import '../../../main.dart';
 import '../apptheme.dart';
 import '../getdata.dart';
-import '../maket.dart';
 import 'competition_info.dart';
 import 'copetition_add.dart';
 

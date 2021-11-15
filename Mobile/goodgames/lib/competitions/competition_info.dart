@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:goodgames/login/regist.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+//import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../home_screen.dart';
 import '../../../main.dart';
@@ -468,8 +468,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                         height: 3,
                                         color: Colors.black,
                                       )),
-                                  //todo tyt
-                                  Stream(snapshot.data),
+                                  //todo tyt Stream(snapshot.data),
                                   /* new RaisedButton(
                                     padding: EdgeInsets.all(10.0),
                                     shape: RoundedRectangleBorder(
@@ -1491,7 +1490,7 @@ for(User u in users){
   }
 
 
-  Widget Stream(Competition comp){
+ /* Widget Stream(Competition comp){
     if(comp.streamUrl != null && comp.streamUrl !=''){
       return new Container(
         margin: EdgeInsets.only(top: 10.0 , right: 10 , left: 10 , bottom: 15),
@@ -1512,7 +1511,7 @@ for(User u in users){
     }else{
       return Container();
     }
-  }
+  }*/
 
   void onPressed() {}
 }

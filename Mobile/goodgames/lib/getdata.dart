@@ -1,6 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
 
+import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:path/path.dart';
+import 'package:async/async.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:goodgames/global.dart';
@@ -8,89 +11,81 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
 class getDatahttp {
-  static Future<User> postDateRegister(String name ,String email ,String pass) async {
+  static Future<User> postDateRegister(
+      String name, String email, String pass) async {
     User? user;
 
-    var body = jsonEncode( {
-      'login': name,
-      'email': email,
-      'password': pass
-    });
+    var body = jsonEncode({'login': name, 'email': email, 'password': pass});
 
     try {
       var response = await http.post(
           Uri.https("goodgames.kh.ua", "api/users/reg"),
           body: body,
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
-          user = User(
-              id: jsonData["id"],
-              login: jsonData["login"],
-              email: jsonData["email"],
-              password: jsonData["password"],
-              subscription:  jsonData["subscription"],
-              sports: jsonData["sports"]
-          );
+        user = User(
+            id: jsonData["id"],
+            login: jsonData["login"],
+            email: jsonData["email"],
+            password: jsonData["password"],
+            subscription: jsonData["subscription"],
+            sports: jsonData["sports"]);
       }
-    } catch(ex) {
+    } catch (ex) {
       print(ex);
     }
 
     return user!;
   }
 
-  static Future<User> postDateLogin(String email ,String pass) async {
+  static Future<User> postDateLogin(String email, String pass) async {
     User? user;
 
-    var body = jsonEncode( {
-      'email': email,
-      'password': pass
-    });
+    var body = jsonEncode({'email': email, 'password': pass});
 
     try {
       var response = await http.post(
           Uri.https("goodgames.kh.ua", "api/users/login"),
           body: body,
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
-        if(jsonData["subscription"] == null){
+        if (jsonData["subscription"] == null) {
           user = User(
-              id: jsonData["id"],
-              login: jsonData["login"],
-              email: jsonData["email"],
-              password: jsonData["password"],
-              subscription:  jsonData["subscription"],
+            id: jsonData["id"],
+            login: jsonData["login"],
+            email: jsonData["email"],
+            password: jsonData["password"],
+            subscription: jsonData["subscription"],
           );
         } else {
           user = User(
-              id: jsonData["id"],
-              login: jsonData["login"],
-              email: jsonData["email"],
-              password: jsonData["password"],
-              subscription:  Subscription(
-                id: jsonData["subscription"]["id"],
-                lvl: jsonData["subscription"]["level"],
-                start: DateTime.parse(
-                    jsonData["subscription"]["start"]
-                        .toString()
-                        .substring(0, 10) + " " +
-                        jsonData["subscription"]["start"]
-                            .toString()
-                            .substring(11)),
-                end: DateTime.parse(
-                    jsonData["subscription"]["end"]
-                        .toString()
-                        .substring(0, 10) + " " +
-                        jsonData["subscription"]["end"]
-                            .toString()
-                            .substring(11)),
-              ),
+            id: jsonData["id"],
+            login: jsonData["login"],
+            email: jsonData["email"],
+            password: jsonData["password"],
+            subscription: Subscription(
+              id: jsonData["subscription"]["id"],
+              lvl: jsonData["subscription"]["level"],
+              start: DateTime.parse(jsonData["subscription"]["start"]
+                      .toString()
+                      .substring(0, 10) +
+                  " " +
+                  jsonData["subscription"]["start"].toString().substring(11)),
+              end: DateTime.parse(
+                  jsonData["subscription"]["end"].toString().substring(0, 10) +
+                      " " +
+                      jsonData["subscription"]["end"].toString().substring(11)),
+            ),
           );
         }
 
@@ -107,13 +102,12 @@ class getDatahttp {
               hasTeam: s["hasTeam"],
               minTeamsCount: s["minTeamsCount"],
               teamSize: s["teamSize"],
-              hasGrid: s["hasGrid"]
-          );
+              hasGrid: s["hasGrid"]);
           sports.add(sport);
           user.sports = sports;
         }
       }
-    } catch(ex) {
+    } catch (ex) {
       print(ex);
     }
 
@@ -124,10 +118,11 @@ class getDatahttp {
     User? user;
 
     try {
-      var response = await http.get(
-          Uri.https("goodgames.kh.ua", "api/users/$userId"),
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+      var response = await http
+          .get(Uri.https("goodgames.kh.ua", "api/users/$userId"), headers: {
+        'Accept': 'application/json',
+        'content-type': 'application/json'
+      });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
@@ -143,19 +138,13 @@ class getDatahttp {
             id: jsonData["subscription"]["id"],
             lvl: jsonData["subscription"]["level"],
             start: DateTime.parse(
-                jsonData["subscription"]["start"]
-                    .toString()
-                    .substring(0, 10) + " " +
-                    jsonData["subscription"]["start"]
-                        .toString()
-                        .substring(11)),
+                jsonData["subscription"]["start"].toString().substring(0, 10) +
+                    " " +
+                    jsonData["subscription"]["start"].toString().substring(11)),
             end: DateTime.parse(
-                jsonData["subscription"]["end"]
-                    .toString()
-                    .substring(0, 10) + " " +
-                    jsonData["subscription"]["end"]
-                        .toString()
-                        .substring(11)),
+                jsonData["subscription"]["end"].toString().substring(0, 10) +
+                    " " +
+                    jsonData["subscription"]["end"].toString().substring(11)),
           );
         }
 
@@ -172,27 +161,27 @@ class getDatahttp {
               hasTeam: s["hasTeam"],
               minTeamsCount: s["minTeamsCount"],
               teamSize: s["teamSize"],
-              hasGrid: s["hasGrid"]
-          );
+              hasGrid: s["hasGrid"]);
           sports.add(sport);
           user.sports = sports;
         }
       }
-    } catch(ex) {
+    } catch (ex) {
       print(ex);
     }
 
     return user!;
   }
 
-  static Future<List<Sport>> getFavouriteSports(int userId) async{
+  static Future<List<Sport>> getFavouriteSports(int userId) async {
     List<Sport> sports = [];
 
     try {
-      var response = await http.get(
-          Uri.https("goodgames.kh.ua", "api/sports/$userId"),
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+      var response = await http
+          .get(Uri.https("goodgames.kh.ua", "api/sports/$userId"), headers: {
+        'Accept': 'application/json',
+        'content-type': 'application/json'
+      });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
@@ -204,8 +193,7 @@ class getDatahttp {
               hasTeam: s["hasTeam"],
               minTeamsCount: s["minTeamsCount"],
               teamSize: s["teamSize"],
-              hasGrid: s["hasGrid"]
-          );
+              hasGrid: s["hasGrid"]);
 
           sports.add(sport);
         }
@@ -219,7 +207,7 @@ class getDatahttp {
     return sports;
   }
 
-  static Future<dynamic> getCompetitions(int userId) async{
+  static Future<dynamic> getCompetitions(int userId) async {
     List<Competition> competitions = [];
 
     print(userId);
@@ -227,16 +215,15 @@ class getDatahttp {
     try {
       var response = await http.get(
           Uri.https("goodgames.kh.ua", "api/competitions/users/$userId"),
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
         for (var s in jsonData) {
-          Competition competition = Competition(
-              id: s["id"],
-              title: s["title"]
-          );
+          Competition competition = Competition(id: s["id"], title: s["title"]);
 
           competitions.add(competition);
         }
@@ -251,14 +238,16 @@ class getDatahttp {
     return competitions;
   }
 
-  static Future<Competition> getCompetition(int competitionId) async{
+  static Future<Competition> getCompetition(int competitionId) async {
     Competition? competition;
 
     try {
       var response = await http.get(
           Uri.https("goodgames.kh.ua", "api/competitions/$competitionId"),
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
@@ -269,38 +258,30 @@ class getDatahttp {
             title: jsonData[0]["title"],
             isOpen: jsonData[0]["isOpen"],
             sport: Sport(
-              id: jsonData[0]["sport"]["id"],
-              title: jsonData[0]["sport"]["title"],
-              minCompetitorsCount: jsonData[0]["sport"]["minCompetitorsCount"],
-              hasTeam: jsonData[0]["sport"]["hasTeam"],
-              minTeamsCount: jsonData[0]["sport"]["minTeamsCount"],
-              teamSize: jsonData[0]["sport"]["teamSize"],
-              hasGrid: jsonData[0]["sport"]["hasGrid"]
-          ),
+                id: jsonData[0]["sport"]["id"],
+                title: jsonData[0]["sport"]["title"],
+                minCompetitorsCount: jsonData[0]["sport"]
+                    ["minCompetitorsCount"],
+                hasTeam: jsonData[0]["sport"]["hasTeam"],
+                minTeamsCount: jsonData[0]["sport"]["minTeamsCount"],
+                teamSize: jsonData[0]["sport"]["teamSize"],
+                hasGrid: jsonData[0]["sport"]["hasGrid"]),
             ageLimit: jsonData[0]["ageLimit"],
             city: jsonData[0]["city"],
             startDate: DateTime.parse(
-                jsonData[0]["startDate"]
-                    .toString()
-                    .substring(0, 10) + " " +
-                    jsonData[0]["startDate"]
-                        .toString()
-                        .substring(11)),
+                jsonData[0]["startDate"].toString().substring(0, 10) +
+                    " " +
+                    jsonData[0]["startDate"].toString().substring(11)),
             endDate: DateTime.parse(
-                jsonData[0]["endDate"]
-                    .toString()
-                    .substring(0, 10) + " " +
-                    jsonData[0]["endDate"]
-                        .toString()
-                        .substring(11)),
+                jsonData[0]["endDate"].toString().substring(0, 10) +
+                    " " +
+                    jsonData[0]["endDate"].toString().substring(11)),
             isPublic: jsonData[0]["isPublic"],
             user: User(
                 id: jsonData[0]["user"]["id"],
-                login: jsonData[0]["user"]["login"]
-            ),
+                login: jsonData[0]["user"]["login"]),
             streamUrl: jsonData[0]["streamUrl"],
-            state: jsonData[0]["state"]
-        );
+            state: jsonData[0]["state"]);
 
         List<Competitor> competitors = [];
         for (var c in jsonData[0]["competitors"]) {
@@ -312,8 +293,7 @@ class getDatahttp {
               gender: c["gender"],
               weigth: c["weigth"],
               healthState: c["healthState"],
-              team: c["team"]
-          ));
+              team: c["team"]));
         }
 
         competition.competitors = competitors;
@@ -330,28 +310,28 @@ class getDatahttp {
   }
 
   static Future<Competition> postNewCompetition(
-      String title, bool isOpen, int sportId,
-      String ageLimit, String city,
-      DateTime startDate, DateTime endDate,
-      bool isPublic, int userId) async {
-
+      String title,
+      bool isOpen,
+      int sportId,
+      String ageLimit,
+      String city,
+      DateTime startDate,
+      DateTime endDate,
+      bool isPublic,
+      int userId) async {
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     Competition? competition;
 
-    var body = jsonEncode( {
+    var body = jsonEncode({
       'title': title,
       'isOpen': isOpen,
-      'sport': {
-        'id': sportId
-      },
+      'sport': {'id': sportId},
       'ageLimit': ageLimit,
       'city': city,
       'startDate': formatter.format(startDate),
       'endDate': formatter.format(endDate),
       'isPublic': isPublic,
-      'user': {
-        'id': userId
-      }
+      'user': {'id': userId}
     });
 
     print(body);
@@ -360,34 +340,36 @@ class getDatahttp {
       var response = await http.post(
           Uri.https("goodgames.kh.ua", "api/competitions/create"),
           body: body,
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
-        competition = Competition(
-          id: jsonData["id"],
-          title: jsonData["title"]
-        );
+        competition = Competition(id: jsonData["id"], title: jsonData["title"]);
       } else {
         print(response.statusCode);
         print(response.body);
       }
-    } catch(ex) {
+    } catch (ex) {
       print(ex);
     }
 
     return competition!;
   }
 
-  static Future<Competition> deleteCompetition(int competitionId) async{
+  static Future<Competition> deleteCompetition(int competitionId) async {
     Competition? competition;
 
     try {
       var response = await http.get(
-          Uri.https("goodgames.kh.ua", "api/competitions/delete/$competitionId"),
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          Uri.https(
+              "goodgames.kh.ua", "api/competitions/delete/$competitionId"),
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
@@ -403,14 +385,17 @@ class getDatahttp {
   }
 
   static Future<Competitor?> postNewCompetitor(
-      String name, String email, int age,
-      String gender, int weigth,
-      String healthState, String team,
+      String name,
+      String email,
+      int age,
+      String gender,
+      int weigth,
+      String healthState,
+      String team,
       int competitionId) async {
-
     Competitor? competitor;
 
-    var body = jsonEncode( {
+    var body = jsonEncode({
       'name': name,
       'email': email,
       'age': age,
@@ -418,53 +403,52 @@ class getDatahttp {
       'weigth': weigth,
       'healthState': healthState,
       'team': team,
-      'competitions': [{'id': competitionId}]
+      'competitions': [
+        {'id': competitionId}
+      ]
     });
 
     try {
       var response = await http.post(
           Uri.https("goodgames.kh.ua", "api/competitors"),
           body: body,
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
       //print(response.body);
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
-        competitor = Competitor(
-            id: jsonData["id"],
-            name: jsonData["name"]
-        );
+        competitor = Competitor(id: jsonData["id"], name: jsonData["name"]);
       }
-    } catch(ex) {
+    } catch (ex) {
       print(ex);
     }
-   // print("$name , $email,$age ,$gender ,$weigth , $healthState ,$team , $competitionId");
-   // print(competitor);
+    // print("$name , $email,$age ,$gender ,$weigth , $healthState ,$team , $competitionId");
+    // print(competitor);
 
     return competitor;
   }
 
-  static Future<bool> postEmail(String email , int competitionId , int id) async{
-
+  static Future<bool> postEmail(String email, int competitionId, int id) async {
     bool result = false;
 
     var body = jsonEncode({
-      'competitionId' : competitionId,
+      'competitionId': competitionId,
       'email': email,
-      'userId' : id,
+      'userId': id,
     });
 
     try {
-      var response = await http.post(
-          Uri.https("goodgames.kh.ua", "api/post"),
+      var response = await http.post(Uri.https("goodgames.kh.ua", "api/post"),
           body: body,
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
-
         result = true;
-
       } else {
         print(response.body);
       }
@@ -476,14 +460,15 @@ class getDatahttp {
     return result;
   }
 
-  static Future<List<Sport>> getSports() async{
+  static Future<List<Sport>> getSports() async {
     List<Sport> sports = [];
 
     try {
-      var response = await http.get(
-          Uri.https("goodgames.kh.ua", "api/sports"),
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+      var response = await http.get(Uri.https("goodgames.kh.ua", "api/sports"),
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
@@ -495,8 +480,7 @@ class getDatahttp {
               hasTeam: s["hasTeam"],
               minTeamsCount: s["minTeamsCount"],
               teamSize: s["teamSize"],
-              hasGrid: s["hasGrid"]
-          );
+              hasGrid: s["hasGrid"]);
 
           sports.add(sport);
         }
@@ -512,36 +496,30 @@ class getDatahttp {
     return sports;
   }
 
-  static Future<User?> subscribe(int id) async{
-
+  static Future<User?> subscribe(int id) async {
     User? subUser;
 
     try {
-      var response = await http.get(
-          Uri.https("goodgames.kh.ua", "api/subs/$id"),
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+      var response = await http
+          .get(Uri.https("goodgames.kh.ua", "api/subs/$id"), headers: {
+        'Accept': 'application/json',
+        'content-type': 'application/json'
+      });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
         subUser = User(
-          subscription:  Subscription(
+          subscription: Subscription(
             id: jsonData["subscription"]["id"],
             lvl: jsonData["subscription"]["level"],
             start: DateTime.parse(
-                jsonData["subscription"]["start"]
-                    .toString()
-                    .substring(0, 10) + " " +
-                    jsonData["subscription"]["start"]
-                        .toString()
-                        .substring(11)),
+                jsonData["subscription"]["start"].toString().substring(0, 10) +
+                    " " +
+                    jsonData["subscription"]["start"].toString().substring(11)),
             end: DateTime.parse(
-                jsonData["subscription"]["end"]
-                    .toString()
-                    .substring(0, 10) + " " +
-                    jsonData["subscription"]["end"]
-                        .toString()
-                        .substring(11)),
+                jsonData["subscription"]["end"].toString().substring(0, 10) +
+                    " " +
+                    jsonData["subscription"]["end"].toString().substring(11)),
           ),
         );
       } else {
@@ -554,28 +532,26 @@ class getDatahttp {
     return subUser;
   }
 
-  static Future<List<TimetableCell>> getTimetable(int competitionId) async{
+  static Future<List<TimetableCell>> getTimetable(int competitionId) async {
     List<TimetableCell> cells = [];
 
     try {
       var response = await http.get(
           Uri.https("goodgames.kh.ua", "api/timetables/$competitionId"),
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
         for (var s in jsonData) {
-         // print(s);
+          // print(s);
           TimetableCell cell = TimetableCell(
             id: s["id"],
-            dateTime: DateTime.parse(
-                s["dateTime"]
-                    .toString()
-                    .substring(0, 10) + " " +
-                    s["dateTime"]
-                        .toString()
-                        .substring(11)),
+            dateTime: DateTime.parse(s["dateTime"].toString().substring(0, 10) +
+                " " +
+                s["dateTime"].toString().substring(11)),
             gridStage: s["gridStage"],
           );
 
@@ -589,25 +565,22 @@ class getDatahttp {
                 gender: c["gender"],
                 weigth: c["weigth"],
                 healthState: c["healthState"],
-                team: c["team"]
-            ));
+                team: c["team"]));
           }
           cell.competitors = cellCompetitors;
 
-          if (s["winResult"] != null)
-          {
+          if (s["winResult"] != null) {
             cell.winResult = WinResult(
                 id: s["winResult"]["id"],
                 teamOne: s["winResult"]["teamOne"],
                 teamTwo: s["winResult"]["teamTwo"],
-                score: s["winResult"]["score"]
-            );
+                score: s["winResult"]["score"]);
           }
 
           cells.add(cell);
         }
       } else {
-      //  print(response.body);
+        //  print(response.body);
       }
     } catch (ex) {
       print(ex);
@@ -617,21 +590,20 @@ class getDatahttp {
     return cells;
   }
 
-  static Future<bool> generateSchedule(int competitionId, String start, String end) async {
+  static Future<bool> generateSchedule(
+      int competitionId, String start, String end) async {
     bool result = false;
 
-    var body = jsonEncode({
-      'id': competitionId,
-      'start': start,
-      'end': end
-    });
+    var body = jsonEncode({'id': competitionId, 'start': start, 'end': end});
 
     try {
       var response = await http.post(
           Uri.https("goodgames.kh.ua", "api/timetables/create"),
           body: body,
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
         result = true;
@@ -650,25 +622,23 @@ class getDatahttp {
   static Future<User> changeLogin(User u) async {
     User? user;
 
-    var body = jsonEncode({
-      'id': u.id,
-      'login': u.login
-    });
+    var body = jsonEncode({'id': u.id, 'login': u.login});
 
     try {
       var response = await http.post(
           Uri.https("goodgames.kh.ua", "api/users/change/login"),
           body: body,
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
         user = User(
             id: jsonData["id"],
             login: jsonData["login"],
-            email: jsonData["email"]
-        );
+            email: jsonData["email"]);
       }
     } catch (ex) {
       print(ex);
@@ -680,25 +650,23 @@ class getDatahttp {
   static Future<User> changeEmail(User u) async {
     User? user;
 
-    var body = jsonEncode({
-      'id': u.id,
-      'email': u.email
-    });
+    var body = jsonEncode({'id': u.id, 'email': u.email});
 
     try {
       var response = await http.post(
           Uri.https("goodgames.kh.ua", "api/users/change/email"),
           body: body,
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
         user = User(
             id: jsonData["id"],
             login: jsonData["login"],
-            email: jsonData["email"]
-        );
+            email: jsonData["email"]);
       }
     } catch (ex) {
       print(ex);
@@ -710,17 +678,16 @@ class getDatahttp {
   static Future<User> changePassword(User u) async {
     User? user;
 
-    var body = jsonEncode({
-      'id': u.id,
-      'password': u.password
-    });
+    var body = jsonEncode({'id': u.id, 'password': u.password});
 
     try {
       var response = await http.post(
           Uri.https("goodgames.kh.ua", "api/users/change/password"),
           body: body,
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
@@ -728,8 +695,7 @@ class getDatahttp {
             id: jsonData["id"],
             login: jsonData["login"],
             email: jsonData["email"],
-            password: jsonData["password"]
-        );
+            password: jsonData["password"]);
       }
     } catch (ex) {
       print(ex);
@@ -742,14 +708,16 @@ class getDatahttp {
   static Future<bool> generateToken(String email) async {
     bool result = false;
 
-    var body = jsonEncode({ 'email': email });
+    var body = jsonEncode({'email': email});
 
     try {
       var response = await http.post(
           Uri.https("goodgames.kh.ua", "api/users/token"),
           body: body,
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
         result = true;
@@ -765,21 +733,21 @@ class getDatahttp {
     return result;
   }
 
-  static Future<User> changeForgottenPassword(String token, String email, String newPassword) async {
+  static Future<User> changeForgottenPassword(
+      String token, String email, String newPassword) async {
     User? user;
 
-    var body = jsonEncode({
-      'token': token,
-      'email': email,
-      'newPassword': newPassword
-    });
+    var body = jsonEncode(
+        {'token': token, 'email': email, 'newPassword': newPassword});
 
     try {
       var response = await http.post(
           Uri.https("goodgames.kh.ua", "api/users/change/forgotten"),
           body: body,
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
@@ -787,8 +755,7 @@ class getDatahttp {
             id: jsonData["id"],
             login: jsonData["login"],
             email: jsonData["email"],
-            password: jsonData["password"]
-        );
+            password: jsonData["password"]);
       } else {
         print(response.body);
       }
@@ -799,9 +766,8 @@ class getDatahttp {
     return user!;
   }
 
-  static Future<bool> postResults(int timetableCellId,
-      String teamOne, String teamTwo,
-      String teamOneResult, String teamTwoResult) async {
+  static Future<bool> postResults(int timetableCellId, String teamOne,
+      String teamTwo, String teamOneResult, String teamTwoResult) async {
     bool result = false;
 
     var body = jsonEncode({
@@ -815,8 +781,10 @@ class getDatahttp {
       var response = await http.post(
           Uri.https("goodgames.kh.ua", "api/results"),
           body: body,
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
         result = true;
@@ -830,14 +798,15 @@ class getDatahttp {
     return result;
   }
 
-  static Future<List<Competition>> getAllCompetitions() async{
+  static Future<List<Competition>> getAllCompetitions() async {
     List<Competition> competitions = [];
 
     try {
-      var response = await http.get(
-          Uri.https("goodgames.kh.ua", "api/competitions"),
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+      var response = await http
+          .get(Uri.https("goodgames.kh.ua", "api/competitions"), headers: {
+        'Accept': 'application/json',
+        'content-type': 'application/json'
+      });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
@@ -852,24 +821,15 @@ class getDatahttp {
                   hasTeam: c["sport"]["hasTeam"],
                   minTeamsCount: c["sport"]["minTeamsCount"],
                   teamSize: c["sport"]["teamSize"],
-                  hasGrid: c["sport"]["hasGrid"]
-              ),
+                  hasGrid: c["sport"]["hasGrid"]),
               startDate: DateTime.parse(
-                  c["startDate"]
-                      .toString()
-                      .substring(0, 10) + " " +
-                      c["startDate"]
-                          .toString()
-                          .substring(11)),
-              endDate: DateTime.parse(
-                  c["endDate"]
-                      .toString()
-                      .substring(0, 10) + " " +
-                      c["endDate"]
-                          .toString()
-                          .substring(11)),
-              state: c["state"]
-          );
+                  c["startDate"].toString().substring(0, 10) +
+                      " " +
+                      c["startDate"].toString().substring(11)),
+              endDate: DateTime.parse(c["endDate"].toString().substring(0, 10) +
+                  " " +
+                  c["endDate"].toString().substring(11)),
+              state: c["state"]);
 
           competitions.add(competition);
         }
@@ -883,14 +843,16 @@ class getDatahttp {
     return competitions;
   }
 
-  static Future<List<Competition>> getFavouriteCompetitions(int userId) async{
+  static Future<List<Competition>> getFavouriteCompetitions(int userId) async {
     List<Competition> competitions = [];
 
     try {
       var response = await http.get(
           Uri.https("goodgames.kh.ua", "api/competitions/favourites/$userId"),
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
@@ -905,24 +867,15 @@ class getDatahttp {
                   hasTeam: c["sport"]["hasTeam"],
                   minTeamsCount: c["sport"]["minTeamsCount"],
                   teamSize: c["sport"]["teamSize"],
-                  hasGrid: c["sport"]["hasGrid"]
-              ),
+                  hasGrid: c["sport"]["hasGrid"]),
               startDate: DateTime.parse(
-                  c["startDate"]
-                      .toString()
-                      .substring(0, 10) + " " +
-                      c["startDate"]
-                          .toString()
-                          .substring(11)),
-              endDate: DateTime.parse(
-                  c["endDate"]
-                      .toString()
-                      .substring(0, 10) + " " +
-                      c["endDate"]
-                          .toString()
-                          .substring(11)),
-              state: c["state"]
-          );
+                  c["startDate"].toString().substring(0, 10) +
+                      " " +
+                      c["startDate"].toString().substring(11)),
+              endDate: DateTime.parse(c["endDate"].toString().substring(0, 10) +
+                  " " +
+                  c["endDate"].toString().substring(11)),
+              state: c["state"]);
 
           competitions.add(competition);
         }
@@ -936,19 +889,19 @@ class getDatahttp {
     return competitions;
   }
 
-  static Future<dynamic> addFavouriteSport(int userId, int sportId) async{
+  static Future<dynamic> addFavouriteSport(int userId, int sportId) async {
     List<Sport> sports = [];
 
-    var body = jsonEncode({
-      'id': sportId
-    });
+    var body = jsonEncode({'id': sportId});
 
     try {
       var response = await http.post(
           Uri.https("goodgames.kh.ua", "api/addsport/$userId"),
           body: body,
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
@@ -960,8 +913,7 @@ class getDatahttp {
               hasTeam: s["hasTeam"],
               minTeamsCount: s["minTeamsCount"],
               teamSize: s["teamSize"],
-              hasGrid: s["hasGrid"]
-          );
+              hasGrid: s["hasGrid"]);
 
           sports.add(sport);
         }
@@ -976,19 +928,20 @@ class getDatahttp {
     return sports;
   }
 
-  static Future<List<Sport>> deleteFavouriteSport(int userId, int sportId) async{
+  static Future<List<Sport>> deleteFavouriteSport(
+      int userId, int sportId) async {
     List<Sport> sports = [];
 
-    var body = jsonEncode({
-      'id': sportId
-    });
+    var body = jsonEncode({'id': sportId});
 
     try {
       var response = await http.post(
           Uri.https("goodgames.kh.ua", "api/deletesport/$userId"),
           body: body,
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
@@ -1000,8 +953,7 @@ class getDatahttp {
               hasTeam: s["hasTeam"],
               minTeamsCount: s["minTeamsCount"],
               teamSize: s["teamSize"],
-              hasGrid: s["hasGrid"]
-          );
+              hasGrid: s["hasGrid"]);
 
           sports.add(sport);
         }
@@ -1015,27 +967,25 @@ class getDatahttp {
     return sports;
   }
 
-  static Future<List<User>> addAdmin(int competitionId, String email) async{
+  static Future<List<User>> addAdmin(int competitionId, String email) async {
     List<User> users = [];
 
-    var body = jsonEncode({
-      'email': email
-    });
+    var body = jsonEncode({'email': email});
 
     try {
       var response = await http.post(
-          Uri.https("goodgames.kh.ua", "api/competitions/addadmin/$competitionId"),
+          Uri.https(
+              "goodgames.kh.ua", "api/competitions/addadmin/$competitionId"),
           body: body,
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
         for (var s in jsonData) {
-          User user = User(
-              id: s["id"],
-              login: s["login"]
-          );
+          User user = User(id: s["id"], login: s["login"]);
 
           users.add(user);
         }
@@ -1049,27 +999,26 @@ class getDatahttp {
     return users;
   }
 
-  static Future<List<User>> deleteAdmin(int competitionId, String userId) async{
+  static Future<List<User>> deleteAdmin(
+      int competitionId, String userId) async {
     List<User> users = [];
 
-    var body = jsonEncode({
-      'id': userId
-    });
+    var body = jsonEncode({'id': userId});
 
     try {
       var response = await http.post(
-          Uri.https("goodgames.kh.ua", "api/competitions/deleteadmin/$competitionId"),
+          Uri.https(
+              "goodgames.kh.ua", "api/competitions/deleteadmin/$competitionId"),
           body: body,
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
         for (var s in jsonData) {
-          User user = User(
-              id: s["id"],
-              login: s["login"]
-          );
+          User user = User(id: s["id"], login: s["login"]);
 
           users.add(user);
         }
@@ -1083,22 +1032,21 @@ class getDatahttp {
     return users;
   }
 
-  static Future<List<User>> getAllAdmins(int competitionId) async{
+  static Future<List<User>> getAllAdmins(int competitionId) async {
     List<User> users = [];
 
     try {
       var response = await http.get(
           Uri.https("goodgames.kh.ua", "api/admins/$competitionId"),
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
         for (var s in jsonData) {
-          User user = User(
-              id: s["id"],
-              login: s["login"]
-          );
+          User user = User(id: s["id"], login: s["login"]);
 
           users.add(user);
         }
@@ -1112,27 +1060,25 @@ class getDatahttp {
     return users;
   }
 
-  static Future<Competition> addStreamUrl(int competitionId, String streamUrl) async{
+  static Future<Competition> addStreamUrl(
+      int competitionId, String streamUrl) async {
     Competition? competition;
 
-    var body = jsonEncode({
-      'id': competitionId,
-      'streamUrl': streamUrl
-    });
+    var body = jsonEncode({'id': competitionId, 'streamUrl': streamUrl});
 
     try {
       var response = await http.post(
           Uri.https("goodgames.kh.ua", "api/competitions/addstream"),
           body: body,
-          headers: {'Accept' : 'application/json' , 'content-type' : 'application/json'}
-      );
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
-        competition = Competition(
-          id: jsonData["id"],
-          streamUrl: jsonData["streamUrl"]
-        );
+        competition =
+            Competition(id: jsonData["id"], streamUrl: jsonData["streamUrl"]);
       } else {
         print(response.body);
       }
@@ -1142,6 +1088,38 @@ class getDatahttp {
 
     return competition!;
   }
+
+  static UploadImg(File photoFile, int userId) async {
+    var dio = new Dio();
+    String fileName = photoFile.path.split('/').last;
+    var formData = FormData.fromMap({'image': await MultipartFile.fromFile(photoFile.path, filename:fileName),});
+    try {
+      //404
+      var response = await dio.post(
+          "https://www.goodgames.kh.ua/api/users/change/image/$userId",
+          data: formData,
+          options: Options(
+              method: 'POST',
+             // responseType: ResponseType.json,
+            contentType: 'STREAM',
+              ));
+      print(response);
+    } on DioError catch (e) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      if (e.response != null) {
+        print(e.response!.data);
+        print(e.response!.headers);
+        print(e.response!.requestOptions);
+        print(e.message);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        print(e.requestOptions);
+        print(e.message);
+      }
+    }
+    print('1');
+  }
+
+  static DelImg(int userId) async {}
 }
-
-

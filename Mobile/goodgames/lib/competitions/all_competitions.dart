@@ -11,7 +11,6 @@ import '../../../home_screen.dart';
 import '../../../main.dart';
 import '../apptheme.dart';
 import '../getdata.dart';
-import '../maket.dart';
 import 'competition_info.dart';
 import 'competitions_list_page.dart';
 
@@ -67,7 +66,7 @@ class _AllCompetitionsState extends State<AllCompetitionsStat>
             crossAxisAlignment: CrossAxisAlignment.center,
             children:[
               new Text(
-                "Список змeweагань",
+                "Список змагань",
                 textScaleFactor: 1.3,
               ),
               new Container(

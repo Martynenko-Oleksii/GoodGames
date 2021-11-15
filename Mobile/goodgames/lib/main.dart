@@ -8,7 +8,7 @@ import 'apptheme.dart';
 import 'competitions/competitions_list_page.dart';
 import 'login/login.dart';
 import 'login/regist.dart';
-import 'maket.dart';
+
 
 void main() {
   runApp(MyApp());
