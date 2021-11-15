@@ -164,6 +164,7 @@
                                 <a id="profile" class="active_tab" onclick="profile(); this.classList.add('active_tab');">Профіль</a>
                                 <a id="subs" onclick="subs(); this.classList.add('active_tab');">Підписки</a>
                                 <a id="themes" onclick="theme(); this.classList.add('active_tab');">Теми</a>
+                                <a id="system" onclick="system(); this.classList.add('active_tab');">Система</a>
                             </div>
                         </div>
 
@@ -305,6 +306,13 @@
                                 <label for="form_street" class="form-label" style="padding-top: 10px;"><a id="files_error" style="color: rgb(87, 87, 87); cursor: default;">Тема зберігається лише на цьому компьютері.</a></label>
                             </div>
                         </div>
+
+                        
+                        <div id="system_settings" style="display: none;">
+                            <h5 class="text-md-left mt-4">Повідомлення:</h5>
+
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -495,9 +503,11 @@
                 document.getElementById("tab_sub").textContent = "Змініть такі параметри, як аватар, логін пошту або пароль у системі.";
                 document.getElementById("subs").classList.remove('active_tab');
                 document.getElementById("themes").classList.remove('active_tab');
+                document.getElementById("system").classList.remove('active_tab');
                 document.getElementById("profile_settings").style.display = "block";
                 document.getElementById("sub_settings").style.display = "none";
                 document.getElementById("theme_settings").style.display = "none";
+                document.getElementById("system_settings").style.display = "none";
             }
 
             function subs(){
@@ -505,7 +515,9 @@
                 document.getElementById("tab_sub").textContent = "Виберіть, на які види спорту підписатися, щоб отримувати змагання, що відповідають вашим інтересам.";
                 document.getElementById("profile").classList.remove('active_tab');
                 document.getElementById("themes").classList.remove('active_tab');
+                document.getElementById("system").classList.remove('active_tab');
                 document.getElementById("profile_settings").style.display = "none";
+                document.getElementById("system_settings").style.display = "none";
                 document.getElementById("sub_settings").style.display = "block";
                 document.getElementById("theme_settings").style.display = "none";
             }
@@ -515,9 +527,23 @@
                 document.getElementById("tab_sub").textContent = "Виберіть деякі параметри інтерфейсу на власний смак.";
                 document.getElementById("profile").classList.remove('active_tab');
                 document.getElementById("subs").classList.remove('active_tab');
+                document.getElementById("system").classList.remove('active_tab');
                 document.getElementById("profile_settings").style.display = "none";
                 document.getElementById("sub_settings").style.display = "none";
+                document.getElementById("system_settings").style.display = "none";
                 document.getElementById("theme_settings").style.display = "block";
+            }
+
+            function system(){
+                document.getElementById("tab_name").textContent = "Системні параметри";
+                document.getElementById("tab_sub").textContent = "Налаштуйте параметри взаємодії платформи з вашою системою та пристроєм.";
+                document.getElementById("profile").classList.remove('active_tab');
+                document.getElementById("subs").classList.remove('active_tab');
+                document.getElementById("system").classList.remove('active_tab');
+                document.getElementById("profile_settings").style.display = "none";
+                document.getElementById("sub_settings").style.display = "none";
+                document.getElementById("theme_settings").style.display = "none";
+                document.getElementById("system_settings").style.display = "block";
             }
 
             function chan_pass(){

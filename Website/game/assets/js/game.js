@@ -127,9 +127,9 @@ function updateCompetitionGeneralInfo() {
     for (let competitor of info.competitors) {
       let tr = document.createElement("tr");
       tr.innerHTML =
-        `<td>
+        `<td onclick="modal_user_about_show(${competitor.age}, ${competitor.gender}, ${competitor.healthState}, ${competitor.name}, ${competitor.team}, ${competitor.weigth});">
             <div class="td-content customer-name">
-                <img src="/assets/images/user-48.png" alt="avatar">
+                <img src="/assets/images/user-game.png" alt="avatar">
                 <span>${competitor.name}</span>
             </div>
         </td>
@@ -610,6 +610,29 @@ function admin_rule(adminslist){
     }
   }
 }
+
+function modal_user_about_show(age, gender, healthState, name, team, weigth){
+  document.getElementById("modal_user_game").style.display = "block";
+  document.getElementById("ABOUT_USER_NAME").textContent = name;
+  document.getElementById("ABOUT_USER_TEAM").textContent = team;
+  document.getElementById("ABOUT_USER_GENDER").textContent = gender;
+  document.getElementById("ABOUT_USER_HEALTH").textContent = healthState;
+  document.getElementById("ABOUT_USER_AGE").textContent = age;
+  document.getElementById("ABOUT_USER_WEIGTH").textContent = weigth;
+}
+
+/*
+
+    const requestParams = new RequestParams();
+    requestParams.url = "/api/competitions/" + competitionId;
+
+    ServerRequest.send(requestParams)
+      .then(data => console.log(data[0].competitors[0].name))
+      .catch(err => console.log(err));
+
+*/
+
+
 
 /*
 TEST DATA 1

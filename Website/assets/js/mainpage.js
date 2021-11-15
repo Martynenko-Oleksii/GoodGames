@@ -41,3 +41,11 @@ function updateCompetitionList() {
       }
     }
 }
+
+
+// УДАЛИТЬ
+function login_test(){
+    Cookies.set("id", 1);
+    Cookies.set("login", "User System");
+    Cookies.set("email", "user@gg.ua")
+}

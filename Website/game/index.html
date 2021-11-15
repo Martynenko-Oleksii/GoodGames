@@ -245,7 +245,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
+                                                <tr onclick="modal_user_about_show(19, 'Мужик', 'Отлично', 'USER', 'Teams', 58);">
                                                     <td><div class="td-content customer-name"><img src="/assets/images/user-48.png" alt="avatar"><span>{Ім'я}</span></div></td>
                                                     <td><div class="td-content product-brand text-primary">{Вік}</div></td>
                                                     <td><div class="td-content"><span class="badge badge-success">{Команда}</span></div></td>
@@ -368,6 +368,45 @@
             <iframe src="grid/" seamless style="width: 100%; height: 85%; overflow: hidden;" id="grid_frame_full">
                 Браузер не поддерживается
             </iframe>
+        </div>
+    </div>
+
+    <div id="modal_user_game" class="modal-window">
+        <div>
+            <div class="widget widget-four" style="margin-bottom: 20px; border: 0.5px solid rgba(0, 0, 0, 0.4); border-radius: 5px;">
+                <div class="widget-heading" style="margin-bottom: 20px;">
+                    <h5 class="">Інформація про учасника</h5>
+                    <a class="btn btn-outline-danger btn-sm" onclick="document.getElementById('modal_user_game').style.display = 'none';">Закрити</a>
+                </div>
+
+                    <div class="widget-content">
+                        <div class="order-summary">
+                            <h6 style="font-size: 14px;">Основні подробиці:</h6>
+                            <div class="summary-list summary-income" style="margin-bottom: 10px; border: 0.2px solid rgba(0, 0, 0, 0.2);">
+                                <div class="w-summary-details">
+                                    <div class="w-summary-info">
+                                        <h6>Ім'я учасника <span class="summary-count" id="ABOUT_USER_NAME">{NAME}</span></h6>
+                                        <h6>Команда <span class="summary-count badge badge-primary" id="ABOUT_USER_TEAM">{NAME TEAM}</span></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h6 style="font-size: 14px;">Детально:</h6>
+                        <div class="summary-list summary-expenses"style="margin-bottom: 5px; border: 0.2px solid rgba(0, 0, 0, 0.2);">
+                            <div class="summery-info">
+                                <div class="w-summary-details">
+                                    <div class="w-summary-info">
+                                        <h6>Стать: <span class="summary-count" id="ABOUT_USER_GENDER">{Стать}</span></h6>
+                                        <h6>Здоров'є: <span class="summary-count" id="ABOUT_USER_HEALTH">{Спеціальна група}</span></h6>
+                                        <h6>Вік: <span class="summary-count" id="ABOUT_USER_AGE">{00}</span></h6>
+                                        <h6>Вага: <span class="summary-count" id="ABOUT_USER_WEIGTH">{Вага}</span></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
         </div>
     </div>
 
