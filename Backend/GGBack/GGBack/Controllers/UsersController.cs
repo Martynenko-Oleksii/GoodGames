@@ -175,6 +175,8 @@ namespace GGBack.Controllers
                 User dbUser = context.Users.Find(userId);
                 dbUser.AvatarPath = $"/avatars/{filename}";
                 await context.SaveChangesAsync();
+
+                imagePath = dbUser.AvatarPath;
             }
             catch (Exception ex)
             {
