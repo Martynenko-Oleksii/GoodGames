@@ -642,6 +642,7 @@ a.btn-main:hover span {
 
 
 .video-block{
+  cursor: pointer;
   flex: 0 0 auto;
   background-color: #35343d;
   border-radius: 5px;
@@ -650,6 +651,12 @@ a.btn-main:hover span {
   margin: 4px;
   padding-left: 120px;
   padding-top: 60px;
+  border: 3px solid #f7a800;
+}
+
+
+.video-block:hover{
+  border: 3px solid #f700a5;
 }
 
 .live_icon{

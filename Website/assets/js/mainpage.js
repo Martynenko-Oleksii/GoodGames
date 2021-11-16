@@ -16,9 +16,11 @@ function updateCompetitionList() {
       console.log(data);
 
       let competitionsWrapperEl = document.querySelector(".compListAll");
+      let livestreamEl = document.querySelector(".livestream");
   
       if (!data.length) {
         competitionsWrapperEl.innerHTML = '<p class="card"> Наразі немає жодного змагання</p>';
+        return;
       }
       
       let maxcomplist = 0;
@@ -34,6 +36,36 @@ function updateCompetitionList() {
                   <h2 class="text-indigo-500 font-bold">${competitionTitle}</h2>
                   <p class="mt-2 text-gray-600 text-sm">Дата: ${competitionDate}</p>
               </div>`;
+
+            if(competitionInfo.streamUrl != null || competitionInfo.streamUrl != ""){
+                let linkstream = competitionInfo.streamUrl;
+                let id_live = "";
+                if(linkstream.indexOf("https://www.youtube.com/watch?v=") + 1){
+                    var vars = {};
+                    linkstream.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                        vars[key] = value;
+                    });
+                    id_live =  vars.v;
+                }
+            
+                if(linkstream.indexOf("https://youtu.be/") + 1){
+                    var str = "Hello <!Doctype";
+                    id_live = linkstream.replace("https://youtu.be/", "");
+                }
+                
+                if(linkstream.indexOf("https://www.youtube.com/embed/") + 1){
+                    var str = "Hello <!Doctype";
+                    id_live = linkstream.replace("https://www.youtube.com/embed/", "");
+                }
+
+                livestreamEl.innerHTML +=
+                `<div class="video-block" onclick="location.href = '/game/stream/?id=${competitionId}';" style="background-size: cover; background-image: url(https://i.ytimg.com/vi/${id_live}/maxresdefault.jpg);">
+                    <div class="live_icon">
+                        <p>Live</p>
+                    </div>
+                </div>`;
+            }
+
           }else{
               return;
           }
