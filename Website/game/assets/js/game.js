@@ -616,8 +616,24 @@ function admin_rule(adminslist){
 }
 
 function modal_user_about_show(competitor) {
-  document.querySelector("#modal_user_game").style.display = "block";
+  competitor.gender = competitor.gender === "m" ? "Чоловіча" : "Жіноча";
 
+  if (competitor.healthState.toString() === "0") {
+    competitor.healthState = "Не вказано";
+  }
+
+  const ageLastDigit = competitor.age % 10;
+  if (ageLastDigit === 1) {
+    competitor.age += " рік";
+  } else if (ageLastDigit === 0 || ageLastDigit > 4) {
+    competitor.age += " років";
+  } else {
+    competitor.age += " роки";
+  }
+
+  competitor.weigth += "кг";
+
+  document.querySelector("#modal_user_game").style.display = "block";
   changeElementTextContent("#ABOUT_USER_NAME", competitor.name);
   changeElementTextContent("#ABOUT_USER_TEAM", competitor.team);
   changeElementTextContent("#ABOUT_USER_GENDER", competitor.gender);
