@@ -58,26 +58,22 @@ function updateCompetitionList() {
     function get_id_live(linkstream){
         // Получение идентификатора видео из сслыки.
         let id = "";
-        if(linkstream.indexOf("https://www.youtube.com/watch?v=") + 1){
-            var vars = {};
-            linkstream.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-                vars[key] = value;
-            });
-            id =  vars.v;
-            return id;
-        }
 
         if(linkstream.indexOf("https://youtu.be/") + 1){
-            var str = "Hello <!Doctype";
             id = linkstream.replace("https://youtu.be/", "");
             return id;
-        }
-        
-        if(linkstream.indexOf("https://www.youtube.com/embed/") + 1){
-            var str = "Hello <!Doctype";
+        }else if(linkstream.indexOf("https://www.youtube.com/embed/") + 1){
             id = linkstream.replace("https://www.youtube.com/embed/", "");
             return id;
+        }else{
+          var vars = {};
+          linkstream.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+              vars[key] = value;
+          });
+          id =  vars.v;
+          return id;
         }
+        
     }
 }
 
