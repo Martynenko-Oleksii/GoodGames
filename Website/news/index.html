@@ -6,6 +6,9 @@
         <title>GoodGames - новини змагань</title>
 
         <!-- ===== CSS ===== -->
+        <link rel="stylesheet" href="/assets/css/plugins.css">
+        <link rel="stylesheet" href="/assets/css/game.css">
+        <link rel="stylesheet" href="/assets/css/modules-widgets.css">
         <link rel="stylesheet" href="/assets/css/styles.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/css/swiper.min.css'>
@@ -110,7 +113,7 @@
             
             <!-- ШАБЛОН НОВОСТИ ДЛЯ ЗАПРОСА -->
             <div class="news-slider__item swiper-slide">
-              <a href="#" class="news__item">
+              <a onclick="news_show();" style="cursor: pointer;" class="news__item">
                 <div class="news-date">
                   <span class="news-date__title">00</span>
                   <span class="news-date__txt">{МЕСЯЦ}</span>
@@ -168,6 +171,59 @@
         </defs>
       </svg>
 
+
+      <div id="modal_news" class="modal-window">
+        <div>
+            <div class="widget widget-four" style="margin-bottom: 20px; border: 0.5px solid rgba(0, 0, 0, 0.4); border-radius: 5px;">
+                <div class="widget-heading" style="margin-bottom: 20px;">
+                    <h5 style="margin-top: 10px;">Детальна інформація</h5>
+                    <a class="button" onclick="document.getElementById('modal_news').style.display = 'none';">x</a>
+                </div>
+
+                    <div class="widget-content">
+                        <div class="order-summary">
+                            <div class="summary-list summary-income" style="margin-bottom: 10px; border: 0.2px solid rgba(0, 0, 0, 0.2);">
+                                <div class="w-summary-details">
+                                    <div class="w-summary-info">
+                                        <h6 style="margin-top: 0px;">Подія <span class="summary-count" id="name_news">{ЗАГОЛОВОК НОВОСТИ}</span></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="summary-list summary-expenses"style="margin-bottom: 5px; border: 0.2px solid rgba(0, 0, 0, 0.2);">
+                            <div class="summery-info">
+                                <div class="w-summary-details">
+                                    <div class="w-summary-info">
+                                        <h6 style="margin-top: 0px;">Детальніше
+                                            <span class="summary-count" id="content_news" style="height: 200px; overflow-y: auto;">
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                Morbi vel venenatis lorem, a iaculis arcu. Ut vel nulla arcu.
+                                                Sed aliquam pharetra tellus vitae iaculis. Sed nisi nibh, tempus non orci vel,
+                                                gravida lobortis sem. Suspendisse vestibulum nibh lectus, ut laoreet diam dictum ac.
+                                                Donec malesuada aliquet dui id consequat. Curabitur at pellentesque felis.
+                                                In tincidunt nisl dui, nec laoreet augue pulvinar non. Fusce porttitor neque magna.
+                                                Pellentesque et est odio. Maecenas risus arcu, pulvinar vitae pretium ac, elementum sed ante.
+                                                Etiam maximus placerat felis, in molestie diam ullamcorper eget.
+                                                Nam at ante congue, mollis leo eget, dignissim dolor.
+                                                Duis pellentesque ante sed felis ornare accumsan.
+                                                Nulla pharetra lorem et nisi pulvinar sagittis.
+                                            </span>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: right; margin-top: 10px;">
+                        <p style="position: absolute; bottom: 20px;">Місяць 00</p>
+                        <a class="button" id="open_news">Сторінка змагання</a>
+                    </div>
+
+            </div>
+        </div>
+
         <!-- ===== Иконки ===== -->
         <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
 
@@ -178,5 +234,10 @@
         <script src="/assets/js/main.js"></script>
         <script src="/assets/js/requestParams.js"></script>
         <script src="/assets/js/serverRequest.js"></script>
+        <script>
+            function news_show(){
+                document.getElementById("modal_news").style.display = "block";
+            }
+        </script>
     </body>
 </html>
