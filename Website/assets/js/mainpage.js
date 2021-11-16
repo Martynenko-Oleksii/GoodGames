@@ -37,15 +37,20 @@ function updateCompetitionList() {
                   <p class="mt-2 text-gray-600 text-sm">Дата: ${competitionDate}</p>
               </div>`;
 
-            if(competitionInfo.streamUrl != null || competitionInfo.streamUrl != ""){
-                let id_live = get_id_live(competitionInfo.streamUrl);
+            if(competitionInfo.streamUrl != null){
+                if(competitionInfo.streamUrl.length > 0){
+                  let id_live = get_id_live(competitionInfo.streamUrl);
 
-                livestreamEl.innerHTML +=
-                `<div class="video-block" onclick="location.href = '/game/stream/?id=${competitionId}';" style="background-size: cover; background-image: url(https://i.ytimg.com/vi/${id_live}/maxresdefault.jpg);">
-                    <div class="live_icon">
-                        <p>Live</p>
-                    </div>
-                </div>`;
+                  livestreamEl.innerHTML +=
+                  `<div class="video-block" onclick="location.href = '/game/stream/?id=${competitionId}';" style="background-size: cover; background-image: url(https://i.ytimg.com/vi/${id_live}/maxresdefault.jpg);">
+                      <div class="live_icon">
+                          <p>Live</p>
+                      </div>
+                  </div>`;
+                }else{
+                  return;
+                }
+
             }
 
           }else{
@@ -58,22 +63,24 @@ function updateCompetitionList() {
     function get_id_live(linkstream){
         // Получение идентификатора видео из сслыки.
         let id = "";
+        if(linkstream.indexOf("https://www.youtube.com/watch?v=") + 1){
+            var vars = {};
+            linkstream.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                vars[key] = value;
+            });
+            id =  vars.v;
+            return id;
+        }
 
         if(linkstream.indexOf("https://youtu.be/") + 1){
             id = linkstream.replace("https://youtu.be/", "");
             return id;
-        }else if(linkstream.indexOf("https://www.youtube.com/embed/") + 1){
-            id = linkstream.replace("https://www.youtube.com/embed/", "");
-            return id;
-        }else{
-          var vars = {};
-          linkstream.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-              vars[key] = value;
-          });
-          id =  vars.v;
-          return id;
         }
         
+        if(linkstream.indexOf("https://www.youtube.com/embed/") + 1){
+            id = linkstream.replace("https://www.youtube.com/embed/", "");
+            return id;
+        }
     }
 }
 
