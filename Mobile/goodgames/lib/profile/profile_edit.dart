@@ -45,7 +45,20 @@ class _ProfileeditState extends State<ProfileeditPage> {
       selectedImage = File(image!.path);
     });
 
-    getDatahttp.UploadImg(selectedImage!, widget.user.id!);
+    getDatahttp.UploadImg(selectedImage!, widget.user.id!)
+        .then((value) {
+      if (value != false) {
+        setState(() {
+          widget.user.avatarPath = value;
+          if (widget.user.avatarPath != null) {
+            avatar = "https://goodgames.kh.ua${widget.user.avatarPath}";
+          } else {
+            avatar =
+            "https://cdn.discordapp.com/attachments/839078982598131712/899743277576749126/avatar1.jpg";
+          }
+        });
+      }
+    });
   }
 
   @override

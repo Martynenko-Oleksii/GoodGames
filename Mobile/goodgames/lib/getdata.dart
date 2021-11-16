@@ -1089,7 +1089,7 @@ class getDatahttp {
     return competition!;
   }
 
-  static UploadImg(File photoFile, int userId) async {
+  static Future<dynamic> UploadImg(File photoFile, int userId) async {
     var dio = new Dio();
     String fileName = photoFile.path.split('/').last;
     var formData = FormData.fromMap({'image': await MultipartFile.fromFile(photoFile.path, filename:fileName),});
@@ -1104,6 +1104,9 @@ class getDatahttp {
             contentType: 'STREAM',
               ));
       print(response);
+
+      if (response.statusCode == 200)
+        return response;
     } on DioError catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
@@ -1118,7 +1121,8 @@ class getDatahttp {
         print(e.message);
       }
     }
-    print('1');
+
+    return false;
   }
 
   static DelImg(int userId) async {}
