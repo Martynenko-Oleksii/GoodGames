@@ -37,11 +37,13 @@ namespace GGBack.Controllers
                 .Include(c => c.User)
                 .Include(c => c.Sport)
                 .Include(c => c.Competitors)
+                .Include(c => c.TimetableCells)
                 .Where(c => c.Id == competitionId)
                 .Select(c => new Competition
                 {
                     Id = c.Id,
                     Title = c.Title,
+                    Description = c.Description,
                     IsOpen = c.IsOpen,
                     Sport = c.Sport,
                     AgeLimit = c.AgeLimit,
@@ -56,7 +58,8 @@ namespace GGBack.Controllers
                         Login = c.User.Login
                     },
                     StreamUrl = c.StreamUrl,
-                    State = c.State
+                    State = c.State,
+                    TimetableCells = c.TimetableCells
                 })
                 .ToListAsync();
         }
@@ -71,7 +74,8 @@ namespace GGBack.Controllers
                 .Select(c => new Competition
                 {
                     Id = c.Id,
-                    Title = c.Title
+                    Title = c.Title,
+                    StartDate = c.StartDate
                 })
                 .ToListAsync();
         }
@@ -133,7 +137,7 @@ namespace GGBack.Controllers
                 return BadRequest("title collision");
             }
 
-            competition.State = "planned";
+            competition.State = 0;
 
             Competition res = new Competition { Id = competition.Id, Title = competition.Title };
 
@@ -149,29 +153,6 @@ namespace GGBack.Controllers
             }
 
             return Ok(res);
-        }
-
-        [Route("api/competitions/delete/{competitionId}")]
-        [HttpDelete]
-        public async Task<ActionResult<Competition>> PostDeleteCompetition(int competitionId)
-        {
-            if (competitionId == 0)
-            {
-                return BadRequest("invalid competition id");
-            }
-
-            Competition competiotion = context.Competitions
-                .FirstOrDefault(c => c.Id == competitionId);
-
-            if (competiotion == null)
-            {
-                return NotFound("Competition does not exist");
-            }
-
-            context.Competitions.Remove(competiotion);
-            await context.SaveChangesAsync();
-
-            return Ok(competiotion);
         }
     }
 }

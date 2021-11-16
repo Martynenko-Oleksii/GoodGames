@@ -9,6 +9,9 @@ using GGBack.Utils;
 using GGBack.Data;
 using GGBack.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Http.Headers;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace GGBack.Controllers
 {
@@ -18,10 +21,12 @@ namespace GGBack.Controllers
         private static JsonSerializerOptions options = new JsonSerializerOptions { IgnoreNullValues = true };
 
         private ServerDbContext context;
+        private readonly IWebHostEnvironment env;
 
-        public UsersController(ServerDbContext context)
+        public UsersController(ServerDbContext context, IWebHostEnvironment env)
         {
             this.context = context;
+            this.env = env;
         }
 
         [Route("api/users")]
@@ -29,6 +34,30 @@ namespace GGBack.Controllers
         public async Task<ActionResult<IEnumerable<User>>> Get()
         {
             return await context.Users.ToListAsync();
+        }
+
+        [Route("api/users/{userId}")]
+        [HttpGet]
+        public async Task<ActionResult<User>> Get(int userId)
+        {
+            try
+            {
+                return await context.Users
+                    .Include(u => u.Subscription)
+                    .Include(u => u.Sports)
+                    .Where(u => u.Id == userId)
+                    .Select(u => new User
+                    {
+                        Id = u.Id,
+                        Subscription = u.Subscription,
+                        Sports = u.Sports
+                    })
+                    .FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message + "\n" + ex.InnerException);
+            }
         }
 
         [Route("api/users/reg")]
@@ -58,7 +87,7 @@ namespace GGBack.Controllers
 
         [Route("api/users/login")]
         [HttpPost]
-        public async Task<ActionResult<User>> PostForLogin(User user)
+        public ActionResult<User> PostForLogin(User user)
         {
             if (user == null)
             {
@@ -66,6 +95,7 @@ namespace GGBack.Controllers
             }
 
             User findedUser =  context.Users
+                .Include(u => u.Subscription)
                 .Where(u => u.Email == user.Email)
                 .First();
 
@@ -79,6 +109,154 @@ namespace GGBack.Controllers
             }
 
             return Ok(findedUser);
+        }
+
+        [Route("api/users/change/image/{userId}")]
+        [HttpPost]
+        public async Task<ActionResult<string>> UpdateProfileImage(int userId, IFormFile image)
+        {
+            string imagePath;
+            try
+            {
+                if (image == null)
+                {
+                    return BadRequest("Image is null");
+                }
+
+                string filename =
+                    ContentDispositionHeaderValue.Parse(image.ContentDisposition)
+                    .FileName.Trim('"');
+
+                filename = ImageSaver.EnsureCorrectFilename(filename);
+
+                imagePath = ImageSaver.GetPathAndFilename(filename, env);
+                using (FileStream output = System.IO.File.Create(imagePath))
+                {
+                    await image.CopyToAsync(output);
+                }
+
+                User dbUser = context.Users.Find(userId);
+                dbUser.AvatarPath = imagePath;
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message + "\n" + ex.InnerException);
+            }
+
+            return Ok(imagePath);
+        }
+
+        [Route("api/users/change/login")]
+        [HttpPost]
+        public async Task<ActionResult<User>> UpdateLogin(User user)
+        {
+            User dbUser = context.Users.Find(user.Id);
+
+            if (!dbUser.Login.Equals(user.Login))
+            {
+                dbUser.Login = user.Login;
+            }
+            else
+            {
+                return BadRequest("Logins are the same");
+            }
+
+            await context.SaveChangesAsync();
+
+            return Ok(dbUser);
+        }
+
+        [Route("api/users/change/email")]
+        [HttpPost]
+        public async Task<ActionResult<User>> UpdateEmail(User user)
+        {
+            User dbUser = context.Users.Find(user.Id);
+
+            if (!dbUser.Email.Equals(user.Email))
+            {
+                dbUser.Email = user.Email;
+            }
+            else
+            {
+                return BadRequest("Passwords are the same");
+            }
+
+            await context.SaveChangesAsync();
+
+            return Ok(dbUser);
+        }
+
+        [Route("api/users/change/password")]
+        [HttpPost]
+        public async Task<ActionResult<User>> UpdatePassword(User user)
+        {
+            User dbUser = context.Users.Find(user.Id);
+
+            if (!dbUser.Password.Equals(user.Password))
+            {
+                dbUser.Password = user.Password;
+            }
+            else
+            {
+                return BadRequest("Passwords are the same");
+            }
+
+            await context.SaveChangesAsync();
+
+            return Ok(dbUser);
+        }
+
+        [Route("api/users/token")]
+        [HttpPost]
+        public async Task<ActionResult> GetToken(User user)
+        {
+            User dbUser = context.Users
+                .Where(u => u.Email.Equals(user.Email))
+                .FirstOrDefault();
+
+            if (dbUser == null)
+            {
+                return BadRequest("Wrong email");
+            }
+
+            Random rand = new Random();
+            int token = rand.Next(100000, 999999);
+            dbUser.Token = token.ToString();
+            await context.SaveChangesAsync();
+
+            string result = PostEmail.SendToken(dbUser.Token, dbUser.Email);
+            if (!result.Equals("true"))
+            {
+                return BadRequest(result);
+            }
+
+            return Ok();
+        }
+
+        [Route("api/users/change/forgotten")]
+        [HttpPost]
+        public async Task<ActionResult<User>> ChangeForgottenPassword(ForgottenPassword fp)
+        {
+            User dbUser = context.Users
+                .Where(u => u.Email.Equals(fp.Email))
+                .FirstOrDefault();
+
+            if (dbUser == null)
+            {
+                return BadRequest("Wrong email");
+            }
+
+            if (!dbUser.Token.Equals(fp.Token))
+            {
+                return BadRequest("Wrong token");
+            }
+
+            dbUser.Password = fp.NewPassword;
+            dbUser.Token = null;
+            await context.SaveChangesAsync();
+
+            return Ok(dbUser);
         }
     }
 }

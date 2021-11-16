@@ -13,15 +13,15 @@ namespace GGBack.Models
 
         public string Title { get; set; }
 
+        public int MinCompetitorsCount { get; set; }
+
         public bool HasTeam { get; set; }
 
+        public int MinTeamsCount { get; set; }
+
+        public int TeamSize { get; set; }
+
         public bool HasGrid { get; set; }
-
-        public int CompetitorsLimit { get; set; }
-
-        public bool HasTeamLimit { get; set; }
-
-        public int TeamLimit { get; set; }
 
         // Followers
         [JsonIgnore]
