@@ -2,7 +2,7 @@
 <html lang="uk">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport"content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <title>GoodGames - профіль користувача</title>
 
         <!-- ===== CSS ===== -->
@@ -57,9 +57,9 @@
                             <span class="nav__name" id="home">Головна</span>
                         </a>
 
-                        <a href="#" class="nav__link">
-                            <ion-icon name="videocam-outline" class="nav__icon"></ion-icon>
-                            <span class="nav__name" id="live">Трансляції</span>
+                        <a href="/news/" class="nav__link">
+                            <ion-icon name="newspaper-outline" class="nav__icon"></ion-icon>
+                            <span class="nav__name" id="live">Новини</span>
                         </a>
 
                         <a href="../competitionsList" class="nav__link">
@@ -227,7 +227,7 @@
                                 <label id="error_main" style="font-size: 14px; display: none; color: red; cursor: default;" for="form_street" class="form-label"><a id="files_error">Помилка. Перевірте данні.</a></label>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <button class="change-profile-info-button btn btn-primary">Зберегти зміни</button>
+                                        <button class="change-profile-info-button btn btn-primary" id="save_chanshe">Зберегти зміни</button>
                                     </div>
                                 </div>
 
@@ -584,6 +584,7 @@
                     var fr = new FileReader();
                     fr.addEventListener("load", function() {
                       document.getElementById("image_blocks").src = fr.result;
+                      document.getElementById("save_chanshe").click();
                     }, false);
 
                     fr.readAsDataURL(files[0]);
@@ -598,6 +599,7 @@
                   document.getElementById('photo_butt').value = "";
                   document.getElementById("error_photo").style = "display: none;";
                   document.getElementById("image_blocks").src = "/assets/images/user-48.png";
+                  document.getElementById("save_chanshe").click();
                 }
 
                 function upload_files() {

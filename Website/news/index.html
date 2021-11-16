@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="uk">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>GoodGames - новини змагань</title>
+
+        <!-- ===== CSS ===== -->
+        <link rel="stylesheet" href="/assets/css/styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/css/swiper.min.css'>
+        <link rel="stylesheet" href="./style.css">
+        <!-- Наш стиль -->
+
+
+        <script src="/assets/js/js.cookie.js"></script>
+    </head>
+    <body>
+
+
+        <!-- ===== PRELOADER ===== -->
+        <div class="preloader">
+            <svg class="pl" viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="pl-grad1" x1="1" y1="0.5" x2="0" y2="0.5">
+                        <stop offset="0%" stop-color="hsl(313,90%,55%)" />
+                        <stop offset="100%" stop-color="hsl(223,90%,55%)" />
+                    </linearGradient>
+                    <linearGradient id="pl-grad2" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="hsl(313,90%,55%)" />
+                        <stop offset="100%" stop-color="hsl(223,90%,55%)" />
+                    </linearGradient>
+                </defs>
+                <circle class="pl__ring" cx="100" cy="100" r="82" fill="none" stroke="url(#pl-grad1)" stroke-width="36" stroke-dasharray="0 257 1 257" stroke-dashoffset="0.01" stroke-linecap="round" transform="rotate(-90,100,100)" />
+                <line class="pl__ball" stroke="url(#pl-grad2)" x1="100" y1="18" x2="100.01" y2="182" stroke-width="36" stroke-dasharray="1 165" stroke-linecap="round" />
+            </svg>
+        </div>
+
+        <!-- ===== Навигация ===== -->
+
+        <div class="l-navbar" id="navbar">
+            <nav class="nav">
+                <div>
+                    <div class="nav__brand">
+                        <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
+                        <a class="nav__logo">GoodGames</a>
+                    </div>
+                    <div class="nav__list">
+                        <a href="/" class="nav__link">
+                            <ion-icon name="home-outline" class="nav__icon"></ion-icon>
+                            <span class="nav__name" id="home">Головна</span>
+                        </a>
+
+                        <a href="/news/" class="nav__link active">
+                            <ion-icon name="newspaper-outline" class="nav__icon"></ion-icon>
+                            <span class="nav__name" id="live">Новини</span>
+                        </a>
+
+                        <a href="../competitionsList" class="nav__link">
+                            <ion-icon name="baseball-outline" class="nav__icon"></ion-icon>
+                            <span class="nav__name" id="sport">Змагання</span>
+                        </a>
+
+                        <a href="/settings/" class="nav__link">
+                            <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
+                            <span class="nav__name" id="settings">Налаштування</span>
+                        </a>
+
+                        <span class="mobile">
+                            <a class="nav__link" id="open-modal" onclick="history.back();">
+                                <ion-icon name="arrow-back-outline" class="nav__icon"></ion-icon>
+                                <span class="nav__name" id="login_m">Назад</span>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <a class="nav__link pc" id="profile_buttom" onclick="history.back();">
+                    <ion-icon name="arrow-back-outline" class="nav__icon"></ion-icon>
+                    <span class="nav__name" id="login">Назад</span>
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <div class="background">
+          <img src="\settings\assets\ava_bg.png" alt="">
+        </div>
+        <div class="item-bg"></div>
+      
+        <div class="news-slider">
+          <div class="news-slider__wrp swiper-wrapper">
+
+            <div class="news-slider__item swiper-slide">
+                <a href="#" class="news__item">
+                  <div class="news-date">
+                    <span class="news-date__txt">GoodGames новини</span>
+                  </div>
+                  <div class="news__title">
+                    Немає новин
+                  </div>
+        
+                  <p class="news__txt">
+                    Новини ще не сформувалися, зайдіть сюди пізніше 😉
+                  </p>
+                </a>
+              </div>
+
+            
+            <!-- ШАБЛОН НОВОСТИ ДЛЯ ЗАПРОСА -->
+            <div class="news-slider__item swiper-slide">
+              <a href="#" class="news__item">
+                <div class="news-date">
+                  <span class="news-date__title">00</span>
+                  <span class="news-date__txt">{МЕСЯЦ}</span>
+                </div>
+                <div class="news__title">
+                  {ЗАГОЛОВЕК}
+                </div>
+      
+                <p class="news__txt">
+                  {ОПИСАНИЕ}
+                </p>
+      
+                <div class="news__img">
+                  <img src="https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1537132205/news-slider/item-2.webp" alt="news">
+                </div>
+              </a>
+            </div>
+
+
+          </div>
+      
+          <div class="news-slider__ctr">
+      
+            <div class="news-slider__arrows">
+              <button class="news-slider__arrow news-slider-prev">
+                <span class="icon-font">
+                  <svg class="icon icon-arrow-left"><use xlink:href="#icon-arrow-left"></use></svg>
+                </span>
+              </button>
+              <button class="news-slider__arrow news-slider-next">
+                <span class="icon-font">
+                  <svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right"></use></svg>
+                </span>
+              </button>
+            </div>
+      
+            <div class="news-slider__pagination"></div>
+      
+          </div>
+      
+        </div>
+      
+      </div>
+      
+      <svg hidden="hidden">
+        <defs>
+          <symbol id="icon-arrow-left" viewBox="0 0 32 32">
+            <title>arrow-left</title>
+            <path d="M0.704 17.696l9.856 9.856c0.896 0.896 2.432 0.896 3.328 0s0.896-2.432 0-3.328l-5.792-5.856h21.568c1.312 0 2.368-1.056 2.368-2.368s-1.056-2.368-2.368-2.368h-21.568l5.824-5.824c0.896-0.896 0.896-2.432 0-3.328-0.48-0.48-1.088-0.704-1.696-0.704s-1.216 0.224-1.696 0.704l-9.824 9.824c-0.448 0.448-0.704 1.056-0.704 1.696s0.224 1.248 0.704 1.696z"></path>
+          </symbol>
+          <symbol id="icon-arrow-right" viewBox="0 0 32 32">
+            <title>arrow-right</title>
+            <path d="M31.296 14.336l-9.888-9.888c-0.896-0.896-2.432-0.896-3.328 0s-0.896 2.432 0 3.328l5.824 5.856h-21.536c-1.312 0-2.368 1.056-2.368 2.368s1.056 2.368 2.368 2.368h21.568l-5.856 5.824c-0.896 0.896-0.896 2.432 0 3.328 0.48 0.48 1.088 0.704 1.696 0.704s1.216-0.224 1.696-0.704l9.824-9.824c0.448-0.448 0.704-1.056 0.704-1.696s-0.224-1.248-0.704-1.664z"></path>
+          </symbol>
+        </defs>
+      </svg>
+
+        <!-- ===== Иконки ===== -->
+        <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+
+        <!-- ===== MAIN JS ===== -->
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js'></script>
+        <script  src="script.js"></script>
+        <script src="/assets/js/main.js"></script>
+        <script src="/assets/js/requestParams.js"></script>
+        <script src="/assets/js/serverRequest.js"></script>
+    </body>
+</html>
