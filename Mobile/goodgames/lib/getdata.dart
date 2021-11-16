@@ -1125,5 +1125,23 @@ class getDatahttp {
     return false;
   }
 
-  static DelImg(int userId) async {}
+  static DelImg(int userId) async {
+
+    try {
+      var response = await http.get(
+          Uri.https("goodgames.kh.ua", "api/users/change/deleteimage/$userId"),
+          headers: {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+          });
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+      } else {
+        print(response.body);
+      }
+    } catch (ex) {
+      print(ex);
+    }
+
+  }
 }

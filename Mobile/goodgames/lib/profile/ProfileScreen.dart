@@ -132,6 +132,11 @@ class _ProfileState extends State<ProfileScreen>
         future: getDatahttp.getUserData(widget.user.id!),
         builder: (context, AsyncSnapshot snapshot1) {
           if (snapshot1.hasData) {
+            if (widget.user.avatarPath != null)
+              avatar = "https://goodgames.kh.ua${widget.user.avatarPath}";
+            else
+              avatar =
+              "https://cdn.discordapp.com/attachments/839078982598131712/899743277576749126/avatar1.jpg";
             return ListView(
               children: <Widget>[
                 new Stack(

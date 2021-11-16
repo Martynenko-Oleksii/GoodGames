@@ -83,10 +83,7 @@ class _ProfileeditState extends State<ProfileeditPage> {
             child: new Stack(
               children: <Widget>[
                 new Container(
-                  // alignment: Alignment(0.00, -0.50),
                   child: new ListView(
-                    // TODO Column or ListView or ... ??????
-
                     //crossAxisAlignment: CrossAxisAlignment.start,
                     // mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -227,6 +224,7 @@ class _ProfileeditState extends State<ProfileeditPage> {
                                                       width: 3)),
                                               onPressed: () {
                                                 getImage();
+
                                               },
                                               color: Colors.black
                                                   .withOpacity(0.05),
@@ -244,8 +242,6 @@ class _ProfileeditState extends State<ProfileeditPage> {
                                                 child: new Text(
                                                   "Видалити",
                                                   style: TextStyle(
-                                                    // h4 -> display1
-
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 14,
                                                     letterSpacing: 0.4,
@@ -260,7 +256,9 @@ class _ProfileeditState extends State<ProfileeditPage> {
                                                     side: BorderSide(
                                                         color: Colors.white,
                                                         width: 3)),
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  getDatahttp.DelImg(widget.user.id!);
+                                                },
                                                 color: Colors.black
                                                     .withOpacity(0.05),
                                               ),
