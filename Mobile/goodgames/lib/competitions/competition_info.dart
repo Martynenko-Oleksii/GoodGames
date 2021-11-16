@@ -972,7 +972,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                     padding: EdgeInsets.only(),
                                     child: WebView(
                                       initialUrl:
-                                          "https://www.goodgames.kh.ua/game/grid/?id=" +
+                                          "https://www.goodgames.kh.ua/game/grid_mobile/?id=" +
                                               widget.comp.id.toString(),
                                       javascriptMode:
                                           JavascriptMode.unrestricted,
