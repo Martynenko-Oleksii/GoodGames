@@ -22,7 +22,10 @@ class _LoginState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: Column(
+      body: SingleChildScrollView(
+        child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           new Stack(
             children: <Widget>[
@@ -232,7 +235,7 @@ class _LoginState extends State<LoginPage> {
             ],
           ),
         ],
-      ),
+      ),),
     );
   }
 

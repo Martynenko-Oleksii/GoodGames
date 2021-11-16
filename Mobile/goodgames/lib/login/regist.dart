@@ -24,29 +24,14 @@ class _RegistState extends State<RegistPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: Column(
+      body: SingleChildScrollView(
+        child: Column(
         children: <Widget>[
           new Stack(
             children: <Widget>[
-
               new Container(
-                //  alignment: Alignment(0.00, -0.50),
                 child: new Container(
                   height: MediaQuery.of(context).size.height - MediaQuery.of(context).size.height/5,
-                  //  width: 400.0,
-                  // alignment: Alignment(0.00, -0.50),
-                  /*
-
-
-
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.red,
-                          width: 5,
-                        )
-                    ),
-                      */
-
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50) , bottomRight : Radius.circular(50)),
                       boxShadow: [
@@ -74,15 +59,11 @@ class _RegistState extends State<RegistPage> {
                   child: Form(
                     key: formKey,
                     child: new Column(
-                      //crossAxisAlignment: CrossAxisAlignment.center,
-                      // mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Container(
                           padding: EdgeInsets.only(top: 50.0, bottom: 10),
                           child: new Image.network(
-
                             "https://cdn.discordapp.com/attachments/839078982598131712/905486145171886150/8bf870ad-b849-4c4e-b2dc-67925f5cc3e0.jpg",
-                            //encikllListd[index].imagePath,
                             width: 150,
                             height: 150,
                             fit: BoxFit.cover,
@@ -189,27 +170,10 @@ class _RegistState extends State<RegistPage> {
                         new Container(
                           //margin: const EdgeInsets.only( bottom: 150.0),
                           child: new Row(
-                            //crossAxisAlignment: CrossAxisAlignment.center,
-                            //mainAxisAlignment: MainAxisAlignment.center,
                             mainAxisAlignment:
                             MainAxisAlignment.spaceAround,
                             crossAxisAlignment: CrossAxisAlignment.end,
-
                             children: <Widget>[
-                              /* new Container(
-                                        margin: const EdgeInsets.symmetric(
-                                            vertical: 0.0),
-                                        padding: EdgeInsets.only(left: 20.0),
-                                        child: new RaisedButton(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(18.0),
-                                          ),
-                                          child: new Text("Forgot Password"),
-                                          onPressed: onPressed,
-                                        ),
-                                      ),*/
-
                             ],
                           ),
                         ),
@@ -220,7 +184,6 @@ class _RegistState extends State<RegistPage> {
               ),
               new Container(
                 margin:  EdgeInsets.only(top: MediaQuery.of(context).size.height - MediaQuery.of(context).size.height/5 - 45, left: MediaQuery.of(context).size.width/2 - 140),
-                // padding: EdgeInsets.only(top: MediaQuery.of(context).size.height - MediaQuery.of(context).size.height/3 ),
                 width: 280.0,
                 height: 70.0,
                 child: new RaisedButton(
@@ -251,8 +214,6 @@ class _RegistState extends State<RegistPage> {
                                   ProfileScreen(user: value),
                             ), (route) => false ));
                     }
-
-                    //getDatahttp.getCompetition(1);
                   },
                   color: Colors.black.withOpacity(0.05),
                 ),
@@ -262,8 +223,6 @@ class _RegistState extends State<RegistPage> {
                 width: 280.0,
                 height: 70.0,
                 child: new Column(
-                  // crossAxisAlignment: CrossAxisAlignment.center,
-                  // mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     Text("Вже є акаунту?",
                       style: TextStyle(
@@ -288,30 +247,14 @@ class _RegistState extends State<RegistPage> {
                           color: Colors.green,
                         ),),
                     ),
-                    /*  new Container(
-                          //margin: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: new RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                            ),
-                            child: new Text("Register"),
-                            onPressed: () {
-                              Navigator.push<dynamic>(
-                                context,
-                                MaterialPageRoute<dynamic>(
-                                  builder: (BuildContext context) => RegistPage(),
-                                ),
-                              );
-                            },
-                            color: Colors.redAccent.shade200,
-                          ),
-                        ),*/
                   ],
                 ),
               ),
             ],
           ),
-        ],),);
+        ],
+      ),),
+    );
   }
 
   void onPressed() {}
