@@ -81,7 +81,7 @@ function updateCompetitionGeneralInfo() {
     competitorsNumberEl.innerHTML = info.competitors.length.toString();
 
     isopen = info.isOpen;
-    
+
     info.state = parseInt(info.state);
     switch (info.state) {
       case 0:
@@ -137,7 +137,7 @@ function updateCompetitionGeneralInfo() {
         <td><div class="td-content"><span class="badge badge-primary">${competitor.team}</span></div></td>`;
         tr.onclick = function () {
           // Передача информации в окно информации
-          modal_user_about_show(`${competitor.age}`, `${competitor.gender}`, `${competitor.healthState}`, `${competitor.name}`, `${competitor.team}`, `${competitor.weigth}`);
+          modal_user_about_show(competitor);
       };
       competitorsTableBodyEl.appendChild(tr);
     }
@@ -615,14 +615,19 @@ function admin_rule(adminslist){
   }
 }
 
-function modal_user_about_show(age, gender, healthState, name, team, weigth){
-  document.getElementById("modal_user_game").style.display = "block";
-  document.getElementById("ABOUT_USER_NAME").textContent = name;
-  document.getElementById("ABOUT_USER_TEAM").textContent = team;
-  document.getElementById("ABOUT_USER_GENDER").textContent = gender;
-  document.getElementById("ABOUT_USER_HEALTH").textContent = healthState;
-  document.getElementById("ABOUT_USER_AGE").textContent = age;
-  document.getElementById("ABOUT_USER_WEIGTH").textContent = weigth;
+function modal_user_about_show(competitor) {
+  document.querySelector("#modal_user_game").style.display = "block";
+
+  changeElementTextContent("#ABOUT_USER_NAME", competitor.name);
+  changeElementTextContent("#ABOUT_USER_TEAM", competitor.team);
+  changeElementTextContent("#ABOUT_USER_GENDER", competitor.gender);
+  changeElementTextContent("#ABOUT_USER_HEALTH", competitor.healthState);
+  changeElementTextContent("#ABOUT_USER_AGE", competitor.age);
+  changeElementTextContent("#ABOUT_USER_WEIGTH", competitor.weigth);
+
+  function changeElementTextContent(elementSelector, newTextContent) {
+    document.querySelector(elementSelector).textContent = newTextContent;
+  }
 }
 
 /*
