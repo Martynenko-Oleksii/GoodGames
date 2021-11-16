@@ -132,7 +132,7 @@ class _ProfileState extends State<ProfileScreen>
         future: getDatahttp.getUserData(widget.user.id!),
         builder: (context, AsyncSnapshot snapshot1) {
           if (snapshot1.hasData) {
-            if (widget.user.avatarPath != null)
+            if (snapshot1.data.avatarPath != null)
               avatar = "https://goodgames.kh.ua${widget.user.avatarPath}";
             else
               avatar =

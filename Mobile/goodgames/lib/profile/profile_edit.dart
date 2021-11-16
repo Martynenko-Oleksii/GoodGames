@@ -45,7 +45,7 @@ class _ProfileeditState extends State<ProfileeditPage> {
       selectedImage = File(image!.path);
     });
 
-    getDatahttp.UploadImg(selectedImage!, widget.user.id!)
+    getDatahttp.UploadImg(File(image!.path), widget.user.id!)
         .then((value) {
       if (value != false) {
         setState(() {
@@ -124,7 +124,7 @@ class _ProfileeditState extends State<ProfileeditPage> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (BuildContext context) =>
-                                            ProfileScreen(user:widget.user),
+                                            ProfileScreen(user:snapshot.data),
                                       ),
                                     );
                                   },
@@ -258,6 +258,13 @@ class _ProfileeditState extends State<ProfileeditPage> {
                                                         width: 3)),
                                                 onPressed: () {
                                                   getDatahttp.DelImg(widget.user.id!);
+                                                  Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (BuildContext context) =>
+                                                          ProfileScreen(user:snapshot.data),
+                                                    ),
+                                                  );
                                                 },
                                                 color: Colors.black
                                                     .withOpacity(0.05),
