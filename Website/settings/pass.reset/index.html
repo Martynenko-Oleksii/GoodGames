@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="uk" >
+<head>
+  <meta charset="UTF-8">
+  <title>GoodGames - відновлення паролю</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.1.2/tailwind.min.css'>
+  <link rel="stylesheet" href="style.css">
+
+  <script src="/assets/js/js.cookie.js"></script>
+  <script src="/assets/js/requestParams.js"></script>
+  <script src="/assets/js/serverRequest.js"></script>
+
+</head>
+<body>
+    <div class="preloader">
+        <svg class="pl" viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="pl-grad1" x1="1" y1="0.5" x2="0" y2="0.5">
+                    <stop offset="0%" stop-color="hsl(313,90%,55%)" />
+                    <stop offset="100%" stop-color="hsl(223,90%,55%)" />
+                </linearGradient>
+                <linearGradient id="pl-grad2" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="hsl(313,90%,55%)" />
+                    <stop offset="100%" stop-color="hsl(223,90%,55%)" />
+                </linearGradient>
+            </defs>
+            <circle class="pl__ring" cx="100" cy="100" r="82" fill="none" stroke="url(#pl-grad1)" stroke-width="36" stroke-dasharray="0 257 1 257" stroke-dashoffset="0.01" stroke-linecap="round" transform="rotate(-90,100,100)" />
+            <line class="pl__ball" stroke="url(#pl-grad2)" x1="100" y1="18" x2="100.01" y2="182" stroke-width="36" stroke-dasharray="1 165" stroke-linecap="round" />
+        </svg>
+    </div>
+
+    <div class="flex h-screen bg-gray-200 p-4 rotate" style="background-image: url('bg.jpg'); background-size: cover; background-position-x: right;">
+        <div class="sm:max-w-xl md:max-w-2xl w-full m-auto">
+
+            <div style="height: 325px;" class="flex items-stretch bg-white rounded-lg shadow-lg overflow-hidden border-t-4 border-indigo-500 sm:border-0">
+                <!-- @csrf -->
+                <div class="flex hidden overflow-hidden relative sm:block w-5/12 md:w-6/12 bg-gray-600 text-gray-300 py-4 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1477346611705-65d1883cee1e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')">
+                    <div class="flex-1 absolute bottom-0 text-white p-10">
+                        <h3 class="text-2xl font-bold inline-block f21">Відновлення паролю</h3>
+                        <p class="text-gray-500 whitespace-no-wrap f14">
+                            Забули свій пароль? Не проблема!
+                        </p>
+                    </div>
+                    <svg class="absolute animate h-full w-4/12 sm:w-2/12 right-0 inset-y-0 fill-current text-white" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <polygon points="0,0 100,100 100,0">
+                    </svg>
+                </div>
+
+
+
+                <!-- Шаг Первый -->
+                <div class="flex-1 p-6 sm:p-10 sm:py-12" id="steap1">
+                    <h3 class="text-xl text-gray-700 font-bold mb-6">
+                        Введіть <span class="text-gray-400 font-light">вашу пошту</span></h3>
+                        <p class="text-red-500 text-xs italic" id="error_email">⠀</p>
+
+                    <input id="email" type="email" class="px-3 w-full py-2 bg-gray-200  rounded focus:border-gray-400 focus:outline-none focus:bg-white mb-4" name="email" value="" required placeholder="Email адреса">
+
+
+                    <div class="flex flex-wrap items-center">
+                        <div class="w-full sm:flex-1">
+                            <button class="buttom ghost" onclick="send_code();">Запросити пін-код</button>
+                        </div>
+                    </div>
+
+                    <p class="w-full text-normal text-left text-grey-dark mt-8">
+                        <a class="text-blue-500 hover:text-blue-700 no-underline" href="/">
+                            Повернутись на головну
+                        </a>
+                    </p>
+                </div>
+
+                <!-- Шаг Второй -->
+                <div class="flex-1 p-6 sm:p-10 sm:py-12" id="steap2" style="display: none;">
+                    <h3 class="text-xl text-gray-700 font-bold"> Код <span class="text-gray-400 font-light">з листа</span></h3>
+
+                    <p class="text-black-500 text-xs italic">Якщо ви вказали пошту, яка є в системі, вам прийде код відновлення.</p>
+                    <p class="text-red-500 text-xs italic" id="error_code">⠀</p>
+                    <input id="code" type="text" class="px-3 w-full py-2 bg-gray-200  rounded focus:border-gray-400 focus:outline-none focus:bg-white mb-4" value="" required placeholder="Код відновлення">
+
+
+                    <div class="flex flex-wrap items-center">
+                        <div class="w-full sm:flex-1">
+                            <button class="buttom ghost" onclick="check_code();">Підтвердити</button>
+                        </div>
+                    </div>
+
+                    <p class="w-full text-normal text-left text-grey-dark mt-8">
+                        <a class="text-blue-500 hover:text-blue-700 no-underline" style="cursor: pointer;" onclick="back_p1();">
+                            Назад
+                        </a>
+                    </p>
+                </div>
+
+                <!-- Шаг Третий -->
+                <div class="flex-1 p-6 sm:p-10 sm:py-12" id="steap3" style="display: none;">
+                    <h3 class="text-xl text-gray-700 font-bold"> Новий <span class="text-gray-400 font-light">пароль</span></h3>
+
+                    <p class="text-black-500 text-xs italic">Введіть новий пароль та запам'ятайте його.</p>
+                    <p class="text-red-500 text-xs italic" id="error_pass">⠀</p>
+                    <input id="pass" type="text" class="px-3 w-full py-2 bg-gray-200  rounded focus:border-gray-400 focus:outline-none focus:bg-white mb-4" value="" required placeholder="Новий пароль">
+
+
+                    <div class="flex flex-wrap items-center">
+                        <div class="w-full sm:flex-1">
+                            <button class="buttom ghost" onclick="new_Pass();">Змінити пароль</button>
+                        </div>
+                    </div>
+
+                    <p class="w-full text-normal text-left text-grey-dark mt-8">
+                        <a class="text-blue-500 hover:text-blue-700 no-underline" style="cursor: pointer;" href="/">
+                            На головну
+                        </a>
+                    </p>
+                </div>
+
+                <!-- Пароль изменён -->
+                <div class="flex-1 p-6 sm:p-10 sm:py-12" id="steap4" style="display: none;">
+                    <h3 class="text-xl text-gray-700 font-bold"> Вітаємо! <span class="text-gray-400 font-light">Пароль змінено.</span></h3>
+
+                    <p class="text-black-500 text-xs" style="font-size: 18px;">Пароль успішно змінено. Бажаємо приємного дня ☀️</p>
+
+                    <div class="flex flex-wrap items-center">
+                        <div class="w-full sm:flex-1">
+                            <button class="buttom ghost" onclick="document.location.href = '/';">На головну сторінку</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="passreset.js"></script>
+</body>
+</html>

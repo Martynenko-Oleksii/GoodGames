@@ -89,10 +89,7 @@
                 <div class="head_page" >
                     <div class="theme_back" id="theme">
                         <div class="row" style="flex-wrap: inherit;">
-                            <h3 style="padding-top: 5px; padding-left: 10px;" id="profile_text">Змагання</h3>
-                            <button class="icon-button" style="z-index: 0; margin-right: 10px; display: flex; right: 50px; position: absolute;">
-                                <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
-                            </button>
+                            <h3 style="padding-top: 5px; padding-left: 10px;" id="profile_text">Статистика змагання</h3>
                         </div>
                     </div>
                 </div>
@@ -118,13 +115,13 @@
                                     <!-- Показывать, если автор простматривает страницу -->
                                     <div>
                                         <a id="edit_autor" class="btn btn-primary btn-sm" onclick="edit_shedule();"><ion-icon name="create-outline"></ion-icon> Розклад</a>
-                                        <a id="show_main" class="btn btn-primary btn-sm" onclick="show_main();" style="display: none;"><ion-icon name="arrow-back-circle-outline"></ion-icon> Назад</a>    
+                                        <a id="show_main" class="btn btn-primary btn-sm" onclick="show_main();" style="display: none;"><ion-icon name="arrow-back-circle-outline"></ion-icon> Назад</a>
                                     </div>
-                                    
+
                                 </div>
-                                <div class="text-center user-info">
-                                    <img src="https://img.icons8.com/fluency/48/000000/counter-strike.png" alt="avatar">
-                                    <p class="competition-title">{НАЗВА ЗМАГАННЯ}</p>
+                                <div class="text-center user-info" style="display: flex; justify-content: center;">
+                                    <img src="https://img.icons8.com/fluency/48/000000/deviation.png" style="width: 30px; height: 30px; margin-top: 22px;"/>
+                                    <p class="competition-title" style="padding-left: 20px;">{НАЗВА ЗМАГАННЯ}</p>
                                 </div>
                                 <div class="user-info-list">
 
@@ -146,6 +143,7 @@
                                     </div>
 
                                     <a id="start_competitions" class="btn btn-outline-warning" style="display: block;">Почати змагання</a>
+                                    <a id="live_stream_link" class="button buttom_all" style="margin-top: 5px;">Дивитись пряму трансляцію</a><br>
 
                                 </div>
                             </div>
@@ -180,51 +178,42 @@
                             </div>
                         </div>
 
-                        <div class="education layout-spacing ">
+                        <div class="education layout-spacing" id="adminpanel">
                             <div class="widget-content widget-content-area">
-                                <h3 class="">Посилання</h3>
+                                <h3>Керування змаганням</h3>
                                 <div class="timeline-alter">
-                                    <a href="#" class="buttom">Пряма трансляція</a><br>
-                                    <a href="#" class="buttom">Офіційна веб-сторінка</a>
+                                    <a onclick="ADD_ADMIN_SU();" class="button buttom_all">Додати адміністратора</a><br>
+                                    <a onclick="ADD_LIVE_SU();" class="button buttom_all">Підключити пряму трансляцію</a>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="work-experience layout-spacing ">
-
+                        <div class="education layout-spacing">
                             <div class="widget-content widget-content-area">
-
-                                <h3 class="">Останні дії</h3>
-
-                                <div class="timeline-alter">
-
-                                    <div class="item-timeline">
-                                        <div class="t-meta-date">
-                                            <p class="">22 Окт 2021</p>
-                                        </div>
-                                        <div class="t-dot">
-                                        </div>
-                                        <div class="t-text">
-                                            <p>Створено змагання</p>
-                                            <p>Організатор</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="item-timeline">
-                                        <div class="t-meta-date">
-                                            <p class="">22 Окт 2021</p>
-                                        </div>
-                                        <div class="t-dot">
-                                        </div>
-                                        <div class="t-text">
-                                            <p>Новий участник.</p>
-                                            <p>Simple</p>
+                                <h3>Адміністратори</h3>
+                                <div class="widget-table-three">
+                                    <div class="widget-content">
+                                        <div class="table-responsive" style="overflow: auto; max-height: 350px;">
+                                            <table class="table table-scroll admin-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th><div class="th-content">Інформація</div></th>
+                                                        <th><div class="th-content th-heading">ID</div></th>
+                                                        <th><div class="th-content th-heading">Дія</div></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><div class="td-content product-name"><img src="/assets/images/user-48.png" alt="product"><div class="align-self-center"><p class="prd-name">{Login Admin}</p><p class="prd-category text-primary">Організатор</p></div></div></td>
+                                                        <td>{0}</td>
+                                                        <td><a href="javascript:void(0);" class="btn btn-outline-danger btn-sm">Виключити</a></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
-
                         </div>
 
                     </div>
@@ -256,16 +245,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td><div class="td-content customer-name"><img src="/assets/images/user-48.png" alt="avatar"><span>Олег</span></div></td>
-                                                    <td><div class="td-content product-brand text-primary">Вік</div></td>
-                                                    <td><div class="td-content"><span class="badge badge-success">Команда</span></div></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><div class="td-content customer-name"><img src="/assets/images/user-48.png" alt="avatar"><span>Максим</span></div></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><div class="td-content customer-name"><img src="/assets/images/user-48.png" alt="avatar"><span>Влад</span></div></td>
+                                                <tr onclick="modal_user_about_show(19, 'Мужик', 'Отлично', 'USER', 'Teams', 58);">
+                                                    <td><div class="td-content customer-name"><img src="/assets/images/user-48.png" alt="avatar"><span>{Ім'я}</span></div></td>
+                                                    <td><div class="td-content product-brand text-primary">{Вік}</div></td>
+                                                    <td><div class="td-content"><span class="badge badge-success">{Команда}</span></div></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -276,15 +259,21 @@
 
                         <div class="skills layout-spacing ">
                             <div class="widget-content widget-content-area">
-                                <h3 class="">Турнірна сітка</h3>
+                                <div class="d-flex justify-content-between">
+                                    <h3 class="">Турнірна сітка</h3>
+                                    <button class="icon-button" onclick="document.getElementById('grid_full').style.display = 'block';">
+                                        <ion-icon name="expand-outline" class="nav__icon"></ion-icon>
+                                    </button>
+                                </div>
+
+
 
                                     <iframe src="grid/" seamless style="width: 100%; height: 400px; overflow: hidden;" id="grid_frame">
                                         Браузер не поддерживается
                                     </iframe>
-
-                                </div>
-
                             </div>
+                        </div>
+
                     </div>
 
 
@@ -299,7 +288,7 @@
 
 
                                 <div class="generate_shedule" style="max-height: 1000px; overflow-y: auto;">
-                                    <div id="empty_match" class="widget widget-four">
+                                    <div id="empty_match" class="widget widget-four" id="timetable_none">
                                         <div class="widget-content">
                                             <div class="order-summary">
                                                 <div style="text-align: center;">
@@ -309,19 +298,15 @@
                                             </div>
                                         </div>
                                     </div>
-    
 
-                                    <h4 style="text-align: center; margin-top: 30px;">ДЛЯ ТЕСТИРОВАНИЯ И РАЗРАБОТКИ ↘️</h4>
+                                    <!--        БЛОК ИНФОРМАЦИИ С РАССПИСАНИЯ
 
-
-                                    <!--        БЛОК ИНФОРМАЦИИ С РАССПИСАНИЯ -->
-                                    
                                     <div class="widget widget-four" style="margin-bottom: 20px;">
                                         <div class="widget-heading">
                                             <h5 class="">{Дата}</h5>
                                             <a class="btn btn-outline-info btn-sm" id="edit_autor_show" onclick="fixation('0');">Фіксація результатів</a>
                                         </div>
-    
+
                                         <div class="widget-content">
                                             <div class="order-summary">
                                                 <div class="summary-list summary-income">
@@ -337,7 +322,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-            
+
                                                 <div class="summary-list summary-expenses">
                                                     <div class="summery-info">
                                                         <div class="w-icon">
@@ -351,18 +336,18 @@
                                                         </div>
                                                     </div>
                                                 </div>
-            
+
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    
+                                    -->
+
                                 </div>
 
-                                
+
                             </div>
                         </div>
-                        
+
                     </div>
 
                 </div>
@@ -370,6 +355,101 @@
         </div>
     </div>
     <!--  END CONTENT AREA  -->
+
+    <div id="grid_full" class="skills layout-spacing modal-window-full">
+        <div class="widget-content widget-content-area">
+            <div class="d-flex justify-content-between">
+                <h3 class="">Турнірна сітка</h3>
+                <button class="icon-button" style="background-color: rgba(250, 90, 90);" onclick="document.getElementById('grid_full').style.display = 'none';">
+                    <ion-icon name="close-outline" class="nav__icon" style="color: #fff;"></ion-icon>
+                </button>
+            </div>
+
+            <iframe src="grid/" seamless style="width: 100%; height: 85%; overflow: hidden;" id="grid_frame_full">
+                Браузер не поддерживается
+            </iframe>
+        </div>
+    </div>
+
+    <div id="modal_user_game" class="modal-window">
+        <div>
+            <div class="widget widget-four" style="margin-bottom: 20px; border: 0.5px solid rgba(0, 0, 0, 0.4); border-radius: 5px;">
+                <div class="widget-heading" style="margin-bottom: 20px;">
+                    <h5 class="">Інформація про учасника</h5>
+                    <a class="btn btn-outline-danger btn-sm" onclick="document.getElementById('modal_user_game').style.display = 'none';">Закрити</a>
+                </div>
+
+                    <div class="widget-content">
+                        <div class="order-summary">
+                            <h6 style="font-size: 14px;">Основні подробиці:</h6>
+                            <div class="summary-list summary-income" style="margin-bottom: 10px; border: 0.2px solid rgba(0, 0, 0, 0.2);">
+                                <div class="w-summary-details">
+                                    <div class="w-summary-info">
+                                        <h6>Ім'я учасника <span class="summary-count" id="ABOUT_USER_NAME">{NAME}</span></h6>
+                                        <h6>Команда <span class="summary-count badge badge-primary" id="ABOUT_USER_TEAM">{NAME TEAM}</span></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h6 style="font-size: 14px;">Детально:</h6>
+                        <div class="summary-list summary-expenses"style="margin-bottom: 5px; border: 0.2px solid rgba(0, 0, 0, 0.2);">
+                            <div class="summery-info">
+                                <div class="w-summary-details">
+                                    <div class="w-summary-info">
+                                        <h6>Стать: <span class="summary-count" id="ABOUT_USER_GENDER">{Стать}</span></h6>
+                                        <h6>Здоров'я: <span class="summary-count" id="ABOUT_USER_HEALTH">{Спеціальна група}</span></h6>
+                                        <h6>Вік: <span class="summary-count" id="ABOUT_USER_AGE">{00}</span></h6>
+                                        <h6>Вага: <span class="summary-count" id="ABOUT_USER_WEIGTH">{Вага}</span></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-window_admin" class="modal-window">
+        <div>
+            <div class="widget widget-four" style="margin-bottom: 20px; border: 0.5px solid rgba(0, 0, 0, 0.4); border-radius: 5px;">
+                <div id="setadmin" style="display: none;">
+                        <div class="widget-heading" style="margin-bottom: 20px;">
+                            <h5 class="">Надати права адміністратора</h5>
+                            <a class="btn btn-outline-danger btn-sm" onclick="document.getElementById('modal-window_admin').style.display = 'none';">Закрити</a>
+                        </div>
+
+                        <input type="email" id="admin_email" placeholder="Пошта користувача в системі">
+
+                        <div class="widget-content" style="padding-top: 5px;">
+                            <div class="order-summary">
+                                <div class="summary-list summary-income" style="margin-bottom: 10px; border: 0.2px solid rgba(0, 0, 0, 0.2);">
+                                    <a style="color: red; font-size: 12px;">!!! Будьте обережні, надаючи спільні права на змагання, ви погоджуєтесь на свій страх і ризик дати доступ до видалення змагання, а також виключення інших адміністраторів.</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="text-align: right; margin-top: 10px;">
+                            <a class="button" id="save_edit" onclick="add_admin();">Надати право на змагання</a>
+                        </div>
+                </div>
+
+
+                <div id="setlive" style="display: none;">
+                    <div class="widget-heading" style="margin-bottom: 20px;">
+                        <h5>Посилання прямої трансляції</h5>
+                        <a class="btn btn-outline-danger btn-sm" onclick="closeTranslationModalWindow()">Закрити</a>
+                    </div>
+
+                    <input class="translation-input" type="url" placeholder="Посилання на ФРЕЙМ YouTube трансляції">
+
+                    <div style="text-align: right; margin-top: 10px;">
+                        <a class="button save-translation-button" id="save_edit" onclick="add_live();">Зберегти зміни</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="modal_edit" class="modal-window">
         <div>
@@ -379,9 +459,9 @@
                     <a class="btn btn-outline-danger btn-sm" onclick="document.getElementById('modal_edit').style.display = 'none';">Закрити</a>
                 </div>
 
-                <div class="widget-content">
-                    <div class="order-summary">
-                        <div class="summary-list summary-income" style="margin-bottom: 10px; border: 0.2px solid rgba(0, 0, 0, 0.2);">
+                    <div class="widget-content">
+                        <div class="order-summary">
+                            <div class="summary-list summary-income" style="margin-bottom: 10px; border: 0.2px solid rgba(0, 0, 0, 0.2);">
                                 <div class="w-summary-details">
                                     <div class="w-summary-info">
                                         <h6>Команда <span class="summary-count" id="name_t1_edit">{NAME TEAM 1}</span></h6>
@@ -401,14 +481,12 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <div style="text-align: right; margin-top: 10px;">
-                        <a class="btn btn-outline-warning" id="save_edit" onclick="save_edit_f(0);">Зберегти зміни</a>
+                        <a class="btn btn-outline-warning" id="save_edit" onclick="fixResults(0);">Зберегти зміни</a>
                     </div>
 
-                </div>
             </div>
         </div>
     </div>
@@ -513,6 +591,7 @@
         <script>
             document.getElementById("sport").classList.add('active');
         </script>
+        <script src="../assets/js/requestParams.js"></script>
         <script src="../assets/js/serverRequest.js"></script>
         <script src="assets/js/game.js"></script>
     </body>

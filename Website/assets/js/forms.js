@@ -55,18 +55,26 @@ function login_validation() {
         document.getElementById('modal_load_login').style.display = "grid";
         console.log("Login done. Server response:");
 
-        const requestUrl = "api/users/login"
-        const requestBody = {
+        const requestParams = new RequestParams("POST");
+        requestParams.url = "/api/users/login";
+        requestParams.body = {
             email: email,
-            password: pass
+            password: pass,
         }
 
-        ServerRequest.send("POST", requestUrl, requestBody)
+        ServerRequest.send(requestParams)
             .then(data => {
                 console.log(data);
                 Cookies.set('id', data.id, { expires: 7, path: '/' });
                 Cookies.set('login', data.login, { expires: 7, path: '/' });
                 Cookies.set('email', data.email, { expires: 7, path: '/' });
+                if(data.avatarPath != null){
+                    Cookies.set('avatarPath', data.avatarPath, { expires: 7, path: '/' });
+                    document.getElementById("avatar").src = data.avatarPath;
+                }else{
+                    Cookies.set('avatarPath', "/assets/images/user-48.png", { expires: 7, path: '/' });
+                    document.getElementById("avatar").src = "/assets/images/user-48.png";
+                }
                 document.getElementById('login').textContent = "Профіль";
                 document.getElementById('login_m').textContent = "Профіль";
                 document.getElementById('login_icon').name = "person-outline";
@@ -161,34 +169,34 @@ function reg_validation() {
     if (error_name && error_email && error_pass) {
         console.log("Reg done. Server response:");
 
-        const requestUrl = "api/users/reg"
-        const requestBody = {
+        const requestParams = new RequestParams("POST");
+        requestParams.url = "/api/users/reg";
+        requestParams.body = {
             login: name,
             email: email,
             password: pass
         }
 
-        ServerRequest.send("POST", requestUrl, requestBody)
+        ServerRequest.send(requestParams)
             .then(data => {
                 console.log(data);
                 console.log('Отправлено');
                 Cookies.set('id', data.id, { expires: 7, path: '/' });
                 Cookies.set('login', data.login, { expires: 7, path: '/' });
                 Cookies.set('email', data.email, { expires: 7, path: '/' });
+                Cookies.set('avatarPath', "/assets/images/user-48.png", { expires: 7, path: '/' }); 
                 close.click();
                 document.location.href = "/profile/";
             })
             .catch(err => {
                 console.log(err);
-                document.getElementById("modal_error_login_pass").textContent = "Помилка, змініть данні.";
+                document.getElementById("modal_error_ref_pass").textContent = "Помилка, змініть данні.";
                 console.log('Ошибка.');
             });
     }
 }
 
 function create_game() { //Создание нового соревнования
-    const requestUrl = "/api/competitions/create";
-
     // convert dates to UTC format
     const startDateInputValue = document.querySelector("#data_start").value;
     const endDateInputValue = document.querySelector("#data_end").value;
@@ -202,7 +210,9 @@ function create_game() { //Создание нового соревновани�
         return;
     }
 
-    const body = {
+    const requestParams = new RequestParams("POST");
+    requestParams.url = "/api/competitions/create";
+    requestParams.body = {
         title:          document.querySelector("#Title").value,
         description:    document.querySelector("#Description").value,
         city:           document.querySelector("#City").value,
@@ -214,7 +224,7 @@ function create_game() { //Создание нового соревновани�
         user:           { id: userId },
     }
 
-    ServerRequest.send("POST", requestUrl, body)
+    ServerRequest.send(requestParams)
       .then(() => goToCompetitionsList())
       .catch(err => console.log(err));
 

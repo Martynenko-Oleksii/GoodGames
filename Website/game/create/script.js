@@ -39,9 +39,10 @@ function pageLoaded() {
 
 
     function sendServerRequest() {
-        const requestUrl = "/api/sports/";
+				const requestParams = new RequestParams();
+        requestParams.url = "/api/sports/";
 
-        ServerRequest.send("GET", requestUrl)
+        ServerRequest.send(requestParams)
             .then(data => parseServerResponse(data))
             .catch(err => console.log(err));
     }
@@ -50,7 +51,7 @@ function pageLoaded() {
         if (data.length === 0) {
             return;
         }
-		
+
         const SportWrapperEl =
             document.querySelector(".addStort");
 			SportWrapperEl.innerHTML = "";
@@ -86,7 +87,7 @@ function pageLoaded() {
 					</div>
 				</div>
 			</div>`;
-			
+
     }
 }
 

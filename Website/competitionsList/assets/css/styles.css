@@ -118,3 +118,20 @@
     border: 1px solid #16c79a;
   }
 }
+
+@media (max-width: 960px) {
+  .main_name{
+    display: none;
+  }
+  .search_box{
+    width: 95%;
+  }
+}
+
+@media (min-width: 960px) {
+  .search_box{
+    position: absolute;
+    width: 400px;
+    right: 160px;
+  }
+}

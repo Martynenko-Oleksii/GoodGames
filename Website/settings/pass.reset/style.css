@@ -1,0 +1,208 @@
+@font-face {
+    font-family: "Samsung Sans"; 
+    src: url("/assets/fonts/font.ttf"); 
+    font-style: normal; 
+    font-weight: normal; 
+}
+/*===== VARIABLES CSS =====*/
+:root{
+  --nav-width: 92px;
+  --hue: 240;
+  --first-color: hsl(var(--hue), 16%, 18%);
+  --first-color-alt: hsl(var(--hue), 16%, 12%);
+  --title-color: hsl(var(--hue), 8%, 15%);
+  --text-color: hsl(var(--hue), 8%, 35%);
+  --body-color: hsl(var(--hue), 100%, 99%);
+  --container-color: #FFF;
+  /*===== Colores =====*/
+  --first-color: #0C5DF4;
+  --bg-color: #12192C;
+  --sub-color: #B6CEFC;
+  --white-color: #FFF;
+  
+  /*===== Fuente y tipografia =====*/
+  --body-font: 'Samsung Sans';
+  --normal-font-size: 1rem;
+  --small-font-size: .875rem;
+  
+  /*===== z index =====*/
+  --z-fixed: 100;
+
+  --hue: 223;
+  --bg: hsl(var(--hue),10%,90%);
+  --fg: hsl(var(--hue),10%,10%);
+}
+.error{
+    font-size: 14px;
+    color: red;
+  }
+  
+  body{
+    font-family: "Samsung Sans";
+    overflow-x: hidden;
+  }
+  .ghost {
+    border-radius: 5px;
+    border: 2px solid #FF4B2B;
+    background-color: #292423;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+  }
+  
+  button:active {
+    transform: scale(0.95);
+  }
+  
+  button:hover {
+    border: 2px solid #000;
+  }
+  
+  button:focus {
+    outline: none;
+  }
+  
+  .ghost {
+    background-color: transparent;
+    border-color: #FFFFFF;
+  }
+  
+  form, .forms {
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    justify-content: center;
+  }
+  
+  input {
+    border-radius: 5px;
+    background-color: #eee;
+    border: 2px solid rgb(85, 85, 85);
+    padding: 12px 15px;
+    margin: 4px 0;
+    width: 100%;
+  }
+  
+  .buttom{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    padding: 10px 25px;
+    background: #292423;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 500;
+    box-shadow: 0 15px 40px rgb(0 0 0 / 20%);
+    transition: all 0.3s;
+    font-family: "Samsung Sans"; 
+  }
+  .buttom:hover{
+    background: #fff;
+    color: #292423;
+    cursor: pointer;
+  }
+  
+  .buttom2{
+    border-radius: 5px;
+    padding: 7px;
+  }
+  
+  .buttom2:hover{
+    border: 2px solid #0C5DF4;
+    color: #000;
+    padding: 5px;
+  }
+  
+
+.f21{
+  font-size: 21px;
+}
+.f14{
+  font-size: 14px;
+}
+
+.preloader {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg);
+  z-index: 1001;
+	color: var(--fg);
+	font: 1em/1.5 sans-serif;
+	height: 100vh;
+	display: grid;
+	place-items: center;
+}
+
+/* PRELOADER  */
+.pl {
+	display: block;
+	width: 6.25em;
+	height: 6.25em;
+}
+.pl__ring, .pl__ball {
+	animation: ring 2s ease-out infinite;
+}
+.pl__ball {
+	animation-name: ball;
+}
+@media (prefers-color-scheme: dark) {
+	:root {
+		--bg: hsl(var(--hue),10%,10%);
+		--fg: hsl(var(--hue),10%,90%);
+	}
+}
+
+/* Animation */
+@keyframes ring {
+	from {
+		stroke-dasharray: 0 257 0 0 1 0 0 258;
+	}
+	25% {
+		stroke-dasharray: 0 0 0 0 257 0 258 0;
+	}
+	50%, to {
+		stroke-dasharray: 0 0 0 0 0 515 0 0;
+	}
+}
+@keyframes ball {
+	from, 50% {
+		animation-timing-function: ease-in;
+		stroke-dashoffset: 1;
+	}
+	64% {
+		animation-timing-function: ease-in;
+		stroke-dashoffset: -109;
+	}
+	78% {
+		animation-timing-function: ease-in;
+		stroke-dashoffset: -145;
+	}
+	92% {
+		animation-timing-function: ease-in;
+		stroke-dashoffset: -157;
+	}
+	57%, 71%, 85%, 99%, to {
+		animation-timing-function: ease-out;
+		stroke-dashoffset: -163;
+	}
+}
+.loaded_hiding .preloader {
+  transition: 0.3s opacity;
+  opacity: 0;
+}
+
+.loaded .preloader {
+  display: none;
+}

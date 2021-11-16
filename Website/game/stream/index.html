@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="uk">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GoodGames - пряма трансляція</title>
+
+        
+        <script src="../../assets/js/requestParams.js"></script>
+        <script src="../../assets/js/serverRequest.js"></script>
+        <script src="stream.js"></script>
+
+        <!-- ===== CSS ===== -->
+        <link rel="stylesheet" href="live.css">
+        <link rel="stylesheet" href="/assets/css/plugins.css">
+        <link rel="stylesheet" href="/assets/css/game.css">
+        <link rel="stylesheet" href="/assets/css/modules-widgets.css">
+        <!-- Bootstrap 5 --><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+        <!-- Landrick --><link href="/assets/css/Landrick.css" rel="stylesheet" type="text/css" id="theme-opt" />
+        <!-- Наш стиль --><link rel="stylesheet" href="/assets/css/styles.css">
+
+        <script src="/assets/js/js.cookie.js"></script>
+    </head>
+    <body id="body-pd" onload="pageLoaded()">
+
+
+        <!-- ===== PRELOADER ===== -->
+        <div class="preloader">
+            <svg class="pl" viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="pl-grad1" x1="1" y1="0.5" x2="0" y2="0.5">
+                        <stop offset="0%" stop-color="hsl(313,90%,55%)" />
+                        <stop offset="100%" stop-color="hsl(223,90%,55%)" />
+                    </linearGradient>
+                    <linearGradient id="pl-grad2" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="hsl(313,90%,55%)" />
+                        <stop offset="100%" stop-color="hsl(223,90%,55%)" />
+                    </linearGradient>
+                </defs>
+                <circle class="pl__ring" cx="100" cy="100" r="82" fill="none" stroke="url(#pl-grad1)" stroke-width="36" stroke-dasharray="0 257 1 257" stroke-dashoffset="0.01" stroke-linecap="round" transform="rotate(-90,100,100)" />
+                <line class="pl__ball" stroke="url(#pl-grad2)" x1="100" y1="18" x2="100.01" y2="182" stroke-width="36" stroke-dasharray="1 165" stroke-linecap="round" />
+            </svg>
+        </div>
+
+
+        <!-- ===== Навигация ===== -->
+
+        <div class="l-navbar" id="navbar">
+            <nav class="nav">
+                <div>
+                    <div class="nav__brand">
+                        <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
+                        <a class="nav__logo">GoodGames</a>
+                    </div>
+                    <div class="nav__list">
+                        <a href="/" class="nav__link">
+                            <ion-icon name="home-outline" class="nav__icon"></ion-icon>
+                            <span class="nav__name" id="home">Головна</span>
+                        </a>
+
+                        <a href="#" class="nav__link active">
+                            <ion-icon name="videocam-outline" class="nav__icon"></ion-icon>
+                            <span class="nav__name" id="live">Трансляції</span>
+                        </a>
+
+                        <a href="/competitionsList" class="nav__link" id="sport">
+                            <ion-icon name="baseball-outline" class="nav__icon"></ion-icon>
+                            <span class="nav__name" id="sport">Змагання</span>
+                        </a>
+
+                        <a href="/settings/" class="nav__link">
+                            <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
+                            <span class="nav__name" id="settings">Налаштування</span>
+                        </a>
+
+                        <span class="mobile">
+                            <a class="nav__link" id="open-modal" onclick="document.getElementById('modal').style.zIndex = 1000">
+                                <ion-icon name="grid-outline" class="nav__icon"></ion-icon>
+                                <span class="nav__name" id="login_m">Профіль</span>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <a class="nav__link pc" id="profile_buttom" onclick="document.getElementById('open-modal').click();">
+                    <ion-icon name="grid-outline" class="nav__icon"></ion-icon>
+                    <span class="nav__name" id="login">Профіль</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- ===== Контент ===== -->
+        <div>
+            <div class="main-content">
+                <div class="head_page" >
+                    <div class="theme_back" id="theme">
+                        <div class="row" style="flex-wrap: inherit;">
+                            <h3 style="padding-top: 5px; padding-left: 10px;" id="profile_text">Прямя трансляція</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!--  BEGIN MAIN CONTAINER  -->
+    <div class="main-container" id="container">
+        <!--  BEGIN CONTENT AREA  -->
+        <div id="content" class="main-content" style="margin-left: 0px;">
+            <div class="layout-px-spacing">
+
+                <div class="row layout-spacing">
+
+                    <!-- Content -->
+                    <style>
+                        @media (min-width: 520px) { 
+                            #live_frame{
+                                height: 615px;
+                            }
+                            .justify-content-between{
+                                padding: 5px 20px 0px 20px;
+                            }
+                        }
+                        @media (max-width: 520px) { 
+                            #live_frame{
+                                height: 200px; 
+                            }
+                            #main_apps{
+                                padding: 5px !important;
+                                margin: 5px !important;
+                            }
+                            .justify-content-between{
+                                padding: 5px 20px 0px 20px;
+                            }
+                        }
+                    </style>
+
+                    <div class="col-xl-8 col-lg-6 col-md-7 col-sm-12 layout-top-spacing">
+
+                        <div class="skills layout-spacing ">
+                            <div class="widget-content widget-content-area" id="main_apps">
+
+                                <iframe style="width: 100%; overflow: hidden;" id="live_frame" src="https://www.youtube.com/embed/" title="Пряма трансляція" frameborder="0" allowfullscreen></iframe>
+
+                                <div class="d-flex justify-content-between">
+                                    <h3 style="margin: 6px 0px 15px 0px;">Пряма трансляція</h3>
+                                    <a class="button" id="link_gama"> Сторінка змагання </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skills layout-spacing ">
+                            <div class="widget-content widget-content-area">
+                                <h3 id="name_game" style="color: orange;">{НАЗВА ЗМАГАННЯ}</h3>
+                                <p class="competition-description" id="sub_game">{Опис змагання}</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-4 col-lg-6 col-md-5 col-sm-12 layout-top-spacing" id="chat_box">
+
+                        <div class="user-profile layout-spacing">
+                            <div class="widget-content widget-content-area">
+                                <div class="d-flex justify-content-between" style="margin-bottom: 20px;">
+                                    <h3 class="">Чат трансляції</h3>
+                                </div>
+
+                                <iframe seamless class="frame_chat_live" style="width: 100%; height: 700px;" id="chat_frame" src="" frameborder="0"></iframe>
+                                
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  END CONTENT AREA  -->
+
+
+        <footer class="site-footer">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                  <h6>Про нас</h6>
+                  <p class="text-justify">ХТО Я?</p>
+                </div>
+
+                <div class="col-xs-6 col-md-3">
+                  <h6>Змагання</h6>
+                  <ul class="footer-links">
+                    <li><a href="#">Стрічка новин</a></li>
+                    <li><a href="#">Прямі трансляції</a></li>
+                    <li><a href="#">Мій профіль</a></li>
+                  </ul>
+                </div>
+
+                <div class="col-xs-6 col-md-3">
+                  <h6>Інша інфорація</h6>
+                  <ul class="footer-links">
+                    <li><a href="#">Розробники</a></li>
+                    <li><a href="#">Контакти</a></li>
+                  </ul>
+                </div>
+              </div>
+              <hr>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                  <p class="copyright-text">Copyright &copy; 2021 All Rights Reserved by GoodGames.</p>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <a class="a" href="#">Мобільний додаток<ion-icon name="logo-android" style="margin-left: 5px;"></ion-icon></a>.
+                </div>
+              </div>
+            </div>
+      </footer>
+
+        <!-- ===== Иконки ===== -->
+        <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+        <!-- ===== MAIN JS ===== -->
+        <script src="/assets/js/main.js"></script>
+    </body>
+</html>

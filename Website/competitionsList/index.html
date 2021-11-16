@@ -11,10 +11,6 @@
   <!-- Наш стиль конкретно для этой страницы --><link rel="stylesheet" href="assets/css/styles.css">
 
   <title>GoodGames - список змагань</title>
-  <script src="../assets/js/forms.js"></script>
-  <script src="../assets/js/js.cookie.js"></script>
-  <script src="../assets/js/serverRequest.js"></script>
-  <script src="assets/js/competitionList.js"></script>
 </head>
 <body id="body-pd">
 
@@ -91,51 +87,31 @@
     <div class="head_page" >
       <div class="theme_back" id="theme">
         <div class="row" style="flex-wrap: inherit;">
-          <h3 style="padding-top: 5px; padding-left: 10px;">Змагання онлайн</h3>
-          <div class="icon-button" style="z-index: 0; margin-right: 10px; display: flex; right: 50px; position: absolute;">
-            <ion-icon name="settings-outline" class="nav__icon" style="position: absolute;"></ion-icon>
-            <select class="form-control" name="sort" id="sort" style="opacity: 0;">
-              <option value="all"> Тільки мої </option>
-              <option value="my" selected=""> Всі змагання⠀⠀</option>
-              </select>
+          <h3 style="padding-top: 5px; padding-left: 10px;" class="main_name">Змагання онлайн</h3>
+          <input type="text" class="search-input search_box" name="search" placeholder="Пошук змагання...">
+
+          <div class="icon-button" style="z-index: 0; margin-top: 6px; margin-right: 10px; display: flex; right: 50px; position: absolute; cursor: pointer;">
+            <ion-icon name="settings-outline" class="nav__icon" style="position: absolute; cursor: pointer;"></ion-icon>
+
+            <select class="competition-categories form-control" name="sort" id="sort" style="opacity: 0; cursor: pointer;">
+              <option value="all">Усі змагання</option>
+              <option value="favourite sport kinds">За підписками на види спорта</option>
+              <option value="my" selected="">Мої змагання</option>
+            </select>
+
           </div>
+
+          <div class="icon-button" style="z-index: 0; margin-top: 6px; margin-right: 10px; display: flex; right: 100px; position: absolute;">
+            <ion-icon name="search-outline" class="nav__icon" style="position: absolute;"></ion-icon>
+          </div>
+
         </div>
       </div>
     </div>
   </div>
 
   <div class="container mt-100 mt-60 competition-list">
-    <div class="row">
-
-      <div class="no-competitions">
-        <img src="assets/img/empty.png" alt="" class="no-competitions__image" style="height: 200px; width: 200px;">
-        <p class="no-competitions__message">
-          Наразі у вас немає жодного змагання
-        </p>
-      </div>
-
-      <!--div class="col-lg-4 col-md-6 mt-4 pt-2" style="cursor: pointer;" id="competition-${competitionId}">
-        <div class="card blog rounded border-0 shadow overflow-hidden">
-          <div class="card-hover card-body content">
-            <h5>
-              <p class="card-title title text-dark">
-                ${competitionTitle}
-              </p>
-              <small class="text-dark date" style="font-size: 14px;">Дата: ${competitionDate}</small>
-            </h5>
-            <div class="post-meta d-flex justify-content-between align-items-center mt-3">
-              <a href="/game?id=${competitionId}" class="btn btn-primary">
-                Детальніше
-              </a>
-              <button class="btn btn-danger" onclick="deleteCompetition(${competitionId})">
-                <ion-icon name="trash-bin-outline" style="font-size: 18px;"></ion-icon>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div-->
-
-    </div><!--end row-->
+    <div class="row"></div>
   </div>
 
 </div>
@@ -231,10 +207,15 @@
       </div>
   </div>
 </section>
+
 <!-- ===== Иконки ===== -->
 <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
 
-<!-- ===== MAIN JS ===== -->
+<script src="../assets/js/js.cookie.js"></script>
 <script src="../assets/js/main.js"></script>
+<script src="../assets/js/forms.js"></script>
+<script src="../assets/js/requestParams.js"></script>
+<script src="../assets/js/serverRequest.js"></script>
+<script src="assets/js/competitionList.js"></script>
 </body>
 </html>
