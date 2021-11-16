@@ -12,14 +12,12 @@ namespace GGBack.Models
 
         public DateTime DateTime { get; set; }
 
-        public string State { get; set; }
+        public List<Competitor> Competitors { get; set; }
 
-        //[MaxLength(6)]
-        //public int CompetitorOneID { get; set; }
-        //
-        //[MaxLength(6)]
-        //public int CompetitorTwoID { get; set; }
+        public Competition Competition { get; set; }
 
-        public Result Result { get; set; }
+        public int GridStage { get; set; }
+
+        public WinResult WinResult { get; set; }
     }
 }

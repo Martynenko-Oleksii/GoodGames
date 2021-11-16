@@ -14,7 +14,6 @@ namespace GGBack.Models
         [MaxLength(30)]
         public string Name { get; set; }
 
-        [MaxLength(20)]
         public string Email { get; set; }
 
         public int Age { get; set; }
@@ -29,5 +28,11 @@ namespace GGBack.Models
         public string Team { get; set; }
 
         public List<Competition> Competitions { get; set; }
+
+        [JsonIgnore]
+        public List<TimetableCell> TimetableCells { get; set; }
+
+        [JsonIgnore]
+        public List<WinResult> WinResults { get; set; }
     }
 }

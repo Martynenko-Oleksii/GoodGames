@@ -11,6 +11,8 @@ namespace GGBack.Models
     {
         public int Id { get; set; }
 
+        public string AvatarPath { get; set; }
+
         public string Login { get; set; }
 
         [MaxLength(30)]
@@ -26,5 +28,8 @@ namespace GGBack.Models
 
         [JsonIgnore]
         public List<Competition> Competitions { get; set; }
+
+        [JsonIgnore]
+        public string Token { get; set; }
     }
 }

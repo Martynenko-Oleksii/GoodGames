@@ -28,11 +28,18 @@ namespace GGBack.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Sport>>> Get()
         {
-            return await context.Sports.ToListAsync();
+            try
+            {
+                return await context.Sports.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message + "\n" + ex.InnerException);
+            }
         }
 
         [HttpGet("{userId}")]
-        public async Task<ActionResult<IEnumerable<Sport>>> Get(int userId)
+        public ActionResult<IEnumerable<Sport>> Get(int userId)
         {
             User user = context.Users
                 .Include(u => u.Sports)

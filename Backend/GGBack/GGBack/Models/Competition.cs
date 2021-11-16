@@ -11,8 +11,9 @@ namespace GGBack.Models
     {
         public int Id { get; set; }
 
-        [Required]
         public string Title { get; set; }
+
+        public string Description { get; set; }
 
         public bool IsOpen { get; set; }
 
@@ -36,8 +37,8 @@ namespace GGBack.Models
         [MaxLength(120)]
         public string StreamUrl { get; set; }
 
-        public string State { get; set; } // (“заплановане”, “проходить”, “завершене”)
+        public int State { get; set; } // (“заплановане”, “проходить”, “завершене”)
 
-        //public TournamentGrid TournamentGrid { get; set; }
+        public List<TimetableCell> TimetableCells { get; set; }
     }
 }
