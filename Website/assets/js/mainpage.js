@@ -38,25 +38,7 @@ function updateCompetitionList() {
               </div>`;
 
             if(competitionInfo.streamUrl != null || competitionInfo.streamUrl != ""){
-                let linkstream = competitionInfo.streamUrl;
-                let id_live = "";
-                if(linkstream.indexOf("https://www.youtube.com/watch?v=") + 1){
-                    var vars = {};
-                    linkstream.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-                        vars[key] = value;
-                    });
-                    id_live =  vars.v;
-                }
-            
-                if(linkstream.indexOf("https://youtu.be/") + 1){
-                    var str = "Hello <!Doctype";
-                    id_live = linkstream.replace("https://youtu.be/", "");
-                }
-                
-                if(linkstream.indexOf("https://www.youtube.com/embed/") + 1){
-                    var str = "Hello <!Doctype";
-                    id_live = linkstream.replace("https://www.youtube.com/embed/", "");
-                }
+                let id_live = get_id_live(competitionInfo.streamUrl);
 
                 livestreamEl.innerHTML +=
                 `<div class="video-block" onclick="location.href = '/game/stream/?id=${competitionId}';" style="background-size: cover; background-image: url(https://i.ytimg.com/vi/${id_live}/maxresdefault.jpg);">
@@ -71,6 +53,31 @@ function updateCompetitionList() {
           }
           maxcomplist++;
       }
+    }
+
+    function get_id_live(linkstream){
+        // Получение идентификатора видео из сслыки.
+        let id = "";
+        if(linkstream.indexOf("https://www.youtube.com/watch?v=") + 1){
+            var vars = {};
+            linkstream.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                vars[key] = value;
+            });
+            id =  vars.v;
+            return id;
+        }
+
+        if(linkstream.indexOf("https://youtu.be/") + 1){
+            var str = "Hello <!Doctype";
+            id = linkstream.replace("https://youtu.be/", "");
+            return id;
+        }
+        
+        if(linkstream.indexOf("https://www.youtube.com/embed/") + 1){
+            var str = "Hello <!Doctype";
+            id = linkstream.replace("https://www.youtube.com/embed/", "");
+            return id;
+        }
     }
 }
 
