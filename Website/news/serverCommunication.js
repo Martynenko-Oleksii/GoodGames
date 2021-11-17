@@ -49,7 +49,7 @@ function getNewsFromServer() {
   function parseOneNews(oneNewsInfo) {
     const id = oneNewsInfo.id;
     const header = oneNewsInfo.header;
-    const body = oneNewsInfo.body || "До події не доданий опис";
+    let body = oneNewsInfo.body || "До події не доданий опис";
 
     const months = ["січня", "лютого", "березня", "квітня", "травня", "червня", "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"]
     const date = new Date(oneNewsInfo.date);
@@ -66,9 +66,11 @@ function getNewsFromServer() {
       imageUrl = "image/end.png";
     }
 
+    let body_min = limitStr(body, 50);
+
     newsWrapperEl.innerHTML +=
       `<div class="news-slider__item swiper-slide">
-        <a onclick="news_show(${id}, '${header}', '${body}', '${month}', ${day});" style="cursor: pointer;" class="news__item">
+        <a onclick="news_show('${competitionId}', '${header}', '${body}', '${month}', '${day}');" style="cursor: pointer;" class="news__item">
           <div class="news-date">
             <span class="news-date__title">${day}</span>
             <span class="news-date__txt">${month}</span>
@@ -78,7 +80,7 @@ function getNewsFromServer() {
           </div>
 
           <p class="news__txt">
-            ${body}
+            ${body_min}
           </p>
 
           <div class="news__img">
@@ -87,4 +89,10 @@ function getNewsFromServer() {
         </a>
       </div>`;
   }
+}
+
+function limitStr(str, n, symb) {
+  if (!n && !symb) return str;
+  symb = symb || '...';
+  return str.substr(0, n - symb.length) + symb;
 }
