@@ -3,11 +3,15 @@ firebase.initializeApp({
     messagingSenderId: '222600043964'
 });
 
+
 // браузер поддерживает уведомления
 // вообще, эту проверку должна делать библиотека Firebase, но она этого не делает
 if ('Notification' in window) {
     var messaging = firebase.messaging();
 
+    if (Notification.permission === 'denied') {
+        document.getElementById('switch').checked = false;
+    }
     // пользователь уже разрешил получение уведомлений
     // подписываем на уведомления если ещё не подписали
     if (Notification.permission === 'granted') {
@@ -17,7 +21,9 @@ if ('Notification' in window) {
     // по клику, запрашиваем у пользователя разрешение на уведомления
     // и подписываем его
     $('#subscribe').on('click', function () {
-        subscribe();
+        if(document.getElementById('switch').checked === false){
+            subscribe();
+        }
     });
 }
 
@@ -63,12 +69,14 @@ function sendTokenToServer(currentToken) {
             .then(data => {
                 console.log(data);
                 setTokenSentToServer(currentToken);
+                document.getElementById('switch').checked = true;
             })
             .catch(err => {
                 console.log(err);
             });
     } else {
         console.log('Токен уже отправлен на сервер.');
+        document.getElementById('switch').checked = true;
     }
 }
 
@@ -83,4 +91,8 @@ function setTokenSentToServer(currentToken) {
         'sentFirebaseMessagingToken',
         currentToken ? currentToken : ''
     );
+}
+
+if(document.getElementById('switch').checked === true){
+    document.getElementById('switch').setAttribute('disabled', true);
 }
