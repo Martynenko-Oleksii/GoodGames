@@ -21,7 +21,7 @@ if ('Notification' in window) {
     // по клику, запрашиваем у пользователя разрешение на уведомления
     // и подписываем его
     $('#subscribe').on('click', function () {
-        if(document.getElementById('switch').checked === false){
+        if(document.getElementById('switch').checked == false){
             subscribe();
         }
     });
@@ -70,6 +70,7 @@ function sendTokenToServer(currentToken) {
                 console.log(data);
                 setTokenSentToServer(currentToken);
                 document.getElementById('switch').checked = true;
+                document.getElementById('switch').setAttribute('disabled', true);
             })
             .catch(err => {
                 console.log(err);
@@ -77,6 +78,7 @@ function sendTokenToServer(currentToken) {
     } else {
         console.log('Токен уже отправлен на сервер.');
         document.getElementById('switch').checked = true;
+        document.getElementById('switch').setAttribute('disabled', true);
     }
 }
 
