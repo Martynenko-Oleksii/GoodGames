@@ -217,7 +217,7 @@
                     </div>
 
                     <div style="text-align: right; margin-top: 10px;">
-                        <p style="position: absolute; bottom: 20px;">Місяць 00</p>
+                        <p id="date_news" style="position: absolute; bottom: 20px;">Місяць 00</p>
                         <a class="button" id="open_news">Сторінка змагання</a>
                     </div>
 
@@ -236,9 +236,14 @@
         <script src="/assets/js/serverRequest.js"></script>
         <script src="serverCommunication.js"></script>
         <script>
-            function news_show(){
-                document.getElementById("modal_news").style.display = "block";
-            }
+          function news_show(id, header, body, month, day) {
+            document.querySelector("#name_news").innerHTML = header;
+            document.querySelector("#content_news").innerHTML = body;
+            document.querySelector("#date_news").innerHTML = day + " " + month;
+            document.querySelector("#open_news").href = "/game/?id=" + id;
+
+            document.getElementById("modal_news").style.display = "block";
+          }
         </script>
     </body>
 </html>

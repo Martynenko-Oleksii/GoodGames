@@ -46,6 +46,10 @@ function getNewsFromServer() {
   }
 
   function parseOneNews(oneNewsInfo) {
+    const id = oneNewsInfo.id;
+    const header = oneNewsInfo.header;
+    const body = oneNewsInfo.body || "До події не доданий опис";
+
     const months = ["січня", "лютого", "березня", "квітня", "травня", "червня", "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"]
     const date = new Date(oneNewsInfo.date);
     const day = date.getDate();
@@ -61,17 +65,17 @@ function getNewsFromServer() {
 
     newsWrapperEl.innerHTML +=
       `<div class="news-slider__item swiper-slide">
-        <a onclick="news_show();" style="cursor: pointer;" class="news__item">
+        <a onclick="news_show(${id}, '${header}', '${body}', '${month}', ${day});" style="cursor: pointer;" class="news__item">
           <div class="news-date">
             <span class="news-date__title">${day}</span>
             <span class="news-date__txt">${month}</span>
           </div>
           <div class="news__title">
-            ${oneNewsInfo.header}
+            ${header}
           </div>
 
           <p class="news__txt">
-            ${oneNewsInfo.body || "До події не доданий опис"}
+            ${body}
           </p>
 
           <div class="news__img">
