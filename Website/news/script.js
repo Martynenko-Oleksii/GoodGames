@@ -166,7 +166,7 @@ function getNewsFromServer() {
 
   function parseOneNews(newsWrapperEl, oneNewsInfo) {
     console.log(oneNewsInfo);
-    newsWrapperEl.innerHTML +=
+    /*newsWrapperEl.innerHTML +=
       `<div class="news-slider__item swiper-slide">
         <a onclick="news_show();" style="cursor: pointer;" class="news__item">
           <div class="news-date">
@@ -185,6 +185,6 @@ function getNewsFromServer() {
             <img src="https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1537132205/news-slider/item-2.webp" alt="news">
           </div>
         </a>
-      </div>`;
+      </div>`;*/
   }
 }
