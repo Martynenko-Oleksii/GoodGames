@@ -132,7 +132,7 @@ function getNewsFromServer() {
     const requestParams = new RequestParams();
     requestParams.url = "/api/news";
     ServerRequest.send(requestParams)
-      .then(data => parseServerResponse(data))
+      .then(data => console.log(data))
       .catch(err => console.log(err));
   }
 
