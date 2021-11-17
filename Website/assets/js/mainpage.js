@@ -197,7 +197,7 @@ function getMYNewsFromServer() {
 
     serverResponse = serverResponse.reverse();
     for (let oneNewsInfo of serverResponse) {
-      parseOneNews(oneNewsInfo);
+      parseMyNews(oneNewsInfo);
     }
   }
 

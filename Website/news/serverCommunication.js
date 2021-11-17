@@ -71,7 +71,7 @@ function getNewsFromServer() {
 
     newsWrapperEl.innerHTML +=
       `<div class="news-slider__item swiper-slide">
-        <a onclick="news_show('${competitionId}', '${header}', '${String(body)}', '${month}', '${day}');" style="cursor: pointer;" class="news__item">
+        <a onclick="news_show('${competitionId}', '${header}', '${String(body.replace(/\r?\n/g, ""))}', '${month}', '${day}');" style="cursor: pointer;" class="news__item">
           <div class="news-date">
             <span class="news-date__title">${day}</span>
             <span class="news-date__txt">${month}</span>
