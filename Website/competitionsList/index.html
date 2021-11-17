@@ -220,8 +220,8 @@
             if(Cookies.get('login') == undefined){
                 document.getElementById("login").textContent = "Головна";
                 document.getElementById("login_m").textContent = "Головна";
-                document.getElementById("profile_buttom ").href = "/";
-                document.getElementById("open-modal").href = "/";
+                document.getElementById("profile_buttom ").setAttribute('onclick', 'history.back();');
+                document.getElementById("open-modal").setAttribute('onclick', 'history.back();');
                 document.getElementById("pmico").name = "arrow-back-outline";
                 document.getElementById("ppico").name = "arrow-back-outline";
             }
