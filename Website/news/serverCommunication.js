@@ -39,7 +39,7 @@ function getNewsFromServer() {
     }
 
     const scriptEl = document.createElement("script");
-    scriptEl.src = "/assets/js/main.js";
+    scriptEl.src = "/assets/js/script.js";
     document.body.appendChild(scriptEl)
   }
 
