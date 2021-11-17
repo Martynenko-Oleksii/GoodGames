@@ -218,10 +218,10 @@
 <script src="assets/js/competitionList.js"></script>
 <script>
             if(Cookies.get('login') == undefined){
-                document.getElementById("login").textContent = "Назад";
-                document.getElementById("login_m").textContent = "Назад";
-                document.getElementById("profile_buttom ").href = history.back();
-                document.getElementById("open-modal").href = history.back();
+                document.getElementById("login").textContent = "Головна";
+                document.getElementById("login_m").textContent = "Головна";
+                document.getElementById("profile_buttom ").href = "/";
+                document.getElementById("open-modal").href = "/";
                 document.getElementById("pmico").name = "arrow-back-outline";
                 document.getElementById("ppico").name = "arrow-back-outline";
             }
