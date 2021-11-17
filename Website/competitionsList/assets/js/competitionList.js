@@ -15,7 +15,8 @@ function updateCompetitionList() {
   const userId = Cookies.get("id");
   if (!userId) {
     console.log("Can`t get id from Cookies");
-    return;
+    competitionCategory = "all";
+    document.getElementById("filters").remove();
   }
 
   sendServerRequest();
