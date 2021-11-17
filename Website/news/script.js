@@ -137,6 +137,54 @@ function getNewsFromServer() {
   }
 
   function parseServerResponse(serverResponse) {
-    console.log(serverResponse);
+    const newsWrapperEl = document.querySelector(".news-slider__wrp");
+    newsWrapperEl.innerHTML = "";
+
+    if (!serverResponse || !serverResponse.length) {
+      newsWrapperEl.innerHTML =
+        `<div class="news-slider__item swiper-slide">
+          <a href="#" class="news__item">
+            <div class="news-date">
+              <span class="news-date__txt">GoodGames новини</span>
+            </div>
+            <div class="news__title">
+              Немає новин
+            </div>
+
+            <p class="news__txt">
+              Новини ще не сформувалися, зайдіть сюди пізніше 😉
+            </p>
+          </a>
+        </div>`;
+      return;
+    }
+
+    for (let oneNewsInfo of serverResponse) {
+      parseOneNews(newsWrapperEl, oneNewsInfo);
+    }
+  }
+
+  function parseOneNews(newsWrapperEl, oneNewsInfo) {
+    console.log(oneNewsInfo);
+    newsWrapperEl.innerHTML +=
+      `<div class="news-slider__item swiper-slide">
+        <a onclick="news_show();" style="cursor: pointer;" class="news__item">
+          <div class="news-date">
+            <span class="news-date__title">00</span>
+            <span class="news-date__txt">{МЕСЯЦ}</span>
+          </div>
+          <div class="news__title">
+            {ЗАГОЛОВЕК}
+          </div>
+
+          <p class="news__txt">
+            {ОПИСАНИЕ}
+          </p>
+
+          <div class="news__img">
+            <img src="https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1537132205/news-slider/item-2.webp" alt="news">
+          </div>
+        </a>
+      </div>`;
   }
 }
