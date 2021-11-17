@@ -1,4 +1,5 @@
 ﻿using GGBack.Data;
+using GGBack.DTO;
 using GGBack.Models;
 using GGBack.Utils;
 using Microsoft.AspNetCore.Http;
@@ -7,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace GGBack.Controllers
@@ -196,6 +199,12 @@ namespace GGBack.Controllers
 
                     context.RawNewss.Add(rawNews);
                     competition.RawNewss.Add(rawNews);
+
+                    List<string> ids = MessageSender.GetIds(context, competition.Sport);
+                    MessageDto messageDto = MessageSender.SetMessage(ids, "Початок змагання", competition.Title, competition.Id.ToString());
+                    HttpResponseMessage response = await MessageSender.SendMessage(messageDto);
+                    if (response.StatusCode != HttpStatusCode.OK)
+                        return BadRequest(response);
                 }
 
                 await context.SaveChangesAsync();

@@ -23,7 +23,7 @@ namespace GGBack.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post(WinResult winResult)
+        public async Task<ActionResult> Post(WinResult winResult)
         {
             if (winResult == null)
             {
@@ -64,7 +64,7 @@ namespace GGBack.Controllers
 
             try
             {
-                bool isGenerated = ScheduleGenerator.GenerateForNewResults(cell, 
+                bool isGenerated = await ScheduleGenerator.GenerateForNewResults(cell, 
                     context, cell.Competition);
 
                 if (!isGenerated)

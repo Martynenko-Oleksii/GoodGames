@@ -1,9 +1,12 @@
 ﻿using GGBack.Data;
+using GGBack.DTO;
 using GGBack.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace GGBack.Utils
@@ -275,7 +278,7 @@ namespace GGBack.Utils
             return cells;
         }
 
-        public static bool GenerateForNewResults(TimetableCell cellWithResults, 
+        public static async Task<bool> GenerateForNewResults(TimetableCell cellWithResults, 
             ServerDbContext context, Competition competition)
         {
             List<TimetableCell> stagedCells = context.TimetableCells
@@ -407,6 +410,10 @@ namespace GGBack.Utils
                     competition.State = 2;
                     competition.RawNewss.Add(rawNewsCompetitionEnding);
                     context.SaveChanges();
+
+                    List<string> ids = MessageSender.GetIds(context, competition.Sport);
+                    MessageDto messageDto = MessageSender.SetMessage(ids, "Завершення змагання", competition.Title, competition.Id.ToString());
+                    HttpResponseMessage response = await MessageSender.SendMessage(messageDto);
                 }
             }
 
@@ -422,6 +429,10 @@ namespace GGBack.Utils
                     winCompetitors.ElementAt(0).Team
                 }, competition, NewsType.MatchEnding);
 
+            List<string> idsMatch = MessageSender.GetIds(context, competition.Sport);
+            MessageDto messageDtoMatch = MessageSender.SetMessage(idsMatch, "Завершення матчу", competition.Title, competition.Id.ToString());
+            HttpResponseMessage responseMatch = await MessageSender.SendMessage(messageDtoMatch);
+            
             return true;
         }
 
