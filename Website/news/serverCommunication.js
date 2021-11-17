@@ -41,7 +41,7 @@ function getNewsFromServer() {
     }
 
     const scriptEl = document.createElement("script");
-    scriptEl.src = "/assets/js/script.js";
+    scriptEl.src = "script.js";
     document.body.appendChild(scriptEl)
   }
 
