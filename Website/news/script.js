@@ -1,7 +1,6 @@
 var bg = document.querySelector('.item-bg');
 var items = document.querySelectorAll('.news__item');
 var item = document.querySelector('.news__item');
-const newsWrapperEl = document.querySelector(".news-slider__wrp");
 
 function cLog(content) {
   console.log(content)
