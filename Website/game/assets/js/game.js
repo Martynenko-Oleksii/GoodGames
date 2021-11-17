@@ -286,9 +286,7 @@ function updateCompetitionTimetable() {
                     <div class="w-summary-info">
                       <h6>Команда <span class="summary-count team1-name">${teamsArray[0]}</span></h6>
                       <p class="summary-average">
-                        <a class="card team1-result" style="padding: 0.75rem; margin-top: 0;">
-                          ${team1Result}
-                        </a>
+                        <a class="card team1-result" style="padding: 0.75rem; margin-top: 0;">${team1Result}</a>
                       </p>
                     </div>
                   </div>
@@ -304,9 +302,7 @@ function updateCompetitionTimetable() {
                     <div class="w-summary-info">
                       <h6>Команда <span class="summary-count team2-name">${teamsArray[1]}</span></h6>
                       <p class="summary-average">
-                        <a class="card team2-result" style="padding: 0.75rem; margin-top: 0;">
-                          ${team2Result}
-                        </a>
+                        <a class="card team2-result" style="padding: 0.75rem; margin-top: 0;">${team2Result}</a>
                       </p>
                     </div>
                   </div>
@@ -414,6 +410,7 @@ function startCompetition() {
 
 
 function openFixationModalWindow(timetableCellId) {
+  console.log(timetableCellId)
   document.querySelector("#modal_edit").style.display = "block";
 
   const timetableCellSelector = "#timetableCell-" + timetableCellId;
@@ -441,6 +438,7 @@ function openFixationModalWindow(timetableCellId) {
 }
 
 function fixResults(timetableCellId, team1Name, team2Name) {
+  console.log(timetableCellId)
   const team1Result = document.querySelector("#result_t1_edit").value;
   const team2Result = document.querySelector("#result_t2_edit").value;
 
