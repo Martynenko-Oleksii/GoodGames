@@ -20,11 +20,11 @@ namespace GGBack.Utils
 
             if (user == null)
             {
-                return AssembleAllNewsHeader(context.RawNewss.ToList());
+                return AssembleAllNews(context.RawNewss.ToList());
             }
             else
             {
-                return AssembleAllNewsHeader(context.RawNewss
+                return AssembleAllNews(context.RawNewss
                     .Include(rn => rn.Competition)
                         .ThenInclude(c => c.Sport)
                     .Where(rn => user.Sports.Contains(rn.Competition.Sport))
@@ -45,7 +45,7 @@ namespace GGBack.Utils
             };
         }
 
-        private static IEnumerable<News> AssembleAllNewsHeader(List<RawNews> rawNews)
+        private static IEnumerable<News> AssembleAllNews(List<RawNews> rawNews)
         {
             List<News> news = new List<News>();
             foreach (RawNews rn in rawNews)
@@ -53,7 +53,11 @@ namespace GGBack.Utils
                 news.Add(new News
                 {
                     Id = rn.Id,
-                    Header = AssembleNewsHeader(rn)
+                    Header = AssembleNewsHeader(rn),
+                    Body = AssembleNewsBody(rn),
+                    Date = rn.Date,
+                    CompetitionTitle = rn.Competition.Title,
+                    CompetitionId = rn.Competition.Id
                 });
             }
 
