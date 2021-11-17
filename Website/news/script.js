@@ -1,6 +1,7 @@
 var bg = document.querySelector('.item-bg');
 var items = document.querySelectorAll('.news__item');
 var item = document.querySelector('.news__item');
+const newsWrapperEl = document.querySelector(".news-slider__wrp");
 
 function cLog(content) {
   console.log(content)
@@ -132,15 +133,15 @@ function getNewsFromServer() {
     const requestParams = new RequestParams();
     requestParams.url = "/api/news";
     ServerRequest.send(requestParams)
-      .then(data => console.log(data))
+      .then(data => parseServerResponse(data))
       .catch(err => console.log(err));
   }
 
   function parseServerResponse(serverResponse) {
-    const newsWrapperEl = document.querySelector(".news-slider__wrp");
     newsWrapperEl.innerHTML = "";
 
     if (!serverResponse || !serverResponse.length) {
+      console.log("No news")
       newsWrapperEl.innerHTML =
         `<div class="news-slider__item swiper-slide">
           <a href="#" class="news__item">
@@ -160,13 +161,13 @@ function getNewsFromServer() {
     }
 
     for (let oneNewsInfo of serverResponse) {
-      parseOneNews(newsWrapperEl, oneNewsInfo);
+      parseOneNews(oneNewsInfo);
     }
   }
 
-  function parseOneNews(newsWrapperEl, oneNewsInfo) {
+  function parseOneNews(oneNewsInfo) {
     console.log(oneNewsInfo);
-    /*newsWrapperEl.innerHTML +=
+    newsWrapperEl.innerHTML +=
       `<div class="news-slider__item swiper-slide">
         <a onclick="news_show();" style="cursor: pointer;" class="news__item">
           <div class="news-date">
@@ -185,6 +186,6 @@ function getNewsFromServer() {
             <img src="https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1537132205/news-slider/item-2.webp" alt="news">
           </div>
         </a>
-      </div>`;*/
+      </div>`;
   }
 }
