@@ -84,7 +84,14 @@ namespace GGBack.Utils
             string[] bodyData = rawNews.BodyData.Split(';', StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < bodyData.Length; i++)
             {
-                body.Replace("{b" + i + "}", bodyData[i]);
+                if (bodyData[i] == "true")
+                {
+                    body.Replace("{b" + i + "}", "так");
+                }
+                else if (bodyData[i] == "false")
+                {
+                    body.Replace("{b" + i + "}", "ні");
+                }
             }
 
             return body.ToString();
