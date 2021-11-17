@@ -36,6 +36,7 @@ function getNewsFromServer() {
       return;
     }
 
+    serverResponse = serverResponse.reverse();
     for (let oneNewsInfo of serverResponse) {
       parseOneNews(oneNewsInfo);
     }
