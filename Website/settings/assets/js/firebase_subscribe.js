@@ -52,9 +52,10 @@ function sendTokenToServer(currentToken) {
     if (!isTokenSentToServer(currentToken)) {
         console.log('Отправка токена на сервер...');
 
-        var url = ''; // адрес скрипта на сервере который сохраняет ID устройства
+        var url = '/api/users/newstoken'; // адрес скрипта на сервере который сохраняет ID устройства
         $.post(url, {
-            token: currentToken
+            UserId: Cookies.get('id'),
+            Token: currentToken
         });
 
         setTokenSentToServer(currentToken);
