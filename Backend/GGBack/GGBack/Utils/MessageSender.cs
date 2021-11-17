@@ -2,13 +2,13 @@
 using GGBack.DTO;
 using GGBack.Models;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace GGBack.Utils
@@ -21,33 +21,28 @@ namespace GGBack.Utils
         private const string ICON_URL = "https://www.goodgames.kh.ua/news_templates/message.jpg";
         private const string BASE_ACTION_URL = "https://www.goodgames.kh.ua/game/?id=";
 
-        public static async Task<bool> SendMessage(MessageDto message)
+        public static async Task<HttpResponseMessage> SendMessage(MessageDto message)
         {
             HttpClient client = GetClient();
 
-            var response = await client.PostAsync(URL, 
-                new StringContent(JsonSerializer.Serialize(message), Encoding.UTF8, "application/json"));
+            HttpResponseMessage response = await client.PostAsync(URL, 
+                new StringContent(JsonConvert.SerializeObject(message), Encoding.UTF8, "application/json"));
 
-            if (response.StatusCode != HttpStatusCode.OK)
-            {
-                return false;
-            }
-
-            return true;
+            return response;
         }
 
         public static MessageDto SetMessage(List<string> ids, string title, string body, string competitionId)
         {
             return new MessageDto
             {
-                Notification = new NotificationDto
+                notification = new NotificationDto
                 {
-                    Title = title,
-                    Body = body,
-                    Icon = ICON_URL,
-                    Click_action = BASE_ACTION_URL + competitionId
+                    title = title,
+                    body = body,
+                    icon = ICON_URL,
+                    click_action = BASE_ACTION_URL + competitionId
                 },
-                Registration_ids = ids
+                registration_ids = ids
             };
         }
 

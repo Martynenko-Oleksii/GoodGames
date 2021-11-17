@@ -7,12 +7,12 @@ namespace GGBack.DTO
 {
     public class NotificationDto
     {
-        public string Title { get; set; }
+        public string title { get; set; }
 
-        public string Body { get; set; }
+        public string body { get; set; }
 
-        public string Icon { get; set; }
+        public string icon { get; set; }
 
-        public string Click_action { get; set; }
+        public string click_action { get; set; }
     }
 }

@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -285,7 +287,9 @@ namespace GGBack.Controllers
 
                     List<string> ids = MessageSender.GetIds(context, res.Sport);
                     MessageDto messageDto = MessageSender.SetMessage(ids, "Створено змагання", competition.Title, competitioId.ToString());
-                    bool result = await MessageSender.SendMessage(messageDto);
+                    HttpResponseMessage response = await MessageSender.SendMessage(messageDto);
+                    if (response.StatusCode != HttpStatusCode.OK)
+                        return BadRequest(response);
                 }
 
                 return Ok(res);
