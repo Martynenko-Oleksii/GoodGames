@@ -166,20 +166,25 @@ function getNewsFromServer() {
   }
 
   function parseOneNews(oneNewsInfo) {
-    console.log(oneNewsInfo);
+    const months = ["січня", "лютого", "березня", "квітня", "травня", "червня", "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"]
+    const date = new Date(oneNewsInfo.date);
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+
+
     newsWrapperEl.innerHTML +=
       `<div class="news-slider__item swiper-slide">
         <a onclick="news_show();" style="cursor: pointer;" class="news__item">
           <div class="news-date">
-            <span class="news-date__title">00</span>
-            <span class="news-date__txt">{МЕСЯЦ}</span>
+            <span class="news-date__title">${day}</span>
+            <span class="news-date__txt">${month}</span>
           </div>
           <div class="news__title">
-            {ЗАГОЛОВЕК}
+            ${oneNewsInfo.header}
           </div>
 
           <p class="news__txt">
-            {ОПИСАНИЕ}
+            ${oneNewsInfo.body}
           </p>
 
           <div class="news__img">
