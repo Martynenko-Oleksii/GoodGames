@@ -149,9 +149,9 @@ function getNewsFromServer() {
     newsWrapperEl.innerHTML +=
       `<article class="card" style="display: -webkit-box;">
           <div class="pc">
-              <img src="${imageUrl}" width="250" height="160" alt="" style="border-radius: 15px;">
+              <img src="${imageUrl}" width="125" height="160" alt="" style="border-radius: 15px; top: 25px; position: relative;">
           </div>
-          <div style="display: block; width: 90%; margin-left: 10px; margin-right: 10px;">
+          <div style="display: block; width: 80%; margin-left: 10px; margin-right: 10px;">
               <div class="card-header">
                   <a href="#">${header}</a>
               </div>
