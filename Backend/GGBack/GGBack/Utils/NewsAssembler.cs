@@ -80,17 +80,21 @@ namespace GGBack.Utils
             string template = GetNewsTemplate(rawNews.TemplatePath);
             int lastIndex = template.IndexOf("<header>");
 
-            StringBuilder body = new StringBuilder(template.Substring(lastIndex + 8));
+            StringBuilder body = new StringBuilder(template.Substring(lastIndex + 10));
             string[] bodyData = rawNews.BodyData.Split(';', StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < bodyData.Length; i++)
             {
-                if (bodyData[i] == "true")
+                if (bodyData[i].ToLower() == "true")
                 {
                     body.Replace("{b" + i + "}", "так");
                 }
-                else if (bodyData[i] == "false")
+                else if (bodyData[i].ToLower() == "false")
                 {
                     body.Replace("{b" + i + "}", "ні");
+                }
+                else
+                {
+                    body.Replace("{b" + i + "}", bodyData[i]);
                 }
             }
 
