@@ -61,6 +61,8 @@ function getNewsFromServer() {
       imageUrl = "image/new.png";
     } else if (headerFirstWord === "розпочато") {
       imageUrl = "image/start.png";
+    } else if (headerFirstWord === "завершено") {
+      imageUrl = "image/end.png";
     }
 
     newsWrapperEl.innerHTML +=
