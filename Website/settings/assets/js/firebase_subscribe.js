@@ -52,13 +52,21 @@ function sendTokenToServer(currentToken) {
     if (!isTokenSentToServer(currentToken)) {
         console.log('Отправка токена на сервер...');
 
-        var url = '/api/users/newstoken'; // адрес скрипта на сервере который сохраняет ID устройства
-        $.post(url, {
+        const requestParams = new RequestParams("POST");
+        requestParams.url = "/api/users/newstoken";
+        requestParams.body = {
             UserId: Cookies.get('id'),
-            Token: currentToken
-        });
+            Token: currentToken,
+        }
 
-        setTokenSentToServer(currentToken);
+        ServerRequest.send(requestParams)
+            .then(data => {
+                console.log(data);
+                setTokenSentToServer(currentToken);
+            })
+            .catch(err => {
+                console.log(err);
+            });
     } else {
         console.log('Токен уже отправлен на сервер.');
     }
