@@ -410,6 +410,7 @@ function startCompetition() {
 
 
 function openFixationModalWindow(timetableCellId) {
+  document.getElementById("error_edit_res").style.display = "none";
   console.log(timetableCellId)
   document.querySelector("#modal_edit").style.display = "block";
 
@@ -426,6 +427,11 @@ function openFixationModalWindow(timetableCellId) {
 
   const team1Name = team1NameEl.textContent;
   const team2Name = team2NameEl.textContent;
+
+  if(team1Name == team2Name){
+    document.getElementById("error_edit_res").style.display = "block";
+    return;
+  }
 
   nameT1EditEl.textContent = team1Name;
   nameT2EditEl.textContent = team2Name;
