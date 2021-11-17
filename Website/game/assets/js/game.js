@@ -428,11 +428,6 @@ function openFixationModalWindow(timetableCellId) {
   const team1Name = team1NameEl.textContent;
   const team2Name = team2NameEl.textContent;
 
-  if(team1Name == team2Name){
-    document.getElementById("error_edit_res").style.display = "block";
-    return;
-  }
-
   nameT1EditEl.textContent = team1Name;
   nameT2EditEl.textContent = team2Name;
   resultT1EditEl.value = team1ResultEl.textContent;
@@ -447,6 +442,11 @@ function fixResults(timetableCellId, team1Name, team2Name) {
   console.log(timetableCellId)
   const team1Result = document.querySelector("#result_t1_edit").value;
   const team2Result = document.querySelector("#result_t2_edit").value;
+  
+  if(team1Result == team2Result){
+    document.getElementById("error_edit_res").style.display = "block";
+    return;
+  }
 
   document.querySelector("#modal_edit").style.display = "none";
   sendServerRequest();
