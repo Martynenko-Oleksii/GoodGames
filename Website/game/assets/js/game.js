@@ -110,12 +110,10 @@ function updateCompetitionGeneralInfo() {
     }
 
     // if teams number less than 2 - hide start competition button
-    if (!info.competitors.length) {
-      const teamArray = getTeamArrayByCompetitorArray(info.competitors);
+    const teamArray = getTeamArrayByCompetitorArray(info.competitors);
 
-      if (teamArray.length < 2) {
-        startCompetitionButtonEl.remove();
-      }
+    if (teamArray.length < 2) {
+      startCompetitionButtonEl.remove();
     }
   }
 
