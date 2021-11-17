@@ -1,4 +1,5 @@
 ﻿using GGBack.Data;
+using GGBack.DTO;
 using GGBack.Models;
 using GGBack.Utils;
 using Microsoft.AspNetCore.Mvc;
@@ -249,6 +250,7 @@ namespace GGBack.Controllers
                 context.Competitions.Add(competition);
                 context.SaveChanges();
                 Competition res = context.Competitions
+                    .Include(x => x.Sport)
                     .Include(c => c.RawNewss)
                     .Where(c => c.Title.Equals(competition.Title))
                     .First();
@@ -278,6 +280,10 @@ namespace GGBack.Controllers
 
                     context.RawNewss.Add(rawNews);
                     res.RawNewss.Add(rawNews);
+
+                    List<string> ids = MessageSender.GetIds(context, res.Sport);
+                    MessageDto messageDto = MessageSender.SetMessage(ids, "Створено змагання", competition.Title, competitioId.ToString());
+                    bool result = await MessageSender.SendMessage(messageDto);
                 }
 
                 await context.SaveChangesAsync();
