@@ -130,7 +130,7 @@ function getNewsFromServer() {
     const header = oneNewsInfo.header;
     let body = oneNewsInfo.body || "До події не доданий опис";
 
-    body = limitStr(body, 50);
+    body = limitStr(body, 100);
 
     const months = ["січня", "лютого", "березня", "квітня", "травня", "червня", "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"]
     const date = new Date(oneNewsInfo.date);
@@ -178,7 +178,7 @@ function getMYNewsFromServer() {
 
   function sendServerRequest() {
     const requestParams = new RequestParams();
-    requestParams.url = "/api/news/user/" + Cookie.get("id");
+    requestParams.url = "/api/news/user/" + Cookies.get("id");
     ServerRequest.send(requestParams)
       .then(data => parseServerResponse(data))
       .catch(err => console.log(err));
@@ -207,7 +207,7 @@ function getMYNewsFromServer() {
     let body = oneNewsInfo.body || "До події не доданий опис";
     const competitionId = oneNewsInfo.competitionId;
 
-    body = limitStr(body, 50);
+    body = limitStr(body, 100);
 
     const months = ["січня", "лютого", "березня", "квітня", "травня", "червня", "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"]
     const date = new Date(oneNewsInfo.date);

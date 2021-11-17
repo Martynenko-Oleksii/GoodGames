@@ -50,6 +50,7 @@ function getNewsFromServer() {
     const id = oneNewsInfo.id;
     const header = oneNewsInfo.header;
     let body = oneNewsInfo.body || "До події не доданий опис";
+    const competitionId = oneNewsInfo.competitionId;
 
     const months = ["січня", "лютого", "березня", "квітня", "травня", "червня", "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"]
     const date = new Date(oneNewsInfo.date);
