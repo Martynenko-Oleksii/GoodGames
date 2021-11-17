@@ -238,7 +238,7 @@
         <script>
           function news_show(id, header, body, month, day) {
             document.querySelector("#name_news").innerHTML = header;
-            document.querySelector("#content_news").innerHTML = body.replace("/**/" , /\r?\n/g);
+            document.querySelector("#content_news").innerHTML = body.replace("/**/" , "\r\n");
             document.querySelector("#date_news").innerHTML = day + " " + month;
             document.querySelector("#open_news").href = "/game/?id=" + id;
 
