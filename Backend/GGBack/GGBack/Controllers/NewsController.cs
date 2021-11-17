@@ -46,7 +46,7 @@ namespace GGBack.Controllers
             }
         }
 
-        [Route("api/news/{userId}")]
+        [Route("api/news/user/{userId}")]
         [HttpGet]
         public ActionResult<IEnumerable<News>> GetFavouriteNews(int userId)
         {
