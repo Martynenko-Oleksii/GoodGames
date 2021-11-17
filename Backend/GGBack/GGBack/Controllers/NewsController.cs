@@ -78,7 +78,7 @@ namespace GGBack.Controllers
         {
             try
             {
-                return NewsAssembler.AssembleFullNews(context.RawNewss.Find(newsId));
+                return NewsAssembler.AssembleFullNews(context.RawNewss.Include(x => x.Competition).SingleOrDefault(x => x.Id == newsId));
             }
             catch (Exception ex)
             {

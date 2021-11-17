@@ -20,7 +20,7 @@ namespace GGBack.Utils
 
             if (user == null)
             {
-                return AssembleAllNews(context.RawNewss.ToList());
+                return AssembleAllNews(context.RawNewss.Include(rn => rn.Competition).ToList());
             }
             else
             {
