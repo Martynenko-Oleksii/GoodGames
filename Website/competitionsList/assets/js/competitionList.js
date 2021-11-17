@@ -10,7 +10,7 @@ competitionCategoriesEl.addEventListener("change", updateCompetitionList);
 
 function updateCompetitionList() {
   // "all", "favourite sport kinds", "my"
-  const competitionCategory = competitionCategoriesEl.value;
+  let competitionCategory = competitionCategoriesEl.value;
 
   const userId = Cookies.get("id");
   if (!userId) {
