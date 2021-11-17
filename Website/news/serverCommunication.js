@@ -64,7 +64,7 @@ function getNewsFromServer() {
           </div>
 
           <p class="news__txt">
-            ${oneNewsInfo.body}
+            ${oneNewsInfo.body || "До події не доданий опис"}
           </p>
 
           <div class="news__img">
