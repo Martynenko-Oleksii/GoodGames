@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace GGBack.Models
@@ -16,6 +17,7 @@ namespace GGBack.Models
         public string Score { get; set; }
 
         public int TimetableCellId { get; set; }
+        [JsonIgnore]
         public TimetableCell TimetableCell { get; set; }
     }
 }
