@@ -121,3 +121,22 @@ swiper.on('slideChangeTransitionEnd', function () {
   bg.style.height = height + 'px';
   bg.style.transform = 'translateX(' + x + 'px ) translateY(' + y + 'px)';
 });
+
+
+document.addEventListener("DOMContentLoaded", getNewsFromServer);
+
+function getNewsFromServer() {
+  sendServerRequest();
+
+  function sendServerRequest() {
+    const requestParams = new RequestParams();
+    requestParams.url = "/api/news";
+    ServerRequest.send(requestParams)
+      .then(data => parseServerResponse(data))
+      .catch(err => console.log(err));
+  }
+
+  function parseServerResponse(serverResponse) {
+    console.log(serverResponse);
+  }
+}
