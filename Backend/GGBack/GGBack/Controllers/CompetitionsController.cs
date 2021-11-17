@@ -205,6 +205,11 @@ namespace GGBack.Controllers
                 return BadRequest("Title already exist");
             }
 
+            if (competitionForCreateRequest.StartDate > competitionForCreateRequest.EndDate)
+            {
+                return BadRequest("Wrong dates");
+            }
+
             Competition competition = new Competition
             {
                 Title = competitionForCreateRequest.Title,
