@@ -51,7 +51,7 @@ function getNewsFromServer() {
     const day = date.getDate();
     const month = months[date.getMonth()];
 
-    const headerFirstWord = oneNewsInfo.split(":")[0].toLowerCase();
+    const headerFirstWord = oneNewsInfo.header.split(":")[0].toLowerCase();
     let imageUrl = "https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1537132205/news-slider/item-2.webp";
     if (headerFirstWord === "створено") {
       imageUrl = "image/new.png";
