@@ -56,9 +56,7 @@ namespace GGBack.Controllers
             }
             else
             {
-                cell.WinResult.TeamOne = winResult.TeamOne;
-                cell.WinResult.TeamTwo = winResult.TeamTwo;
-                cell.WinResult.Score = winResult.Score;
+                return BadRequest("Results already added");
             }
             context.SaveChanges();
 
