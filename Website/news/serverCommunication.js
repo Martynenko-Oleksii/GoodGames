@@ -51,6 +51,13 @@ function getNewsFromServer() {
     const day = date.getDate();
     const month = months[date.getMonth()];
 
+    const headerFirstWord = oneNewsInfo.split(":")[0].toLowerCase();
+    let imageUrl = "https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1537132205/news-slider/item-2.webp";
+    if (headerFirstWord === "створено") {
+      imageUrl = "image/new.png";
+    } else if (headerFirstWord === "розпочато") {
+      imageUrl = "image/start.png";
+    }
 
     newsWrapperEl.innerHTML +=
       `<div class="news-slider__item swiper-slide">
@@ -68,7 +75,7 @@ function getNewsFromServer() {
           </p>
 
           <div class="news__img">
-            <img src="https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1537132205/news-slider/item-2.webp" alt="news">
+            <img src="${imageUrl}" alt="news">
           </div>
         </a>
       </div>`;
