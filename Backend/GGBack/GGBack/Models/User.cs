@@ -27,5 +27,7 @@ namespace GGBack.Models
         public List<Competition> Competitions { get; set; }
 
         public string Token { get; set; }
+
+        public string DeviceToken { get; set; }
     }
 }

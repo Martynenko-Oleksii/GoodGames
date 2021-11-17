@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using GGBack.DTO;
 
 namespace GGBack.Controllers
 {
@@ -324,6 +325,27 @@ namespace GGBack.Controllers
             await context.SaveChangesAsync();
 
             return Ok(dbUser);
+        }
+
+        [Route("api/users/newstoken")]
+        [HttpPost]
+        public async Task<ActionResult<NewsToken>> PostNewsToken(NewsToken token)
+        {
+            if (token == null)
+            {
+                return BadRequest("null");
+            }
+
+            User dbUser = context.Users.Find(token.UserId);
+            if (dbUser == null)
+            {
+                return BadRequest("User Not Found");
+            }
+
+            dbUser.DeviceToken = token.Token;
+            await context.SaveChangesAsync();
+
+            return Ok(token);
         }
     }
 }
