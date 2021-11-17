@@ -66,7 +66,7 @@
 
         <span class="mobile">
           <a class="nav__link" id="open-modal" onclick="document.getElementById('modal').style.zIndex = 1000">
-              <ion-icon name="grid-outline" class="nav__icon"></ion-icon>
+              <ion-icon name="grid-outline" class="nav__icon" id="pmico"></ion-icon>
               <span class="nav__name" id="login_m">Профіль</span>
           </a>
       </span>
@@ -74,7 +74,7 @@
 </div>
 
 <a class="nav__link pc" id="profile_buttom" onclick="document.getElementById('open-modal').click();">
-  <ion-icon name="grid-outline" class="nav__icon"></ion-icon>
+  <ion-icon name="grid-outline" class="nav__icon" id="ppico"></ion-icon>
   <span class="nav__name" id="login">Профіль</span>
 </a>
 </nav>
@@ -216,5 +216,15 @@
 <script src="../assets/js/requestParams.js"></script>
 <script src="../assets/js/serverRequest.js"></script>
 <script src="assets/js/competitionList.js"></script>
+<script>
+            if(Cookies.get('login') == undefined){
+                document.getElementById("login").textContent = "Назад";
+                document.getElementById("login_m").textContent = "Назад";
+                document.getElementById("profile_buttom ").href = history.back();
+                document.getElementById("open-modal").href = history.back();
+                document.getElementById("pmico").name = "arrow-back-outline";
+                document.getElementById("ppico").name = "arrow-back-outline";
+            }
+</script>
 </body>
 </html>
