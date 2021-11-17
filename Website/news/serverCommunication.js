@@ -1,3 +1,5 @@
+const newsWrapperEl = document.querySelector(".news-slider__wrp");
+
 document.addEventListener("DOMContentLoaded", getNewsFromServer);
 
 function getNewsFromServer() {
