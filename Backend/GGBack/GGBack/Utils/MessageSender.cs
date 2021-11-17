@@ -58,7 +58,7 @@ namespace GGBack.Utils
             List<string> ids = new List<string>();
             foreach (User user in users)
             {
-                if (user.DeviceToken.Length > 0)
+                if (user.DeviceToken != null && user.DeviceToken.Length > 0)
                 {
                     ids.Add(user.DeviceToken);
                 }
@@ -71,15 +71,15 @@ namespace GGBack.Utils
         {
             return dbContext.Users
                 .Include(x => x.Sports)
-                .Where(x => x.Sports.Find(x => x.Id == sport.Id) != null)
+                .Where(x => x.Sports.Contains(sport))
                 .ToList();
         }
 
         private static HttpClient GetClient()
         {
             HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Add("Content-Type", "application/json");
-            client.DefaultRequestHeaders.Add("Authorization", $"key={API_KEY}");
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", $"key={API_KEY}");
             return client;
         }
     }

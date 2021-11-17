@@ -262,6 +262,7 @@ namespace GGBack.Controllers
                     CompetitionId = competitioId,
                     CreatorId = creatorId
                 });
+                context.SaveChanges();
 
                 if (competition.IsPublic)
                 {
@@ -280,13 +281,12 @@ namespace GGBack.Controllers
 
                     context.RawNewss.Add(rawNews);
                     res.RawNewss.Add(rawNews);
+                    await context.SaveChangesAsync();
 
                     List<string> ids = MessageSender.GetIds(context, res.Sport);
                     MessageDto messageDto = MessageSender.SetMessage(ids, "Створено змагання", competition.Title, competitioId.ToString());
                     bool result = await MessageSender.SendMessage(messageDto);
                 }
-
-                await context.SaveChangesAsync();
 
                 return Ok(res);
             }
