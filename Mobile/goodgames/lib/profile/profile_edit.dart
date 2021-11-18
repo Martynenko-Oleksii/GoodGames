@@ -124,7 +124,7 @@ class _ProfileeditState extends State<ProfileeditPage> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (BuildContext context) =>
-                                            ProfileScreen(user:snapshot.data),
+                                            ProfileScreen(user:widget.user),
                                       ),
                                     );
                                   },

@@ -16,7 +16,7 @@ import '../apptheme.dart';
 
 
 class ProfileScreen extends StatefulWidget {
-  final User user;
+  User user;
 
   ProfileScreen({Key? key, required this.user}) : super(key: key);
 
@@ -132,8 +132,9 @@ class _ProfileState extends State<ProfileScreen>
         future: getDatahttp.getUserData(widget.user.id!),
         builder: (context, AsyncSnapshot snapshot1) {
           if (snapshot1.hasData) {
+            widget.user = snapshot1.data;
             if (snapshot1.data.avatarPath != null)
-              avatar = "https://goodgames.kh.ua${widget.user.avatarPath}";
+              avatar = "https://goodgames.kh.ua${snapshot1.data.avatarPath}";
             else
               avatar =
               "https://cdn.discordapp.com/attachments/839078982598131712/899743277576749126/avatar1.jpg";
@@ -309,7 +310,7 @@ class _ProfileState extends State<ProfileScreen>
                                         key: formKeysport,
                                         child: StatefulBuilder(builder:
                                             (BuildContext context,
-                                                StateSetter setState) {
+                                                StateSetter setStated) {
                                           return new AlertDialog(
                                             title: const Text('Підпишись!'),
                                             content: new Row(children: [
@@ -352,7 +353,7 @@ class _ProfileState extends State<ProfileScreen>
                                                           ),
                                                           onChanged: (Sport?
                                                               newValue) {
-                                                            setState(() {
+                                                            setStated(() {
                                                               dropdownValueSport =
                                                                   newValue!;
                                                             });
@@ -389,16 +390,13 @@ class _ProfileState extends State<ProfileScreen>
                                               new FlatButton(
                                                 onPressed: () {
                                                   getDatahttp
-                                                      .addFavouriteSport(
-                                                          snapshot1.data.id!,
-                                                          dropdownValueSport.id)
+                                                      .addFavouriteSport(widget.user.id! , dropdownValueSport.id)
                                                       .then((value) {
                                                     if (value != false) {
                                                       setState(() {
-                                                        snapshot1.data.sports =
-                                                            value;
-                                                        profileList = snapshot1
-                                                            .data.sports!;
+                                                        widget.user.sports = value;
+                                                        profileList =
+                                                        widget.user.sports!;
                                                       });
                                                     }
                                                     Navigator.of(context).pop();
