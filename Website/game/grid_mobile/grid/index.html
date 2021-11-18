@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="uk">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Турнирная сетка - для приложения</title>
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script src="jquery.bracket.min.js"></script>
+        <link href="jquery.bracket.min.css" rel="stylesheet">
+        <script src="/assets/js/js.cookie.js"></script>
+        <script src="/assets/js/main.js"></script>
+        <script src="/assets/js/requestParams.js"></script>
+        <script src="/assets/js/serverRequest.js"></script>
+        <script src="dragscroll.js"></script>
+    </head>
+    <body class="dragscroll" id="body-pd" style="zoom: 0.8; padding: 10px;">
+
+    <!--  ПОЛЕ ДЛЯ ТУРНИРНОЙ СЕТКИ  -->
+
+    <div id="grid" class="demo">
+
+    </div>
+
+    <!-- БЛЯ НЕ ТРОГАТЬ  -->
+
+    <script>
+        var TEAMS;
+
+        if(getUrlVars().id == 0){
+            TEAMS = {"teams": [["Команда 1", "Команда 2"],["Команда 3", "Команда 4"]], "results": [[[[1, 2], [3, 4]],[[5, 6]]],[[[7, 8]],[[9, 10]]],[[[11, 12],[13, 14]],[[15, 16]]]]}
+                console.log(TEAMS);
+
+                if(getUrlVars().options == "edit"){
+                    $('.demo').bracket({ // ПОСТОРЕНИЕ и редактирование
+                        teamWidth: 100,
+                        scoreWidth: 36,
+                        matchMargin: 40,
+                        roundMargin: 65,
+                        init: TEAMS,
+                        save: saveResults,
+                        disableToolbar: true,
+                        disableTeamEdit: true
+                    });
+                }else{
+                    $('.demo').bracket({ // ПОСТОРЕНИЕ
+                        teamWidth: 100,
+                        scoreWidth: 36,
+                        matchMargin: 40,
+                        roundMargin: 65,
+                        init: TEAMS
+                    });
+                }
+        }else{
+            document.addEventListener("DOMContentLoaded", getTeams);
+            function getTeams() {
+                const competitionId = parseInt(getUrlVars().id);
+                if (!competitionId) {
+                    console.log("can`t get a competition id")
+                    return;
+                }
+
+                const requestParams = new RequestParams();
+                requestParams.url = "/api/grids/" + competitionId;
+                requestParams.responseType = "text";
+
+                ServerRequest.send(requestParams)
+                    .then(data => parseTeams(data))
+                    .catch(err => console.log(err));
+            }
+
+            function parseTeams(data) {
+                TEAMS = JSON.parse("{" + data + "}");
+                console.log(TEAMS);
+                if(getUrlVars().options == "edit"){
+                    $('.demo').bracket({ // ПОСТОРЕНИЕ и редактирование
+                        teamWidth: 100,
+                        scoreWidth: 36,
+                        matchMargin: 40,
+                        roundMargin: 65,
+                        init: TEAMS,
+                        save: saveResults,
+                        disableToolbar: true,
+                        disableTeamEdit: true
+                    });
+                }else{
+                    $('.demo').bracket({ // ПОСТОРЕНИЕ
+                        teamWidth: 100,
+                        scoreWidth: 36,
+                        matchMargin: 40,
+                        roundMargin: 65,
+                        init: TEAMS
+                    });
+                }
+            }
+
+
+        }
+
+        function saveFn(data) {
+            var json = jQuery.toJSON(data)
+            $('#saveOutput').text(json)
+        }
+
+        function saveResults(){
+            /*
+            var data = bracket('data')
+            var json = jQuery.toJSON(data);
+            console.log(json);
+            */
+        }
+
+        // СКРИПТЫ
+        // ИНСТРУКЦИЯ: http://www.aropupu.fi/bracket/
+
+        /*
+        $('.demo').bracket({ // ГИБКАЯ НАСТРОЙКА
+            init: null, // data to initialize
+            save: null, // called whenever bracket is modified
+            userData: null, // custom user data
+            onMatchClick: null, // callback
+            onMatchHover: null, // callback
+            decorator: null, // a function
+            skipSecondaryFinal: false,
+            skipGrandFinalComeback: false,
+            skipConsolationRound: false,
+            dir: 'rl', // "rl" or  "lr",
+            disableToolbar: false,
+            disableTeamEdit: false,
+            teamWidth: '', // number
+            scoreWidth: '', // number
+            roundMargin: '', // number
+            matchMargin: '', // number
+        });
+        */
+    </script>
+
+    <script>
+        function addOnWheel(elem, handler) {
+            if (elem.addEventListener) {
+                if ('onwheel' in document) {
+                // IE9+, FF17+
+                elem.addEventListener("wheel", handler);
+                } else if ('onmousewheel' in document) {
+                // устаревший вариант события
+                elem.addEventListener("mousewheel", handler);
+                } else {
+                // 3.5 <= Firefox < 17, более старое событие DOMMouseScroll пропустим
+                elem.addEventListener("MozMousePixelScroll", handler);
+                }
+            } else { // IE8-
+                document.getElementById("grid").attachEvent("onmousewheel", handler);
+            }
+        }
+
+        var scale = 1;
+
+        addOnWheel(document.getElementById("grid"), function(e) {
+
+        var delta = e.deltaY || e.detail || e.wheelDelta;
+
+        // отмасштабируем при помощи CSS
+        if (delta > 0) {
+            if(scale < 2){
+                scale += 0.05;
+            }
+        }
+        else {
+            if(scale > 0.9){
+                scale -= 0.05;
+            }
+        }
+
+        document.getElementById("grid").style.zoom = scale;
+
+        // отменим прокрутку
+        e.preventDefault();
+        });
+
+    </script>
+    <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+    </body>
+</html>
