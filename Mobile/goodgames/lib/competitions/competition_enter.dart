@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:goodgames/login/regist.dart';
 import 'package:goodgames/profile/ProfileScreen.dart';
 
-import '../../../home_screen.dart';
 import '../../../main.dart';
 import '../../../getdata.dart';
 import '../apptheme.dart';
@@ -345,6 +344,7 @@ class _CompetitionEnterState extends State<CompetitionEnterPage> {
                                           comp: widget.comp , user: widget.user,),
                                   ),
                                 ));
+
                           }
 
                           //getDatahttp.getCompetition(1);

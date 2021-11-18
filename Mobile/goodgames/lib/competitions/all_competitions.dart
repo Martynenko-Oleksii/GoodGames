@@ -7,7 +7,6 @@ import 'package:goodgames/profile/ProfileScreen.dart';
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../home_screen.dart';
 import '../../../main.dart';
 import '../apptheme.dart';
 import '../getdata.dart';
@@ -353,30 +352,5 @@ class CompetitionListView extends StatelessWidget {
         );
       },
     );
-  }
-}
-
-class ContestTabHeader extends SliverPersistentHeaderDelegate {
-  ContestTabHeader(
-      this.searchUI,
-      );
-
-  final Widget searchUI;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return searchUI;
-  }
-
-  @override
-  double get maxExtent => 52.0;
-
-  @override
-  double get minExtent => 52.0;
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
-    return false;
   }
 }

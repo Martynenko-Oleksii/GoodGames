@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:goodgames/login/regist.dart';
 import 'package:goodgames/profile/ProfileScreen.dart';
 
-import '../../../home_screen.dart';
+
 import '../../../main.dart';
 import '../../../getdata.dart';
 import '../apptheme.dart';
@@ -344,7 +344,7 @@ class _CompetitionAddState extends State<CompetitionAddPage> {
                                             borderRadius: BorderRadius.circular(18.0),
                                             side: BorderSide(color: Colors.white, width: 3)
                                         ),
-                                        onPressed: () => _selectDatestart(context),
+                                        onPressed: () => _selectDateend(context),
                                         child: Text('Кінець'),
                                       ),),
                                     Container(

@@ -7,7 +7,7 @@ import 'package:goodgames/profile/ProfileScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
-import '../../../home_screen.dart';
+
 import '../../../main.dart';
 import '../apptheme.dart';
 import '../getdata.dart';
@@ -202,7 +202,14 @@ class _CompetitionsheduleState extends State<CompetitionsheduleScreen>
                                       getDatahttp.generateSchedule(
                                           widget.comp.id!,
                                           '2021-11-05T10:00:00',
-                                          '2021-11-05T19:00:00'); //TODO
+                                          '2021-11-05T19:00:00');//TODO
+                                      Navigator.pop(context);
+                                      Navigator.push<dynamic>(
+                                        context,
+                                        MaterialPageRoute<dynamic>(
+                                          builder: (BuildContext context) => CompetitionInfoScreen(comp:widget.comp, user: widget.user,),
+                                        ),
+                                      );
                                     },
                                     color: Colors.black.withOpacity(0.05),
                                   ),
@@ -266,7 +273,7 @@ class CompetitionsheduleListView extends StatelessWidget {
             child: Padding(
               padding:
                   const EdgeInsets.only(left: 10, right: 24, top: 8, bottom: 1),
-              child: Row(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -303,7 +310,7 @@ class CompetitionsheduleListView extends StatelessWidget {
                 color: Colors.amber.shade50,
                 border: Border.all(
                     color: Colors.black, width: 2)),
-            child: new Row(
+            child: new Column(
               // crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 new Container(
@@ -339,42 +346,26 @@ class CompetitionsheduleListView extends StatelessWidget {
             ),
           ),
         ),
-
-
-        //TODO winResult ne to
-        /*child: Text(
-          listData.competitors![0].name! +
-              " - " +
-              listData.competitors![1].name! +
-              " :  " +
-              listData.winResult!.score! +
-              " ->  " +
-              DateFormat('yyyy-MM-dd kk:mm').format(listData.dateTime!),
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
-          ),
-        ),*/
       );
     } else {
       return Container(
         child:  new Container(
           //height: 70,
           width: MediaQuery.of(context).size.width - 40,
-          padding: EdgeInsets.only( left: 10.0 , right: 10 , top: 5),
-          child: new Container(
-            decoration: BoxDecoration(
+          margin: EdgeInsets.only( left: 10.0 , right: 10 , top: 5),
+          decoration: BoxDecoration(
                 borderRadius:
                 BorderRadius.all(Radius.circular(30)),
                 color: Colors.amber.shade50,
                 border: Border.all(
                     color: Colors.black, width: 2)),
-            child: new Row(
-              // crossAxisAlignment: CrossAxisAlignment.start,
+            child: new Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 new Container(
                   // margin: const EdgeInsets.symmetric(vertical: 0.0),
-                  padding: EdgeInsets.all(10.0),
+                  padding: EdgeInsets.all(5.0),
 
                   child: new Text(
                     listData.competitors![0].name! +
@@ -387,16 +378,13 @@ class CompetitionsheduleListView extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  width: 10,
-                ),
                 new Container(
                   // margin: const EdgeInsets.symmetric(vertical: 0.0),
-                  padding: EdgeInsets.all(10.0),
+                  padding: EdgeInsets.all(5.0),
 
                   child: new Text(
                     "Час: " +
-                    DateFormat('yyyy-MM-dd kk:mm').format(listData.dateTime!),
+                    DateFormat('dd-MM kk:mm').format(listData.dateTime!),
                     style: TextStyle(
                       fontSize: 16,
                       color: AppTheme.darkText,
@@ -406,40 +394,15 @@ class CompetitionsheduleListView extends StatelessWidget {
                 ),
                 Container(
                   margin: EdgeInsets.only(
-                    left: 5,
+                    top: 5, bottom: 5,
                   ),
                   child: admin(users),
                 )
               ],
             ),
-          ),
+
         ),
-        //TODO winResult ne to
-       /* child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                listData.competitors![0].name! +
-                    " - " +
-                    listData.competitors![1].name! +
-                    " :  " +
-                    //  listData.winResult!.score! +
-                    " ->  " +
-                    DateFormat('yyyy-MM-dd kk:mm').format(listData.dateTime!),
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(
-                  left: 5,
-                ),
-                child: admin(users),
-              )
-            ]),
-      */);
+      );
     }
   }
 
@@ -460,7 +423,7 @@ class CompetitionsheduleListView extends StatelessWidget {
           onPressed: () {
             showDialog(
               context: context,
-              builder: (BuildContext context) => Form(
+              builder: (BuildContext contextd) => Form(
                 key: formKeyscore,
                 child: new AlertDialog(
                   title: const Text('Send score'),
@@ -506,17 +469,27 @@ class CompetitionsheduleListView extends StatelessWidget {
 
                           scoresendControlone.text = "";
                           scoresendControltwo.text = "";
+
+
+                          Navigator.of(contextd).pop();
                           Navigator.of(context).pop();
+                          Navigator.push<dynamic>(
+                            context,
+                            MaterialPageRoute<dynamic>(
+                              builder: (BuildContext context) => CompetitionsheduleScreen(comp:comp, user: user,),
+                            ),
+                          );
+
                         }
                       },
-                      textColor: Theme.of(context).primaryColor,
+                      textColor: Theme.of(contextd).primaryColor,
                       child: const Text('Send'),
                     ),
                     new FlatButton(
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.of(contextd).pop();
                       },
-                      textColor: Theme.of(context).primaryColor,
+                      textColor: Theme.of(contextd).primaryColor,
                       child: const Text('Close'),
                     ),
                   ],
@@ -530,30 +503,5 @@ class CompetitionsheduleListView extends StatelessWidget {
     } else {
       return new Container();
     }
-  }
-}
-
-class ContestTabHeader extends SliverPersistentHeaderDelegate {
-  ContestTabHeader(
-    this.searchUI,
-  );
-
-  final Widget searchUI;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return searchUI;
-  }
-
-  @override
-  double get maxExtent => 52.0;
-
-  @override
-  double get minExtent => 52.0;
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
-    return false;
   }
 }

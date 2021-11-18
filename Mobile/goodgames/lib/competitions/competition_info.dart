@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 //import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-import '../../../home_screen.dart';
 import '../../../main.dart';
 import '../apptheme.dart';
 import '../getdata.dart';
@@ -423,7 +422,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                       },
                                     ),
                                   ),
-                                  enterbuton(snapshot.data.isOpen),
+                                  enterbuton(snapshot.data.isOpen , snapshot.data.state),
                                 ],
                               ),
                             ),
@@ -1001,6 +1000,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                           side: BorderSide(
                                               color: Colors.white, width: 3)),
                                       onPressed: () {
+                                       // Navigator.of(context).pop();
                                         Navigator.push<dynamic>(
                                           context,
                                           MaterialPageRoute<dynamic>(
@@ -1042,8 +1042,8 @@ class _CompetitionState extends State<CompetitionInfoScreen>
       ),
     );
   }
-  Widget enterbuton(bool isopen){
-    if(isopen){
+  Widget enterbuton(bool isopen , int st){
+    if(isopen && st ==0){
      return  new Container(
        padding:
        EdgeInsets.only(bottom: 5, top: 10),
@@ -1062,6 +1062,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
            ),
          ),
          onPressed: () {
+           Navigator.pop(context);
            Navigator.push<dynamic>(
              context,
              MaterialPageRoute<dynamic>(
@@ -1072,6 +1073,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                    ),
              ),
            );
+
          },
          color: Colors.redAccent.shade200,
        ),
@@ -1605,27 +1607,3 @@ class CompetitionMemberListView extends StatelessWidget {
   }
 }
 
-class ContestTabHeader extends SliverPersistentHeaderDelegate {
-  ContestTabHeader(
-    this.searchUI,
-  );
-
-  final Widget searchUI;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return searchUI;
-  }
-
-  @override
-  double get maxExtent => 52.0;
-
-  @override
-  double get minExtent => 52.0;
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
-    return false;
-  }
-}
