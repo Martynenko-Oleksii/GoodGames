@@ -471,6 +471,7 @@ function fixResults(timetableCellId, team1Name, team2Name) {
     const team2ResultElSelector = `#timetableCell-${timetableCellId} .team2-result`;
     document.querySelector(team1ResultElSelector).textContent = resultT1EditEl.value;
     document.querySelector(team2ResultElSelector).textContent = resultT2EditEl.value;
+    updateCompetitionGeneralInfo();
   }
 }
 
