@@ -25,6 +25,8 @@ let competitionUserId;
 
 let organizator;
 let setadmin = false;
+let stardDate;
+let endDate;
 
 document.addEventListener("DOMContentLoaded", pageLoaded);
 
@@ -65,6 +67,9 @@ function updateCompetitionGeneralInfo() {
 
     console.log(info);
     competitionUserId = info.user.id;
+    stardDate = info.startDate;
+    endDate = info.endDate;
+
     parseCompetitionInfo(info);
     parseCompetitorsList(info);
 
@@ -384,10 +389,16 @@ function startCompetition() {
     console.log("So I can`t send request for generating timetable(");
     return;
   }
+  
+  /*
+  const dateStart = new Date().toJSON().substr(0, 11) + " 10:00:00";
+  let dateEnd = new Date();
+  dateEnd.setDate(dateEnd.getDate() + 7);
+  dateEnd = dateEnd.toJSON().substr(0, 11) + " 18:00:00";
+  */ 
 
-  // test dates range
-  const dateStart = new Date().toJSON().substr(0, 11) + "10:00:00";
-  const dateEnd = new Date().toJSON().substr(0, 11) + "18:00:00";
+  let dateStart = stardDate;
+  let dateEnd = endDate;
 
   const requestParams = new RequestParams("POST");
   requestParams.url = "/api/timetables/create";
