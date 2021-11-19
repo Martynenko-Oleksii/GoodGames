@@ -203,8 +203,6 @@ namespace GGBack.Controllers
                     List<string> ids = MessageSender.GetIds(context, competition.Sport);
                     MessageDto messageDto = MessageSender.SetMessage(ids, "Початок змагання", competition.Title, competition.Id.ToString());
                     HttpResponseMessage response = await MessageSender.SendMessage(messageDto);
-                    if (response.StatusCode != HttpStatusCode.OK)
-                        return BadRequest(response);
                 }
 
                 await context.SaveChangesAsync();
