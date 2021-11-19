@@ -397,8 +397,8 @@ function startCompetition() {
   dateEnd = dateEnd.toJSON().substr(0, 11) + " 18:00:00";
   */ 
 
-  let dateStart = stardDate;
-  let dateEnd = endDate;
+  let dateStart = stardDate.replace("00:00:00", "10:00:00");
+  let dateEnd = endDate.replace("00:00:00", "21:00:00");
 
   const requestParams = new RequestParams("POST");
   requestParams.url = "/api/timetables/create";
