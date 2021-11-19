@@ -251,6 +251,13 @@ class _CompetitionsheduleState extends State<CompetitionsheduleScreen>
                     builder: (BuildContext context) =>
                         CompetitionsScreen(user: widget.user)));
           }
+          if (index == 4) {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        ProfileScreen(user: widget.user)));
+          }
         },
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,

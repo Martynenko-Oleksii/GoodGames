@@ -1000,10 +1000,10 @@ class getDatahttp {
   }
 
   static Future<List<User>> deleteAdmin(
-      int competitionId, String userId) async {
+      int competitionId, String email) async {
     List<User> users = [];
 
-    var body = jsonEncode({'id': userId});
+    var body = jsonEncode({'email': email});
 
     try {
       var response = await http.post(

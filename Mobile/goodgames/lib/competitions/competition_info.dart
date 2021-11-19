@@ -3,6 +3,7 @@ import 'package:goodgames/global.dart';
 import 'package:flutter/material.dart';
 import 'package:goodgames/login/regist.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:goodgames/profile/ProfileScreen.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -617,6 +618,13 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                 MaterialPageRoute(
                     builder: (BuildContext context) =>
                         CompetitionsScreen(user: widget.user)));
+          }
+          if (index == 4) {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        ProfileScreen(user: widget.user)));
           }
         },
         type: BottomNavigationBarType.fixed,
