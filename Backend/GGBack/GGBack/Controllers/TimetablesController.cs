@@ -118,7 +118,7 @@ namespace GGBack.Controllers
                         foreach (string team in teams)
                         {
                             int competitorsCountPerTeam = competitors
-                                .Where(c => c.Name.Equals(team))
+                                .Where(c => c.Team.Equals(team))
                                 .ToList().Count;
 
                             if (competitorsCountPerTeam != sport.TeamSize)
