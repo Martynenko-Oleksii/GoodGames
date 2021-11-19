@@ -88,12 +88,25 @@
 
                 <a href="#" class="nav__link pc" onclick="modal(modalBlock)" id="profile">
                     <ion-icon name="log-out-outline" class="nav__icon" id="login_icon"></ion-icon>
-                    <span class="nav__name" id="login">Вхід до акаунту</span>
+                    <img src="/assets/images/user-48.png" id="avatar_navs" class="nav_avatar avatar avatar-large rounded-circle shadow d-block mx-auto" alt="" style="display: none !important;">
+                    <span class="nav__name profile_ava" id="login">Вхід до акаунту</span>
                 </a>
+
+                <script>
+                    avatar_naws();
+                    function avatar_naws(){
+                        if(Cookies.get('avatarPath') != undefined){
+                            document.getElementById("login").style = "margin-left: 40px;";
+                            document.getElementById("avatar_navs").style.display = "block";
+                            document.getElementById("avatar_navs").src = Cookies.get('avatarPath');
+                            document.getElementById("login_icon").style.display = "none";
+                        }
+                    }
+                </script>
             </nav>
         </div>
 
-        <div class="tabs">
+        <div class="tabs" id="tabs_menu">
             <input type="radio" id="radio-1" name="tabs" checked onclick="open_main();" />
             <label class="tab" for="radio-1" onclick="open_main();">Глобальні</label>
             <input type="radio" id="radio-2" name="tabs" onclick="open_my();"/>
@@ -262,11 +275,11 @@
             <div class="container">
               <div class="row">
                 <div class="col-md-8 col-sm-6 col-xs-12">
-                  <p class="copyright-text">Copyright &copy; 2021 All Rights Reserved by GoodGames.</p>
+                  <p class="copyright-text">Copyright &copy; 2021 All Rights Reserved by Unesell Studio.</p>
                 </div>
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
-                    <a class="a" href="/goodgames.apk">Мобільний додаток<ion-icon name="logo-android" style="margin-left: 5px;"></ion-icon></a>.
+                    <a class="a" href="https://beesportal.online/download/goodgames.apk">Мобільний додаток<ion-icon name="logo-android" style="margin-left: 5px;"></ion-icon></a>.
                 </div>
               </div>
             </div>
@@ -354,6 +367,7 @@
                 document.getElementById('login_m_icon').name = "log-out-outline";
                 document.getElementById('profile').href = "#Login";
                 document.getElementById('showModal').href = "#Login";
+                document.getElementById('tabs_menu').style.display = "none";
             }else{
                 document.getElementById('btn-main').href = "/profile/";
                 document.getElementById('btn-main').textContent = "Мій профіль";

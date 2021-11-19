@@ -151,5 +151,7 @@ function exit_login(){
   Cookies.remove("id");
   Cookies.remove("login");
   Cookies.remove("email");
+  Cookies.remove("email");
+  Cookies.remove("avatarPath");
   document.location.href = "/";
 }

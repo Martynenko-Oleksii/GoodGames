@@ -1,4 +1,4 @@
-const avatarEl = document.querySelector(".avatar");
+const avatarEl = document.querySelector(".avatarsettings");
 const avatarInputEl = document.querySelector(".avatar-input");
 const changeAvatarButtonEl = document.querySelector(".change-avatar-button");
 const resetFileButtonEl = document.querySelector(".reset-file-button");

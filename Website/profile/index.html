@@ -83,9 +83,22 @@
                 </div>
 
                 <a class="nav__link pc" id="profile_buttom" onclick="document.getElementById('open-modal').click();">
-                    <ion-icon name="grid-outline" class="nav__icon"></ion-icon>
-                    <span class="nav__name" id="login">Профіль</span>
+                    <ion-icon name="grid-outline" class="nav__icon" id="login_icon"></ion-icon>
+                    <img src="/assets/images/user-48.png" id="avatar_navs" class="nav_avatar avatar avatar-large rounded-circle shadow d-block mx-auto" alt="" style="display: none !important;">
+                    <span class="nav__name profile_ava" id="login">Профіль</span>
                 </a>
+
+                <script>
+                    avatar_naws();
+                    function avatar_naws(){
+                        if(Cookies.get('avatarPath') != undefined){
+                            document.getElementById("login").style = "margin-left: 40px;";
+                            document.getElementById("avatar_navs").style.display = "block";
+                            document.getElementById("avatar_navs").src = Cookies.get('avatarPath');
+                            document.getElementById("login_icon").style.display = "none";
+                        }
+                    }
+                </script>
             </nav>
         </div>
 
@@ -97,9 +110,6 @@
                     <div class="theme_back" id="theme">
                         <div class="row" style="flex-wrap: inherit;">
                             <h3 style="padding-top: 5px; padding-left: 10px;" id="profile_text">Профіль користувача</h3>
-                            <button class="icon-button" style="z-index: 0; margin-right: 10px; display: flex; right: 50px; position: absolute;">
-                                <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -181,11 +191,6 @@
                                         </a>
                                     </div><!--end col-->
                                 </div><!--end row-->
-                            </div>
-
-                            <div class="widget mt-4 pt-2">
-                                <h5 class="widget-title">Інше:</h5>
-                                <a href="#" class="buttom">Підтримка користувачів</a>
                             </div>
                         </div>
                     </div><!--end col-->
@@ -295,11 +300,11 @@
             <div class="container">
               <div class="row">
                 <div class="col-md-8 col-sm-6 col-xs-12">
-                  <p class="copyright-text">Copyright &copy; 2021 All Rights Reserved by GoodGames.</p>
+                  <p class="copyright-text">Copyright &copy; 2021 All Rights Reserved by Unesell Studio.</p>
                 </div>
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
-                    <a class="a" href="/goodgames.apk">Мобільний додаток<ion-icon name="logo-android" style="margin-left: 5px;"></ion-icon></a>.
+                    <a class="a" href="https://beesportal.online/download/goodgames.apk">Мобільний додаток<ion-icon name="logo-android" style="margin-left: 5px;"></ion-icon></a>.
                 </div>
               </div>
             </div>

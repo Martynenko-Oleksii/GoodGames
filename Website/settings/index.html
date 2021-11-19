@@ -82,9 +82,22 @@
                 </div>
 
                 <a class="nav__link pc" id="profile_buttom" onclick="document.getElementById('open-modal').click();">
-                    <ion-icon name="grid-outline" class="nav__icon"></ion-icon>
-                    <span class="nav__name" id="login">Профіль</span>
+                    <ion-icon name="grid-outline" class="nav__icon" id="login_icon"></ion-icon>
+                    <img src="/assets/images/user-48.png" id="avatar_navs" class="nav_avatar avatar avatar-large rounded-circle shadow d-block mx-auto" alt="" style="display: none !important;">
+                    <span class="nav__name profile_ava" id="login">Профіль</span>
                 </a>
+
+                <script>
+                    avatar_naws();
+                    function avatar_naws(){
+                        if(Cookies.get('avatarPath') != undefined){
+                            document.getElementById("login").style = "margin-left: 40px;";
+                            document.getElementById("avatar_navs").style.display = "block";
+                            document.getElementById("avatar_navs").src = Cookies.get('avatarPath');
+                            document.getElementById("login_icon").style.display = "none";
+                        }
+                    }
+                </script>
             </nav>
         </div>
 
@@ -150,10 +163,10 @@
                                 </div><!--end row-->
                             </div>
 
-                            <div class="widget mt-4 pt-2">
+                            <!--div class="widget mt-4 pt-2">
                                 <h5 class="widget-title">Інше:</h5>
                                 <a href="#" class="btn btn-outline-danger" style="width: 100%;">Видалити акаунт</a>
-                            </div>
+                            </div-->
                         </div>
                     </div><!--end col-->
 
@@ -332,7 +345,7 @@
                                     
                                     <div class="col-md-4 mt-4 mt-sm-0">
                                         <div class="text-md-right text-center">
-                                            <a href="#" class="btn btn-light">Завантажити ⏬</a>
+                                            <a href="https://beesportal.online/download/goodgames.apk" class="btn btn-light">Завантажити ⏬</a>
                                         </div>
                                     </div><!--end col-->
                                 </div><!--end row-->
@@ -424,11 +437,11 @@
             <div class="container">
               <div class="row">
                 <div class="col-md-8 col-sm-6 col-xs-12">
-                  <p class="copyright-text">Copyright &copy; 2021 All Rights Reserved by GoodGames.</p>
+                  <p class="copyright-text">Copyright &copy; 2021 All Rights Reserved by Unesell Studio.</p>
                 </div>
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
-                    <a class="a" href="/goodgames.apk">Мобільний додаток<ion-icon name="logo-android" style="margin-left: 5px;"></ion-icon></a>.
+                    <a class="a" href="https://beesportal.online/download/goodgames.apk">Мобільний додаток<ion-icon name="logo-android" style="margin-left: 5px;"></ion-icon></a>.
                 </div>
               </div>
             </div>

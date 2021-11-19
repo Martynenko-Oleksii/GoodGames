@@ -314,8 +314,45 @@ a{
   }
 
   .tabs {
-    display: none;
+    height: 75px;
+    position: fixed;
+    bottom: 80px;
+    right: -40px;
+    display: flex;
+    width: 320px;
+    background-color: #fff;
+    box-shadow: 0 0 1px 0 rgba(24, 94, 224, 0.15), 0 6px 12px 0 rgba(24, 94, 224, 0.15);
+    padding: 0.4rem;
+    border-radius: 99px;
+    z-index: 1;
+    border: 1px solid #16c79a;
   }
+
+  .tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    width: 150px;
+    font-size: 21px;
+    font-weight: 500;
+    border-radius: px;
+    cursor: pointer;
+    transition: color 0.15s ease-in;
+    z-index: 100;
+  }
+
+  .glider {
+    position: absolute;
+    display: flex;
+    height: 60px;
+    width: 150px;
+    background-color: #e6eef9;
+    z-index: 1;
+    border-radius: 99px;
+    transition: 0.25s ease-out;
+  }
+
 }
 
 /* PC */
@@ -338,6 +375,32 @@ a{
     border-radius: 99px;
     z-index: 1;
     border: 1px solid #16c79a;
+  }
+
+  
+  .tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 100px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: px;
+    cursor: pointer;
+    transition: color 0.15s ease-in;
+    z-index: 100;
+  }
+
+  .glider {
+    position: absolute;
+    display: flex;
+    height: 40px;
+    width: 100px;
+    background-color: #e6eef9;
+    z-index: 1;
+    border-radius: 99px;
+    transition: 0.25s ease-out;
   }
 
   .news{
@@ -1204,27 +1267,10 @@ a.btn-main:hover span {
   display: none;
 }
 
-/* TABS NAV */
-.tabs * {
-  z-index: 2;
-}
-
 input[type=radio] {
   display: none;
 }
 
-.tab {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  width: 100px;
-  font-size: 14px;
-  font-weight: 500;
-  border-radius: px;
-  cursor: pointer;
-  transition: color 0.15s ease-in;
-}
 
 input[type=radio]:checked + label {
   color: #185ee0;
@@ -1240,17 +1286,6 @@ input[id=radio-1]:checked ~ .glider {
 
 input[id=radio-2]:checked ~ .glider {
   transform: translateX(100%);
-}
-
-.glider {
-  position: absolute;
-  display: flex;
-  height: 40px;
-  width: 100px;
-  background-color: #e6eef9;
-  z-index: 1;
-  border-radius: 99px;
-  transition: 0.25s ease-out;
 }
 
 @media (max-width: 700px) {
@@ -2058,4 +2093,11 @@ input[id=radio-2]:checked ~ .glider {
 
 .switch_system:active:after {
   width: 20px;
+}
+
+.nav_avatar{
+  width: 35px !important;
+  height: 35px !important;
+   left: 29px !important;
+   position: absolute !important;
 }

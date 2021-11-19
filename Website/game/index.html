@@ -76,10 +76,11 @@
                     </div>
                 </div>
 
-                <a class="nav__link pc" id="profile_buttom" onclick="document.getElementById('open-modal').click();">
-                    <ion-icon name="grid-outline" class="nav__icon"></ion-icon>
-                    <span class="nav__name" id="login">Профіль</span>
-                </a>
+                <a class="nav__link pc" id="profile_buttom" onclick="openmodal();">
+                    <ion-icon name="grid-outline" class="nav__icon" id="login_icon"></ion-icon>
+                    <img src="/assets/images/user-48.png" id="avatar_navs" class="nav_avatar avatar avatar-large rounded-circle shadow d-block mx-auto" alt="" style="display: none !important;">
+                    <span class="nav__name profile_ava" id="ppico">Профіль</span>
+                  </a>
             </nav>
         </div>
 
@@ -521,11 +522,11 @@
         <div class="container">
           <div class="row">
             <div class="col-md-8 col-sm-6 col-xs-12">
-              <p class="copyright-text">Copyright &copy; 2021 All Rights Reserved by GoodGames.</p>
+              <p class="copyright-text">Copyright &copy; 2021 All Rights Reserved by Unesell Studio.</p>
             </div>
 
             <div class="col-md-4 col-sm-6 col-xs-12">
-                <a class="a" href="/goodgames.apk">Мобільний додаток<ion-icon name="logo-android" style="margin-left: 5px;"></ion-icon></a>.
+                <a class="a" href="https://beesportal.online/download/goodgames.apk">Мобільний додаток<ion-icon name="logo-android" style="margin-left: 5px;"></ion-icon></a>.
             </div>
           </div>
         </div>
@@ -594,6 +595,33 @@
         </script>
         <script src="../assets/js/requestParams.js"></script>
         <script src="../assets/js/serverRequest.js"></script>
-        <script src="assets/js/ga1me.js"></script>
+        <script src="assets/js/game.js"></script>
+                
+        <script>
+            avatar_naws();
+            function avatar_naws(){
+                if(Cookies.get('avatarPath') != undefined){
+                    document.getElementById("ppico").style = "margin-left: 40px;";
+                    document.getElementById("avatar_navs").style.display = "block";
+                    document.getElementById("avatar_navs").src = Cookies.get('avatarPath');
+                    document.getElementById("login_icon").style.display = "none";
+                }else{
+                    setTimeout("back_icons()", 300);
+                }
+            }
+
+            function openmodal(){
+              if(Cookies.get('id') != undefined){
+                document.getElementById('open-modal').click();
+              }else{
+                history.back();
+              }
+            }
+
+            function back_icons(){
+                document.getElementById('login_icon').name = "arrow-back-outline";
+                document.getElementById('ppico').textContent = "Назад";
+            }
+          </script>
     </body>
 </html>

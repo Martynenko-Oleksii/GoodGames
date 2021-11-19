@@ -7,6 +7,7 @@ function sayHi() {
     document.getElementById('modal_spinner_pop').remove();
     document.getElementById('modal_login_name_comp').textContent = "Привіт, " + Cookies.get('login');
     setTimeout("document.getElementById('close_modal').click();", 1400);
+    avatar_naws();
 }
 
 function login_validation() {
@@ -83,6 +84,7 @@ function login_validation() {
                 document.getElementById('showModal').href = "/profile/";
                 document.getElementById('profile').onclick = "";
                 document.getElementById('showModal').onclick = "";
+                document.getElementById('tabs_menu').style.display = "flex";
                 setTimeout("sayHi()", 1000);
                 document.getElementById('login_name').textContent = Cookies.get('login');
             })
