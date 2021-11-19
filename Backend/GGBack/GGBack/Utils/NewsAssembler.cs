@@ -70,7 +70,7 @@ namespace GGBack.Utils
             int lastIndex = template.IndexOf("<header>");
 
             StringBuilder header = new StringBuilder(template.Substring(0, lastIndex));
-            string[] headerData = rawNews.HeaderData.Split(';', StringSplitOptions.RemoveEmptyEntries);
+            string[] headerData = rawNews.HeaderData.Split(';');
             for (int i = 0; i < headerData.Length; i++)
             {
                 header.Replace("{h" + i + "}", headerData[i]);
@@ -85,7 +85,7 @@ namespace GGBack.Utils
             int lastIndex = template.IndexOf("<header>");
 
             StringBuilder body = new StringBuilder(template.Substring(lastIndex + 10));
-            string[] bodyData = rawNews.BodyData.Split(';', StringSplitOptions.RemoveEmptyEntries);
+            string[] bodyData = rawNews.BodyData.Split(';');
             for (int i = 0; i < bodyData.Length; i++)
             {
                 if (bodyData[i].ToLower() == "true")
@@ -95,6 +95,10 @@ namespace GGBack.Utils
                 else if (bodyData[i].ToLower() == "false")
                 {
                     body.Replace("{b" + i + "}", "ні");
+                }
+                else if (bodyData[i]?.Length == 0)
+                {
+                    body.Replace("{b" + i + "}", "немає");
                 }
                 else
                 {
