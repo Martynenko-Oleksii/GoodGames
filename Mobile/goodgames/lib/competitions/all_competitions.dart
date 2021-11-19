@@ -28,13 +28,18 @@ class _AllCompetitionsState extends State<AllCompetitionsStat>
   late AnimationController animationController;
   bool multiple = false;
   final ScrollController _scrollController = ScrollController();
-
+  MaterialColor stColor = Colors.amber ;
   int currentIndex = 2;
   String searchString = "";
 
 
   @override
   void initState() {
+    if(widget.isfavorit){
+      stColor = Colors.amber;
+    }else{
+      stColor = Colors.grey;
+    }
     animationController = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
     super.initState();
@@ -73,14 +78,20 @@ class _AllCompetitionsState extends State<AllCompetitionsStat>
                 child:
                 IconButton(
                   icon: const Icon(Icons.star),
-                  color: Colors.amber,
+                  color: stColor,
                   onPressed: () {
                     if(widget.isfavorit){
+                      setState(() {
+                        stColor = Colors.grey;
+                      });
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(
                               builder: (BuildContext context) =>
                                   AllCompetitionsStat(user: widget.user , isfavorit: false,)));
                     }else{
+                      setState(() {
+                        stColor = Colors.amber;
+                      });
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(
                               builder: (BuildContext context) =>
