@@ -288,8 +288,8 @@ namespace GGBack.Controllers
                     List<string> ids = MessageSender.GetIds(context, res.Sport);
                     MessageDto messageDto = MessageSender.SetMessage(ids, "Створено змагання", competition.Title, competitioId.ToString());
                     HttpResponseMessage response = await MessageSender.SendMessage(messageDto);
-                    if (response.StatusCode != HttpStatusCode.OK)
-                        return BadRequest(response);
+                    //if (response.StatusCode != HttpStatusCode.OK)
+                    //    return BadRequest(response);
                 }
 
                 return Ok(res);
