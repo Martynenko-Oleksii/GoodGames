@@ -5,7 +5,7 @@ import 'package:goodgames/login/regist.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:goodgames/profile/ProfileScreen.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-//import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../main.dart';
 import '../apptheme.dart';
@@ -472,7 +472,8 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                         height: 3,
                                         color: Colors.black,
                                       )),
-                                  //todo tyt Stream(snapshot.data),
+                                  //todo tyt
+                                  Stream(snapshot.data),
                                 ],
                               ),
                             ),
@@ -1103,15 +1104,13 @@ for(User u in users){
   }
 
 
- /*Widget Stream(Competition comp){
+ Widget Stream(Competition comp){
     if(comp.streamUrl != null && comp.streamUrl !=''){
       return new Container(
         margin: EdgeInsets.only(top: 10.0 , right: 10 , left: 10 , bottom: 25),
         child: YoutubePlayer(
           controller: YoutubePlayerController(
-            initialVideoId: YoutubePlayer
-                .convertUrlToId(
-                YoutubePlayer.convertUrlToId(comp.streamUrl)),
+            initialVideoId: YoutubePlayer.convertUrlToId(comp.streamUrl!)!,
             flags: YoutubePlayerFlags(
               autoPlay: false,
               mute: true,
@@ -1124,7 +1123,7 @@ for(User u in users){
     }else{
       return Container();
     }
-  }*/
+  }
 
   void onPressed() {}
 }

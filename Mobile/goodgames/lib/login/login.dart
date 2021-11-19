@@ -67,7 +67,7 @@ class _LoginState extends State<LoginPage> {
                         Container(
                           padding: EdgeInsets.only(top: 50.0, bottom: 10),
                           child: new Image.network(
-                            "https://cdn.discordapp.com/attachments/839078982598131712/905486145171886150/8bf870ad-b849-4c4e-b2dc-67925f5cc3e0.jpg",
+                            "https://www.goodgames.kh.ua/logo/GG_logo.png",
                             //encikllListd[index].imagePath,
                             width: 150,
                             height: 150,

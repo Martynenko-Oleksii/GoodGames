@@ -150,7 +150,7 @@ class _CompetitionsState extends State<CompetitionsScreen>
                       ),
                     ),
                     new Container(
-                      height: MediaQuery.of(context).size.height - 200,
+                      height: MediaQuery.of(context).size.height - MediaQuery.of(context).size.height/4,
                       child: FutureBuilder(
                         future: getData(),
                         builder:
