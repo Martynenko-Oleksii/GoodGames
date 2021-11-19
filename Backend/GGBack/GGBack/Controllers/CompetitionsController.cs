@@ -365,7 +365,16 @@ namespace GGBack.Controllers
 
             try
             {
-                User removeAdmin = competition.Users.Find(u => u.Id == user.Id);
+                User removeAdmin = null;
+                if (user.Id > 0)
+                {
+                    removeAdmin = competition.Users.Find(u => u.Id == user.Id);
+                }
+                else if (user.Email.Length > 1)
+                {
+                    removeAdmin = competition.Users.SingleOrDefault(x => x.Email == user.Email);
+                }
+
                 if (removeAdmin == null)
                 {
                     return BadRequest("Admin not found");
