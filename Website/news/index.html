@@ -196,7 +196,7 @@
                                 <div class="w-summary-details">
                                     <div class="w-summary-info">
                                         <h6 style="margin-top: 0px;">Детальніше
-                                            <span class="summary-count" id="content_news" style="height: 200px; overflow-y: auto;">
+                                            <span class="summary-count" id="content_news" style="height: 200px; overflow-y: auto; white-space: pre-line;">
                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                                 Morbi vel venenatis lorem, a iaculis arcu. Ut vel nulla arcu.
                                                 Sed aliquam pharetra tellus vitae iaculis. Sed nisi nibh, tempus non orci vel,
@@ -238,7 +238,7 @@
         <script>
           function news_show(id, header, body, month, day) {
             document.querySelector("#name_news").innerHTML = header;
-            document.querySelector("#content_news").innerHTML = body.replace("/**/" , "\r\n");
+            document.getElementById('content_news').textContent = body.replaceAll("/**/" , "\r\n");
             document.querySelector("#date_news").innerHTML = day + " " + month;
             document.querySelector("#open_news").href = "/game/?id=" + id;
 

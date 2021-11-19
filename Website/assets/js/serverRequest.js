@@ -10,7 +10,7 @@ class ServerRequest {
 
             xhr.onload = () => {
                 if (xhr.status >= 400) {
-                    reject(xhr.response)
+                    reject(xhr.response);
                 } else {
                     resolve(xhr.response);
                 }

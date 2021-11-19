@@ -37,6 +37,13 @@ function insertCompetitionInfo() {
   function sendRequest() {
     // get competition id
     const competitionId = parseInt(getUrlVars().game);
+
+    if (!getUrlVars()["email"]) {
+      
+    }else{
+      document.getElementById("email").value = getUrlVars().email;
+    }
+    
     if (!competitionId) {
       console.log("Can`t define current competition id from url variables");
       console.log("So I can`t send request for invitation(");

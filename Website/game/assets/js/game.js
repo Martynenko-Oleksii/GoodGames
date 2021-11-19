@@ -40,6 +40,16 @@ function pageLoaded() {
 }
 
 function updateCompetitionGeneralInfo() {
+
+  let id = getUrlVars()["id"];
+  if (!getUrlVars()["id"]) {
+    history.back();
+  }
+  let options = "none";
+  document.getElementById("join").href = "join/?game=" + id;
+  document.getElementById("grid_frame").src = "grid/?id=" + id + "&options=" + options;
+  document.getElementById("grid_frame_full").src = "grid/?id=" + id + "&options=" + options;
+
   sendServerRequest();
 
   function sendServerRequest() {
@@ -138,6 +148,24 @@ function updateCompetitionGeneralInfo() {
         </td>
         <td><div class="td-content product-brand text-primary">${competitor.age}</div></td>
         <td><div class="td-content"><span class="badge badge-primary">${competitor.team}</span></div></td>`;
+
+        competitor.gender = competitor.gender === "m" ? "Чоловіча" : "Жіноча";
+
+        if (competitor.healthState.toString() === "0") {
+          competitor.healthState = "Не вказано";
+        }
+      
+        const ageLastDigit = competitor.age % 10;
+        if (ageLastDigit === 1) {
+          competitor.age += " рік";
+        } else if (ageLastDigit === 0 || ageLastDigit > 4) {
+          competitor.age += " років";
+        } else {
+          competitor.age += " роки";
+        }
+      
+        competitor.weigth += "кг";
+        
         tr.onclick = function () {
           // Передача информации в окно информации
           modal_user_about_show(competitor);
@@ -241,7 +269,12 @@ function updateCompetitionTimetable() {
 
     console.log(data);
 
-    document.querySelector("#empty_match").style.display = "none";
+    try {
+      document.querySelector("#empty_match").style.display = "none";
+    } catch (e) {
+      console.log("Обновление таблицы...");
+    }
+
     const userId = parseInt( Cookies.get("id") );
 
     const TimeTableBodyEl = document.querySelector(".generate_shedule");
@@ -382,6 +415,8 @@ function sendInvitation(email) {
 startCompetitionButtonEl.addEventListener("click", () => startCompetition());
 
 function startCompetition() {
+  document.getElementById("error_start_comp").style.display = "none";
+
   // get competition id
   const competitionId = parseInt(getUrlVars().id);
   if (!competitionId) {
@@ -407,6 +442,7 @@ function startCompetition() {
     start: dateStart,
     end: dateEnd,
   }
+  requestParams.responseType = 'text';
 
   ServerRequest.send(requestParams)
     .then(data => {
@@ -414,8 +450,9 @@ function startCompetition() {
       pageLoaded();
     })
     .catch(err => {
-      console.log(err);
-      //location.reload();
+      //console.log(err);
+      document.getElementById("error_start_comp").style.display = "block";
+      document.getElementById("error_start_comp").textContent = err;
     });
 }
 
@@ -454,8 +491,21 @@ function fixResults(timetableCellId, team1Name, team2Name) {
   const team1Result = document.querySelector("#result_t1_edit").value;
   const team2Result = document.querySelector("#result_t2_edit").value;
   
+  if(team1Result < 0){
+    document.getElementById("error_edit_res").style.display = "block";
+    document.getElementById("error_edit_res").textContent = "Вкажіть переможця";
+    return;
+  }
+
+  if(team2Result < 0){
+    document.getElementById("error_edit_res").style.display = "block";
+    document.getElementById("error_edit_res").textContent = "Негативні значення";
+    return;
+  }
+
   if(team1Result == team2Result){
     document.getElementById("error_edit_res").style.display = "block";
+    document.getElementById("error_edit_res").textContent = "Негативні значення";
     return;
   }
 
@@ -482,6 +532,7 @@ function fixResults(timetableCellId, team1Name, team2Name) {
     const team2ResultElSelector = `#timetableCell-${timetableCellId} .team2-result`;
     document.querySelector(team1ResultElSelector).textContent = resultT1EditEl.value;
     document.querySelector(team2ResultElSelector).textContent = resultT2EditEl.value;
+    $('.generate_shedule').empty();
     updateCompetitionGeneralInfo();
   }
 }
@@ -510,17 +561,6 @@ function send_togo() {
     document.getElementById('done_info').style.display = 'block';
   });
 }
-
-
-let id = getUrlVars()["id"];
-if (!getUrlVars()["id"]) {
-  //history.back();
-}
-let options = "none";
-document.getElementById("join").href = "join/?game=" + id;
-document.getElementById("grid_frame").src = "grid/?id=" + id + "&options=" + options;
-document.getElementById("grid_frame_full").src = "grid/?id=" + id + "&options=" + options;
-
 
 if (devices.test(navigator.userAgent))
 { /* События для телефонов */  }
@@ -594,7 +634,6 @@ function add_live() {
 
 function closeTranslationModalWindow() {
   document.querySelector("#modal-window_admin").style.display = "none";
-  location.reload();
 }
 
 function ADD_ADMIN_SU(){
@@ -630,23 +669,6 @@ function admin_rule(adminslist){
 }
 
 function modal_user_about_show(competitor) {
-  competitor.gender = competitor.gender === "m" ? "Чоловіча" : "Жіноча";
-
-  if (competitor.healthState.toString() === "0") {
-    competitor.healthState = "Не вказано";
-  }
-
-  const ageLastDigit = competitor.age % 10;
-  if (ageLastDigit === 1) {
-    competitor.age += " рік";
-  } else if (ageLastDigit === 0 || ageLastDigit > 4) {
-    competitor.age += " років";
-  } else {
-    competitor.age += " роки";
-  }
-
-  competitor.weigth += "кг";
-
   document.querySelector("#modal_user_game").style.display = "block";
   changeElementTextContent("#ABOUT_USER_NAME", competitor.name);
   changeElementTextContent("#ABOUT_USER_TEAM", competitor.team);

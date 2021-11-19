@@ -181,9 +181,14 @@
                     <div class="theme_back" id="theme">
                         <div class="row" style="flex-wrap: inherit;">
                             <h3 style="padding-top: 5px; padding-left: 10px;" id="profile_text">Моя стрічка</h3>
-                            <button class="icon-button" style="z-index: 0; margin-right: 10px; display: flex; right: 50px; position: absolute;">
-                                <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
-                            </button>
+                            <div class="icon-button" id="filters" style="z-index: 0; margin-top: 0px; margin-right: 5px; display: flex; right: 50px; position: absolute; cursor: pointer;">
+                                <ion-icon name="settings-outline" class="nav__icon" style="position: absolute; cursor: pointer;"></ion-icon>
+                    
+                                <select class="competition-categories form-control" name="sort" id="sort" style="opacity: 0; cursor: pointer;">
+                                  <option value="favourite edit" onclick="location.href = '/settings/?tab=subs';">Редагувати підписки  </option>
+                                </select>
+                    
+                              </div>
                         </div>
                     </div>
                 </div>
