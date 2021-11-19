@@ -2,6 +2,7 @@ import 'package:goodgames/global.dart';
 import 'package:flutter/material.dart';
 import 'package:goodgames/login/regist.dart';
 import 'package:goodgames/profile/ProfileScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 import '../../../main.dart';
@@ -177,17 +178,21 @@ class _LoginState extends State<LoginPage> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18.0),
                       side: BorderSide(color: Colors.white, width: 3)),
-                  onPressed: () {
+                  onPressed: () async {
                     if (formKey.currentState!.validate()) {
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
                       getDatahttp
                           .postDateLogin(loginControl.text, passControl.text)
-                          .then((value) => Navigator.pushAndRemoveUntil(
+                          .then((value) => {
+                        prefs.setString('email_Key',value.email ?? ""),
+                        prefs.setString('pass_Key',value.password ?? ""),
+                            Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
                                 builder: (BuildContext context) =>
                                     ProfileScreen(user: value),
                               ),
-                              (route) => false));
+                              (route) => false)});
                     }
                   },
                   color: Colors.black.withOpacity(0.05),

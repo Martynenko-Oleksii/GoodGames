@@ -10,6 +10,7 @@ import 'package:goodgames/login/regist.dart';
 import 'package:goodgames/profile/ProfileScreen.dart';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 import '../../../main.dart';
@@ -385,9 +386,12 @@ class _ProfileeditState extends State<ProfileeditPage> {
                                             BorderRadius.circular(5.0),
                                         side: BorderSide(
                                             color: Colors.white, width: 3)),
-                                    onPressed: () {
+                                    onPressed: () async {
                                       if (formKeyemail.currentState!
                                           .validate()) {
+                                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                                        prefs.setString('email_Key', '');
+                                      prefs.setString('pass_Key', '');
                                         widget.user.email = emailControl.text;
                                         getDatahttp
                                             .changeEmail(widget.user)
@@ -540,11 +544,14 @@ class _ProfileeditState extends State<ProfileeditPage> {
                                             BorderRadius.circular(5.0),
                                         side: BorderSide(
                                             color: Colors.white, width: 3)),
-                                    onPressed: () {
+                                    onPressed: () async {
                                       if (formKeypass.currentState!
                                               .validate() &&
                                           widget.user.password ==
                                               oldpassControl.text) {
+                                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                                        prefs.setString('email_Key', '');
+                                        prefs.setString('pass_Key', '');
                                         widget.user.password =
                                             newpassControl.text;
                                         getDatahttp
