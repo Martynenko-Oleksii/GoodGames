@@ -7,7 +7,6 @@ import 'package:goodgames/profile/ProfileScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
-
 import '../../../main.dart';
 import '../apptheme.dart';
 import '../getdata.dart';
@@ -33,6 +32,7 @@ class _CompetitionsheduleState extends State<CompetitionsheduleScreen>
   bool multiple = false;
   final ScrollController _scrollController = ScrollController();
   int currentIndex = 2;
+
   @override
   void initState() {
     animationController = AnimationController(
@@ -120,7 +120,7 @@ class _CompetitionsheduleState extends State<CompetitionsheduleScreen>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       new Container(
-                       // height: MediaQuery.of(context).size.height - 200,
+                        // height: MediaQuery.of(context).size.height - 200,
                         child: FutureBuilder(
                           future: getDatahttp.getTimetable(widget.comp.id!),
                           builder:
@@ -128,59 +128,62 @@ class _CompetitionsheduleState extends State<CompetitionsheduleScreen>
                             if (!snapshot.hasData) {
                               return const SizedBox();
                             } else {
-                             // List<TimetableCell> cells = [];
-                             // cells.isEmpty
+                              // List<TimetableCell> cells = [];
+                              // cells.isEmpty
                               if (!snapshot.data.isEmpty) {
                                 return Container(
-                                  height: MediaQuery.of(context).size.height - 200,
-                                  child:
-                                  ListView.builder(
-                                  itemCount: snapshot.data.length,
-                                  scrollDirection: Axis.vertical,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    final int count = snapshot.data.length > 10
-                                        ? 10
-                                        : snapshot.data.length;
-                                    final Animation<double> animation =
-                                        Tween<double>(begin: 0.0, end: 1.0)
-                                            .animate(CurvedAnimation(
-                                                parent: animationController,
-                                                curve: Interval(
-                                                    (1 / count) * index, 1.0,
-                                                    curve:
-                                                        Curves.fastOutSlowIn)));
-                                    animationController.forward();
-                                    if (widget.user.id !=
-                                        widget.comp.user!.id) {
-                                      return CompetitionsheduleListView(
-                                        listData: snapshot.data[index],
-                                        animation: animation,
-                                        animationController:
-                                            animationController,
-                                        user: widget.user,
-                                        context: this.context,
-                                        comp: widget.comp,
-                                        callBack: () {},
-                                      );
-                                    } else {
-                                      return CompetitionsheduleListView(
-                                        listData: snapshot.data[index],
-                                        animation: animation,
-                                        user: widget.user,
-                                        context: this.context,
-                                        animationController:
-                                            animationController,
-                                        comp: widget.comp,
-                                        callBack: () {},
-                                      );
-                                    }
-                                  },
-                                ), );
+                                  height:
+                                      MediaQuery.of(context).size.height - 200,
+                                  child: ListView.builder(
+                                    itemCount: snapshot.data.length,
+                                    scrollDirection: Axis.vertical,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      final int count =
+                                          snapshot.data.length > 10
+                                              ? 10
+                                              : snapshot.data.length;
+                                      final Animation<double> animation =
+                                          Tween<double>(begin: 0.0, end: 1.0)
+                                              .animate(CurvedAnimation(
+                                                  parent: animationController,
+                                                  curve: Interval(
+                                                      (1 / count) * index, 1.0,
+                                                      curve: Curves
+                                                          .fastOutSlowIn)));
+                                      animationController.forward();
+                                      if (widget.user.id !=
+                                          widget.comp.user!.id) {
+                                        return CompetitionsheduleListView(
+                                          listData: snapshot.data[index],
+                                          animation: animation,
+                                          animationController:
+                                              animationController,
+                                          user: widget.user,
+                                          context: this.context,
+                                          comp: widget.comp,
+                                          callBack: () {},
+                                        );
+                                      } else {
+                                        return CompetitionsheduleListView(
+                                          listData: snapshot.data[index],
+                                          animation: animation,
+                                          user: widget.user,
+                                          context: this.context,
+                                          animationController:
+                                              animationController,
+                                          comp: widget.comp,
+                                          callBack: () {},
+                                        );
+                                      }
+                                    },
+                                  ),
+                                );
                               } else {
                                 return new Container(
-                                  margin: EdgeInsets.only(top: 15.0 , left: 10 , right: 10),
-                                  width:MediaQuery.of(context).size.width,
+                                  margin: EdgeInsets.only(
+                                      top: 15.0, left: 10, right: 10),
+                                  width: MediaQuery.of(context).size.width,
                                   height: 40,
                                   child: new RaisedButton(
                                     child: new Text(
@@ -204,12 +207,16 @@ class _CompetitionsheduleState extends State<CompetitionsheduleScreen>
                                       getDatahttp.generateSchedule(
                                           widget.comp.id!,
                                           '2021-11-05T10:00:00',
-                                          '2021-11-05T19:00:00');//TODO
+                                          '2021-11-05T19:00:00'); //TODO
                                       Navigator.pop(context);
                                       Navigator.push<dynamic>(
                                         context,
                                         MaterialPageRoute<dynamic>(
-                                          builder: (BuildContext context) => CompetitionInfoScreen(comp:widget.comp, user: widget.user,),
+                                          builder: (BuildContext context) =>
+                                              CompetitionInfoScreen(
+                                            comp: widget.comp,
+                                            user: widget.user,
+                                          ),
                                         ),
                                       );
                                     },
@@ -224,7 +231,6 @@ class _CompetitionsheduleState extends State<CompetitionsheduleScreen>
                     ],
                   ),
                 ),
-
               ],
             ),
           ),
@@ -240,9 +246,9 @@ class _CompetitionsheduleState extends State<CompetitionsheduleScreen>
                 context,
                 MaterialPageRoute(
                     builder: (BuildContext context) => AllCompetitionsStat(
-                      user: widget.user,
-                      isfavorit: false,
-                    )));
+                          user: widget.user,
+                          isfavorit: false,
+                        )));
           }
           if (index == 3) {
             Navigator.pushReplacement(
@@ -273,7 +279,6 @@ class _CompetitionsheduleState extends State<CompetitionsheduleScreen>
               icon: Icon(Icons.account_circle_outlined), label: "Профіль"),
         ],
       ),
-
     );
   }
 
@@ -345,17 +350,15 @@ class CompetitionsheduleListView extends StatelessWidget {
   Widget isresolt(List<User> users, TimetableCell listData) {
     if (listData.winResult != null) {
       return Container(
-        child:  new Container(
+        child: new Container(
           //height: 70,
           width: MediaQuery.of(context).size.width - 40,
-          padding: EdgeInsets.only( left: 10.0 , right: 10 , top: 5),
+          padding: EdgeInsets.only(left: 10.0, right: 10, top: 5),
           child: new Container(
             decoration: BoxDecoration(
-                borderRadius:
-                BorderRadius.all(Radius.circular(30)),
+                borderRadius: BorderRadius.all(Radius.circular(30)),
                 color: Colors.amber.shade50,
-                border: Border.all(
-                    color: Colors.black, width: 2)),
+                border: Border.all(color: Colors.black, width: 2)),
             child: new Column(
               // crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -379,8 +382,7 @@ class CompetitionsheduleListView extends StatelessWidget {
                   padding: EdgeInsets.all(10.0),
 
                   child: new Text(
-                    "Результат: "+
-                    listData.winResult!.score!,
+                    "Результат: " + listData.winResult!.score!,
                     style: TextStyle(
                       fontSize: 16,
                       color: AppTheme.darkText,
@@ -395,58 +397,56 @@ class CompetitionsheduleListView extends StatelessWidget {
       );
     } else {
       return Container(
-        child:  new Container(
+        child: new Container(
           //height: 70,
           width: MediaQuery.of(context).size.width - 40,
-          margin: EdgeInsets.only( left: 10.0 , right: 10 , top: 5),
+          margin: EdgeInsets.only(left: 10.0, right: 10, top: 5),
           decoration: BoxDecoration(
-                borderRadius:
-                BorderRadius.all(Radius.circular(30)),
-                color: Colors.amber.shade50,
-                border: Border.all(
-                    color: Colors.black, width: 2)),
-            child: new Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-               crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                new Container(
-                  // margin: const EdgeInsets.symmetric(vertical: 0.0),
-                  padding: EdgeInsets.all(5.0),
+              borderRadius: BorderRadius.all(Radius.circular(30)),
+              color: Colors.amber.shade50,
+              border: Border.all(color: Colors.black, width: 2)),
+          child: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              new Container(
+                // margin: const EdgeInsets.symmetric(vertical: 0.0),
+                padding: EdgeInsets.all(5.0),
 
-                  child: new Text(
-                    listData.competitors![0].name! +
-                        " - " +
-                        listData.competitors![1].name!,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: AppTheme.darkText,
-                      fontWeight: FontWeight.w700,
-                    ),
+                child: new Text(
+                  listData.competitors![0].name! +
+                      " - " +
+                      listData.competitors![1].name!,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: AppTheme.darkText,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
-                new Container(
-                  // margin: const EdgeInsets.symmetric(vertical: 0.0),
-                  padding: EdgeInsets.all(5.0),
+              ),
+              new Container(
+                // margin: const EdgeInsets.symmetric(vertical: 0.0),
+                padding: EdgeInsets.all(5.0),
 
-                  child: new Text(
-                    "Час: " +
-                    DateFormat('dd-MM kk:mm').format(listData.dateTime!),
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: AppTheme.darkText,
-                      fontWeight: FontWeight.w700,
-                    ),
+                child: new Text(
+                  "Час: " +
+                      DateFormat('dd-MM kk:mm').format(listData.dateTime!),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: AppTheme.darkText,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(
-                    top: 5, bottom: 5,
-                  ),
-                  child: admin(users),
-                )
-              ],
-            ),
-
+              ),
+              Container(
+                margin: EdgeInsets.only(
+                  top: 5,
+                  bottom: 5,
+                ),
+                child: admin(users),
+              )
+            ],
+          ),
         ),
       );
     }
@@ -486,6 +486,15 @@ class CompetitionsheduleListView extends StatelessWidget {
                             filled: true,
                             fillColor: Colors.white70,
                           ),
+                          validator: (value) {
+                            if (value!.isEmpty ||
+                                !RegExp(r'^[0-9]+$').hasMatch(value)) {
+                              //  r'^[0-9]{10}$' pattern plain match number with length 10
+                              return "Enter Correct Score";
+                            } else {
+                              return null;
+                            }
+                          },
                         ),
                       ),
                       new Container(
@@ -497,6 +506,15 @@ class CompetitionsheduleListView extends StatelessWidget {
                             filled: true,
                             fillColor: Colors.white70,
                           ),
+                          validator: (value) {
+                            if (value!.isEmpty ||
+                                !RegExp(r'^[0-9]+$').hasMatch(value)) {
+                              //  r'^[0-9]{10}$' pattern plain match number with length 10
+                              return "Enter Correct Score";
+                            } else {
+                              return null;
+                            }
+                          },
                         ),
                       ),
                       // Text("Hello"),
@@ -506,26 +524,30 @@ class CompetitionsheduleListView extends StatelessWidget {
                     new FlatButton(
                       onPressed: () {
                         {
-                          getDatahttp.postResults(
-                              listData.id!,
-                              listData.competitors![0].team!,
-                              listData.competitors![0].team!,
-                              scoresendControlone.text,
-                              scoresendControltwo.text);
+                          if (formKeyscore.currentState!.validate()) {
+                            getDatahttp.postResults(
+                                listData.id!,
+                                listData.competitors![0].team!,
+                                listData.competitors![0].team!,
+                                scoresendControlone.text,
+                                scoresendControltwo.text);
 
-                          scoresendControlone.text = "";
-                          scoresendControltwo.text = "";
+                            scoresendControlone.text = "";
+                            scoresendControltwo.text = "";
 
-
-                          Navigator.of(contextd).pop();
-                          Navigator.of(context).pop();
-                          Navigator.push<dynamic>(
-                            context,
-                            MaterialPageRoute<dynamic>(
-                              builder: (BuildContext context) => CompetitionsheduleScreen(comp:comp, user: user,),
-                            ),
-                          );
-
+                            Navigator.of(contextd).pop();
+                            Navigator.of(context).pop();
+                            Navigator.push<dynamic>(
+                              context,
+                              MaterialPageRoute<dynamic>(
+                                builder: (BuildContext context) =>
+                                    CompetitionsheduleScreen(
+                                  comp: comp,
+                                  user: user,
+                                ),
+                              ),
+                            );
+                          }
                         }
                       },
                       textColor: Theme.of(contextd).primaryColor,
