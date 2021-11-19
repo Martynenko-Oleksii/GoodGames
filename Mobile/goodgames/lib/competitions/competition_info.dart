@@ -34,9 +34,11 @@ class _CompetitionState extends State<CompetitionInfoScreen>
   final TextEditingController emailsendControl = TextEditingController();
   final TextEditingController urlsendControl = TextEditingController();
   final TextEditingController adminsendControl = TextEditingController();
+  final TextEditingController adminsendControldell = TextEditingController();
   final formKeyinvite = GlobalKey<FormState>();
   final formKeyurl = GlobalKey<FormState>();
   final formKeyadmin = GlobalKey<FormState>();
+  final formKeyadmindell = GlobalKey<FormState>();
   int currentIndex = 2;
   @override
   void initState() {
@@ -965,6 +967,8 @@ for(User u in users){
                               actions: <Widget>[
                                 new FlatButton(
                                   onPressed: () {
+                                    int id =0;
+
                                     if (formKeyadmin.currentState!.validate()) {
                                       getDatahttp
                                           .addAdmin(widget.comp.id!,
@@ -1018,7 +1022,7 @@ for(User u in users){
                         showDialog(
                           context: context,
                           builder: (BuildContext context) => Form(
-                            key: formKeyadmin,
+                            key: formKeyadmindell,
                             child: new AlertDialog(
                               title: const Text('Видалити адміністратора'),
                               content: new Column(
@@ -1028,7 +1032,7 @@ for(User u in users){
                                   new Container(
                                     // width: 275.0,
                                     child: new TextFormField(
-                                      controller: adminsendControl,
+                                      controller: adminsendControldell,
                                       decoration: new InputDecoration(
                                         hintText: 'Email',
                                         filled: true,
@@ -1051,23 +1055,30 @@ for(User u in users){
                               actions: <Widget>[
                                 new FlatButton(
                                   onPressed: () {
-                                    if (formKeyadmin.currentState!.validate()) {
+                                    if (formKeyadmindell.currentState!.validate()) {
+                                     /* int id =0;
+                                      for(User u in users){
+                                        if(adminsendControldell.text == u.email){
+                                          id = u.id!;
+                                          break;
+                                        }
+                                      }*/
                                       getDatahttp
                                           .deleteAdmin(widget.comp.id!,
-                                              adminsendControl.text)
+                                          adminsendControldell.text)
                                           .then((value) =>
                                               Navigator.of(context).pop());
-                                      adminsendControl.text = '';
+                                      adminsendControldell.text = '';
                                     }
                                     //  Navigator.of(context).pop();
                                   },
                                   textColor: Theme.of(context).primaryColor,
-                                  child: const Text('Додати'),
+                                  child: const Text('Видалити'),
                                 ),
                                 new FlatButton(
                                   onPressed: () {
                                     Navigator.of(context).pop();
-                                    adminsendControl.text = '';
+                                    adminsendControldell.text = '';
                                   },
                                   textColor: Theme.of(context).primaryColor,
                                   child: const Text('Закрити'),
