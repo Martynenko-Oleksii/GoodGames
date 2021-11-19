@@ -11,7 +11,9 @@ import 'package:intl/intl.dart';
 import '../../../main.dart';
 import '../apptheme.dart';
 import '../getdata.dart';
+import 'all_competitions.dart';
 import 'competition_info.dart';
+import 'competitions_list_page.dart';
 import 'copetition_add.dart';
 
 class CompetitionsheduleScreen extends StatefulWidget {
@@ -30,7 +32,7 @@ class _CompetitionsheduleState extends State<CompetitionsheduleScreen>
   late AnimationController animationController;
   bool multiple = false;
   final ScrollController _scrollController = ScrollController();
-
+  int currentIndex = 2;
   @override
   void initState() {
     animationController = AnimationController(
@@ -228,6 +230,43 @@ class _CompetitionsheduleState extends State<CompetitionsheduleScreen>
           ),
         ],
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentIndex,
+        onTap: (index) {
+          if (index == 0) {}
+          if (index == 1) {}
+          if (index == 2) {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => AllCompetitionsStat(
+                      user: widget.user,
+                      isfavorit: false,
+                    )));
+          }
+          if (index == 3) {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        CompetitionsScreen(user: widget.user)));
+          }
+        },
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Головна"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.videocam_outlined), label: "Трансляції"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.sports_baseball_outlined), label: "Змагання"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.list_alt_outlined), label: "Список"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle_outlined), label: "Профіль"),
+        ],
+      ),
+
     );
   }
 
