@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:goodgames/login/regist.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-//import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../main.dart';
 import '../apptheme.dart';
 import '../getdata.dart';
+import 'all_competitions.dart';
 import 'competition_enter.dart';
 import 'competition_shedule.dart';
+import 'competitions_list_page.dart';
 
 class CompetitionInfoScreen extends StatefulWidget {
   final Competition comp;
@@ -34,7 +36,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
   final formKeyinvite = GlobalKey<FormState>();
   final formKeyurl = GlobalKey<FormState>();
   final formKeyadmin = GlobalKey<FormState>();
-
+  int currentIndex = 2;
   @override
   void initState() {
     animationController = AnimationController(
@@ -435,7 +437,7 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                 color: Colors.black,
                               )),
                           new Container(
-                            height: 300,
+                            height: 320,
                             padding: EdgeInsets.all(10.0),
                             child: new Container(
                               decoration: BoxDecoration(
@@ -462,12 +464,13 @@ class _CompetitionState extends State<CompetitionInfoScreen>
                                   ),
                                   new Padding(
                                       padding: EdgeInsets.only(
-                                          left: 25.0, right: 25, bottom: 5),
+                                          left: 25.0, right: 25, bottom: 3),
                                       child: new Divider(
                                         height: 3,
                                         color: Colors.black,
                                       )),
-                                  //todo tyt Stream(snapshot.data),
+                                  //todo tyt
+                                  Stream(snapshot.data),
                                   /* new RaisedButton(
                                     padding: EdgeInsets.all(10.0),
                                     shape: RoundedRectangleBorder(
@@ -1040,6 +1043,43 @@ class _CompetitionState extends State<CompetitionInfoScreen>
           ],
         ),
       ),
+
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentIndex,
+        onTap: (index) {
+          if (index == 0) {}
+          if (index == 1) {}
+          if (index == 2) {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => AllCompetitionsStat(
+                      user: widget.user,
+                      isfavorit: false,
+                    )));
+          }
+          if (index == 3) {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        CompetitionsScreen(user: widget.user)));
+          }
+        },
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Головна"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.videocam_outlined), label: "Трансляції"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.sports_baseball_outlined), label: "Змагання"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.list_alt_outlined), label: "Список"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle_outlined), label: "Профіль"),
+        ],
+      ),
     );
   }
   Widget enterbuton(bool isopen , int st){
@@ -1492,10 +1532,10 @@ for(User u in users){
   }
 
 
- /* Widget Stream(Competition comp){
+ Widget Stream(Competition comp){
     if(comp.streamUrl != null && comp.streamUrl !=''){
       return new Container(
-        margin: EdgeInsets.only(top: 10.0 , right: 10 , left: 10 , bottom: 15),
+        margin: EdgeInsets.only(top: 10.0 , right: 10 , left: 10 , bottom: 25),
         child: YoutubePlayer(
           controller: YoutubePlayerController(
             initialVideoId: YoutubePlayer
@@ -1513,7 +1553,7 @@ for(User u in users){
     }else{
       return Container();
     }
-  }*/
+  }
 
   void onPressed() {}
 }
