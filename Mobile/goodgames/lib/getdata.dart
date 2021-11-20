@@ -133,7 +133,7 @@ class getDatahttp {
           password: jsonData["password"],
         );
 
-        if (jsonData["avatarPath"] != null) {
+        if (jsonData["subscription"] != null) {
           user.subscription = Subscription(
             id: jsonData["subscription"]["id"],
             lvl: jsonData["subscription"]["level"],

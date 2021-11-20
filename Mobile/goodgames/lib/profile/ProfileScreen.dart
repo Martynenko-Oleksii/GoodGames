@@ -133,6 +133,20 @@ class _ProfileState extends State<ProfileScreen>
         builder: (context, AsyncSnapshot snapshot1) {
           if (snapshot1.hasData) {
             widget.user = snapshot1.data;
+            if (snapshot1.data != null) {
+              subState = new Text(
+                "діє до: " +
+                    DateFormat('yyyy-MM-dd – kk:mm')
+                        .format(snapshot1.data.subscription!.end!) +
+                    " lvl: " +
+                    snapshot1.data.subscription!.lvl.toString(),
+                style: TextStyle(
+                  fontSize: 14,
+                  color: AppTheme.darkText,
+                  fontWeight: FontWeight.w700,
+                ),
+              );
+            }
             if (snapshot1.data.avatarPath != null)
               avatar = "https://goodgames.kh.ua${snapshot1.data.avatarPath}";
             else
@@ -518,7 +532,7 @@ class _ProfileState extends State<ProfileScreen>
   }
 
   Widget sub() {
-    if (widget.user.subscription == null) {
+    if (widget.user.subscription == "") {
       return new Container(
           child: Column(
         children: [
@@ -566,13 +580,7 @@ class _ProfileState extends State<ProfileScreen>
         ],
       ));
     } else {
-      return new Text(
-        "",
-        style: TextStyle(
-          fontSize: 14,
-          color: AppTheme.darkText,
-          fontWeight: FontWeight.w700,
-        ),
+      return Container(
       );
     }
   }
